@@ -1,0 +1,63 @@
+:root {
+    --main-font-family: Geneva;
+    /* z-index у модального окна больше чем у затемнения! */
+    --blackout-z-index: 20;
+    --modal-z-index: 30;
+    /* одинаковая анимация при появлении / закрытии модального окна */
+    --transition-params: 0.3s all;
+}
+
+body {
+    font-family: var(--main-font-family);
+}
+
+.blackout {
+    opacity: 0;
+    visibility: hidden;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: var(--blackout-z-index);
+
+    transition: var(--transition-params);
+}
+
+.modal-window {
+    opacity: 0;
+    visibility: hidden;
+
+    width: 100%;
+    max-width: 700px;
+
+    position: fixed;
+    display: inline;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: var(--modal-z-index);
+
+    box-shadow: 0 3px 10px -0.5px rgba(0, 0, 0, 0.2);
+    padding: 30px;
+    border-radius: 3px;
+    background-color: white;
+
+    transition-property: opacity, visibility;
+    transition: var(--transition-params);
+}
+
+.active {
+    opacity: 1;
+    visibility: visible;
+}
+
+.modal-window form input,
+.modal-window form p {
+    display: block;
+}
+
+.modal-window div a {
+    display: block;
+}
