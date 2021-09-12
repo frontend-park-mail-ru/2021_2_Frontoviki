@@ -122,3 +122,43 @@ form {
     border-color: blanchedalmond;
     border-radius: 3;
 }
+
+/* Для профиля */
+.inner-profile-content {
+    display: flex;
+    justify-content: space-between;
+    padding: 1em;
+    box-sizing: border-box;
+    margin-top: 50px;
+}
+.profile-block {
+    margin-left: 5%;
+    margin-right: 5%;
+}
+
+.profile-block > img {
+    width: 200px;
+    height: 200px;
+    border-radius: 100%;
+}
+
+.nickname {
+    margin: 10px;
+    font-size: larger;
+    font-family: sans-serif;
+}
+
+.rating {
+    margin: 10px;
+    font-size: larger;
+    font-family: sans-serif;
+}
+.profile-btn {
+    display: block;
+    margin-bottom: 10px;
+}
+
+.profile-info {
+    width: 80%;
+    margin-right: 5%;
+}
