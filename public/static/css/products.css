@@ -1,16 +1,3 @@
-:root {
-    --main-font-family: monospace;
-}
-
-html {
-    scroll-behavior: smooth;
-}
-
-body {
-    font-family: var(--main-font-family);
-    margin: 0;
-}
-
 .product-path {
     display: block;
     padding-left: 2rem;
