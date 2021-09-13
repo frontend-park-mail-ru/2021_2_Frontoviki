@@ -10,7 +10,7 @@
 }
 
 * {box-sizing: border-box;}
-form {
+.header  form {
   position: relative;
   width: 300px;
   margin: 0 auto;
@@ -43,15 +43,13 @@ form {
   font-weight: bold;
 }
 
-.footer {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 15px 30px;
-    background: #0ae07c;
-    position: sticky;
-    top: 100%;
-    height: 40px;
+footer {
+    background-color: #333;
+    padding: 0.75rem;
+    color: white;
+    text-align: center;
+    font-size: 1rem;
+    flex: 0 0 auto;
 }
 
 .header > .elem {
@@ -201,3 +199,91 @@ form {
     margin: 20px;
     padding: 3px;   
 }
+
+/* Форма нового объявления */
+
+.new-ad-form  label {
+    font-size: 1.5rem;
+}
+
+.new-ad-form {
+    padding-left: 20%;
+    text-align:start;
+}
+
+.contact-info {
+    font-size: 1.7rem;
+    color: #111;
+    font-family: ‘Helvetica Neue’, sans-serif;
+    font-weight: bold;
+    letter-spacing: -1px;
+    line-height: 1;
+    text-align: center;
+}
+
+.new-ad-form input {
+    margin-top: 20px;
+    margin-left: 30px;
+    width: 20rem;
+    font-size: 1.2rem;
+}
+
+input.choose {
+    width: 1rem;
+}
+
+.condition-btn {
+    width: 2rem;
+    font-size: 0.7rem;
+}
+
+.new-ad-form textarea {
+    margin-top: 20px;
+    margin-left: 30px;
+    font-size: 1.2rem;
+}
+
+#fname {
+    margin-left: 8rem;
+}
+
+#fcat {
+    margin-left: 15rem;
+}
+
+#fcond {
+    margin-left: 14.5rem;
+}
+
+#fdesc {
+    margin-left: 7.5rem;
+}
+
+#fprice {
+    margin-left: 18rem;
+}
+
+#fplace {
+    margin-left: 0px;
+    width: 35rem;
+}
+
+a.glo{
+    color:#00c6ff;
+    padding: 10px 20px;
+    width: 10rem;
+    text-decoration:none;
+    text-align:center;
+    margin:20px auto;
+    display: block;
+    background-image: linear-gradient(to left,transparent,transparent 50%,#00c6ff 50%,#00c6ff);
+    background-position: 100% 0;
+    background-size: 200% 100%;
+    transition: all .25s ease-in;
+    font: 400 18px tahoma;
+    border: 1px solid #00C6FF;
+   }
+   a.glo:hover {
+   background-position: 0 0;
+   color:#fff;
+   }

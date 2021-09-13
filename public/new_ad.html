@@ -1,0 +1,97 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Volchock</title>
+    <link rel="stylesheet" href="./static/css/main.css">
+    <link rel="stylesheet" href="./static/css/modal.css">
+    <link rel="shortcut icon" href="static/img/icon.png" type="image/x-icon" />
+</head>
+
+<header class="header">
+    <span class="elem">Volchock</span>
+
+    <form>
+        <input class="search" type="text" placeholder="Поиск объявлений">
+        <button class="searchBtn" type="submit"> </button>
+    </form>
+    <button class="new-ad" type="submit"> </button>
+    <div id="root">
+        <a id="auth" href="#">Войти</a>
+        <script src="./static/js/modal.js"></script>
+    </div>
+</header>
+
+<body>
+    <div class="content">
+        <form class = "new-ad-form">
+            <p>
+                <label for="fname">Название объявления</label>
+                <input type="text" id="fname" name="fname">
+            </p>
+            <p>            
+                <label for="fcat"> Категория </label>
+                <input type="text" id="fcat" name="fcat">
+            </p>
+            <p>
+                <label for="lname">Состояние</label>
+                <label>
+                    <input type="radio" id = "fcond" class = "choose" name = "condition" checked> Новое
+                </label>
+                <label>
+                    <input type="radio" class = "choose" name = "condition" checked> Б/У
+                </label> <br>
+            </p>
+            <p>
+                <label for="fdesc">Описание объявления</label>
+                <textarea type="text" id="fdesc" name="fdesc" rows="5" cols="50"></textarea>
+            </p>
+            <p>            
+                <label for="fprice"> Цена </label>
+                <input type="text" id="fprice" name="fprice">
+            </p>
+
+            <p>
+                <label for="fphoto">Загрузите фотографии</label>
+                <input type="file" id="fphoto" name="fphoto">
+            </p>
+
+            <p>
+                <span class="contact-info">Место сделки </span> <br>
+                <input type="text" id="fplace" name="fplace">
+
+                <div class="section geolocation">
+                    <img src="./static/img/default_image.jpg" alt="типо карта">
+                </div>
+            </p>
+
+            <p>
+                <span class="contact-info">Контакты</span> <br>
+                <label for="fplace">Мобильный телефон</label>
+                <input type="text" id="fphone" name="fphone" placeholder="+7"> <br>
+
+                <label>Способ связи</label> <br>
+                <label>
+                    <input type="radio" class = "choose" name = "choose" checked> По телефону и в сообщениях
+                </label> <br>
+
+                <label>
+                    <input type="radio" class = "choose" name="choose"> В сообщениях
+                </label> <br>
+
+                <label>
+                    <input type="radio" class = "choose" name="choose"> По телефону
+                </label> <br>
+            </p>
+          </form>
+
+          <a href="#" class="glo">Разместить объявление</a>
+    </div>
+</body>
+
+<footer>
+    <p>&copy; 2021. Volchock team</p>
+</footer>
+
+</html>
