@@ -1,0 +1,33 @@
+.section {
+    border: 1px solid black;
+}
+
+.product-detail {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.main-info {
+    grid-column: 2;
+    grid-row: span 4;
+}
+
+@media (max-width: 800px) {
+    .product-detail {
+        grid-template-columns: 1fr;
+    }
+
+    .main-info {
+        grid-column: 1;
+        grid-row: 2 1;
+    }
+}
+
+.product-detail > .image > img {
+
+    width: 300px;
+    height: 100%;
+}
