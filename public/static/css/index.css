@@ -48,7 +48,7 @@ body {
     text-align: center;
 }
 
-.header > .nav_menu > a {
+.header > .nav_menu > * {
     margin-right: 10px;
     color: #f6f4e6;
     text-decoration: none;

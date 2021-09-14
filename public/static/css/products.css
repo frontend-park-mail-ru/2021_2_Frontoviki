@@ -29,16 +29,40 @@
     width: 100%;
 }
 
+.product-grid > ul > li > p.price {
+    font-size: 18pt;
+    margin: 0;
+    padding: 5;
+    margin-right: 20px;
+    text-align: right;
+}
+
+.product-grid > ul > li > a > * {
+  box-sizing: border-box;
+  transition: all 0.35s ease;
+}
+
 .product-grid > ul > li > a > figure {
-    max-height: 220px;
+    margin: 0;
+    height: 350px;
+    max-height: 350px;
     overflow: hidden;
     border-top-left-radius: 0.5rem;
     border-top-right-radius: 0.5rem;
     position: relative;
+  box-sizing: border-box;
+  transition: all 0.35s ease;
+  
 }
 
 .product-grid > ul > li > a > figure > img {
-    width: 100%;
+    max-width: 100%;
+    vertical-align: middle;
+    transition: transform 0.5s ease;
+}
+
+.product-grid > ul > li > a > figure > img:hover {
+    transform: scale(1.1);
 }
 
 .product-grid > ul > li > a > figure > figcaption {
