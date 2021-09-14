@@ -4,68 +4,94 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Volchock</title>
-    <link rel="shortcut icon" href="static/img/icon.png" type="image/x-icon" />
-    <link rel="stylesheet" href="./static/css/products.css">
     <link rel="stylesheet" href="./static/css/product-detail.css">
+    <link rel="stylesheet" href="./static/css/modal.css">
+	<link rel="stylesheet" href="./static/css/default.css">
+    <link rel="shortcut icon" href="static/img/icon.png" type="image/x-icon" />
 </head>
 
+
 <body>
+	<div class="header">
+            <nav class="nav_menu">
+                <a href="#">Volchock</a>
+                <a href="#">Создать объявление</a>
+                <a id="auth" href="#">Войти</a>
+                <div class="dot"></div>
+            </nav>
+        </div>
+
+<div class="c_wr">
     <div class="content">
         <!-- Сюда складываем диваки с контентом. Верхний дивак лучше без стилей оставить, а то он усложняет многое -->
-        <div class="product-path">
-            <a href="#">Volchock</a>
-            <p>&rarr;</p>
-            <a href="#">Картины</a>
-            <p>&rarr;</p>
-            <a href="#">Черный квадрат. Малевич.</a>
-        </div>
+		<div class="adv_header_and_features">
+			<div class="advertisement_header">
+				<div class="section_header">
+					<h3>Померанцский шприц</h3>
+				</div>
+				<div class="section_content">
+				<a href="../images/shpicz.jpg" target="_blank"><img src="./static/img/shpicz.jpg" width="250" alt=" "></a>
+				</div>
+			</div>
+            
+			<div class="features">
+				<div class="section_header">
+					<h3>Характеристики:</h3>
+				</div>
+				<div class="section_content">
+					<ul class="features_list">
+						<li class="feature_element">
+							<div class="feature_name"><p>Пол:</p></div>
+							<div class="feature_description"><p>Мальчик</p></div>
+						</li>
+						<li class="feature_element">
+							<div class="feature_name"><p>Возраст:</p></div>
+							<div class="feature_description"><p>2,5 месяца</p></div>
+						</li>
+						<li class="feature_element">
+							<div class="feature_name"><p>Вакцинация:</p></div>
+							<div class="feature_description"><p>Привит по возрасту</p></div>
+						</li>
+						<li class="feature_element">
+							<div class="feature_name"><p>Документы:</p></div>
+							<div class="feature_description"><p>Имеет все документы</p></div>
+						</li>
+					</ul>
+				</div>
+			</div>
+			
+			<div class="advertisement_actions">
+				<div class="price"><p>Цена: 300$</p></div>
+				<div class="buy"><button>Купить</button></div>
+				<div class="comment">
+					<p>Написать продавцу</p>
+					<textarea>blablabla</textarea>
+				</div>
+			</div>
+		</div>
+            
+		<div class="advertisement_description">
+			<div class="section_header">
+				<h3>Подробное описание:</h3>
+			</div>
+			<div class="section_content"><p>Предлагаем померанского шпица от чистокровных таиландских родителей.
+				Густая набивная шерсть, короткая мордочка и толстенькие лапки.
+				2,5 месяца, привиты по возрасту, имеет все документы.
+				Малыш приучен к пеленке, ест сухой корм, ладит с детьми.</p>
+			</div>
+		</div>
+		
+		
+			
+			
+			
+	</div>
         
-        <h1>Черный квадрат. Малевич.</h1>
-        <div class="product-detail">
-            <div class="section image">
-                <img src="https://bit.ly/3tBUMOf">
-            </div>
+        
 
-            <!-- Это будет правой колонкой -->
-            <div class="section main-info">
-                <p>100р</p>
-                <p>Малевич</p>
-                <a href="#">Купить</a>
-            </div>
-
-            <div class="section detail-info">
-                <span>
-                    <h6>Описание</h6>
-                    <p>Чёрный супрематический квадрат — картина Казимира Малевича, созданная в 1915 году. 
-                        Её можно считать opus magnum художника, что в переводе с латинского означает великая работа. 
-                        Это его наиболее значительное произведение в концептуальном смысле, одна из самых обсуждаемых и 
-                        самых известных картин в мировом искусстве.
-
-                        «Чёрный квадрат» входит в цикл супрематических работ Казимира Малевича, 
-                        в которых художник исследовал базовые возможности цвета и композиции; 
-                        является, по замыслу, частью триптиха, в составе которого также присутствуют 
-                        «Чёрный круг» и «Чёрный крест».</p>
-                </span>
-            </div>
-
-            <div class="section product-characteristics">
-                <span>
-                    <h6>Категория</h6>
-                    <p>Картины</p>
-                </span>
-                <span>
-                    <h6>Тип</h6>
-                    <p>Непонятое всеми</p>
-                </span>
-            </div>
-
-            <div class="section geolocation">
-                <img src="./static/img/default_image.jpg" alt="типо карта">
-            </div>
-        </div>
-
-    <footer>
+    <footer class="footer">
         <p>&copy; 2021. Volchock team</p>
     </footer>
+	</div>
 </body>
 </html>
