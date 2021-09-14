@@ -12,10 +12,13 @@ const createModalWindow = () => {
     window.classList.add('modal-window');
 
     const socials = document.createElement('div');
+    const H = document.createElement('h1');
+    H.innerHTML = 'Connect with';
     const vkLogin = createSocialLogin('VK', '#');
     const googleLogin = createSocialLogin('Google', '#');
     const otherLogin = createSocialLogin('Another way', '#');
 
+    socials.appendChild(H);
     socials.appendChild(vkLogin);
     socials.appendChild(googleLogin);
     socials.appendChild(otherLogin);
@@ -111,8 +114,9 @@ const createInput = (type, text, name) => {
  * @param {HTMLElement} window - объект модального окна
  */
 const createLoginForm = (window) => {
+    const classicLogin = document.createElement('div');
+    classicLogin.id = 'modal-form';
     const form = document.createElement('form');
-    form.id = 'modal-form';
 
     const H = document.createElement('h1');
     H.innerHTML = 'Вход';
@@ -133,7 +137,6 @@ const createLoginForm = (window) => {
         createSignUpForm(window);
     })
 
-    form.appendChild(H);
     form.appendChild(emailInput);
     form.appendChild(passwordInput);
     form.appendChild(submitBtn);
@@ -142,7 +145,10 @@ const createLoginForm = (window) => {
     // добавить eventListener на форму для отправки запроса
     // ...
 
-    window.appendChild(form);
+    classicLogin.appendChild(H);
+    classicLogin.appendChild(form);
+
+    window.appendChild(classicLogin);
 }
 
 
