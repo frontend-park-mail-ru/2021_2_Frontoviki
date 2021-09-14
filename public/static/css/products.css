@@ -59,6 +59,8 @@
     line-height: 1.5;
     padding: 1rem 0.75rem;
     color: black;
+    margin-top: 0;
+    padding-top: 0;
 }
 
 footer {
