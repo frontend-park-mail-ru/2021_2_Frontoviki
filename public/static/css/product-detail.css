@@ -42,23 +42,21 @@
 	position: absolute;
 	bottom: 0px;
 	left: 0px;
-}
-
-.advertisement_actions > .comment > textarea {
-	height: 130px;
-	width: 100%;
+	margin-top: 30px;
 }
 
 .advertisement_actions > .price {
 	text-align: center;
 }
 
-
 .advertisement_actions > .buy > button {
 	width: 100%;
 	height: 50px;
 	background-color: lightgreen;
+	margin-bottom: 30px;
 	
 }
 
-
+textarea {
+	resize: none;
+ }
