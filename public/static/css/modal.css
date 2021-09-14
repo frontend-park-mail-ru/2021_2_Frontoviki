@@ -50,9 +50,10 @@
 
 .modal-window > .socials {
     flex: 40%;
-    background: linear-gradient(45deg, rgba(172,209,175,1) 0%, rgba(0,212,255,1) 100%);
+    background: linear-gradient(45deg, rgba(0,0,0,1) 0%, rgba(5,55,65,1) 100%);
     padding-top: 10px;
     padding-bottom: 10px;
+    color: white;
 }
 
 .modal-window > .socials > h1 {
@@ -68,6 +69,7 @@
     flex: 60%;
     padding-top: 10px;
     padding-bottom: 10px;
+    padding-left: 10px;
 }
 
 .modal-window div form input,
@@ -103,10 +105,9 @@
   padding: 15px 10px;
   margin-bottom: 10px;
   width: 40%;
-  border: 1px solid #2196F3;
-  transition: border-width 0.2s ease;
+  border: 1px solid var(--color-soft-blue);
   border-radius: 3px;
-  background-color: #2196F3;
+  background-color: var(--color-soft-blue);
   transition: background-color 0.2s ease;
   color: white;
   display: inline-block;
@@ -114,7 +115,7 @@
 }
 
 .modal-window div form input[type="submit"]:hover {
-  background-color: #939DED;
+  background-color: #2196F3;
   cursor: pointer;
 }
 
@@ -122,11 +123,10 @@
   padding: 15px 10px;
   margin-bottom: 10px;
   width: 40%;
-  border: 1px solid #2196F3;
-  transition: border-width 0.2s ease;
+  border: 1px solid var(--color-soft-blue);
   border-radius: 3px;
   background-color: white;
-  transition: background-color 0.2s ease;
+  transition: background-color 0.5s ease;
   color: black;
   display: inline-block;
   text-align: center;
@@ -163,7 +163,7 @@
   font: monospace 1.2em;
   text-transform: uppercase;
   text-decoration: none;
-  background-color: #F8998D;
+  background-color: var(--color-soft-blue);
   color: white;
   padding: 10px;
   margin-bottom: 10px;
