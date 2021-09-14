@@ -83,7 +83,7 @@
 }
 
 .modal-window div form input {
-  display: block;
+    display: block;
     padding: 15px 10px;
     margin-bottom: 10px;
     width: 90%;
@@ -109,6 +109,7 @@
   border-radius: 3px;
   background-color: var(--color-soft-blue);
   transition: background-color 0.2s ease;
+  box-shadow: 0 0 5px rgba(0, 0, 0, .1);
   color: white;
   display: inline-block;
   margin-right: 5%;
