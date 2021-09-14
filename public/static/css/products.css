@@ -50,8 +50,8 @@
 
 .product-grid > ul > li > a > figure > figcaption > h3 {
     color: white;
-    padding: 0.75rem;
-    font-size: 1.25rem;
+    padding-left: 0.75rem;
+    font-size: 1rem;
 }
 
 .product-grid > ul > li > p {
