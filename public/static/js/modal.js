@@ -12,16 +12,22 @@ const createModalWindow = () => {
     window.classList.add('modal-window');
 
     const socials = document.createElement('div');
+    socials.classList.add('socials');
     const H = document.createElement('h1');
     H.innerHTML = 'Connect with';
+
+    const links = document.createElement('div');
     const vkLogin = createSocialLogin('VK', '#');
     const googleLogin = createSocialLogin('Google', '#');
     const otherLogin = createSocialLogin('Another way', '#');
 
+    links.appendChild(vkLogin);
+    links.appendChild(googleLogin);
+    links.appendChild(otherLogin);
+
     socials.appendChild(H);
-    socials.appendChild(vkLogin);
-    socials.appendChild(googleLogin);
-    socials.appendChild(otherLogin);
+    socials.appendChild(links);
+
     window.appendChild(socials);
 
     // создание фона
@@ -55,6 +61,9 @@ const removeForm = () => {
     if (!form) return;
     // удаление всех полей в форме
     while (form.firstChild) {
+        while (form.firstChild.firstChild) {
+            form.firstChild.firstChild.remove();
+        }
         form.firstChild.remove();
     }
     form.remove();
@@ -135,7 +144,7 @@ const createLoginForm = (window) => {
         e.preventDefault();
         removeForm();
         createSignUpForm(window);
-    })
+    });
 
     form.appendChild(emailInput);
     form.appendChild(passwordInput);
@@ -158,6 +167,9 @@ const createLoginForm = (window) => {
  * @param {HTMLElement} window - объект модального окна
  */
  const createSignUpForm = (window) => {
+    const classicSignup = document.createElement('div');
+    classicSignup.id = 'modal-form';
+
     const H = document.createElement('h1');
     H.innerHTML = 'Регистрация';
 
@@ -171,7 +183,7 @@ const createLoginForm = (window) => {
 
     const submitBtn = document.createElement('input');
     submitBtn.type = 'submit';
-    submitBtn.value = 'Зарегистрироваться';
+    submitBtn.value = 'Создать';
 
     const loginA = document.createElement('a');
     loginA.innerHTML = 'Вход';
@@ -182,18 +194,21 @@ const createLoginForm = (window) => {
         createLoginForm(window);
     })
 
-    form.appendChild(H);
+    //form.appendChild(H);
     form.appendChild(nameInput);
     form.appendChild(emailInput);
     form.appendChild(passwordInput);
     form.appendChild(confirmPasswordInput);
-    form.appendChild(submitBtn);
     form.appendChild(loginA);
+    form.appendChild(submitBtn);
 
     // добавить eventListener на форму для отправки запроса
     // ...
 
-    window.appendChild(form);
+    classicSignup.appendChild(H);
+    classicSignup.appendChild(form);
+
+    window.appendChild(classicSignup);
 }
 
 

@@ -40,7 +40,8 @@ body {
     font-family: "Montserrat", Verdana, sans-serif;
     position: relative;
     width: 100%;
-    padding: 20px;
+    padding-top: 20px;
+    padding-bottom: 20px;
 }
 
 .header > .nav_menu {
