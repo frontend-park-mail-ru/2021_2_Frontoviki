@@ -5,6 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Volchock</title>
+    <link rel="stylesheet" href="./static/css/search.css">
     <link rel="stylesheet" href="./static/css/products.css">
     <link rel="stylesheet" href="./static/css/modal.css">
     <link rel="stylesheet" href="./static/css/index.css">
@@ -52,6 +53,27 @@
 
             <div class="content">
                 <!-- Сюда складываем диваки с контентом. Верхний дивак лучше без стилей оставить, а то он усложняет многое -->
+
+                <!-- поисковая строка с категориями -->
+                <div class="navigation">
+                    <nav class="categories">
+                      <p>III</p>
+                      <input id="categories_toogle" type="checkbox" checked>
+                      <ul>
+                        <li><a href="#">Одежда</a></li>
+                        <li><a href="#">Обувь</a></li>
+                        <li><a href="#">Питомцы</a></li>
+                        <li><a href="#">Разное</a></li>
+                      </ul>
+                    </nav>
+                    <div class="search">
+                      <input type="text" class="searchTerm" placeholder="What are you looking for?">
+                      <button type="submit" class="searchButton">
+                        <i>GO</i>
+                   </button>
+                    </div>
+                  </div>
+
                 <div class="product-path">
                     <a href="#">Volchock</a>
                     <p>&rarr;</p>
