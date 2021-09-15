@@ -64,3 +64,121 @@ body {
     /*color: #93CAED;*/
     color: var(--color-soft-blue);
 }
+
+.header > .nav_menu > li:hover {
+    /*color: #93CAED;*/
+    cursor: pointer;
+    color: var(--color-soft-blue);
+}
+
+.header > .nav_menu > li > ul > li.dropdown_item {
+  width: 150px;
+  height: 150px;
+}
+
+.header > .nav_menu > li > ul > li.dropdown_item > a > img {
+  object-fit: cover;
+  width: 100%;
+  height: 100%;
+  
+  border-radius: 50%;
+  border: none;
+  transition: all 0.05s ease;
+}
+
+.header > .nav_menu > li > ul > li.dropdown_item > a > img:hover {
+    cursor: pointer;
+}
+
+.dropdown {
+   display: flex;
+   justify-content: center;
+   align-items: center;
+   position: relative;
+   z-index: 1;
+}
+
+.dropdown:hover {
+   cursor: pointer;
+}
+     
+.dropdown:hover .dropdown_menu li {
+    display: block;
+}
+
+.dropdown_menu > .logout_item {
+    padding-top: 0;
+    width: 150px;
+    text-align: center;
+}
+
+.dropdown_menu > .logout_item > a {
+    text-decoration: none;
+    color: black;
+    border: none;
+    transition: border 0.2s ease;
+    padding: 5px;
+}
+
+.dropdown_menu > .logout_item > a:hover {
+    border: 1px solid var(--color-soft-blue);
+    border-radius: 5px;
+}
+   
+
+.dropdown_menu {
+    position: absolute;
+    padding: 0;
+    top: 100%;
+    left: 0;
+    width: 100%;
+    left: -40%;
+    top: inherit;
+    margin: 0;
+    z-index: 1;
+}
+
+.dropdown_menu > li {
+    display: none;
+    
+    padding: 20px;
+    opacity: 0;
+    left: inherit;
+    top: inherit;
+  
+    background-color: rgba(255, 255, 255, 0.2);
+    backdrop-filter: blur(5px);
+}
+
+.dropdown_menu > li:hover {
+    cursor: default;
+}
+   
+.dropdown:hover .dropdown_menu--animated {
+    display: block;
+}
+.dropdown_menu--animated {
+    display: none;
+}
+.dropdown_menu--animated > li {
+      display: block;
+      opacity: 1;
+}
+
+.dropdown_menu-9 {
+    animation: growOut 300ms ease-in-out forwards;
+
+    transform-origin: top center;
+}
+
+@keyframes growOut {
+     0% {
+        transform: scale(0)
+    }
+    80% {
+        transform: scale(1.1)
+    }
+    100% {
+        transform: scale(1)
+    }
+}
