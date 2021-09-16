@@ -2,6 +2,28 @@
 
 const root = document.getElementById('root');
 
+/// отправка на сервер
+
+function ajax(method, url, body = null, callback) {
+    const xhr = new XMLHttpRequest();
+    xhr.open(method, url, true);
+    xhr.withCredentials = true;
+
+    xhr.addEventListener('readystatechange', function() {
+        if (xhr.readyState !== XMLHttpRequest.DONE) return;
+
+        callback(xhr.status, xhr.responseText);
+    });
+
+    if (body) {
+        xhr.setRequestHeader('Content-type', 'application/json; charset=utf8');
+        xhr.send(JSON.stringify(body));
+        return;
+    }
+
+    xhr.send();
+}
+
 /**
  * Создает скрытое модальное окно при загрузке страницы
  * @function createModalWindow
@@ -153,6 +175,27 @@ const createLoginForm = (window) => {
 
     // добавить eventListener на форму для отправки запроса
     // ...
+    form.addEventListener('submit', (e) => {
+        e.preventDefault();
+
+        const email = emailInput.value.trim();
+        const password = passwordInput.value.trim();
+
+        ajax(
+          'POST',
+          '/login',
+            {email, password},
+            (status) => {
+              if (status === 200) {
+                  alert("LETS GOOO")
+                  return;
+              }
+
+              alert('НЕ получилось не фартануло');
+            }
+        );
+
+    })
 
     classicLogin.appendChild(H);
     classicLogin.appendChild(form);
@@ -214,3 +257,7 @@ const createLoginForm = (window) => {
 
 
 createModalWindow();
+
+
+
+
