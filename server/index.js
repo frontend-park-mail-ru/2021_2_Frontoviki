@@ -30,6 +30,10 @@ const users = {
         email: 'a.ostapenko@corp.mail.ru',
         password: 'password',
     },
+    'akek@mail.ru': {
+        email: 'akek@mail.ru',
+        password: 'password',
+    },
 };
 
 const ids = {};

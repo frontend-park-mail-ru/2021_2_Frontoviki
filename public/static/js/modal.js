@@ -190,7 +190,7 @@ const createLoginForm = (window) => {
                   alert("LETS GOOO")
                   return;
               }
-
+              console.log(status);
               alert('НЕ получилось не фартануло');
             }
         );
