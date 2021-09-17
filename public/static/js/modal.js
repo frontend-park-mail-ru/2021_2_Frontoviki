@@ -35,6 +35,7 @@ const createModalWindow = () => {
     blackout.addEventListener('click', e => {
         window.classList.remove('active');
         blackout.classList.remove('active');
+        console.log('lel');
 
         // удаление формы с окна строго после обновления анимации
         // необходимо объявить функцию для последующего удаления обработчика
@@ -146,12 +147,17 @@ const createLoginForm = (window) => {
             {email, password},
             (status) => {
               if (status === 200) {
+                  // тут нужно удалить модальное окно и перерисовать header
                   setTimeout(() => {
-                        removeForm();
+                        const black = window.querySelector('.blackout\ active');
+                        console.log(black);
+                        black.click();
                         createHeader();  
                     }, 1000);
                   return;
               }
+              const black = window.querySelector('.modal-window');
+              console.log(black);
               alert('НЕ получилось не фартануло');
             }
         );
