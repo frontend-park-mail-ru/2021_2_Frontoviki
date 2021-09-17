@@ -1,9 +1,7 @@
-const wrapper = document.querySelector('.wrapper');
+loginPage();
 
 function loginPage() {
-    const root = document.createElement('div');
-    root.id = 'root';
-    wrapper.appendChild(root);
+
     root.innerHTML = '';
     
     const content = document.createElement('div');
@@ -40,8 +38,6 @@ function loginPage() {
     root.appendChild(content);
     createFooter();
 }
-
-loginPage();
 
 function createProduct(href, src, name, productPrice, description) {
     const product = document.createElement('li');

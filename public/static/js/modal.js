@@ -1,25 +1,4 @@
 'use strict';
-/// отправка на сервер
-
-function ajax(method, url, body = null, callback) {
-    const xhr = new XMLHttpRequest();
-    xhr.open(method, url, true);
-    xhr.withCredentials = true;
-
-    xhr.addEventListener('readystatechange', function() {
-        if (xhr.readyState !== XMLHttpRequest.DONE) return;
-
-        callback(xhr.status, xhr.responseText);
-    });
-
-    if (body) {
-        xhr.setRequestHeader('Content-type', 'application/json; charset=utf8');
-        xhr.send(JSON.stringify(body));
-        return;
-    }
-
-    xhr.send();
-}
 
 /**
  * Создает скрытое модальное окно при загрузке страницы
@@ -68,7 +47,6 @@ const createModalWindow = () => {
 
     root.appendChild(window);
     root.appendChild(blackout);
-
 }
 
 /**
@@ -101,22 +79,6 @@ const createSocialLogin = (text, link) => {
     social.href = link;                         // link!
     return social;
 }
-
-
-const authLink = document.getElementById('auth');
-
-authLink.addEventListener('click', e => {
-    e.preventDefault();
-    
-    const window = document.querySelector('.modal-window');
-    const blackout = document.querySelector('.blackout');
-
-    createLoginForm(window);
-
-    window.classList.add('active');
-    blackout.classList.add('active');
-})
-
 
 /**
  * Функция для удобного создания частей формы
@@ -184,10 +146,12 @@ const createLoginForm = (window) => {
             {email, password},
             (status) => {
               if (status === 200) {
-                  alert("LETS GOOO")
+                  setTimeout(() => {
+                        removeForm();
+                        createHeader();  
+                    }, 1000);
                   return;
               }
-              console.log(status);
               alert('НЕ получилось не фартануло');
             }
         );

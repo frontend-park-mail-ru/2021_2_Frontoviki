@@ -80,6 +80,12 @@ app.post('/login', function (req, res) {
     res.status(200).json({id});
 });
 
+app.get('/logout', function(req, res) {
+    res.clearCookie('podvorot');
+    res.redirect('/');
+    console.log('kek');
+});
+
 app.get('/profile', function (req, res) {
     const id = req.cookies['podvorot'];
     const email = ids[id];
