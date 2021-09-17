@@ -1,7 +1,4 @@
 'use strict';
-
-const root = document.getElementById('root');
-
 /// отправка на сервер
 
 function ajax(method, url, body = null, callback) {
