@@ -1,16 +1,14 @@
 'use strict';
 
 const root = document.getElementById('root');
+const modalWindow = document.createElement('div');
+modalWindow.classList.add('modal-window');
 
 /**
  * Создает скрытое модальное окно при загрузке страницы
  * @function createModalWindow
  */
-const createModalWindow = () => {
-    // создание модального окна
-    const modalWindow = document.createElement('div');
-    modalWindow.classList.add('modal-window');
-
+const createModalWindow = (modalWindow) => {
     const socials = document.createElement('div');
     socials.classList.add('socials');
     const socialsCaption = document.createElement('h1');
@@ -38,10 +36,7 @@ const createModalWindow = () => {
         modalWindow.classList.remove('active');
         blackout.classList.remove('active');
 
-        // удаление формы с окна строго после обновления анимации
-        // необходимо объявить функцию для последующего удаления обработчика
-        const listener = function(e) {
-            removeForm();
+        const listener = function (e) {
             modalWindow.removeEventListener('webkitTransitionEnd', listener, false);
         }
         modalWindow.addEventListener('webkitTransitionEnd', listener, false);
@@ -51,6 +46,7 @@ const createModalWindow = () => {
     root.appendChild(blackout);
 
 }
+
 
 /**
  * Удаляет актуальную форму модального окна
@@ -85,14 +81,21 @@ const createSocialLogin = (text, link) => {
 
 
 const authLink = document.getElementById('auth');
+const loginElement = document.createElement('div');
+const signupElement = document.createElement('div');
+
+loginElement.id = 'modal-form';
+signupElement.id = 'modal-form';
+
 
 authLink.addEventListener('click', e => {
     e.preventDefault();
-    
+
     const modalWindow = document.querySelector('.modal-window');
     const blackout = document.querySelector('.blackout');
 
-    createLoginForm(modalWindow);
+    // createLoginForm(modalWindow);
+    replaceAuthForms(modalWindow, 'login');
 
     modalWindow.classList.add('active');
     blackout.classList.add('active');
@@ -116,19 +119,38 @@ const createInput = (type, text, name) => {
     return input;
 }
 
+/**
+ * Заменяет формы логина и регастрации на модальном окне
+ * @param {HTMLElement} modalWindow - объект модельного окна
+ * @param {string} replaceTo - строка, указывающая на что заменить
+ */
+const replaceAuthForms = (modalWindow, replaceTo) => {
+    const authElement = document.getElementById('modal-form');
+    if (modalWindow.contains(authElement)) {
+        modalWindow.removeChild(authElement);
+    }
+
+    switch (replaceTo) {
+        case 'signup':
+            modalWindow.appendChild(signupElement);
+            break;
+
+        case 'login':
+            modalWindow.appendChild(loginElement);
+            break;
+    }
+}
+
 
 /**
- * Создает форму входа и добавляет его на модальное окно
+ * Создает форму входа
  * @function createLoginForm
- * @param {HTMLElement} modalWindow - объект модального окна
  */
 const createLoginForm = (modalWindow) => {
-    const classicLogin = document.createElement('div');
-    classicLogin.id = 'modal-form';
     const form = document.createElement('form');
 
-    const H = document.createElement('h1');
-    H.innerHTML = 'Вход';
+    const loginCaption = document.createElement('h1');
+    loginCaption.innerHTML = 'Вход';
 
     const emailInput = createInput('email', 'Емайл', 'email');
     const passwordInput = createInput('password', 'Пароль', 'password');
@@ -142,8 +164,7 @@ const createLoginForm = (modalWindow) => {
     signupA.href = '';
     signupA.addEventListener('click', (e) => {
         e.preventDefault();
-        removeForm();
-        createSignUpForm(modalWindow);
+        replaceAuthForms(modalWindow, 'signup');
     });
 
     form.appendChild(emailInput);
@@ -154,24 +175,18 @@ const createLoginForm = (modalWindow) => {
     // добавить eventListener на форму для отправки запроса
     // ...
 
-    classicLogin.appendChild(H);
-    classicLogin.appendChild(form);
-
-    modalWindow.appendChild(classicLogin);
+    loginElement.appendChild(loginCaption);
+    loginElement.appendChild(form);
 }
 
 
 /**
- * Создает форму регистрации и добавляет его на модальное окно
+ * Создает форму регистрации
  * @function createSignUpForm
- * @param {HTMLElement} modalWindow - объект модального окна
  */
- const createSignUpForm = (modalWindow) => {
-    const classicSignup = document.createElement('div');
-    classicSignup.id = 'modal-form';
-
-    const H = document.createElement('h1');
-    H.innerHTML = 'Регистрация';
+const createSignUpForm = (modalWindow) => {
+    const signupCaption = document.createElement('h1');
+    signupCaption.innerHTML = 'Регистрация';
 
     const form = document.createElement('form');
     form.id = 'modal-form';
@@ -190,11 +205,9 @@ const createLoginForm = (modalWindow) => {
     loginA.href = '';
     loginA.addEventListener('click', (e) => {
         e.preventDefault();
-        removeForm();
-        createLoginForm(modalWindow);
+        replaceAuthForms(modalWindow, 'login');
     })
 
-    //form.appendChild(H);
     form.appendChild(nameInput);
     form.appendChild(emailInput);
     form.appendChild(passwordInput);
@@ -205,12 +218,12 @@ const createLoginForm = (modalWindow) => {
     // добавить eventListener на форму для отправки запроса
     // ...
 
-    classicSignup.appendChild(H);
-    classicSignup.appendChild(form);
-
-    modalWindow.appendChild(classicSignup);
+    signupElement.appendChild(signupCaption);
+    signupElement.appendChild(form);
 }
 
 
 
-createModalWindow();
+createModalWindow(modalWindow);
+createLoginForm(modalWindow);
+createSignUpForm(modalWindow);

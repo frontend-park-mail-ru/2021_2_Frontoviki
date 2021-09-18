@@ -10,45 +10,28 @@
     <link rel="stylesheet" href="./static/css/products.css">
     <link rel="stylesheet" href="./static/css/modal.css">
     <link rel="stylesheet" href="./static/css/index.css">
-    <link rel="shortcut icon" href="static/img/icon.png" type="image/x-icon" />
+    <link rel="shortcut icon" href="static/img/icon.png" type="image/x-icon">
 </head>
 
 <body>
     <div class="wrapper">
-        <!-- Хэдер -->
-
         <header>
             <nav class="nav_menu">
-                <a href="#">Volchock</a>
+                <a href="./index.html">Volchock</a>
                 <p>|</p>
-                <a href="#">Создать объявление</a>
+                <a href="./404.html">Создать объявление</a>
                 <p>|</p>
-                <li class="dropdown dropdown-9">Профиль
-                    <ul class="dropdown_menu dropdown_menu--animated dropdown_menu-9">
-                        <li class="dropdown_item">
-                            <a href="">
-                                <img src="https://helpx.adobe.com/content/dam/help/en/photoshop/using/convert-color-image-black-white/jcr_content/main-pars/before_and_after/image-before/Landscape-Color.jpg">
-                            </a>
-                        </li>
-                        <li class="logout_item">
-                            <a href="./unauth_index.html">Выход</a>
-                        </li>
-                    </ul>
-                </li>
+                <a id="auth" href="">Войти</a>
             </nav>
         </header>
 
         <!-- Дивак для контента -->
         <div id="root" class="content">
-
-
-            <!-- Сюда складываем диваки с контентом. Верхний дивак лучше без стилей оставить, а то он усложняет многое -->
-
             <!-- поисковая строка с категориями -->
             <div class="navigation">
                 <nav class="categories">
                     <p>III</p>
-                    <input id="categories_toogle" type="checkbox" checked>
+                    <input id="categories_toogle" type="checkbox" checked="">
                     <ul>
                         <li><a href="#">Одежда</a></li>
                         <li><a href="#">Обувь</a></li>
@@ -57,8 +40,8 @@
                     </ul>
                 </nav>
                 <div class="search">
-                    <input type="text" class="searchTerm" placeholder="What are you looking for?">
-                    <button type="submit" class="searchButton">
+                    <input type="text" class="search_term" placeholder="What are you looking for?">
+                    <button type="submit" class="search_button">
                         <i>GO</i>
                     </button>
                 </div>
@@ -66,7 +49,7 @@
 
             <div class="product-path">
                 <a href="#">Volchock</a>
-                <p>&rarr;</p>
+                <p>→</p>
                 <a href="#">Картины</a>
             </div>
             <div class="product-grid">
@@ -90,7 +73,7 @@
                     <li>
                         <a href="#">
                             <figure>
-                                <img src="./static/img/2spooky4me.jpg"  alt="Картинка размещенного объявления">
+                                <img src="./static/img/2spooky4me.jpg" alt="Картинка размещенного объявления">
                                 <figcaption>
                                     <h3>Картина A</h3>
                                 </figcaption>
@@ -107,7 +90,7 @@
                     <li>
                         <a href="#">
                             <figure>
-                                <img src="./static/img/2spooky4me.jpg"  alt="Картинка размещенного объявления">
+                                <img src="./static/img/2spooky4me.jpg" alt="Картинка размещенного объявления">
                                 <figcaption>
                                     <h3>Картина A</h3>
                                 </figcaption>
@@ -124,7 +107,7 @@
                     <li>
                         <a href="#">
                             <figure>
-                                <img src="./static/img/2spooky4me.jpg"  alt="Картинка размещенного объявления">
+                                <img src="./static/img/2spooky4me.jpg" alt="Картинка размещенного объявления">
                                 <figcaption>
                                     <h3>Картина A</h3>
                                 </figcaption>
@@ -141,7 +124,7 @@
                     <li>
                         <a href="#">
                             <figure>
-                                <img src="./static/img/2spooky4me.jpg"  alt="Картинка размещенного объявления">
+                                <img src="./static/img/2spooky4me.jpg" alt="Картинка размещенного объявления">
                                 <figcaption>
                                     <h3>Картина A</h3>
                                 </figcaption>
@@ -156,16 +139,15 @@
                     </li>
                 </ul>
             </div>
-
-
         </div>
 
-        <!-- Футер -->
         <footer>
-            <p>&copy; 2021. Volchock team</p>
+            <p>© 2021. Volchock team</p>
         </footer>
 
     </div>
+
+    <script src="./static/js/modal.js"></script>
 </body>
 
 </html>

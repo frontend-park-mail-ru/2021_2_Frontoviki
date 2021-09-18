@@ -10,7 +10,7 @@
   display: flex;
 }
 
-.searchTerm {
+.search_term {
   width: 100%;
   border: 3px solid var(--color-soft-blue);
   border-right: none;
@@ -18,14 +18,14 @@
   height: 36px;
   border-radius: 5px 0 0 5px;
   outline: none;
+  color: var(--color-unactive-input);
+}
+
+.search_term:focus{
   color: var(--color-soft-black);
 }
 
-.searchTerm:focus{
-  color: var(--color-soft-blue);
-}
-
-.searchButton {
+.search_button {
   width: 50px;
   height: 36px;
   border: 1px solid var(--color-soft-blue);

@@ -10,34 +10,40 @@
     <link rel="stylesheet" href="./static/css/products.css">
     <link rel="stylesheet" href="./static/css/modal.css">
     <link rel="stylesheet" href="./static/css/index.css">
-    <link rel="shortcut icon" href="static/img/icon.png" type="image/x-icon">
+    <link rel="shortcut icon" href="static/img/icon.png" type="image/x-icon" />
 </head>
 
 <body>
     <div class="wrapper">
-        <!-- Хэдер -->
-
         <header>
             <nav class="nav_menu">
                 <a href="#">Volchock</a>
                 <p>|</p>
                 <a href="#">Создать объявление</a>
                 <p>|</p>
-                <a id="auth" href="#">Войти</a>
+                <li class="dropdown dropdown-9">Профиль
+                    <ul class="dropdown_menu dropdown_menu--animated dropdown_menu-9">
+                        <li class="dropdown_item">
+                            <a href="">
+                                <img
+                                    src="https://helpx.adobe.com/content/dam/help/en/photoshop/using/convert-color-image-black-white/jcr_content/main-pars/before_and_after/image-before/Landscape-Color.jpg">
+                            </a>
+                        </li>
+                        <li class="logout_item">
+                            <a href="./index.html">Выход</a>
+                        </li>
+                    </ul>
+                </li>
             </nav>
         </header>
 
         <!-- Дивак для контента -->
         <div id="root" class="content">
-
-
-            <!-- Сюда складываем диваки с контентом. Верхний дивак лучше без стилей оставить, а то он усложняет многое -->
-
             <!-- поисковая строка с категориями -->
             <div class="navigation">
                 <nav class="categories">
                     <p>III</p>
-                    <input id="categories_toogle" type="checkbox" checked="">
+                    <input id="categories_toogle" type="checkbox" checked>
                     <ul>
                         <li><a href="#">Одежда</a></li>
                         <li><a href="#">Обувь</a></li>
@@ -46,16 +52,16 @@
                     </ul>
                 </nav>
                 <div class="search">
-                    <input type="text" class="searchTerm" placeholder="What are you looking for?">
-                    <button type="submit" class="searchButton">
+                    <input type="text" class="search_term" placeholder="What are you looking for?">
+                    <button type="submit" class="search_button">
                         <i>GO</i>
                     </button>
                 </div>
             </div>
 
             <div class="product-path">
-                <a href="#">Volchock</a>
-                <p>→</p>
+                <a href="./index_auth.html">Volchock</a>
+                <p>&rarr;</p>
                 <a href="#">Картины</a>
             </div>
             <div class="product-grid">
@@ -145,29 +151,9 @@
                     </li>
                 </ul>
             </div>
-
-
-            <div class="modal-window active">
-                <div class="socials">
-                    <h1>Connect with</h1>
-                    <div><a href="#">VK</a><a href="#">Google</a><a href="#">Another way</a></div>
-                </div>
-                <div id="modal-form">
-                    <h1>Вход</h1>
-                    <form>
-                        <input type="email" name="email" placeholder="Емайл">
-                        <input type="password" name="password" placeholder="Пароль">
-                        <input type="submit" value="Войти">
-                        <a href="./signup.html">Регистрация</a>
-                    </form>
-                </div>
-            </div>
-            <div class="blackout active"></div>
         </div>
-
-        <!-- Футер -->
         <footer>
-            <p>© 2021. Volchock team</p>
+            <p>&copy; 2021. Volchock team</p>
         </footer>
 
     </div>
