@@ -87,16 +87,16 @@
     padding: 15px 10px;
     margin-bottom: 10px;
     width: 90%;
-    border: 1px solid #ddd;
+    border: 1px solid var(--border-color-unactive-input);
     transition: border-width 0.2s ease;
     border-radius: 3px;
     box-shadow: 0 0 5px rgba(0, 0, 0, .1) inset;
-    color: #444;
+    color: var(--border-color-unactive-input);
 }
 
 .modal-window div form input:focus {
   outline: none;
-  border-color: #2196F3;
+  border-color: var(--border-color-focus-input);
   box-shadow: none;
   color: black;
 }
@@ -116,7 +116,7 @@
 }
 
 .modal-window div form input[type="submit"]:hover {
-  background-color: #2196F3;
+  background-color: var(--color-hover-input);
   cursor: pointer;
 }
 
@@ -127,7 +127,7 @@
   border: 1px solid var(--color-soft-blue);
   border-radius: 3px;
   background-color: white;
-  transition: background-color 0.5s ease;
+  transition: all 0.5s ease;
   color: black;
   display: inline-block;
   text-align: center;
@@ -137,7 +137,7 @@
 }
 
 .modal-window div form a:hover {
-  background-color: #2196F3;
+  background-color: var(--color-hover-input);
   color: white;
   cursor: pointer;
 }

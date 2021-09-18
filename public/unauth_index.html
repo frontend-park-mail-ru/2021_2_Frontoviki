@@ -10,7 +10,7 @@
     <link rel="stylesheet" href="./static/css/products.css">
     <link rel="stylesheet" href="./static/css/modal.css">
     <link rel="stylesheet" href="./static/css/index.css">
-    <link rel="shortcut icon" href="static/img/icon.png" type="image/x-icon" />
+    <link rel="shortcut icon" href="static/img/icon.png" type="image/x-icon">
 </head>
 
 <body>
@@ -23,18 +23,7 @@
                 <p>|</p>
                 <a href="#">Создать объявление</a>
                 <p>|</p>
-                <li class="dropdown dropdown-9">Профиль
-                    <ul class="dropdown_menu dropdown_menu--animated dropdown_menu-9">
-                        <li class="dropdown_item">
-                            <a href="">
-                                <img src="https://helpx.adobe.com/content/dam/help/en/photoshop/using/convert-color-image-black-white/jcr_content/main-pars/before_and_after/image-before/Landscape-Color.jpg">
-                            </a>
-                        </li>
-                        <li class="logout_item">
-                            <a href="./unauth_index.html">Выход</a>
-                        </li>
-                    </ul>
-                </li>
+                <a id="auth" href="./login.html">Войти</a>
             </nav>
         </header>
 
@@ -48,7 +37,7 @@
             <div class="navigation">
                 <nav class="categories">
                     <p>III</p>
-                    <input id="categories_toogle" type="checkbox" checked>
+                    <input id="categories_toogle" type="checkbox" checked="">
                     <ul>
                         <li><a href="#">Одежда</a></li>
                         <li><a href="#">Обувь</a></li>
@@ -66,7 +55,7 @@
 
             <div class="product-path">
                 <a href="#">Volchock</a>
-                <p>&rarr;</p>
+                <p>→</p>
                 <a href="#">Картины</a>
             </div>
             <div class="product-grid">
@@ -90,7 +79,7 @@
                     <li>
                         <a href="#">
                             <figure>
-                                <img src="./static/img/2spooky4me.jpg"  alt="Картинка размещенного объявления">
+                                <img src="./static/img/2spooky4me.jpg" alt="Картинка размещенного объявления">
                                 <figcaption>
                                     <h3>Картина A</h3>
                                 </figcaption>
@@ -107,7 +96,7 @@
                     <li>
                         <a href="#">
                             <figure>
-                                <img src="./static/img/2spooky4me.jpg"  alt="Картинка размещенного объявления">
+                                <img src="./static/img/2spooky4me.jpg" alt="Картинка размещенного объявления">
                                 <figcaption>
                                     <h3>Картина A</h3>
                                 </figcaption>
@@ -124,7 +113,7 @@
                     <li>
                         <a href="#">
                             <figure>
-                                <img src="./static/img/2spooky4me.jpg"  alt="Картинка размещенного объявления">
+                                <img src="./static/img/2spooky4me.jpg" alt="Картинка размещенного объявления">
                                 <figcaption>
                                     <h3>Картина A</h3>
                                 </figcaption>
@@ -141,7 +130,7 @@
                     <li>
                         <a href="#">
                             <figure>
-                                <img src="./static/img/2spooky4me.jpg"  alt="Картинка размещенного объявления">
+                                <img src="./static/img/2spooky4me.jpg" alt="Картинка размещенного объявления">
                                 <figcaption>
                                     <h3>Картина A</h3>
                                 </figcaption>
@@ -157,12 +146,27 @@
                 </ul>
             </div>
 
-
+            <div class="modal-window">
+                <div class="socials">
+                    <h1>Connect with</h1>
+                    <div><a href="#">VK</a><a href="#">Google</a><a href="#">Another way</a></div>
+                </div>
+                <div id="modal-form">
+                    <h1>Вход</h1>
+                    <form>
+                        <input type="email" name="email" placeholder="Емайл">
+                        <input type="password" name="password" placeholder="Пароль">
+                        <input type="submit" value="Войти">
+                        <a href="./signup.html">Регистрация</a>
+                    </form>
+                </div>
+            </div>
+            <div class="blackout"></div>
         </div>
 
         <!-- Футер -->
         <footer>
-            <p>&copy; 2021. Volchock team</p>
+            <p>© 2021. Volchock team</p>
         </footer>
 
     </div>

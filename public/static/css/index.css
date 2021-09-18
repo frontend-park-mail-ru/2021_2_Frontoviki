@@ -1,10 +1,3 @@
-@import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap");
-
-:root {
-    --color-soft-blue: #56baed;
-    --color-soft-black: #272727;
-}
-
 body {
     margin: 0;
     padding: 0;
@@ -26,7 +19,7 @@ body {
     padding: 30px;
 }
 
-.footer {
+footer {
     background-color: var(--color-soft-black);
     padding: 0.75rem;
     color: white;
@@ -35,7 +28,7 @@ body {
     flex-shrink: 0;
 }
 
-.header {
+header {
     background: var(--color-soft-black);
     font-family: "Montserrat", Verdana, sans-serif;
     position: relative;
@@ -44,11 +37,11 @@ body {
     padding-bottom: 20px;
 }
 
-.header > .nav_menu {
+header > .nav_menu {
     text-align: center;
 }
 
-.header > .nav_menu > * {
+header > .nav_menu > * {
 	margin: 0;
     margin-right: 10px;
     color: #f6f4e6;
@@ -60,34 +53,33 @@ body {
     transition: all 0.2s ease-in-out;
 }
 
-.header > .nav_menu > a:hover {
-    /*color: #93CAED;*/
+header > .nav_menu > a:hover {
     color: var(--color-soft-blue);
 }
 
-.header > .nav_menu > li:hover {
-    /*color: #93CAED;*/
+header > .nav_menu > li:hover {
     cursor: pointer;
     color: var(--color-soft-blue);
 }
 
-.header > .nav_menu > li > ul > li.dropdown_item {
+header li.dropdown_item {
   width: 150px;
   height: 150px;
 }
 
-.header > .nav_menu > li > ul > li.dropdown_item > a > img {
+header li.dropdown_item > a > img {
   object-fit: cover;
   width: 100%;
   height: 100%;
   
   border-radius: 50%;
-  border: none;
+  border: 1px solid transparent;
   transition: all 0.05s ease;
 }
 
-.header > .nav_menu > li > ul > li.dropdown_item > a > img:hover {
+header li.dropdown_item > a > img:hover {
     cursor: pointer;
+    border-color: var(--color-soft-blue);
 }
 
 .dropdown {
@@ -116,13 +108,14 @@ body {
     text-decoration: none;
     color: black;
     border: none;
-    transition: border 0.2s ease;
+    transition: border-color 0.2s ease;
     padding: 5px;
+    border: 1px solid transparent;
+    border-radius: 5px;
 }
 
 .dropdown_menu > .logout_item > a:hover {
-    border: 1px solid var(--color-soft-blue);
-    border-radius: 5px;
+    border-color: var(--color-soft-blue);
 }
    
 

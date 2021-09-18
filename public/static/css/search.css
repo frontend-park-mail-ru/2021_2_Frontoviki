@@ -12,26 +12,26 @@
 
 .searchTerm {
   width: 100%;
-  border: 3px solid #00B4CC;
+  border: 3px solid var(--color-soft-blue);
   border-right: none;
   padding: 5px;
   height: 36px;
   border-radius: 5px 0 0 5px;
   outline: none;
-  color: #9DBFAF;
+  color: var(--color-soft-black);
 }
 
 .searchTerm:focus{
-  color: #00B4CC;
+  color: var(--color-soft-blue);
 }
 
 .searchButton {
   width: 50px;
   height: 36px;
-  border: 1px solid #00B4CC;
-  background: #00B4CC;
+  border: 1px solid var(--color-soft-blue);
+  background: var(--color-soft-blue);
   text-align: center;
-  color: #fff;
+  color: white;
   border-radius: 0 5px 5px 0;
   cursor: pointer;
   font-size: 20px;
@@ -54,9 +54,9 @@
   margin-bottom: 10px;
   border-radius: 2px;
   position: relative;
-  background: #00B4CC;
+  background: var(--color-soft-blue);
   height: 36px;
-  color: ivory;
+  color: white;
   display: flex;
   flex: 1;
   justify-content: center;
@@ -97,7 +97,7 @@ nav.categories ul {
   z-index: 10;
 }
 nav.categories ul li {
-  border-bottom: 1px solid #00B4CC;
+  border-bottom: 1px solid var(--color-soft-blue);
   position: relative;
   display: inline-block;
   margin-left: 35px;

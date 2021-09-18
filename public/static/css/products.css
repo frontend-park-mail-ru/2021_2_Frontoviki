@@ -29,7 +29,7 @@
     width: 100%;
 }
 
-.product-grid > ul > li > p.price {
+.product-grid p.price {
     font-size: 18pt;
     margin: 0;
     padding: 5;
@@ -42,7 +42,7 @@
   transition: all 0.35s ease;
 }
 
-.product-grid > ul > li > a > figure {
+.product-grid figure {
     margin: 0;
     height: 300px;
     width: inherit;
@@ -56,24 +56,24 @@
     transition: all 0.35s ease;
 }
 
-.product-grid > ul > li > a > figure > img {
+.product-grid figure > img {
     object-fit: cover;
     height: 100%;
     transition: transform 0.5s ease;
 }
 
-.product-grid > ul > li > a > figure > img:hover {
+.product-grid figure > img:hover {
     transform: scale(1.1);
 }
 
-.product-grid > ul > li > a > figure > figcaption {
+.product-grid figcaption {
     position: absolute;
     bottom: 0;
     background-color: rgba(0, 0, 0, 0.7);
     width: 100%;
 }
 
-.product-grid > ul > li > a > figure > figcaption > h3 {
+.product-grid figcaption > h3 {
     color: white;
     padding-left: 0.75rem;
     font-size: 1rem;

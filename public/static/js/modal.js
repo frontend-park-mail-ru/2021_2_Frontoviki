@@ -8,13 +8,13 @@ const root = document.getElementById('root');
  */
 const createModalWindow = () => {
     // создание модального окна
-    const window = document.createElement('div');
-    window.classList.add('modal-window');
+    const modalWindow = document.createElement('div');
+    modalWindow.classList.add('modal-window');
 
     const socials = document.createElement('div');
     socials.classList.add('socials');
-    const H = document.createElement('h1');
-    H.innerHTML = 'Connect with';
+    const socialsCaption = document.createElement('h1');
+    socialsCaption.innerHTML = 'Connect with';
 
     const links = document.createElement('div');
     const vkLogin = createSocialLogin('VK', '#');
@@ -25,29 +25,29 @@ const createModalWindow = () => {
     links.appendChild(googleLogin);
     links.appendChild(otherLogin);
 
-    socials.appendChild(H);
+    socials.appendChild(socialsCaption);
     socials.appendChild(links);
 
-    window.appendChild(socials);
+    modalWindow.appendChild(socials);
 
     // создание фона
     const blackout = document.createElement('div');
     blackout.classList.add('blackout');
     // добавляю возможность сокрытия окна по клику по фону
     blackout.addEventListener('click', e => {
-        window.classList.remove('active');
+        modalWindow.classList.remove('active');
         blackout.classList.remove('active');
 
         // удаление формы с окна строго после обновления анимации
         // необходимо объявить функцию для последующего удаления обработчика
         const listener = function(e) {
             removeForm();
-            window.removeEventListener('webkitTransitionEnd', listener, false);
+            modalWindow.removeEventListener('webkitTransitionEnd', listener, false);
         }
-        window.addEventListener('webkitTransitionEnd', listener, false);
+        modalWindow.addEventListener('webkitTransitionEnd', listener, false);
     });
 
-    root.appendChild(window);
+    root.appendChild(modalWindow);
     root.appendChild(blackout);
 
 }
@@ -89,12 +89,12 @@ const authLink = document.getElementById('auth');
 authLink.addEventListener('click', e => {
     e.preventDefault();
     
-    const window = document.querySelector('.modal-window');
+    const modalWindow = document.querySelector('.modal-window');
     const blackout = document.querySelector('.blackout');
 
-    createLoginForm(window);
+    createLoginForm(modalWindow);
 
-    window.classList.add('active');
+    modalWindow.classList.add('active');
     blackout.classList.add('active');
 })
 
@@ -120,9 +120,9 @@ const createInput = (type, text, name) => {
 /**
  * Создает форму входа и добавляет его на модальное окно
  * @function createLoginForm
- * @param {HTMLElement} window - объект модального окна
+ * @param {HTMLElement} modalWindow - объект модального окна
  */
-const createLoginForm = (window) => {
+const createLoginForm = (modalWindow) => {
     const classicLogin = document.createElement('div');
     classicLogin.id = 'modal-form';
     const form = document.createElement('form');
@@ -143,7 +143,7 @@ const createLoginForm = (window) => {
     signupA.addEventListener('click', (e) => {
         e.preventDefault();
         removeForm();
-        createSignUpForm(window);
+        createSignUpForm(modalWindow);
     });
 
     form.appendChild(emailInput);
@@ -157,16 +157,16 @@ const createLoginForm = (window) => {
     classicLogin.appendChild(H);
     classicLogin.appendChild(form);
 
-    window.appendChild(classicLogin);
+    modalWindow.appendChild(classicLogin);
 }
 
 
 /**
  * Создает форму регистрации и добавляет его на модальное окно
  * @function createSignUpForm
- * @param {HTMLElement} window - объект модального окна
+ * @param {HTMLElement} modalWindow - объект модального окна
  */
- const createSignUpForm = (window) => {
+ const createSignUpForm = (modalWindow) => {
     const classicSignup = document.createElement('div');
     classicSignup.id = 'modal-form';
 
@@ -191,7 +191,7 @@ const createLoginForm = (window) => {
     loginA.addEventListener('click', (e) => {
         e.preventDefault();
         removeForm();
-        createLoginForm(window);
+        createLoginForm(modalWindow);
     })
 
     //form.appendChild(H);
@@ -208,7 +208,7 @@ const createLoginForm = (window) => {
     classicSignup.appendChild(H);
     classicSignup.appendChild(form);
 
-    window.appendChild(classicSignup);
+    modalWindow.appendChild(classicSignup);
 }
 
 
