@@ -36,12 +36,27 @@
 }
 
 .product-grid > ul {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-    grid-gap: 1rem;
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: space-between;
+
+    list-style: none;
+    overflow: hidden;
+}
+
+.product-grid > ul::after {
+    content: "";
+    margin-left: 20px;
+    width: 300px;
 }
 
 .product-grid > ul > li {
+    margin-bottom: 20px;
+    margin-left: 20px;
+    padding: 0;
+    position: relative;
+    width: 300px;
+
     border: 1px solid #e2e2e2;
     border-radius: 5px;
     list-style-type: none;
