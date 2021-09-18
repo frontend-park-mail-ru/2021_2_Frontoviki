@@ -3,7 +3,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Volchock</title>
-    <link rel="stylesheet" href="./static/css/main.css">
+    <link rel="stylesheet" href="./static/css/profile.css">
     <link rel="stylesheet" href="./static/css/products.css">
     <link rel="stylesheet" href="./static/css/modal.css">
     <link rel="stylesheet" href="./static/css/index.css">
@@ -12,16 +12,6 @@
 
 <body>
     <div class="wrapper">
-        <!-- Хэдер -->
-        <div class="header">
-            <nav class="nav_menu">
-                <a href="#">Volchock</a>
-                <p>|</p>
-                <a href="#">Создать объявление</a>
-                <p>|</p>
-                <a id="auth" href="#">Войти</a>
-            </nav>
-        </div>
 
         <!-- Дивак для контента -->
         <div id="root">
@@ -30,7 +20,13 @@
                     <h1>Ваш профиль</h1>
                     <img src="static/img/avatar.jpeg">
                     <div class="nickname">The best ninja</div>
-                    <div class="rating">Здесь будет рейтинг</div>
+                    <div class="rating-result">
+                        <span class="active"></span>
+                        <span class="active"></span>
+                        <span class="active"></span>
+                        <span class="active"></span>
+                        <span class="active"></span>
+                    </div>
                     <button class="profile-btn">Отзывы</button>
 
                     <button class="profile-btn">Мои объявления</button>
@@ -139,10 +135,5 @@
                 </div>
             </div>
         </div>
-        <div class="footer">
-            <p>&copy; 2021. Volchock team</p>
-        </div>
 </body>
-
-
 </html>

@@ -147,17 +147,9 @@ const createLoginForm = (window) => {
             {email, password},
             (status) => {
               if (status === 200) {
-                  // тут нужно удалить модальное окно и перерисовать header
-                  setTimeout(() => {
-                        const black = window.querySelector('.blackout\ active');
-                        console.log(black);
-                        black.click();
-                        createHeader();  
-                    }, 1000);
+                  profilePage();
                   return;
               }
-              const black = window.querySelector('.modal-window');
-              console.log(black);
               alert('НЕ получилось не фартануло');
             }
         );

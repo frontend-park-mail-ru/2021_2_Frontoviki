@@ -30,7 +30,7 @@ function createHeader() {
     if (header) {
         wrapper.removeChild(header);
     }
-    header = document.createElement('div');
+    header = document.createElement('header');
     header.classList.add('header');
     const nav = document.createElement('nav');
     nav.classList.add('nav_menu');
@@ -120,4 +120,12 @@ function createHeader() {
     return header;
 }
 
+function createFooter() {
+    const footer = document.createElement('footer');
+    footer.classList.add('footer');
+    const footerText = document.createElement('p');
+    footerText.innerHTML = '\u00A9 2021. Volchock team';
+    footer.appendChild(footerText);
+    wrapper.appendChild(footer);
+}
 

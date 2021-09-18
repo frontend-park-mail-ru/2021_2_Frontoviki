@@ -95,7 +95,7 @@ app.get('/profile', function (req, res) {
     res.json(users[email]);
 });
 
-const port = process.env.PORT || 8081;
+const port = process.env.PORT || 8080;
 
 app.listen(port, function () {
     console.log(`Server listening port ${port}`);

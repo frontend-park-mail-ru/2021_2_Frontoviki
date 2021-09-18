@@ -27,100 +27,6 @@ const configApp = {
     },
 }
 
-function ajax(method, url, body = null, callback) {
-    const xhr = new XMLHttpRequest();
-    xhr.open(method, url, true);
-    xhr.withCredentials = true;
-
-    xhr.addEventListener('readystatechange', function() {
-        if (xhr.readyState !== XMLHttpRequest.DONE) return;
-
-        callback(xhr.status, xhr.responseText);
-    });
-
-    if (body) {
-        xhr.setRequestHeader('Content-type', 'application/json; charset=utf8');
-        xhr.send(JSON.stringify(body));
-        return;
-    }
-
-    xhr.send();
-}
-
-function signupPage() {
-    root.innerHTML = '';
-    const form = document.createElement('form');
-
-    const emailInput = createInput('email', 'Емайл', 'email');
-    const passwordInput = createInput('password', 'Пароль', 'password');
-    const ageInput = createInput('number', 'Возраст', 'age');
-
-    const submitBtn = document.createElement('input');
-    submitBtn.type = 'submit';
-    submitBtn.value = 'Зарегистрироваться!';
-
-    const back = document.createElement('a');
-    back.href = '/menu';
-    back.textContent = 'Назад';
-    back.dataset.section = 'menu';
-
-    form.appendChild(emailInput);
-    form.appendChild(passwordInput);
-    form.appendChild(ageInput);
-    form.appendChild(submitBtn);
-    form.appendChild(back);
-
-    root.appendChild(form);
-}
-
-
-function loginPage() {
-    root.innerHTML = '';
-
-    const form = document.createElement('form');
-
-    const emailInput = createInput('email', 'Емайл', 'email');
-    const passwordInput = createInput('password', 'Пароль', 'password');
-
-    const submitBtn = document.createElement('input');
-    submitBtn.type = 'submit';
-    submitBtn.value = 'Зарегистрироваться!';
-
-    const back = document.createElement('a');
-    back.href = '/menu';
-    back.textContent = 'Назад';
-    back.dataset.section = 'menu';
-
-
-    form.appendChild(emailInput);
-    form.appendChild(passwordInput);
-    form.appendChild(submitBtn);
-    form.appendChild(back);
-
-    form.addEventListener('submit', (e) => {
-        e.preventDefault();
-
-        const email = emailInput.value.trim();
-        const password = passwordInput.value.trim();
-
-        ajax(
-          'POST',
-          '/login',
-            {email, password},
-            (status) => {
-              if (status === 200) {
-                  profilePage();
-                  return;
-              }
-              alert('НЕ получилось не фартануло');
-            }
-        );
-
-    })
-
-    root.appendChild(form);
-}
-
 function profilePage() {
     root.innerHTML = '';
 
@@ -167,9 +73,6 @@ function profilePage() {
         }
     );
 }
-
-menuPage();
-
 
 root.addEventListener('click', e => {
     const {target} = e;
