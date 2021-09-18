@@ -1,4 +1,5 @@
 /* Для профиля */
+
 .inner-profile-content {
   display: flex;
   justify-content: space-between;
@@ -6,12 +7,13 @@
   box-sizing: border-box;
   margin-top: 50px;
 }
+
 .profile-block {
   margin-left: 5%;
   margin-right: 5%;
 }
 
-.profile-block > img {
+.profile-block>img {
   width: 200px;
   height: 200px;
   border-radius: 100%;
@@ -19,45 +21,34 @@
 
 .nickname {
   margin: 10px;
-  font-size: larger;
-  font-family: sans-serif;
+  font-size: 18pt;
 }
 
 .rating {
   margin: 10px;
   font-size: larger;
-  font-family: sans-serif;
 }
 
 .profile-btn {
-  width: 120px;
-  text-align: center;
   display: block;
-  font-family: arial;
-  text-decoration: none;
-  font-weight: 300;
-  font-size: 14px;
-  border: #1071ff 1px solid;
-  color: #1071ff;
-  padding: 3px;
-  padding-left: 5px;
-  padding-right: 5px;
-  margin: 20px auto;
-  transition: 0.5s;
-  border-radius: 0px;
-}
-.profile-btn:hover {
-  top: 5px;
-  transition: 0.5s;
-  color: #0dca46;
-  border: #0dca46 1px solid;
+  margin: auto;
+  margin-bottom: 10px;
+  text-align: center;
+
+  width: 150px;
+  padding: 10px;
+  background-color: white;
+  border: 2px solid var(--color-soft-blue);
   border-radius: 10px;
+  text-decoration: none;
+  color: var(--color-soft-black);
+  font-size: 12pt;
+  transition: all 0.5s ease;
 }
-.profile-btn:active {
-  color: #000;
-  border: #1a1a1a 1px solid;
-  transition: 0.07s;
-  background-color: #fff;
+
+.profile-btn:hover {
+  background-color: var(--color-soft-blue);
+  color: white;
 }
 
 .profile-info {
@@ -153,19 +144,14 @@ a.glo {
   text-align: center;
   margin: 20px auto;
   display: block;
-  background-image: linear-gradient(
-    to left,
-    transparent,
-    transparent 50%,
-    #0288ad 50%,
-    #0288ad
-  );
+  background-image: linear-gradient( to left, transparent, transparent 50%, #0288ad 50%, #0288ad);
   background-position: 100% 0;
   background-size: 200% 100%;
   transition: all 0.25s ease-in;
   font: 400 18px tahoma;
   border: 1px solid #0288ad;
 }
+
 a.glo:hover {
   background-position: 0 0;
   color: #fff;
