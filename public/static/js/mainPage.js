@@ -1,5 +1,6 @@
 loginPage();
 
+// добавляет поиск
 function loginPage() {
 
     root.innerHTML = '';
@@ -14,7 +15,6 @@ function loginPage() {
         productClass.appendChild(item);
     })
 
-    
     content.appendChild(createNavigation('Одежда', 'Картины', 'Телефоны'));
     content.appendChild(productClass);
     content.appendChild(createProductGrid());
@@ -38,6 +38,7 @@ function productPath(category, subCategory) {
     return res;
 }
 
+// Добавляет любое количество пунктов в выпадющее меню категорий и поиск
 function createNavigation(...categories) {
     const navigation = document.createElement('div');
     navigation.classList.add('navigation');

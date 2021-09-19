@@ -1,3 +1,4 @@
+// создание сетки товаров
 function createProductGrid() {
     const productGrid = document.createElement('div');
     productGrid.classList.add("product-grid");

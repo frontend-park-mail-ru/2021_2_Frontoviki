@@ -1,10 +1,11 @@
-/// отправка на сервер
+// начинаем создание страницы с добавления root и header в wrapper
 const wrapper = document.querySelector('.wrapper');
 const root = document.createElement('div');
 wrapper.appendChild(createHeader())
 root.id = 'root';
 wrapper.appendChild(root);
 
+/// отправка на сервер
 function ajax(method, url, body = null, callback) {
     const xhr = new XMLHttpRequest();
     xhr.open(method, url, true);
