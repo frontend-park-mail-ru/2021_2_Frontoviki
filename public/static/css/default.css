@@ -13,7 +13,7 @@ body {
 }
 
 .content {
-    width: 80%;
+    width: 1200px;
 	margin: auto;
 	min-height: calc(100vh - 70px);
 }
@@ -59,4 +59,22 @@ body {
 .header > .nav_menu > a:hover {
     /*color: #93CAED;*/
     color: var(--color-soft-blue);
+}
+
+.custom_button {
+    display: block;
+    margin: auto;
+	margin-top: 15px;
+    margin-bottom: 10px;
+    text-align: center;
+
+    width: 150px;
+    padding: 10px;
+    background-color: white;
+    border: 2px solid var(--color-soft-blue);
+    border-radius: 10px;
+    text-decoration: none;
+    color: var(--color-soft-black);
+    font-size: 12pt;
+    transition: all 0.5s ease;
 }
