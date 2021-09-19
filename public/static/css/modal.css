@@ -1,102 +1,114 @@
 :root {
-    /* z-index у модального окна больше чем у затемнения! */
-    --blackout-z-index: 20;
-    --modal-z-index: 30;
-    /* одинаковая анимация при появлении / закрытии модального окна */
-    --transition-params: 0.3s all;
+  /* z-index у модального окна больше чем у затемнения! */
+  --blackout-z-index: 20;
+  --modal-z-index: 30;
+  /* одинаковая анимация при появлении / закрытии модального окна */
+  --transition-params: 0.3s all;
 }
 
 .blackout {
-    opacity: 0;
-    visibility: hidden;
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(0, 0, 0, 0.5);
-    z-index: var(--blackout-z-index);
-
-    transition: var(--transition-params);
+  opacity: 0;
+  visibility: hidden;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: var(--blackout-z-index);
+  transition: var(--transition-params);
 }
 
 .modal-window {
-    opacity: 0;
-    visibility: hidden;
-
-    width: 100%;
-    max-width: 700px;
-
-    position: fixed;
-    display: flex;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    z-index: var(--modal-z-index);
-
-    box-shadow: 0 3px 10px -0.5px rgba(0, 0, 0, 0.2);
-    /*padding: 30px;*/
-    border-radius: 3px;
-    background-color: white;
-
-    transition-property: opacity, visibility;
-    transition: var(--transition-params);
+  opacity: 0;
+  visibility: hidden;
+  width: 100%;
+  max-width: 700px;
+  position: fixed;
+  display: flex;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: var(--modal-z-index);
+  box-shadow: 0 3px 10px -0.5px rgba(0, 0, 0, 0.2);
+  /*padding: 30px;*/
+  border-radius: 3px;
+  background-color: white;
+  transition-property: opacity, visibility;
+  transition: var(--transition-params);
 }
 
 .active {
-    opacity: 1;
-    visibility: visible;
+  opacity: 1;
+  visibility: visible;
 }
 
-.modal-window > .socials {
-    flex: 40%;
-    background: linear-gradient(45deg, rgba(0,0,0,1) 0%, rgba(5,55,65,1) 100%);
-    padding-top: 10px;
-    padding-bottom: 10px;
-    color: white;
+.modal-window .socials {
+  margin-right: 10px;
+  padding-top: 30px;
+  padding-bottom: 30px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  border-right: 1px solid #56443F;
 }
 
-.modal-window > .socials > h1 {
-    text-align: center;
+.modal-window>.socials {
+  flex: 40%;
+  background: linear-gradient(45deg, rgba(0, 0, 0, 1) 0%, rgba(5, 55, 65, 1) 100%);
+  padding-top: 10px;
+  padding-bottom: 10px;
+  color: white;
 }
 
-.modal-window > .socials > * {
-    margin-left: auto;
-    margin-right: auto;
+.modal-window>.socials>h1 {
+  text-align: center;
 }
 
-.modal-window > #modal-form {
-    flex: 60%;
-    padding-top: 10px;
-    padding-bottom: 10px;
-    padding-left: 10px;
+.modal-window>.socials>* {
+  margin-left: auto;
+  margin-right: auto;
 }
 
-.modal-window div form input,
-.modal-window div form p,
-.modal-window div div a {
-    display: block;
+#modal-login-form, #modal-signup-form {
+  flex: 60%;
+  padding-top: 30px;
+  padding-bottom: 10px;
+  padding-left: 10px;
 }
 
-.modal-window div form > * {
-    font-size: 13pt;
+.mf-unactive {
+  display: none;
+}
+
+.modal-window .mf-signup-unactive {
+  display: none;
+}
+
+.modal-window div form input, .modal-window div form p, .modal-window div div a {
+  display: block;
+}
+
+.modal-window div form>* {
+  font-size: 13pt;
 }
 
 .modal-window div form input {
-    display: block;
-    padding: 15px 10px;
-    margin-bottom: 10px;
-    width: 90%;
-    border: 1px solid #ddd;
-    transition: border-width 0.2s ease;
-    border-radius: 3px;
-    box-shadow: 0 0 5px rgba(0, 0, 0, .1) inset;
-    color: #444;
+  display: block;
+  padding: 15px 10px;
+  margin-bottom: 10px;
+  width: 90%;
+  border: 1px solid var(--border-color-unactive-input);
+  transition: border-width 0.2s ease;
+  border-radius: 3px;
+  box-shadow: 0 0 5px rgba(0, 0, 0, .1) inset;
+  color: var(--color-unactive-input);
 }
 
 .modal-window div form input:focus {
   outline: none;
-  border-color: #2196F3;
+  border-color: var(--border-color-focus-input);
   box-shadow: none;
   color: black;
 }
@@ -116,7 +128,7 @@
 }
 
 .modal-window div form input[type="submit"]:hover {
-  background-color: #2196F3;
+  background-color: var(--color-hover-input);
   cursor: pointer;
 }
 
@@ -127,17 +139,16 @@
   border: 1px solid var(--color-soft-blue);
   border-radius: 3px;
   background-color: white;
-  transition: background-color 0.5s ease;
+  transition: all 0.5s ease;
   color: black;
   display: inline-block;
   text-align: center;
   text-decoration: none;
-
   margin-right: 5%;
 }
 
 .modal-window div form a:hover {
-  background-color: #2196F3;
+  background-color: var(--color-hover-input);
   color: white;
   cursor: pointer;
 }

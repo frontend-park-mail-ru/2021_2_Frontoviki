@@ -1,3 +1,6 @@
+<!DOCTYPE html>
+<html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -17,7 +20,7 @@
         <div id="root">
             <div class="inner-profile-content">
                 <div class="profile-block">
-                    <h1>Ваш профиль</h1>
+                    <h1>Профиль</h1>
                     <img src="static/img/avatar.jpeg">
                     <div class="nickname">The best ninja</div>
                     <div class="rating-result">
@@ -29,9 +32,9 @@
                     </div>
                     <button class="profile-btn">Отзывы</button>
 
-                    <button class="profile-btn">Мои объявления</button>
-                    <button class="profile-btn">Мои отзывы</button>
-                    <button class="profile-btn">Избранное</button>
+                    <a href="#" class="profile-btn">Мои объявления</a>
+                    <a href="#" class="profile-btn">Мои отзывы</a>
+                    <a href="#" class="profile-btn">Избранное</a>
 
                     <button class="profile-btn">Сообщения</button>
                     <button class="profile-btn">Платные услуги</button>
@@ -42,98 +45,87 @@
                 <div class="profile-info">
                     <h1>Ваши объявления</h1>
                     <div class="product-grid">
-                        <ul>
-                            <li>
-                                <a href="#">
-                                    <figure>
-                                        <img src="./static/img/avatar.jpeg">
-                                        <figcaption>
-                                            <h3>Картина A</h3>
-                                        </figcaption>
-                                    </figure>
+                        <section class="cards">
+                            <div class="card">
+                                <a href="./product_detail.html">
+                                    <div class="image-container">
+                                        <figure>
+                                            <img src="https://adobe.ly/2Xp9Brm" alt="Картинка объявления">
+                                            <figcaption>
+                                                <h3>Картина A</h3>
+                                            </figcaption>
+                                        </figure>
+                                    </div>
+                                    <div class="card-info">
+                                        <p>Москва</p>
+                                        <p class="card_price">100р</p>
+                                    </div>
                                 </a>
-                                <p class="price">100р</p>
-                                <p>Данная картина передавалась из поколения в поколение. Однако наш род угасает, и чтобы
-                                    продлить его,
-                                    я вынужден продать это творение.
-                                </p>
-                            </li>
+                            </div>
 
-                            <li>
-                                <a href="#">
-                                    <figure>
-                                        <img src="./static/img/default_image.jpg">
-                                        <figcaption>
-                                            <h3>Картина A</h3>
-                                        </figcaption>
-                                    </figure>
+                            <div class="card">
+                                <a href="./404.html">
+                                    <div class="image-container">
+                                        <figure>
+                                            <img src="https://lh3.googleusercontent.com/proxy/R0lU80V4Se8so6LQOIZ3u4dsZZhjHDUcEQc_Q-ptSpdh-YiwhbvTKe1GoCdpmjURS7pS2CDhTxRs4cz5yG-fmonBDwbgfibK9u7gcgB_8eSxYCqUltOqIbvgWzkxte861hBrsiJAqNRDV_WogT5CAWsI6Ipl"
+                                                alt="Картинка объявления">
+                                            <figcaption>
+                                                <h3>Картина A</h3>
+                                            </figcaption>
+                                        </figure>
+                                    </div>
+                                    <div class="card-info">
+                                        <p>Москва</p>
+                                        <p class="card_price">100р</p>
+                                    </div>
                                 </a>
-                                <p
-                                    style="font-size: 18pt; margin: 0; padding: 5; margin-right: 20px; text-align: right;">
-                                    100р</p>
-                                <p>Данная картина передавалась из поколения в поколение. Однако наш род угасает, и чтобы
-                                    продлить его,
-                                    я вынужден продать это творение.
-                                </p>
-                            </li>
+                            </div>
 
-                            <li>
+                            <div class="card">
                                 <a href="#">
-                                    <figure>
-                                        <img src="./static/img/default_image.jpg">
-                                        <figcaption>
-                                            <h3>Картина A</h3>
-                                        </figcaption>
-                                    </figure>
+                                    <div class="image-container">
+                                        <figure>
+                                            <img src="https://cloudfront-us-east-2.images.arcpublishing.com/reuters/F6INOOMSRRL5XOOQDRPZUWPWBA.jpg"
+                                                alt="Картинка объявления">
+                                            <figcaption>
+                                                <h3>Картина A</h3>
+                                            </figcaption>
+                                        </figure>
+                                    </div>
+                                    <div class="card-info">
+                                        <p>Москва</p>
+                                        <p class="card_price">100р</p>
+                                    </div>
                                 </a>
-                                <p
-                                    style="font-size: 18pt; margin: 0; padding: 5; margin-right: 20px; text-align: right;">
-                                    100р</p>
-                                <p>Данная картина передавалась из поколения в поколение. Однако наш род угасает, и чтобы
-                                    продлить его,
-                                    я вынужден продать это творение.
-                                </p>
-                            </li>
+                            </div>
 
-                            <li>
+                            <div class="card">
                                 <a href="#">
-                                    <figure>
-                                        <img src="./static/img/default_image.jpg">
-                                        <figcaption>
-                                            <h3>Картина A</h3>
-                                        </figcaption>
-                                    </figure>
+                                    <div class="image-container">
+                                        <figure>
+                                            <img src="https://adobe.ly/2Xp9Brm" alt="Картинка объявления">
+                                            <figcaption>
+                                                <h3>Картина A</h3>
+                                            </figcaption>
+                                        </figure>
+                                    </div>
+                                    <div class="card-info">
+                                        <p>Москва</p>
+                                        <p class="card_price">100р</p>
+                                    </div>
                                 </a>
-                                <p
-                                    style="font-size: 18pt; margin: 0; padding: 5; margin-right: 20px; text-align: right;">
-                                    100р</p>
-                                <p>Данная картина передавалась из поколения в поколение. Однако наш род угасает, и чтобы
-                                    продлить его,
-                                    я вынужден продать это творение.
-                                </p>
-                            </li>
+                            </div>
 
-                            <li>
-                                <a href="#">
-                                    <figure>
-                                        <img src="./static/img/default_image.jpg">
-                                        <figcaption>
-                                            <h3>Картина A</h3>
-                                        </figcaption>
-                                    </figure>
-                                </a>
-                                <p
-                                    style="font-size: 18pt; margin: 0; padding: 5; margin-right: 20px; text-align: right;">
-                                    100р</p>
-                                <p>Данная картина передавалась из поколения в поколение. Однако наш род угасает, и чтобы
-                                    продлить его,
-                                    я вынужден продать это творение.
-                                </p>
-                            </li>
-                        </ul>
+                        </section>
                     </div>
                 </div>
             </div>
         </div>
+<<<<<<< HEAD
+=======
+        <footer>
+            <p>&copy; 2021. Volchock team</p>
+        </footer>
+>>>>>>> hw1
 </body>
 </html>

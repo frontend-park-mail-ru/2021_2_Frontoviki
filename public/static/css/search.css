@@ -1,7 +1,7 @@
 .navigation {
-    width: 100%;
-    display: flex;
-    justify-content: center;
+  width: 100%;
+  display: flex;
+  justify-content: center;
 }
 
 .search {
@@ -10,32 +10,33 @@
   display: flex;
 }
 
-.searchTerm {
+.search_term {
   width: 100%;
-  border: 3px solid #00B4CC;
+  border: 3px solid var(--color-soft-blue);
   border-right: none;
   padding: 5px;
-  height: 36px;
   border-radius: 5px 0 0 5px;
   outline: none;
-  color: #9DBFAF;
+  color: var(--color-unactive-input);
+  font-size: 16px;
 }
 
-.searchTerm:focus{
-  color: #00B4CC;
+.search_term:focus {
+  color: var(--color-soft-black);
 }
 
-.searchButton {
+.search_button {
   width: 50px;
   height: 36px;
-  border: 1px solid #00B4CC;
-  background: #00B4CC;
+  border: 1px solid var(--color-soft-blue);
+  background: var(--color-soft-blue);
   text-align: center;
-  color: #fff;
+  color: white;
   border-radius: 0 5px 5px 0;
   cursor: pointer;
   font-size: 20px;
 }
+
 .categories {
   margin: 0;
   margin-right: 10px;
@@ -44,7 +45,6 @@
   width: 36px;
   min-height: 200px;
   height: 100px;
-  
   font-size: 12px;
   z-index: 10;
 }
@@ -54,9 +54,9 @@
   margin-bottom: 10px;
   border-radius: 2px;
   position: relative;
-  background: #00B4CC;
+  background: var(--color-soft-blue);
   height: 36px;
-  color: ivory;
+  color: white;
   display: flex;
   flex: 1;
   justify-content: center;
@@ -77,7 +77,7 @@ input[type="checkbox"] {
   height: 36px;
 }
 
-#categories_toogle:checked ~ul {
+#categories_toogle:checked~ul {
   height: 0%;
   z-index: -1;
 }
@@ -91,13 +91,12 @@ nav.categories ul {
   text-align: left;
   transition: all .4s ease-out;
   height: 100%;
-  
   width: 100px;
-  
   z-index: 10;
 }
+
 nav.categories ul li {
-  border-bottom: 1px solid #00B4CC;
+  border-bottom: 1px solid var(--color-soft-blue);
   position: relative;
   display: inline-block;
   margin-left: 35px;
@@ -105,7 +104,6 @@ nav.categories ul li {
   width: 100%;
   margin: 0;
   background: white;
-  
   transition: background .5s;
 }
 

@@ -11,7 +11,7 @@
     <link rel="stylesheet" href="./static/css/products.css">
     <link rel="stylesheet" href="./static/css/modal.css">
     <link rel="stylesheet" href="./static/css/index.css">
-    <link rel="shortcut icon" href="static/img/icon.png" type="image/x-icon">
+    <link rel="shortcut icon" href="static/img/icon.png" type="image/x-icon" />
 </head>
 
 <body>
@@ -21,7 +21,19 @@
                 <ul class="sub_nav_menu">
                     <li class="main_elements"><a href="./index.html">Volchock</a></li>
                     <li class="main_elements"><a href="./404.html">Создать объявление</a></li>
-                    <li class="main_elements"><a id="auth" href="">Войти</a></li>
+                    <li class="dropdown dropdown-9">Профиль
+                        <ul class="dropdown_menu dropdown_menu--animated dropdown_menu-9">
+                            <li class="dropdown_item">
+                                <a href="./profile.html">
+                                    <img src="https://helpx.adobe.com/content/dam/help/en/photoshop/using/convert-color-image-black-white/jcr_content/main-pars/before_and_after/image-before/Landscape-Color.jpg"
+                                        alt="Profile image">
+                                </a>
+                            </li>
+                            <li class="logout_item">
+                                <a href="./index.html">Выход</a>
+                            </li>
+                        </ul>
+                    </li>
                 </ul>
             </nav>
         </header>
@@ -32,7 +44,7 @@
             <div class="navigation">
                 <nav class="categories">
                     <p>III</p>
-                    <input id="categories_toogle" type="checkbox" checked="">
+                    <input id="categories_toogle" type="checkbox" checked>
                     <ul>
                         <li><a href="#">Одежда</a></li>
                         <li><a href="#">Обувь</a></li>
@@ -54,7 +66,6 @@
                     <li><a href="#">Картины</a></li>
                 </ul>
             </div>
-
             <div class="product-grid">
                 <section class="cards">
                     <div class="card">
@@ -146,48 +157,12 @@
                     </div>
                 </section>
             </div>
-
-            <div class="modal-window">
-                <div class="socials">
-                    <h1>Connect with</h1>
-                    <div><a href="#">VK</a><a href="#">Google</a><a href="#">Another way</a></div>
-                </div>
-                <div id="modal-login-form" class="">
-                    <h1>Вход</h1>
-                    <form>
-                        <input type="email" name="email" placeholder="Емайл">
-                        <input type="password" name="password" placeholder="Пароль">
-                        <input type="submit" value="Войти">
-                        <a href="" id="mf-login_to_signup">Регистрация</a>
-                    </form>
-                </div>
-                <div id="modal-signup-form" class="mf-unactive">
-                    <h1>Регистрация</h1>
-                    <form>
-                        <input type="text" name="text" placeholder="Имя">
-                        <input type="email" name="email" placeholder="Емайл">
-                        <input type="password" name="password" placeholder="Пароль">
-                        <input type="password" name="password" placeholder="Повторите пароль">
-                        <a href="" id="mf-signup_to_login">Вход</a>
-                        <input type="submit" value="Создать">
-                    </form>
-                </div>
-            </div>
-
-            <div class="blackout"></div>
         </div>
-
         <footer>
-            <p>© 2021. Volchock team</p>
+            <p>&copy; 2021. Volchock team</p>
         </footer>
 
     </div>
-
-    <script src="./static/js/modal.js"></script>
 </body>
-<script src="./static/js/main.js"></script>
-<script src="./static/js/productGrid.js"></script>
-<script src="./static/js/mainPage.js"></script>
-<script src="./static/js/modal.js"></script>
-<script src="./static/js/profile.js"></script>
+
 </html>
