@@ -1,5 +1,6 @@
-/// отправка на сервер
+
 (function() {
+    const noop = () => {};
     const AJAX_METHODS = {
         POST: 'POST',
         GET: 'GET',
@@ -34,7 +35,8 @@
             xhr.send();
         }
     }
-    window.ajax = new Ajax();
+
+    window.Ajax = new Ajax();
 })();
 
 

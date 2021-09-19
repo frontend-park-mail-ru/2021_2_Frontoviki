@@ -1,6 +1,5 @@
+
 function profilePage() {
-    const root = document.querySelector('#root');
-    wrapper.insertBefore(createHeader(), root);
     root.innerHTML = '';
 
     const content = document.createElement('div');
@@ -58,3 +57,4 @@ function createProfileBtn(text) {
     btn.innerHTML = text;
     return btn;
 }
+
