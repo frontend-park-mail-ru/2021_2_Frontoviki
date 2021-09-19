@@ -49,7 +49,7 @@ function createHeader() {
     subnav.appendChild(el2);
 
 
-    if (false) {
+    if (true) {
         const el3 = document.createElement('li');
         el3.classList.add('main_elements');
         const login = document.createElement('a');
