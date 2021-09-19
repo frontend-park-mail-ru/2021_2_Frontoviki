@@ -1,29 +1,22 @@
-// начинаем создание страницы с добавления root и header в wrapper
+
+import {RENDER_METHODS, AJAX_STATUSES} from './constants.js'
 const wrapper = document.querySelector('.wrapper');
 const root = document.createElement('div');
 wrapper.appendChild(createHeader())
 root.id = 'root';
 wrapper.appendChild(root);
 
-/// отправка на сервер
-function ajax(method, url, body = null, callback) {
-    const xhr = new XMLHttpRequest();
-    xhr.open(method, url, true);
-    xhr.withCredentials = true;
-
-    xhr.addEventListener('readystatechange', function() {
-        if (xhr.readyState !== XMLHttpRequest.DONE) return;
-
-        callback(xhr.status, xhr.responseText);
-    });
-
-    if (body) {
-        xhr.setRequestHeader('Content-type', 'application/json; charset=utf8');
-        xhr.send(JSON.stringify(body));
-        return;
-    }
-
-    xhr.send();
+const configApp = {
+    menu: {
+        href: '/menu',
+        name: 'Меню',
+        open: menuPage,
+    },
+    profile: {
+        href: '/profile',
+        name: 'Профиль',
+        open: profilePage,
+    },
 }
 
 function createHeader() {
@@ -129,4 +122,3 @@ function createFooter() {
     footer.appendChild(footerText);
     wrapper.appendChild(footer);
 }
-

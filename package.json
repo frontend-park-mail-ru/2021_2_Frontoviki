@@ -18,10 +18,11 @@
   },
   "homepage": "https://github.com/frontend-park-mail-ru/2021_2_Frontoviki#readme",
   "dependencies": {
-    "debug": "^4.1.1",
     "body-parser": "^1.18.3",
     "cookie-parser": "^1.4.4",
+    "debug": "^4.1.1",
     "express": "^4.16.4",
+    "handlebars": "^4.7.7",
     "morgan": "^1.9.1",
     "uuid": "^3.3.2"
   }
