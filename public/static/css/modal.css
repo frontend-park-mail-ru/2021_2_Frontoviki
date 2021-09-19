@@ -71,11 +71,19 @@
   margin-right: auto;
 }
 
-.modal-window>#modal-form {
+#modal-login-form, #modal-signup-form {
   flex: 60%;
   padding-top: 30px;
   padding-bottom: 10px;
   padding-left: 10px;
+}
+
+.mf-unactive {
+  display: none;
+}
+
+.modal-window .mf-signup-unactive {
+  display: none;
 }
 
 .modal-window div form input, .modal-window div form p, .modal-window div div a {
