@@ -18,6 +18,7 @@
   border-radius: 5px 0 0 5px;
   outline: none;
   color: var(--color-unactive-input);
+  font-size: 16px;
 }
 
 .search_term:focus {
