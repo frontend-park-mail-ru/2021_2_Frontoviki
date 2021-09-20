@@ -60,7 +60,7 @@ function createFooter() {
     wrapper.appendChild(footer);
 }
 
-
+// этот код нужен чтобы привязывать переход по ссылкам к функциям отрисовки, но он пока ломает ссылки без отрисовки типо logout
 // wrapper.addEventListener('click', e => {
 //     const { target } = e;
 //     e.preventDefault();
@@ -71,18 +71,3 @@ function createFooter() {
 //         configApp[target.dataset.section].open();
 //     }
 // });
-
-// отладочная фигня для перехода в профиль
-Object
-    .entries(configApp)
-    .map(([key, { href, name }]) => {
-        const menuElement = document.createElement('a');
-        menuElement.href = href;
-        menuElement.textContent = name;
-        menuElement.dataset.section = key;
-
-        return menuElement;
-    })
-    .forEach((el) => {
-        root.appendChild(el);
-});

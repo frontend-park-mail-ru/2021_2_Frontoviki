@@ -52,6 +52,7 @@ export function CreateModal() {
             body : {email, password},
             callback: (status) => {
                 if (status === 200) {
+                    // в случае если мы зашли убрать модальное и обновить хедер
                     CreateHeader();
                     black.click();
                     return;
@@ -128,6 +129,7 @@ export function CreateModal() {
             body : {email, password, name},
             callback: (status) => {
                 if (status === 201) {
+                    // если зарегались, показываем окно логина
                     ent.click();
                     return;
                 }
