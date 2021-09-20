@@ -18,6 +18,10 @@
 	text-align: center;
 }
 
+.section-geolocation {
+	margin: 120px;
+}
+
 .features {
 	width: 400px;
 }

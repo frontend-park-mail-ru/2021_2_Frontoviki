@@ -2,6 +2,8 @@
 import { profilePage } from "./content/profilePage.js";
 import { ModalWork } from "./modules/modal.js";
 import { errorPage } from "./content/404Page.js";
+import { createFooter } from "./content/footer.js";
+import { mainPage } from "./content/mainPage.js";
 
 const wrapper = document.querySelector('.wrapper');
 const root = document.createElement('div');
@@ -12,13 +14,30 @@ ModalWork();
 wrapper.appendChild(root);
 createFooter();
 
-mainPage();
+let ad = {
+    href: '',
+    src: "./static/img/2spooky4me.jpg",
+    name: 'Картина',
+    productPrice: "100$",
+    location: "Москва"
+}
+
+let ad1 = {
+    href: '',
+    src: "./static/img/shpicz.jpg",
+    name: 'Кек',
+    productPrice: "100500$",
+    location: "Ракетный завод"
+}
+
+
+main();
 
 const configApp = {
     menu: {
         href: '/',
         name: 'Меню',
-        open: mainPage,
+        open: main,
     },
     profile: {
         href: '/profile',
@@ -35,6 +54,11 @@ const configApp = {
         name: 'Ошибка',
         open: err,
     }
+}
+
+function main() {
+    let mainPg = new mainPage(root);
+    mainPg.render('Новое', 'Картины', ['мышка', 'клавиатура', 'монитор'], ad, ad1, ad, ad, ad1);
 }
 
 function profile() {
@@ -73,12 +97,6 @@ function err() {
     err.render();
 }
 
-// создает футер
-function createFooter() {
-    const footer = document.createElement('footer');
-    footer.innerHTML = '<p>© 2021. Volchock team</p>';
-    wrapper.appendChild(footer);
-}
 
 // этот код нужен чтобы привязывать переход по ссылкам к функциям отрисовки, но он пока ломает ссылки без отрисовки типо logout
 wrapper.addEventListener('click', e => {

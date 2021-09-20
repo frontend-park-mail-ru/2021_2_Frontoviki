@@ -1,3 +1,20 @@
+import { createProductGrid } from "./productGrid.js";
+
+let ad = {
+    href: '',
+    src: "./static/img/2spooky4me.jpg",
+    name: 'Картина',
+    productPrice: "100$",
+    location: "Москва"
+}
+
+let ad1 = {
+    href: '',
+    src: "./static/img/shpicz.jpg",
+    name: 'Кек',
+    productPrice: "100500$",
+    location: "Ракетный завод"
+}
 
 export class profilePage {
     #parent
@@ -52,7 +69,8 @@ export class profilePage {
         const blockText = document.createElement('h1');
         blockText.innerHTML = 'Ваши объявления';
         contentBlock.appendChild(blockText);
-        contentBlock.appendChild(createProductGrid());
+        const debug = [ad, ad1, ad, ad1, ad1]
+        contentBlock.appendChild(createProductGrid(debug));
 
         content.appendChild(profileBlock);
         content.appendChild(contentBlock);
