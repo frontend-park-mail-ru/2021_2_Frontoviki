@@ -4,11 +4,13 @@ import { CreateModal } from "./modal.js";
 export function CreateHeader() {
     const wrapper = document.querySelector('.wrapper');
     let header = document.querySelector('#header')
+
     if ( header != null) {
         header.innerHTML = '';
     } else {
         header = document.createElement('header');
     }
+
     header.id = 'header';
     let promise = new Promise((resolve, reject) => {
         const nav = document.createElement('nav');
@@ -29,7 +31,7 @@ export function CreateHeader() {
         const el2 = document.createElement('li');
         el2.classList.add('main_elements');
         const newAd = document.createElement('a');
-        newAd.href = './404.html';
+        newAd.dataset.section = "error";
         newAd.innerHTML = 'Создать объявление';
         el2.appendChild(newAd);
         subnav.appendChild(el2);
@@ -49,10 +51,8 @@ export function CreateHeader() {
 
         console.log('profile created');
         const imgref = document.createElement('a');
-        imgref.href = '';
         
         const img = document.createElement('img');
-        img.src = '';
         imgref.appendChild(img);
         img.dataset.section = 'profile';
         content.appendChild(imgref);
@@ -61,7 +61,7 @@ export function CreateHeader() {
         logout.classList.add("logout_item");
 
         const logoutBtn = document.createElement('a');
-        logoutBtn.href = '/logout';
+        logoutBtn.dataset.section = 'logout';
         logoutBtn.innerHTML = 'Выход';
 
         logout.appendChild(logoutBtn);

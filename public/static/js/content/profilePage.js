@@ -38,14 +38,14 @@ export class profilePage {
         }
         profileBlock.appendChild(stars);
 
-        profileBlock.appendChild(createProfileBtn('Отзывы'));
-        profileBlock.appendChild(createProfileBtn('Мои объявления'));
-        profileBlock.appendChild(createProfileBtn('Мои отзывы'));
-        profileBlock.appendChild(createProfileBtn('Избранное'));
-        profileBlock.appendChild(createProfileBtn('Сообщения'));
-        profileBlock.appendChild(createProfileBtn('Платные услуги'));
-        profileBlock.appendChild(createProfileBtn('Настройки'));
-        profileBlock.appendChild(createProfileBtn('Выход'));
+        profileBlock.appendChild(this.#createProfileBtn('Отзывы'));
+        profileBlock.appendChild(this.#createProfileBtn('Мои объявления'));
+        profileBlock.appendChild(this.#createProfileBtn('Мои отзывы'));
+        profileBlock.appendChild(this.#createProfileBtn('Избранное'));
+        profileBlock.appendChild(this.#createProfileBtn('Сообщения'));
+        profileBlock.appendChild(this.#createProfileBtn('Платные услуги'));
+        profileBlock.appendChild(this.#createProfileBtn('Настройки'));
+        profileBlock.appendChild(this.#createProfileBtn('Выход'));
 
         const contentBlock = document.createElement('div');
         contentBlock.classList.add('profile-info');
@@ -58,11 +58,12 @@ export class profilePage {
         content.appendChild(contentBlock);
         this.#parent.appendChild(content);
     }
+
+    #createProfileBtn(text) {
+        const btn = document.createElement('button');
+        btn.classList.add('profile-btn');
+        btn.innerHTML = text;
+        return btn;
+    }
 };
 
-function createProfileBtn(text) {
-    const btn = document.createElement('button');
-    btn.classList.add('profile-btn');
-    btn.innerHTML = text;
-    return btn;
-}
