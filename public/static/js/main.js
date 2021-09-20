@@ -1,4 +1,6 @@
 'use strict'
+import { profilePage } from "./content/profilePage.js";
+
 const wrapper = document.querySelector('.wrapper');
 const root = document.createElement('div');
 root.id = 'root';
@@ -78,7 +80,7 @@ function createHeader() {
         imgref.href = '';
         
         const img = document.createElement('img');
-        img.src = 'https://helpx.adobe.com/content/dam/help/en/photoshop/using/convert-color-image-black-white/jcr_content/main-pars/before_and_after/image-before/Landscape-Color.jpg';
+        img.src = '';
         imgref.appendChild(img);
         img.dataset.section = 'profile';
         content.appendChild(imgref);
@@ -106,19 +108,20 @@ function createHeader() {
         login.innerHTML = 'Войти';
         el3.appendChild(login);
         subnav.appendChild(el3);
-    
+
         Ajax.ajaxGet({
             url: '/me',
             body: null,
-            callback: (status) => {
+            callback: (status, responseText) => {
                 let isAuthorized = false;
     
                 if (status === 200) {
                     isAuthorized = true;
                 }
-    
                 if (isAuthorized) {
                     el3.style.display = 'none';
+                    const {profilePic} = JSON.parse(responseText);
+                    img.src = profilePic;
                 } else {
                     profile.style.display = 'none';
                 }
@@ -359,16 +362,16 @@ async function ModalWork() {
     }
 };
 
-document.addEventListener('click', e => {
-    const { target } = e;
-    e.preventDefault();
+// document.addEventListener('click', e => {
+//     const { target } = e;
+//     e.preventDefault();
 
-    if (target instanceof HTMLAnchorElement || target instanceof HTMLImageElement) {
-        e.preventDefault();
+//     if (target instanceof HTMLAnchorElement || target instanceof HTMLImageElement) {
+//         e.preventDefault();
 
-        configApp[target.dataset.section].open();
-    }
-});
+//         configApp[target.dataset.section].open();
+//     }
+// });
 
 // отладочная фигня для перехода в профиль
 Object

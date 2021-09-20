@@ -18,6 +18,8 @@ const users = {
         email: 'd.dorofeev@corp.mail.ru',
         password: 'password',
         name : 'dmitry',
+        profilePic : 'static/img/2spooky4me.jpg',
+        rating : 4,
     },
     's.volodin@corp.mail.ru': {
         email: 's.volodin@corp.mail.ru',
@@ -38,6 +40,8 @@ const users = {
         email: 'akek@mail.ru',
         password: 'password123',
         name : 'kek',
+        profilePic : 'static/img/avatar.jpeg',
+        rating : 5,
     },
 };
 
