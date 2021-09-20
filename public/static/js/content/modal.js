@@ -1,3 +1,4 @@
+import { CreateHeader } from "./header.js";
 // создает модальное
 export function CreateModal() {
     const wrapper = document.querySelector('.wrapper');
@@ -51,7 +52,7 @@ export function CreateModal() {
             body : {email, password},
             callback: (status) => {
                 if (status === 200) {
-                    createHeader();
+                    CreateHeader();
                     black.click();
                     return;
                 }
