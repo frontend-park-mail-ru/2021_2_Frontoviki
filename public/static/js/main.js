@@ -7,6 +7,7 @@ root.classList.add('content');
 ModalWork();
 wrapper.appendChild(root);
 createFooter();
+mainPage();
 
 const configApp = {
     menu: {
@@ -19,9 +20,12 @@ const configApp = {
         name: 'Профиль',
         open: profilePage,
     },
+    logout: {
+        href: '/logout',
+        name: 'Выйти',
+        open: mainPage,
+    }
 }
-
-mainPage();
 
 // отправка запроса на хедер и создание хедера
 function createHeader() {
@@ -42,8 +46,9 @@ function createHeader() {
         const el1 = document.createElement('li');
         el1.classList.add('main_elements');
         const brand = document.createElement('a');
-        brand.href = './index.html';
+        brand.href = '';
         brand.innerHTML = 'Volchock';
+        brand.dataset.section = 'menu';
         el1.appendChild(brand);
         subnav.appendChild(el1);
     
@@ -70,12 +75,12 @@ function createHeader() {
 
         console.log('profile created');
         const imgref = document.createElement('a');
-        imgref.href = '/profile';
-        imgref.dataset.section = 'profile';
-
+        imgref.href = '';
+        
         const img = document.createElement('img');
         img.src = 'https://helpx.adobe.com/content/dam/help/en/photoshop/using/convert-color-image-black-white/jcr_content/main-pars/before_and_after/image-before/Landscape-Color.jpg';
         imgref.appendChild(img);
+        img.dataset.section = 'profile';
         content.appendChild(imgref);
 
         const logout = document.createElement('li');
@@ -184,7 +189,6 @@ function createModal() {
 
         const email = logemail.value.trim();
         const password = logpassword.value.trim();
-        console.log('');
         Ajax.ajaxPost({
             url : '/login',
             body : {email, password},
@@ -221,10 +225,10 @@ function createModal() {
 
     const regForm = document.createElement('form');
 
-    const name = document.createElement('input');
-    name.type = 'name';
-    name.placeholder = 'Имя';
-    regForm.appendChild(name);
+    const nameR = document.createElement('input');
+    nameR.type = 'name';
+    nameR.placeholder = 'Имя';
+    regForm.appendChild(nameR);
 
     const emailR = document.createElement('input');
     emailR.type = 'email';
@@ -255,6 +259,25 @@ function createModal() {
     ent.innerHTML = 'Вход';
     regForm.appendChild(ent);
 
+    regForm.addEventListener('submit', (e) => {
+        e.preventDefault();
+
+        const name = nameR.value.trim();
+        const email = emailR.value.trim();
+        const password = passwordR.value.trim();;
+        Ajax.ajaxPost({
+            url : '/signup',
+            body : {email, password, name},
+            callback: (status) => {
+                if (status === 201) {
+                    ent.click();
+                    return;
+                }
+                alert('НЕ получилось не фартануло');
+              }
+        });
+    });
+
     regView.appendChild(regForm);
 
     modal.appendChild(regView);
@@ -267,7 +290,7 @@ function createModal() {
 
 ////////////// функции модального окна помогите разбить на модули :(
 
-/// выполняется создание хедера и  привязка к событиям
+/// выполняется создание хедера и  привязка к событиям в ней юзаю асинк, чтобы дождаться генерации всех нужных объектов
 async function ModalWork() {
     console.log('waiting for header');
     let promise = await createHeader();
@@ -336,11 +359,11 @@ async function ModalWork() {
     }
 };
 
-root.addEventListener('click', e => {
+document.addEventListener('click', e => {
     const { target } = e;
-    console.log(target.dataset.section);
+    e.preventDefault();
 
-    if (target instanceof HTMLAnchorElement) {
+    if (target instanceof HTMLAnchorElement || target instanceof HTMLImageElement) {
         e.preventDefault();
 
         configApp[target.dataset.section].open();
@@ -360,4 +383,4 @@ Object
     })
     .forEach((el) => {
         root.appendChild(el);
-    });
+});

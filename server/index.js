@@ -17,22 +17,27 @@ const users = {
     'd.dorofeev@corp.mail.ru': {
         email: 'd.dorofeev@corp.mail.ru',
         password: 'password',
+        name : 'dmitry',
     },
     's.volodin@corp.mail.ru': {
         email: 's.volodin@corp.mail.ru',
         password: 'password',
+        name : 'dmitry',
     },
     'aleksandr.tsvetkov@corp.mail.ru': {
         email: 'aleksandr.tsvetkov@corp.mail.ru',
         password: 'password',
+        name : 'dmitry',
     },
     'a.ostapenko@corp.mail.ru': {
         email: 'a.ostapenko@corp.mail.ru',
         password: 'password',
+        name : 'dmitry',
     },
     'akek@mail.ru': {
         email: 'akek@mail.ru',
         password: 'password123',
+        name : 'kek',
     },
 };
 
@@ -41,21 +46,23 @@ const ids = {};
 app.post('/signup', function (req, res) {
     const password = req.body.password;
     const email = req.body.email;
-    const age = req.body.age;
+    const name = req.body.name;
     if (
-        !password || !email || !age ||
+        !password || !email || !name ||
         !password.match(/^\S{4,}$/) ||
         !email.match(/@/) ||
-        !(typeof age === 'number' && age > 10 && age < 100)
+        !(name.length > 4)
     ) {
+        console.log('kel')
         return res.status(400).json({error: 'Не валидные данные пользователя'});
     }
     if (users[email]) {
+        console.log('kek')
         return res.status(400).json({error: 'Пользователь уже существует'});
     }
 
     const id = uuid();
-    const user = {password, email};
+    const user = {password, email, name};
     ids[id] = email;
     users[email] = user;
 
