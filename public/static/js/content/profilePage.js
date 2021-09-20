@@ -6,9 +6,10 @@ export class profilePage {
         this.#parent = parent;
     }
 
-    render({ name, rating, profilePic }) {
+    render(name, rating, profilePic) {
         this.#parent.innerHTML = '';
 
+        console.log(name, rating, profilePic);
         const content = document.createElement('div');
         content.classList.add('inner-profile-content');
 
@@ -25,8 +26,8 @@ export class profilePage {
 
         const nickname = document.createElement('div');
         nickname.classList.add('nickname');
-        nickname.innerHTML = 'The best ninja';
-        profileBlock.appendChild(name);
+        nickname.innerHTML = name;
+        profileBlock.appendChild(nickname);
 
         const stars = document.createElement('div');
         stars.classList.add('rating-result');
@@ -57,11 +58,11 @@ export class profilePage {
         content.appendChild(contentBlock);
         this.#parent.appendChild(content);
     }
-
-    createProfileBtn(text) {
-        const btn = document.createElement('button');
-        btn.classList.add('profile-btn');
-        btn.innerHTML = text;
-        return btn;
-    }
 };
+
+function createProfileBtn(text) {
+    const btn = document.createElement('button');
+    btn.classList.add('profile-btn');
+    btn.innerHTML = text;
+    return btn;
+}

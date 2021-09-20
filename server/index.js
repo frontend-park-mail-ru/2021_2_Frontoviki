@@ -39,7 +39,7 @@ const users = {
     'akek@mail.ru': {
         email: 'akek@mail.ru',
         password: 'password123',
-        name : 'kek',
+        name : 'kekek',
         profilePic : 'static/img/avatar.jpeg',
         rating : 5,
     },
