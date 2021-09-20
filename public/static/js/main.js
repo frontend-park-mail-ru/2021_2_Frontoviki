@@ -61,16 +61,16 @@ function createFooter() {
 }
 
 
-wrapper.addEventListener('click', e => {
-    const { target } = e;
-    e.preventDefault();
+// wrapper.addEventListener('click', e => {
+//     const { target } = e;
+//     e.preventDefault();
 
-    if (target instanceof HTMLAnchorElement || target instanceof HTMLImageElement) {
-        e.preventDefault();
+//     if (target instanceof HTMLAnchorElement || target instanceof HTMLImageElement) {
+//         e.preventDefault();
 
-        configApp[target.dataset.section].open();
-    }
-});
+//         configApp[target.dataset.section].open();
+//     }
+// });
 
 // отладочная фигня для перехода в профиль
 Object
