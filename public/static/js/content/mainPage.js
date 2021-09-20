@@ -1,7 +1,5 @@
 
 function mainPage() {
-
-    root.innerHTML = '';
     root.appendChild(createNavigation('Одежда', 'Картины', 'Телефоны'));
 
     const productClass = document.createElement('div');

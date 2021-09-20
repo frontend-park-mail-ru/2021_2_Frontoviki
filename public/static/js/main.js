@@ -4,7 +4,7 @@ const root = document.createElement('div');
 root.id = 'root';
 root.classList.add('content');
 
-createHeader();
+ModalWork();
 wrapper.appendChild(root);
 createFooter();
 
@@ -22,44 +22,38 @@ const configApp = {
 }
 
 mainPage();
-createModal();
 
 function createHeader() {
-    const header = document.createElement('header');
-    const nav = document.createElement('nav');
-    nav.classList.add('nav_menu');
-
-    const subnav = document.createElement('ul');
-    subnav.classList.add('sub_nav_menu');
-
-    const el1 = document.createElement('li');
-    el1.classList.add('main_elements');
-    const brand = document.createElement('a');
-    brand.href = './index.html';
-    brand.innerHTML = 'Volchock';
-    el1.appendChild(brand);
-    subnav.appendChild(el1);
-
-    const el2 = document.createElement('li');
-    el2.classList.add('main_elements');
-    const newAd = document.createElement('a');
-    newAd.href = './404.html';
-    newAd.innerHTML = 'Создать объявление';
-    el2.appendChild(newAd);
-    subnav.appendChild(el2);
-
-
-    if (true) {
-        const el3 = document.createElement('li');
-        el3.classList.add('main_elements');
-        const login = document.createElement('a');
-        login.id = 'auth';
-        login.href = '';
-        login.innerHTML = 'Войти';
-        el3.appendChild(login);
-        subnav.appendChild(el3);
+    let header = document.querySelector('#header')
+    if ( header != null) {
+        header.innerHTML = '';
+    } else {
+        header = document.createElement('header');
     }
-    else {
+    header.id = 'header';
+    let promise = new Promise((resolve, reject) => {
+        const nav = document.createElement('nav');
+        nav.classList.add('nav_menu');
+    
+        const subnav = document.createElement('ul');
+        subnav.classList.add('sub_nav_menu');
+    
+        const el1 = document.createElement('li');
+        el1.classList.add('main_elements');
+        const brand = document.createElement('a');
+        brand.href = './index.html';
+        brand.innerHTML = 'Volchock';
+        el1.appendChild(brand);
+        subnav.appendChild(el1);
+    
+        const el2 = document.createElement('li');
+        el2.classList.add('main_elements');
+        const newAd = document.createElement('a');
+        newAd.href = './404.html';
+        newAd.innerHTML = 'Создать объявление';
+        el2.appendChild(newAd);
+        subnav.appendChild(el2);
+
         const profile = document.createElement('li');
         profile.classList.add('dropdown');
         profile.classList.add('dropdown-9');
@@ -73,8 +67,10 @@ function createHeader() {
         const content = document.createElement('li');
         content.classList.add("dropdown_item");
 
+        console.log('profile created');
         const imgref = document.createElement('a');
-        imgref.href = '#';
+        imgref.href = '/profile';
+        imgref.dataset.section = 'profile';
 
         const img = document.createElement('img');
         img.src = 'https://helpx.adobe.com/content/dam/help/en/photoshop/using/convert-color-image-black-white/jcr_content/main-pars/before_and_after/image-before/Landscape-Color.jpg';
@@ -94,10 +90,43 @@ function createHeader() {
         menu.appendChild(logout);
         profile.appendChild(menu);
         subnav.appendChild(profile);
-    }
-    nav.appendChild(subnav);
-    header.appendChild(nav);
-    wrapper.appendChild(header);
+
+        const el3 = document.createElement('li');
+        el3.classList.add('main_elements');
+        console.log('login created');
+        const login = document.createElement('a');
+        login.id = 'auth';
+        login.href = '';
+        login.innerHTML = 'Войти';
+        el3.appendChild(login);
+        subnav.appendChild(el3);
+    
+        Ajax.ajaxGet({
+            url: '/me',
+            body: null,
+            callback: (status) => {
+                let isAuthorized = false;
+    
+                if (status === 200) {
+                    isAuthorized = true;
+                }
+    
+                if (isAuthorized) {
+                    el3.style.display = 'none';
+                } else {
+                    profile.style.display = 'none';
+                }
+            }
+        });
+        nav.appendChild(subnav);
+        header.appendChild(nav);
+        wrapper.prepend(header);
+        console.log('finish header');
+        createModal();
+        console.log('finish modal');
+        resolve('done');
+    });
+    return promise;
 }
 
 // создает футер
@@ -109,6 +138,9 @@ function createFooter() {
 
 // создает модальное
 function createModal() {
+    const black = document.createElement('div');
+    black.classList.add('blackout');
+
     const modal = document.createElement('div');
     modal.classList.add('modal-window');
 
@@ -131,20 +163,41 @@ function createModal() {
 
     const logForm = document.createElement('form');
 
-    const email = document.createElement('input');
-    email.type = 'email';
-    email.name = 'email';
-    email.placeholder = 'Email';
-    logForm.appendChild(email);
+    const logemail = document.createElement('input');
+    logemail.type = 'email';
+    logemail.name = 'email';
+    logemail.placeholder = 'Email';
+    logForm.appendChild(logemail);
 
-    const password = document.createElement('input');
-    password.type = 'password';
-    password.name = 'password';
-    password.placeholder = 'Пароль';
-    logForm.appendChild(password);
+    const logpassword = document.createElement('input');
+    logpassword.type = 'password';
+    logpassword.name = 'password';
+    logpassword.placeholder = 'Пароль';
+    logForm.appendChild(logpassword);
 
     const btn = document.createElement('input');
     btn.type = 'submit';
+
+    logForm.addEventListener('submit', (e) => {
+        e.preventDefault();
+
+        const email = logemail.value.trim();
+        const password = logpassword.value.trim();
+        console.log('');
+        Ajax.ajaxPost({
+            url : '/login',
+            body : {email, password},
+            callback: (status) => {
+                if (status === 200) {
+                    createHeader();
+                    black.click();
+                    return;
+                }
+                alert('НЕ получилось не фартануло');
+              }
+        });
+    });
+
     btn.value = 'Войти';
     logForm.appendChild(btn);
 
@@ -205,91 +258,93 @@ function createModal() {
 
     modal.appendChild(regView);
     modal.appendChild(loginView);
-    const black = document.createElement('div');
-    black.classList.add('blackout');
 
     root.appendChild(modal);
     root.appendChild(black);
 }
 
 
-root.addEventListener('click', e => {
-    const { target } = e;
-    console.log(target.dataset.section);
-
-    if (target instanceof HTMLAnchorElement) {
-        e.preventDefault();
-
-        configApp[target.dataset.section].open();
-    }
-});
-
 ////////////// функции модального окна помогите разбить на модули :(
 
-const modalWindow = document.querySelector('.modal-window');
-const blackout = document.querySelector('.blackout');
-blackout.addEventListener('click', e => {
-    e.preventDefault();
 
-    modalWindow.classList.remove('active');
-    blackout.classList.remove('active');
+async function ModalWork() {
+    console.log('waiting for header');
+    let promise = await createHeader();
+    console.log('finish waiting for header');
+    const modalWindow = document.querySelector('.modal-window');
+    console.log(modalWindow);
+    const blackout = document.querySelector('.blackout');
+    blackout.addEventListener('click', e => {
+        e.preventDefault();
 
-    const listener = function (e) {
-        modalWindow.removeEventListener('webkitTransitionEnd', listener, false);
+        modalWindow.classList.remove('active');
+        blackout.classList.remove('active');
+
+        const listener = function (e) {
+            modalWindow.removeEventListener('webkitTransitionEnd', listener, false);
+        }
+        modalWindow.addEventListener('webkitTransitionEnd', listener, false);
+    });
+
+    const authLink = document.getElementById('auth');
+    authLink.addEventListener('click', e => {
+        e.preventDefault();
+
+        replaceAuthForms('login');
+
+        modalWindow.classList.add('active');
+        blackout.classList.add('active');
+    });
+
+
+    // Добавляем возможность изменять форму логина на форму регистрации по клику по ссылке модального окна
+    const loginToSignupAnchor = document.getElementById('mf-login_to_signup');
+    loginToSignupAnchor.addEventListener('click', e => {
+        e.preventDefault();
+        replaceAuthForms('signup');
+    });
+
+
+    // Добавляем возможность изменять форму регистрации на форму логина по клику по ссылке модального окна
+    const signupToLoginAnchor = document.getElementById('mf-signup_to_login');
+    signupToLoginAnchor.addEventListener('click', e => {
+        e.preventDefault();
+        replaceAuthForms('login');
+    });
+
+
+    /**
+     * Заменяет формы логина и регистрации на модальном окне
+     * @param {string} replaceTo - строка, указывающая на что заменить
+     */
+    const replaceAuthForms = (replaceTo) => {
+        const loginBlock = document.getElementById('modal-login-form');
+        const signupBlock = document.getElementById('modal-signup-form');
+
+        switch (replaceTo) {
+            case 'signup':
+                signupBlock.className = "";
+                loginBlock.className = "mf-unactive";
+                break;
+
+            case 'login':
+                signupBlock.className = "mf-unactive";
+                loginBlock.className = "";
+                break;
+        }
     }
-    modalWindow.addEventListener('webkitTransitionEnd', listener, false);
-});
+};
 
+// wrapper.addEventListener('click', e => {
+//     const { target } = e;
+//     console.log(target.dataset.section);
 
-// Добавляем возможность показывать модальное окно по клику по ссылке в хэдере
-const authLink = document.getElementById('auth');
-authLink.addEventListener('click', e => {
-    e.preventDefault();
+//     if (target instanceof HTMLAnchorElement) {
+//         e.preventDefault();
 
-    replaceAuthForms('login');
-
-    modalWindow.classList.add('active');
-    blackout.classList.add('active');
-});
-
-
-// Добавляем возможность изменять форму логина на форму регистрации по клику по ссылке модального окна
-const loginToSignupAnchor = document.getElementById('mf-login_to_signup');
-loginToSignupAnchor.addEventListener('click', e => {
-    e.preventDefault();
-    replaceAuthForms('signup');
-});
-
-
-// Добавляем возможность изменять форму регистрации на форму логина по клику по ссылке модального окна
-const signupToLoginAnchor = document.getElementById('mf-signup_to_login');
-signupToLoginAnchor.addEventListener('click', e => {
-    e.preventDefault();
-    replaceAuthForms('login');
-});
-
-
-/**
- * Заменяет формы логина и регистрации на модальном окне
- * @param {string} replaceTo - строка, указывающая на что заменить
- */
-const replaceAuthForms = (replaceTo) => {
-    const loginBlock = document.getElementById('modal-login-form');
-    const signupBlock = document.getElementById('modal-signup-form');
-
-    switch (replaceTo) {
-        case 'signup':
-            signupBlock.className = "";
-            loginBlock.className = "mf-unactive";
-            break;
-
-        case 'login':
-            signupBlock.className = "mf-unactive";
-            loginBlock.className = "";
-            break;
-    }
-}
-
+//         configApp[target.dataset.section].open();
+//     }
+// });
 
 // отладочная фигня для перехода в профиль
 Object

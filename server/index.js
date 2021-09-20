@@ -32,7 +32,7 @@ const users = {
     },
     'akek@mail.ru': {
         email: 'akek@mail.ru',
-        password: 'password',
+        password: 'password123',
     },
 };
 
@@ -86,7 +86,7 @@ app.get('/logout', function(req, res) {
     console.log('kek');
 });
 
-app.get('/profile', function (req, res) {
+app.get('/me', function (req, res) {
     const id = req.cookies['podvorot'];
     const email = ids[id];
     if (!email || !users[email]) {
