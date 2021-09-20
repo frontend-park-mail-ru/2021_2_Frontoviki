@@ -23,6 +23,7 @@ const configApp = {
 
 mainPage();
 
+// отправка запроса на хедер и создание хедера
 function createHeader() {
     let header = document.querySelector('#header')
     if ( header != null) {
@@ -259,14 +260,14 @@ function createModal() {
     modal.appendChild(regView);
     modal.appendChild(loginView);
 
-    root.appendChild(modal);
-    root.appendChild(black);
+    wrapper.appendChild(modal);
+    wrapper.appendChild(black);
 }
 
 
 ////////////// функции модального окна помогите разбить на модули :(
 
-
+/// выполняется создание хедера и  привязка к событиям
 async function ModalWork() {
     console.log('waiting for header');
     let promise = await createHeader();
@@ -335,16 +336,16 @@ async function ModalWork() {
     }
 };
 
-// wrapper.addEventListener('click', e => {
-//     const { target } = e;
-//     console.log(target.dataset.section);
+root.addEventListener('click', e => {
+    const { target } = e;
+    console.log(target.dataset.section);
 
-//     if (target instanceof HTMLAnchorElement) {
-//         e.preventDefault();
+    if (target instanceof HTMLAnchorElement) {
+        e.preventDefault();
 
-//         configApp[target.dataset.section].open();
-//     }
-// });
+        configApp[target.dataset.section].open();
+    }
+});
 
 // отладочная фигня для перехода в профиль
 Object
