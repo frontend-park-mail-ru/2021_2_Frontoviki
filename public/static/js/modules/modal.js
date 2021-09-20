@@ -5,11 +5,8 @@ import { CreateHeader } from "../content/header.js";
 // Добавляем возможность скрывать модальное окно по клику по затемнению
 /// выполняется создание хедера и  привязка к событиям в ней юзаю асинк, чтобы дождаться генерации всех нужных объектов
 export async function ModalWork() {
-    console.log('waiting for header');
-    let promise = await CreateHeader();
-    console.log('finish waiting for header');
+    CreateHeader();
     const modalWindow = document.querySelector('.modal-window');
-    console.log(modalWindow);
     const blackout = document.querySelector('.blackout');
     blackout.addEventListener('click', e => {
         e.preventDefault();

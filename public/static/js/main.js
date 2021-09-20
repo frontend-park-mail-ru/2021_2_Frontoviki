@@ -81,15 +81,16 @@ function profile() {
 }
 
 function logout() {
-    let promise = new Promise(function (resolve, reject) {
-        Ajax.ajaxGet({
-            url: '/logout',
-            body: null,
-        });
-        resolve('done');
+    Ajax.ajaxGet({
+        url: '/logout',
+        body: null,
+        callback: (status) => {
+            if (status === 200) {
+                ModalWork();
+                main();
+            }
+        }
     });
-    promise.then(ModalWork);
-    mainPage();
 }
 
 function err() {

@@ -109,7 +109,7 @@ app.post('/login', function (req, res) {
 
 app.get('/logout', function(req, res) {
     res.clearCookie('podvorot');
-    res.redirect('/');
+    res.status(200).end();
 });
 
 app.get('/me', function (req, res) {
