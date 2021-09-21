@@ -30,7 +30,7 @@ footer {
     padding: 0.75rem;
     color: white;
     text-align: center;
-    font-size: 0.75rem;
+    font-size: 10pt;
     margin-top: auto;
 }
 
@@ -49,7 +49,7 @@ header>.nav_menu {
 
 .sub_nav_menu {
     margin: 0;
-    font-size: 20px;
+    font-size: 14pt;
 }
 
 .sub_nav_menu>li {
@@ -57,15 +57,14 @@ header>.nav_menu {
     list-style-type: none;
 }
 
-.sub_nav_menu>li::after {
+.sub_nav_menu>.main_elements::after {
     content: '|';
     color: white;
-    font-size: 1.2em;
     margin-right: 3px;
 }
 
-.sub_nav_menu>li:last-child:after {
-    content: '';
+.sub_nav_menu .hide {
+    display: none;
 }
 
 .sub_nav_menu>li>a {
@@ -201,4 +200,27 @@ header li.dropdown_item>a>img:hover {
     100% {
         transform: scale(1)
     }
+}
+
+/* изменение визуализации хэдера */
+@media only screen and (max-width: 1000px) {
+  .sub_nav_menu>li {
+    display: block;
+  }
+  
+  .sub_nav_menu>.main_elements::after {
+    content: '';
+  }
+}
+
+@media only screen and (max-width: 700px) {
+  .sub_nav_menu {
+    font-size: 12pt;
+  }
+}
+
+@media only screen and (max-width: 400px) {
+  .sub_nav_menu {
+    font-size: 10pt;
+  }
 }
