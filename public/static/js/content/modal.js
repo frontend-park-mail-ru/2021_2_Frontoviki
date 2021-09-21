@@ -99,18 +99,17 @@ export function CreateModal() {
         Ajax.ajaxPost({
             url: '/login',
             body: { email, password },
-            callback: (status) => {
+            callback: (status, res) => {
                 if (status === 200) {
                     // в случае если мы зашли убрать модальное и обновить хедер
                     CreateHeader();
                     black.click();
                     return;
                 }
-                // например неверный пароль
-                if (true) {
-                    logpassword.className = 'invalid';
-                }
-                alert('НЕ получилось не фартануло');
+
+                const {error} = JSON.parse(res);
+                logpassword.className = 'invalid';
+                promtPasswordInvalidLogin.innerHTML = error;
             }
         });
     });
@@ -269,19 +268,16 @@ export function CreateModal() {
         Ajax.ajaxPost({
             url: '/signup',
             body: { email, password, name },
-            callback: (status) => {
+            callback: (status, res) => {
                 if (status === 201) {
                     // если зарегались, показываем окно логина
                     ent.click();
                     return;
                 }
-                alert('НЕ получилось не фартануло');
-                // типа ошибка в том, что пользователь существует
-                if (true) {
-                    console.log('exist');
-                    promtUsernameAlrdyExist.classList.add('show');
-                    nameR.className = 'invalid';
-                }
+                
+                const {error} = JSON.parse(res);
+                emailR.className = 'invalid';
+                promtEmailAlrdyExist.classList.add('show');
             }
         });
     });
