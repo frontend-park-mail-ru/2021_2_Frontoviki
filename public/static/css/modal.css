@@ -86,7 +86,7 @@
   display: none;
 }
 
-.modal-window div form input, .modal-window div form p, .modal-window div div a {
+.modal-window div form input, .modal-window div div a {
   display: block;
 }
 
@@ -130,12 +130,23 @@
   color: #696969;
 }
 
-input.invalid + p.promt {
-  font-weight: bold;
-  color: var(--color-red);
+input + div {
+  display: none;
 }
 
-input.valid + p.promt {
+input.invalid + div.promt-block {
+  display: block;
+}
+
+p.server-invalid {
+  display: none;
+}
+
+p.show {
+  display: block;
+}
+
+p.show + p {
   display: none;
 }
 
