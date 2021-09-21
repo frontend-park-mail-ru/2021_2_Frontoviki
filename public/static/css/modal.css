@@ -113,6 +113,32 @@
   color: black;
 }
 
+.modal-window input[type="text"].valid,
+.modal-window input[type="email"].valid,
+.modal-window input[type="password"].valid {
+  border-color: var(--color-lime);
+}
+
+.modal-window input[type="text"].invalid,
+.modal-window input[type="email"].invalid,
+.modal-window input[type="password"].invalid {
+  border-color: var(--color-red);
+}
+
+.modal-window p.promt {
+  font-size: 8pt;
+  color: #696969;
+}
+
+input.invalid + p.promt {
+  font-weight: bold;
+  color: var(--color-red);
+}
+
+input.valid + p.promt {
+  display: none;
+}
+
 .modal-window div form input[type="submit"] {
   padding: 15px 10px;
   margin-bottom: 10px;

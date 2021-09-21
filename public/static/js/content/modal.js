@@ -26,6 +26,7 @@ export function CreateModal() {
     loginView.appendChild(entry);
 
     const logForm = document.createElement('form');
+    logForm.classList.add('modal-form');
 
     const logemail = document.createElement('input');
     logemail.type = 'email';
@@ -33,11 +34,21 @@ export function CreateModal() {
     logemail.placeholder = 'Email';
     logForm.appendChild(logemail);
 
+    const promtEmail = document.createElement('p');
+    promtEmail.classList.add('promt');
+    promtEmail.innerHTML = 'Емайл должен быть валидным';
+    logForm.appendChild(promtEmail);
+
     const logpassword = document.createElement('input');
     logpassword.type = 'password';
     logpassword.name = 'password';
     logpassword.placeholder = 'Пароль';
     logForm.appendChild(logpassword);
+
+    const promtPassword = document.createElement('p');
+    promtPassword.classList.add('promt');
+    promtPassword.innerHTML = 'Пароль должен состоять из букв, цифр и спец символов, длинной от 8 символов';
+    logForm.appendChild(promtPassword);
 
     const btn = document.createElement('input');
     btn.type = 'submit';
@@ -83,9 +94,11 @@ export function CreateModal() {
     regView.appendChild(regText);
 
     const regForm = document.createElement('form');
+    regForm.classList.add('modal-form');
 
     const nameR = document.createElement('input');
-    nameR.type = 'name';
+    nameR.type = 'username';
+    nameR.type = 'username';
     nameR.placeholder = 'Имя';
     regForm.appendChild(nameR);
 
