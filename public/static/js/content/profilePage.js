@@ -23,7 +23,7 @@ export class profilePage {
         this.#parent = parent;
     }
 
-    render(name, rating, profilePic) {
+    render(name, rating, profilePic, ads) {
         this.#parent.innerHTML = '';
 
         console.log(name, rating, profilePic);
@@ -69,8 +69,7 @@ export class profilePage {
         const blockText = document.createElement('h1');
         blockText.innerHTML = 'Ваши объявления';
         contentBlock.appendChild(blockText);
-        const debug = [ad, ad1, ad, ad1, ad1]
-        contentBlock.appendChild(createProductGrid(debug));
+        contentBlock.appendChild(createProductGrid(ads));
 
         content.appendChild(profileBlock);
         content.appendChild(contentBlock);

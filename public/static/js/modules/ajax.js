@@ -35,7 +35,7 @@
             xhr.send();
         }
     }
-
+    
     window.Ajax = new Ajax();
 })();
 

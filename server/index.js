@@ -36,6 +36,10 @@ const users = {
         name : 'dmitry',
         profilePic : 'static/img/2spooky4me.jpg',
         rating : 4,
+        ads : [
+            ad1,
+            ad1,
+        ]
     },
     's.volodin@corp.mail.ru': {
         email: 's.volodin@corp.mail.ru',
@@ -58,6 +62,13 @@ const users = {
         name : 'kekek',
         profilePic : 'static/img/avatar.jpeg',
         rating : 5,
+        ads : [
+            ad,
+            ad,
+            ad1,
+            ad,
+            ad1,
+        ]
     },
 };
 

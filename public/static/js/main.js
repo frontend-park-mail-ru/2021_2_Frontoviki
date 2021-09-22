@@ -73,8 +73,8 @@ function profile() {
             }
             if (isAuthorized) {
                 const profile = new profilePage(root);
-                const { name, profilePic, rating } = JSON.parse(responseText);
-                profile.render(name, rating, profilePic);
+                const { name, profilePic, rating, ads } = JSON.parse(responseText);
+                profile.render(name, rating, profilePic, ads);
             }
         }
     });
