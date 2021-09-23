@@ -78,6 +78,8 @@ app.post('/signup', function (req, res) {
     const password = req.body.password;
     const email = req.body.email;
     const name = req.body.name;
+    const rating = req.body.rating;
+    const profilePic = req.body.profilePic;
     if (
         !password || !email || !name ||
         !password.match(/^\S{4,}$/) ||
@@ -93,7 +95,7 @@ app.post('/signup', function (req, res) {
     }
 
     const id = uuid();
-    const user = {password, email, name};
+    const user = {password, email, name, rating, profilePic};
     ids[id] = email;
     users[email] = user;
 
