@@ -103,7 +103,7 @@ app.post('/signup', function (req, res) {
     res.status(201).json({id});
 });
 
-app.post('/login', function (req, res) {
+app.post('/login', function(req, res) {
     const password = req.body.password;
     const email = req.body.email;
     if (!password || !email) {
@@ -136,6 +136,6 @@ app.get('/me', function (req, res) {
 
 const port = process.env.PORT || 8080;
 
-app.listen(port, function () {
+app.listen(port, function() {
     console.log(`Server listening port ${port}`);
 });

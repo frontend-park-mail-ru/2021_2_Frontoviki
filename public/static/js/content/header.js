@@ -7,6 +7,11 @@ import {createModal} from './modal.js';
   * разные виды хедера
 */
 export function createHeader() {
+  // отправляем запрос до начала отрисовки
+  const res = Ajax.asyncGetUsingFetch({
+    url: '/me',
+    body: null,
+  });
   const wrapper = document.querySelector('.wrapper');
   let header = document.querySelector('#header');
 
@@ -84,27 +89,22 @@ export function createHeader() {
   login.innerHTML = 'Войти';
   el3.appendChild(login);
   subnav.appendChild(el3);
+  res.then(({status, parsedBody}) => {
+    let isAuthorized = false;
 
-  Ajax.ajaxGet({
-    url: '/me',
-    body: null,
-    callback: (status, responseText) => {
-      let isAuthorized = false;
-
-      if (status === 200) {
-        isAuthorized = true;
+    if (status === 200) {
+      isAuthorized = true;
+    }
+    if (isAuthorized) {
+      el3.style.display = 'none';
+      const {profilePic} = parsedBody;
+      img.src = 'public/static/img/default_image.jpg';
+      if (profilePic != null) {
+        img.src = profilePic;
       }
-      if (isAuthorized) {
-        el3.style.display = 'none';
-        const {profilePic} = JSON.parse(responseText);
-        img.src = 'public/static/img/default_image.jpg';
-        if (profilePic != null) {
-          img.src = profilePic;
-        }
-      } else {
-        profile.style.display = 'none';
-      }
-    },
+    } else {
+      profile.style.display = 'none';
+    }
   });
   nav.appendChild(subnav);
   header.appendChild(nav);

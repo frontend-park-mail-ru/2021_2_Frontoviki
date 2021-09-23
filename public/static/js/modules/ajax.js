@@ -51,6 +51,28 @@
 
       xhr.send();
     }
+
+    /**
+     * Функция для отправки get запросов на промисах
+     * @param {any} args args параметры для генерации запроса
+     * @return {Promise}
+     */
+    async asyncGetUsingFetch(args = {}) {
+      const response = await fetch(args.url, {
+        method: AJAX_METHODS.GET,
+      });
+      // ошибка пустого json ловится и не ломает все
+      const parsedBody = await response.json().catch(() => {
+        return {};
+      }).then((data) => {
+        return data;
+      });
+      const {status} = response;
+      return {
+        status,
+        parsedBody,
+      };
+    };
   }
 
   window.Ajax = new Ajax();

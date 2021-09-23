@@ -68,21 +68,21 @@ function main() {
  * Функция создания профиля
  */
 function profile() {
-  Ajax.ajaxGet({
-    url: '/me',
-    body: null,
-    callback: (status, responseText) => {
-      let isAuthorized = false;
+  const res = Ajax.asyncGetUsingFetch({url: '/me', body: null});
+  res.then(({status, parsedBody})=> {
+    console.log(status instanceof Number, parsedBody);
+    let isAuthorized = false;
 
-      if (status === 200) {
-        isAuthorized = true;
-      }
-      if (isAuthorized) {
-        const profile = new ProfilePage(root);
-        const {name, profilePic, rating, ads} = JSON.parse(responseText);
-        profile.render(name, rating, profilePic, ads);
-      }
-    },
+    if (status === 200) {
+      isAuthorized = true;
+      console.log('kek?');
+    }
+    if (isAuthorized) {
+      console.log('kek?');
+      const profile = new ProfilePage(root);
+      const {name, profilePic, rating, ads} = parsedBody;
+      profile.render(name, rating, profilePic, ads);
+    }
   });
 }
 
@@ -90,15 +90,10 @@ function profile() {
  * Функция выхода из авторизации
 */
 function logout() {
-  Ajax.ajaxGet({
-    url: '/logout',
-    body: null,
-    callback: (status) => {
-      if (status === 200) {
-        modalWork();
-        main();
-      }
-    },
+  const res = Ajax.asyncGetUsingFetch({url: '/logout', body: null});
+  res.then(()=> {
+    modalWork();
+    main();
   });
 }
 
