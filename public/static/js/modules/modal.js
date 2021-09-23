@@ -2,9 +2,10 @@
 
 import {createHeader} from '../content/header.js';
 
-// Добавляем возможность скрывать модальное окно по клику по затемнению
-// / выполняется создание хедера и  привязка к событиям в ней юзаю асинк, чтобы дождаться генерации всех нужных объектов
-export async function modalWork() {
+/**
+  * Добавляем возможность скрывать модальное окно по клику по затемнению
+*/
+export function modalWork() {
   createHeader();
   const modalWindow = document.querySelector('.modal-window');
   const blackout = document.querySelector('.blackout');
@@ -31,15 +32,20 @@ export async function modalWork() {
   });
 
 
-  // Добавляем возможность изменять форму логина на форму регистрации по клику по ссылке модального окна
+  /**
+   * Добавляем возможность изменять форму логина на форму регистрации
+   * по клику по ссылке модального окна
+  */
   const loginToSignupAnchor = document.getElementById('mf-login_to_signup');
   loginToSignupAnchor.addEventListener('click', (e) => {
     e.preventDefault();
     replaceAuthForms('signup');
   });
 
-
-  // Добавляем возможность изменять форму регистрации на форму логина по клику по ссылке модального окна
+  /**
+   * Добавляем возможность изменять форму регистрации на форму
+   *  логина по клику по ссылке модального окна
+   */
   const signupToLoginAnchor = document.getElementById('mf-signup_to_login');
   signupToLoginAnchor.addEventListener('click', (e) => {
     e.preventDefault();

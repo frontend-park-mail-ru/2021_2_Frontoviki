@@ -1,12 +1,29 @@
 import {createProductGrid} from './productGrid.js';
 
-export class profilePage {
+/**
+  * Экспортируемый класс для генерации страницы профиля с сеткой
+  * товаров
+  * Пока в тестовом режиме!!!
+*/
+export class ProfilePage {
     #parent
 
+    /**
+     * Конструктор класса
+     * @param {HTMLElement} parent - родительский элемент страницы,
+     *  в который записывается весь контент, чаще всего root
+    */
     constructor(parent) {
       this.#parent = parent;
     }
 
+    /**
+     * функция отрисовки страницы профиля
+     * @param {string} name имя пользователя
+     * @param {int} rating рейтинг
+     * @param {string} profilePic ссылка на аватар
+     * @param {array<JSON>} ads массив объявлений пользователя
+     */
     render(name, rating, profilePic, ads) {
       this.#parent.innerHTML = '';
 
@@ -62,6 +79,11 @@ export class profilePage {
       this.#parent.appendChild(content);
     }
 
+    /**
+     * Вспомогательная функция для генерации кнопок
+     * @param {string} text текст кнопки
+     * @return {HTMLButtonElemt}
+     */
     #createProfileBtn(text) {
       const btn = document.createElement('button');
       btn.classList.add('profile-btn');

@@ -1,9 +1,9 @@
 'use strict';
-import {profilePage} from './content/profilePage.js';
+import {ProfilePage} from './content/profilePage.js';
 import {modalWork} from './modules/modal.js';
-import {errorPage} from './content/404Page.js';
+import {ErrorPage} from './content/404Page.js';
 import {createFooter} from './content/footer.js';
-import {mainPage} from './content/mainPage.js';
+import {MainPage} from './content/mainPage.js';
 
 const wrapper = document.querySelector('.wrapper');
 const root = document.createElement('div');
@@ -56,11 +56,17 @@ const configApp = {
   },
 };
 
+/**
+ * Функция генерации основного окна
+ */
 function main() {
-  const mainPg = new mainPage(root);
-  mainPg.render('Новое', 'Картины', ['мышка', 'клавиатура', 'монитор'], ad, ad1, ad, ad, ad1);
+  const mainPg = new MainPage(root);
+  mainPg.render('Новое', 'Картины',
+      ['мышка', 'клавиатура', 'монитор'], ad, ad1, ad, ad, ad1);
 }
-
+/**
+ * Функция создания профиля
+ */
 function profile() {
   Ajax.ajaxGet({
     url: '/me',
@@ -72,7 +78,7 @@ function profile() {
         isAuthorized = true;
       }
       if (isAuthorized) {
-        const profile = new profilePage(root);
+        const profile = new ProfilePage(root);
         const {name, profilePic, rating, ads} = JSON.parse(responseText);
         profile.render(name, rating, profilePic, ads);
       }
@@ -80,6 +86,9 @@ function profile() {
   });
 }
 
+/**
+ * Функция выхода из авторизации
+*/
 function logout() {
   Ajax.ajaxGet({
     url: '/logout',
@@ -93,17 +102,22 @@ function logout() {
   });
 }
 
+/**
+ * Геренация страницы с ошибкой
+ */
 function err() {
-  const err = new errorPage(root);
+  const err = new ErrorPage(root);
   err.render();
 }
 
 
-// этот код нужен чтобы привязывать переход по ссылкам к функциям отрисовки, но он пока ломает ссылки без отрисовки типо logout
+// этот код нужен чтобы привязывать переход по ссылкам к функциям отрисовки
+// но пока из за него много ошибок в консоли
 wrapper.addEventListener('click', (e) => {
   const {target} = e;
 
-  if (target instanceof HTMLAnchorElement || target instanceof HTMLImageElement) {
+  if (target instanceof HTMLAnchorElement ||
+      target instanceof HTMLImageElement) {
     e.preventDefault();
     configApp[target.dataset.section].open();
   }

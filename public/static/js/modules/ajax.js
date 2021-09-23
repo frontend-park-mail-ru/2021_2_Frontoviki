@@ -6,16 +6,33 @@
     GET: 'GET',
   };
 
+  /**
+   * Класс для отправки сообщений на сервер
+   * используется xmlhttpRequest. Нужно переписать на fetch
+   */
   class Ajax {
+    /**
+     * функция для отправки get запросов
+     * @param {any} args параметры для генерации запроса
+     * @return {function}
+     */
     ajaxGet(args) {
       return this.#ajax({method: AJAX_METHODS.GET, ...args});
     }
-
+    /**
+     * функция для отправки post запросов
+     * @param {any} args параметры для генерации запроса
+     * @return {function}
+    */
     ajaxPost(args) {
       return this.#ajax({method: AJAX_METHODS.POST, ...args});
     }
 
-        #ajax({method = AJAX_METHODS.GET, url = '/', body = null, callback = noop}) {
+    /**
+     * основная реализация отправки запросов
+     */
+    #ajax({method = AJAX_METHODS.GET, url = '/',
+      body = null, callback = noop}) {
       const xhr = new XMLHttpRequest();
       xhr.open(method, url, true);
       xhr.withCredentials = true;

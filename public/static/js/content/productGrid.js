@@ -1,3 +1,8 @@
+/**
+  * Экспортируемая функция для создания сетки объявлений
+  * @param {Array<JSON>} jsonElements массив объявлений в формате json
+  * @return {HTMLDivElemnt} div элемент сетки
+*/
 export function createProductGrid(jsonElements) {
   const productGrid = document.createElement('div');
   productGrid.classList.add('product-grid');
@@ -7,13 +12,24 @@ export function createProductGrid(jsonElements) {
 
   for (let i = 0; i < jsonElements.length; i++) {
     const {href, src, name, productPrice, location} = jsonElements[i];
-    productList.appendChild(createProduct(href, src, name, productPrice, location));
+    productList.appendChild(
+        createProduct(href, src, name, productPrice, location));
   }
 
   productGrid.appendChild(productList);
   return productGrid;
 }
 
+/**
+  * Экспортируемая функция для создания одного объявления
+  * @param {string} href ссылка на объявление
+  * @param {string} src ссылка на аватар объявления
+  * @param {string} name название объявления
+  * @param {string} productPrice
+  * цена продукта пока в виде строки для разных валют???
+  * @param {string} location место сделки
+  * @return {HTMLDivElemnt} div элемент объявления
+  */
 function createProduct(href, src, name, productPrice, location) {
   const product = document.createElement('div');
   product.classList.add('card');

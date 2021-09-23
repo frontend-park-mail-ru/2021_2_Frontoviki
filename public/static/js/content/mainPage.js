@@ -4,7 +4,7 @@ import {createProductGrid} from './productGrid.js';
   * Экспортируемый класс для генерации страницы с сеткой
   * товаров, поиском и меню категорий
 */
-export class mainPage {
+export class MainPage {
     #parent
 
     /**

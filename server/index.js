@@ -13,15 +13,15 @@ app.use(express.static(path.resolve(__dirname, '..', 'public')));
 app.use(body.json());
 app.use(cookie());
 
-let ad = {
-    href: '',
-    src: "./static/img/2spooky4me.jpg",
-    name: 'Картина',
-    productPrice: "100$",
-    location: "Москва"
-}
+const ad = {
+  href: '',
+  src: './static/img/2spooky4me.jpg',
+  name: 'Картина',
+  productPrice: '100$',
+  location: 'Москва',
+};
 
-let ad1 = {
+const ad1 = {
     href: '',
     src: "./static/img/shpicz.jpg",
     name: 'Кек',
