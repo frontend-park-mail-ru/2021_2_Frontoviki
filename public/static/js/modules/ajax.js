@@ -52,13 +52,18 @@
       xhr.send();
     }
 
+    /**
+     * Функция для отправки пост запросов
+     * @param {any} args аргументы для запроса
+     * @return {Promise}
+     */
     async asyncPostUsingFetch(args={}) {
       const response = await fetch(args.url, {
         method: AJAX_METHODS.POST,
         mode: 'cors',
         credentials: 'same-origin',
         headers: {
-          'Content-type': 'application/json;charset=utf-8'
+          'Content-type': 'application/json;charset=utf-8',
         },
         body: JSON.stringify(args.body),
       });
