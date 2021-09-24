@@ -101,21 +101,21 @@ export function createModal() {
 
     const email = logemail.value.trim();
     const password = logpassword.value.trim();
-    Ajax.ajaxPost({
+    const response = Ajax.asyncPostUsingFetch({
       url: '/login',
-      body: {email, password},
-      callback: (status, res) => {
-        if (status === 200) {
-          // в случае если мы зашли убрать модальное и обновить хедер
-          createHeader();
-          black.click();
-          return;
-        }
+      body: {email, password}});
 
-        const {error} = JSON.parse(res);
-        logpassword.className = 'invalid';
-        promtPasswordInvalidLogin.innerHTML = error;
-      },
+    response.then(({status, parsedBody}) => {
+      if (status === 200) {
+        // в случае если мы зашли убрать модальное и обновить хедер
+        createHeader();
+        black.click();
+        return;
+      }
+
+      const {error} = parsedBody;
+      logpassword.className = 'invalid';
+      promtPasswordInvalidLogin.innerHTML = error;
     });
   });
 
@@ -278,23 +278,22 @@ export function createModal() {
     const rating = 0;
     const profilePic = 'static/img/default_image.jpg';
 
-    Ajax.ajaxPost({
-      url: '/signup',
-      body: {email, password, name, rating, profilePic},
-      callback: (status, res) => {
-        if (status === 201) {
-          // если зарегались, показываем окно логина
-          ent.click();
-          return;
-        }
+    const response = Ajax.asyncPostUsingFetch({url: '/signup',
+      body: {email, password, name, rating, profilePic}});
 
-        const {error} = JSON.parse(res);
-        console.log(error);
-        if (error != null) {
-          emailR.className = 'invalid';
-          promtEmailAlrdyExist.classList.add('show');
-        }
-      },
+    response.then(({status, parsedBody}) => {
+      if (status === 201) {
+        // если зарегались, показываем окно логина
+        ent.click();
+        return;
+      }
+
+      const {error} = parsedBody;
+      console.log(error);
+      if (error != null) {
+        emailR.className = 'invalid';
+        promtEmailAlrdyExist.classList.add('show');
+      }
     });
   });
 

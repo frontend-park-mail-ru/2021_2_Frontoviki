@@ -62,8 +62,8 @@ export function createHeader() {
   const imgref = document.createElement('a');
 
   const img = document.createElement('img');
-  imgref.appendChild(img);
   img.dataset.section = 'profile';
+  imgref.appendChild(img);
   content.appendChild(imgref);
 
   const logout = document.createElement('li');

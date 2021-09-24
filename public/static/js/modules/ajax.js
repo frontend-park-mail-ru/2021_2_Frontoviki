@@ -16,9 +16,9 @@
      * @param {any} args параметры для генерации запроса
      * @return {function}
      */
-    ajaxGet(args) {
-      return this.#ajax({method: AJAX_METHODS.GET, ...args});
-    }
+    // ajaxGet(args) {
+    //   return this.#ajax({method: AJAX_METHODS.GET, ...args});
+    // }
     /**
      * функция для отправки post запросов
      * @param {any} args параметры для генерации запроса
@@ -50,6 +50,29 @@
       }
 
       xhr.send();
+    }
+
+    async asyncPostUsingFetch(args={}) {
+      const response = await fetch(args.url, {
+        method: AJAX_METHODS.POST,
+        mode: 'cors',
+        credentials: 'same-origin',
+        headers: {
+          'Content-type': 'application/json;charset=utf-8'
+        },
+        body: JSON.stringify(args.body),
+      });
+
+      const parsedBody = await response.json().catch(() => {
+        return {};
+      }).then((data) => {
+        return data;
+      });
+      const {status} = response;
+      return {
+        status,
+        parsedBody,
+      };
     }
 
     /**
