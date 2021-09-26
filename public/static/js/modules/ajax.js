@@ -1,6 +1,5 @@
 
 (function() {
-  const noop = () => {};
   const AJAX_METHODS = {
     POST: 'POST',
     GET: 'GET',

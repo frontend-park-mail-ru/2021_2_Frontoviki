@@ -1,9 +1,9 @@
 'use strict';
-import {ProfilePage} from './content/profilePage.js';
+import {ProfilePage} from './content/pages/profilePage.js';
 import {modalWork} from './modules/modal.js';
-import {ErrorPage} from './content/404Page.js';
+import {ErrorPage} from './content/pages/404Page.js';
 import {createFooter} from './content/templates/footer/footer.js';
-import {MainPage} from './content/mainPage.js';
+import {MainPage} from './content/pages/mainPage.js';
 import {adsArray, navigation, categories} from './constatns.js';
 
 const wrapper = document.querySelector('.wrapper');

@@ -61,16 +61,12 @@ export function modalWork() {
     const loginBlock = document.getElementById('modal-login-form');
     const signupBlock = document.getElementById('modal-signup-form');
 
-    switch (replaceTo) {
-      case 'signup':
-        signupBlock.className = '';
-        loginBlock.className = 'mf-unactive';
-        break;
-
-      case 'login':
-        signupBlock.className = 'mf-unactive';
-        loginBlock.className = '';
-        break;
+    if (replaceTo === 'signup') {
+      signupBlock.className = '';
+      loginBlock.className = 'mf-unactive';
+    } else {
+      signupBlock.className = 'mf-unactive';
+      loginBlock.className = '';
     }
   };
 };

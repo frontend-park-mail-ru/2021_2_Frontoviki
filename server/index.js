@@ -41,21 +41,6 @@ const users = {
             ad1,
         ]
     },
-    's.volodin@corp.mail.ru': {
-        email: 's.volodin@corp.mail.ru',
-        password: 'password',
-        name : 'dmitry',
-    },
-    'aleksandr.tsvetkov@corp.mail.ru': {
-        email: 'aleksandr.tsvetkov@corp.mail.ru',
-        password: 'password',
-        name : 'dmitry',
-    },
-    'a.ostapenko@corp.mail.ru': {
-        email: 'a.ostapenko@corp.mail.ru',
-        password: 'password',
-        name : 'dmitry',
-    },
     'akek@mail.ru': {
         email: 'akek@mail.ru',
         password: 'password123',
