@@ -1,0 +1,20 @@
+<section class="cards">
+  {{#each adsArray}}
+    <div class="card">
+      <a href="{{href}}">
+        <div class="image-container">
+          <figure>
+            <img src="{{src}}" alt="Картинка объявления" />
+            <figcaption>
+              <h3>{{name}}</h3>
+            </figcaption>
+          </figure>
+        </div>
+        <div class="card-info">
+          <p>{{location}}</p>
+          <p class="card_price">{{productPrice}}</p>
+        </div>
+      </a>
+    </div>
+  {{/each}}
+</section>

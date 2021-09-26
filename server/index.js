@@ -99,7 +99,6 @@ app.post('/signup', function (req, res) {
     ids[id] = email;
     users[email] = user;
 
-    res.cookie('podvorot', id, {expires: new Date(Date.now() + 1000 * 60 * 10)});
     res.status(201).json({id});
 });
 
@@ -116,7 +115,11 @@ app.post('/login', function(req, res) {
     const id = uuid();
     ids[id] = email;
 
-    res.cookie('podvorot', id, {expires: new Date(Date.now() + 1000 * 60 * 10)});
+    res.cookie('podvorot', id, {
+        secure: true,
+        httpOnly: true,
+        expires: new Date(Date.now() + 1000 * 60 * 10),
+    });
     res.status(200).json({id});
 });
 
@@ -125,7 +128,7 @@ app.get('/logout', function(req, res) {
     res.status(200).end();
 });
 
-app.get('/me', function (req, res) {
+app.get('/me', function(req, res) {
     const id = req.cookies['podvorot'];
     const email = ids[id];
     if (!email || !users[email]) {

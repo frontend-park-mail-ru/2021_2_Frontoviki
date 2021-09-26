@@ -1,4 +1,4 @@
-import {createProductGrid} from './productGrid.js';
+import {createProductGrid} from './templates/productGrid/productGrid.js';
 
 /**
   * Экспортируемый класс для генерации страницы профиля с сеткой
