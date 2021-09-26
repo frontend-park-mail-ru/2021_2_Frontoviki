@@ -36,7 +36,7 @@ export const navigation = {
 
 export const categories = [
   {
-    title: 'мышка',
+    title: 'Кек',
     href: '',
   },
   {

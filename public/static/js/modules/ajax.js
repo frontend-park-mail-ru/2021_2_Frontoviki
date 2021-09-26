@@ -62,7 +62,6 @@
       };
     };
   }
-
   window.Ajax = new Ajax();
 })();
 

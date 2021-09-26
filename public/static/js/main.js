@@ -1,6 +1,6 @@
 'use strict';
 import {ProfilePage} from './content/pages/profilePage.js';
-import {modalWork} from './modules/modal.js';
+import {modalWork} from './modules/modalWork.js';
 import {ErrorPage} from './content/pages/404Page.js';
 import {createFooter} from './content/templates/footer/footer.js';
 import {MainPage} from './content/pages/mainPage.js';
@@ -20,7 +20,7 @@ main();
 /**
  * Функция генерации основного окна
  */
-function main() {
+export function main() {
   const mainPg = new MainPage(root);
   mainPg.render(navigation, categories, adsArray);
 }
@@ -35,10 +35,8 @@ function profile() {
 
     if (status === 200) {
       isAuthorized = true;
-      console.log('kek?');
     }
     if (isAuthorized) {
-      console.log('kek?');
       const profile = new ProfilePage(root);
       const {name, profilePic, rating, ads} = parsedBody;
       profile.render(name, rating, profilePic, ads);
