@@ -28,7 +28,7 @@ export function main() {
  * Функция создания профиля
  */
 function profile() {
-  const res = Ajax.asyncGetUsingFetch({url: '/me', body: null});
+  const res = Ajax.asyncGetUsingFetch({url: 'http://89.19.190.83:5001/users/profile', body: null});
   res.then(({status, parsedBody})=> {
     console.log(status instanceof Number, parsedBody);
     let isAuthorized = false;
@@ -48,7 +48,7 @@ function profile() {
  * Функция выхода из авторизации
 */
 function logout() {
-  const res = Ajax.asyncGetUsingFetch({url: '/logout', body: null});
+  const res = Ajax.asyncGetUsingFetch({url: 'http://89.19.190.83:5001/logout', body: null});
   res.then(()=> {
     modalWork();
     main();

@@ -102,7 +102,7 @@ export function createModal() {
     const email = logemail.value.trim();
     const password = logpassword.value.trim();
     const response = Ajax.asyncPostUsingFetch({
-      url: '/login',
+      url: 'http://89.19.190.83:5001/signin',
       body: {email, password}});
 
     response.then(({status, parsedBody}) => {
@@ -278,7 +278,7 @@ export function createModal() {
     const rating = 0;
     const profilePic = 'static/img/default_image.jpg';
 
-    const response = Ajax.asyncPostUsingFetch({url: '/signup',
+    const response = Ajax.asyncPostUsingFetch({url: 'http://89.19.190.83:5001/users/signup',
       body: {email, password, name, rating, profilePic}});
 
     response.then(({status, parsedBody}) => {

@@ -9,7 +9,7 @@ import {createModal} from './modal.js';
 export function createHeader() {
   // отправляем запрос до начала отрисовки
   const res = Ajax.asyncGetUsingFetch({
-    url: '/me',
+    url: 'http://89.19.190.83:5001/users/profile',
     body: null,
   });
   const wrapper = document.querySelector('.wrapper');
