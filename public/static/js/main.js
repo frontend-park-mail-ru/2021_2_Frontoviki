@@ -21,8 +21,17 @@ main();
  * Функция генерации основного окна
  */
 export function main() {
-  const mainPg = new MainPage(root);
-  mainPg.render(navigation, categories, adsArray);
+  const res = Ajax.asyncGetUsingFetch({url: 'http://89.19.190.83:5001', body: null});
+  res.then(({status, parsedBody})=> {
+    if (status === 200) {
+      isAuthorized = true;
+    }
+    if (isAuthorized) {
+      const mainPg = new MainPage(root);
+      const {advts} = parsedBody;
+      mainPg.render(navigation, categories, advts);
+    }
+  });
 }
 /**
  * Функция создания профиля
@@ -30,7 +39,6 @@ export function main() {
 function profile() {
   const res = Ajax.asyncGetUsingFetch({url: 'http://89.19.190.83:5001/users/profile', body: null});
   res.then(({status, parsedBody})=> {
-    console.log(status instanceof Number, parsedBody);
     let isAuthorized = false;
 
     if (status === 200) {
