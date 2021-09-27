@@ -39,15 +39,20 @@ export function main() {
 function profile() {
   const res = Ajax.asyncGetUsingFetch({url: 'http://89.19.190.83:5001/users/profile', body: null});
   res.then(({status, parsedBody})=> {
+    if (status != 200) {
+      return;
+    }
+    const {code} = parsedBody;
     let isAuthorized = false;
-
-    if (status === 200) {
+    if (code === 200) {
       isAuthorized = true;
     }
     if (isAuthorized) {
-      const profile = new ProfilePage(root);
-      const {name, profilePic, rating, ads} = parsedBody;
-      profile.render(name, rating, profilePic, ads);
+      const profilepg = new ProfilePage(root);
+      const {body} = parsedBody;
+      const {profile} = body;
+      const {email, profilePic, rating, ads} = profile;
+      profilepg.render(email, rating, profilePic, ads);
     }
   });
 }
