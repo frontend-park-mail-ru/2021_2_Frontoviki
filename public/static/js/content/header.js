@@ -90,15 +90,20 @@ export function createHeader() {
   el3.appendChild(login);
   subnav.appendChild(el3);
   res.then(({status, parsedBody}) => {
+    if (status != 200) {
+      return;
+    }
     let isAuthorized = false;
-
-    if (status === 200) {
+    const {code} = parsedBody;
+    console.log('code is ', code);
+    if (code === 200) {
       isAuthorized = true;
     }
     if (isAuthorized) {
+      console.log('AAAAAAAAAAAAA');
       el3.style.display = 'none';
       const {profilePic} = parsedBody;
-      img.src = 'public/static/img/default_image.jpg';
+      img.src = 'static/img/default_image.jpg';
       if (profilePic != null) {
         img.src = profilePic;
       }

@@ -106,16 +106,21 @@ export function createModal() {
       body: {email, password}});
 
     response.then(({status, parsedBody}) => {
-      if (status === 200) {
+      if (status != 200) {
+        return;
+      }
+      console.log(parsedBody);
+      const {code} = parsedBody;
+      if (code === 200) {
         // в случае если мы зашли убрать модальное и обновить хедер
         createHeader();
         black.click();
         return;
       }
 
-      const {error} = parsedBody;
+      const {message} = parsedBody;
       logpassword.className = 'invalid';
-      promtPasswordInvalidLogin.innerHTML = error;
+      promtPasswordInvalidLogin.innerHTML = message;
     });
   });
 

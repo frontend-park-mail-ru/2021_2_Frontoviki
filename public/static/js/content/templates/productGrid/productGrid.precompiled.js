@@ -17,8 +17,8 @@ templates['productGrid'] = template({"1":function(container,depth0,helpers,parti
     + "</h3>\n            </figcaption>\n          </figure>\n        </div>\n        <div class=\"card-info\">\n          <p>"
     + alias4(((helper = (helper = lookupProperty(helpers,"location") || (depth0 != null ? lookupProperty(depth0,"location") : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"location","hash":{},"data":data,"loc":{"start":{"line":14,"column":13},"end":{"line":14,"column":25}}}) : helper)))
     + "</p>\n          <p class=\"card_price\">"
-    + alias4(((helper = (helper = lookupProperty(helpers,"productPrice") || (depth0 != null ? lookupProperty(depth0,"productPrice") : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"productPrice","hash":{},"data":data,"loc":{"start":{"line":15,"column":32},"end":{"line":15,"column":48}}}) : helper)))
-    + "</p>\n        </div>\n      </a>\n    </div>\n";
+    + alias4(((helper = (helper = lookupProperty(helpers,"price") || (depth0 != null ? lookupProperty(depth0,"price") : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"price","hash":{},"data":data,"loc":{"start":{"line":15,"column":32},"end":{"line":15,"column":41}}}) : helper)))
+    + " ₽</p>\n        </div>\n      </a>\n    </div>\n";
 },"compiler":[8,">= 4.3.0"],"main":function(container,depth0,helpers,partials,data) {
     var stack1, lookupProperty = container.lookupProperty || function(parent, propertyName) {
         if (Object.prototype.hasOwnProperty.call(parent, propertyName)) {

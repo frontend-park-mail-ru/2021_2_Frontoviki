@@ -54,7 +54,7 @@ export class ProfilePage {
       const exitBtn = document.querySelector('#exit');
       exitBtn.addEventListener('click', (e)=> {
         e.preventDefault();
-        const res = Ajax.asyncGetUsingFetch({url: '/logout', body: null});
+        const res = Ajax.asyncPostUsingFetch({url: 'http://89.19.190.83:5001/logout', body: null});
         res.then(()=> {
           modalWork();
           main();

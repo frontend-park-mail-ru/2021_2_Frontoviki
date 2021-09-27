@@ -4,7 +4,7 @@ import {modalWork} from './modules/modalWork.js';
 import {ErrorPage} from './content/pages/404Page.js';
 import {createFooter} from './content/templates/footer/footer.js';
 import {MainPage} from './content/pages/mainPage.js';
-import {adsArray, navigation, categories} from './constatns.js';
+import {navigation, categories} from './constatns.js';
 
 const wrapper = document.querySelector('.wrapper');
 const root = document.createElement('div');
@@ -23,12 +23,12 @@ main();
 export function main() {
   const res = Ajax.asyncGetUsingFetch({url: 'http://89.19.190.83:5001', body: null});
   res.then(({status, parsedBody})=> {
-    if (status === 200) {
-      isAuthorized = true;
-    }
-    if (isAuthorized) {
+    console.log(parsedBody);
+    const {code} = parsedBody;
+    if (code === 200) {
       const mainPg = new MainPage(root);
-      const {advts} = parsedBody;
+      const {body} = parsedBody;
+      const {advts} = body;
       mainPg.render(navigation, categories, advts);
     }
   });
@@ -56,7 +56,7 @@ function profile() {
  * Функция выхода из авторизации
 */
 function logout() {
-  const res = Ajax.asyncGetUsingFetch({url: 'http://89.19.190.83:5001/logout', body: null});
+  const res = Ajax.asyncPostUsingFetch({url: 'http://89.19.190.83:5001/logout', body: null});
   res.then(()=> {
     modalWork();
     main();

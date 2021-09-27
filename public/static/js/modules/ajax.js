@@ -19,10 +19,9 @@
       const response = await fetch(args.url, {
         method: AJAX_METHODS.POST,
         mode: 'cors',
-        credentials: 'same-origin',
+        credentials: 'include',
         headers: {
-          'Content-type': 'application/json;charset=utf-8',
-          'mode': 'cors',
+          'Content-Type': 'application/json',
         },
         body: JSON.stringify(args.body),
       });
@@ -48,8 +47,13 @@
       const response = await fetch(args.url, {
         method: AJAX_METHODS.GET,
         mode: 'cors',
+        credentials: 'include',
+        headers: {
+          'Content-Type': 'application/json',
+        },
       });
       // ошибка пустого json ловится и не ломает все
+      console.log(response);
       const parsedBody = await response.json().catch(() => {
         return {};
       }).then((data) => {
