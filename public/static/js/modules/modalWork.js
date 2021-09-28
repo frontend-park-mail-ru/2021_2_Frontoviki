@@ -11,7 +11,7 @@ export function modalWork() {
   const blackout = document.querySelector('.blackout');
   blackout.addEventListener('click', (e) => {
     e.preventDefault();
-
+    clearModal();
     modalWindow.classList.remove('active');
     blackout.classList.remove('active');
 
@@ -68,5 +68,16 @@ export function modalWork() {
       signupBlock.className = 'mf-unactive';
       loginBlock.className = '';
     }
+  };
+
+  const clearModal = () => {
+    const promts = document.querySelectorAll('.promt');
+    promts.forEach((item) => {
+      item.classList.remove('show');
+    });
+    const logpassword = document.querySelector('#logpass');
+    logpassword.classList = '';
+    const passwordR = document.querySelector('#passwordR');
+    passwordR.classList = '';
   };
 };

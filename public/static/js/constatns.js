@@ -56,3 +56,12 @@ Handlebars.registerHelper('times', function(n, block) {
   }
   return accum;
 });
+
+export const validationErrors = {
+  passwordMissmatch: 'Неверный пароль',
+  noSuchUser: 'Пользователя не существует',
+  emailIsUsed: 'Пользователь с такой почтой уже существует',
+  nameError: `Имя пользователя должно быть от 5 до 
+    20 символов и состоять только из букв`,
+};
+

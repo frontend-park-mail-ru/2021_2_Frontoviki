@@ -1,4 +1,5 @@
 import {createHeader} from './header.js';
+import {validationErrors} from '../constatns.js';
 
 /**
   * Экспортируемая функция для генерации модального окна
@@ -54,6 +55,7 @@ export function createModal() {
 
   /* Инпут пароля с блоком подсказок */
   const logpassword = document.createElement('input');
+  logpassword.id = 'logpass';
   logpassword.type = 'password';
   logpassword.name = 'password';
   logpassword.placeholder = 'Пароль';
@@ -68,7 +70,7 @@ export function createModal() {
 
   const promtPasswordInvalidLogin = document.createElement('p');
   promtPasswordInvalidLogin.classList.add('promt');
-  promtPasswordInvalidLogin.innerHTML = 'Неверный пароль';
+  promtPasswordInvalidLogin.innerHTML = validationErrors.passwordMissmatch;
   promtPasswordBlockLogin.appendChild(promtPasswordInvalidLogin);
   logForm.appendChild(promtPasswordBlockLogin);
   /* конец блока подсказок логина */
@@ -77,7 +79,7 @@ export function createModal() {
   btn.type = 'submit';
 
   const patterns = {
-    username: /^[a-z\d]{5,20}$/i,
+    username: /^[a-zА-Яа-я()\d]{5,20}$/i,
     email: /^[a-zA-Z0-9]+@[a-zA-Z0-9]+\.[a-zA-Z0-9]+$/,
     /* /^(?=.*[0-9])(?=.*[!@#$%^&*])(?=.*[a-z])(?=.*[A-Z])
     [0-9a-zA-Z!@#$%^&*]{8,}$/i, */
@@ -117,14 +119,28 @@ export function createModal() {
       }
 
       const {message} = parsedBody;
+      switch (message) {
+        case 'user with this email not exist': {
+          promtPasswordInvalidLogin.innerHTML = validationErrors.noSuchUser;
+          break;
+        }
+        case 'no rights to access this resource': {
+          promtPasswordInvalidLogin.innerHTML =
+            validationErrors.passwordMissmatch;
+          break;
+        }
+        default: {
+          promtPasswordInvalidLogin.innerHTML = 'Непредвиденная ошибка';
+          break;
+        };
+      }
       logpassword.className = 'invalid';
-      promtPasswordInvalidLogin.innerHTML = message;
     });
   });
-
   btn.value = 'Войти';
   logForm.appendChild(btn);
 
+  // тут регистрация
   const reg = document.createElement('a');
   reg.href = '';
   reg.id = 'mf-login_to_signup';
@@ -170,8 +186,7 @@ export function createModal() {
 
   const promtUsernameInvalidName = document.createElement('p');
   promtUsernameInvalidName.classList.add('promt');
-  promtUsernameInvalidName.innerHTML = 
-    'Имя пользователя должно быть от 5 до 20 символов и состоять только из букв';
+  promtUsernameInvalidName.innerHTML = validationErrors.nameError;
   promtUsernameBlock.appendChild(promtUsernameInvalidName);
   regForm.appendChild(promtUsernameBlock);
 
@@ -193,15 +208,10 @@ export function createModal() {
   promtEmailBlock.name = 'signup-email';
 
   const promtEmailAlrdyExist = document.createElement('p');
+  promtEmailAlrdyExist.id = 'emailExst';
   promtEmailAlrdyExist.classList.add('promt', 'server-invalid');
   promtEmailAlrdyExist.innerHTML = 'Этот емайл уже используется';
   promtEmailBlock.appendChild(promtEmailAlrdyExist);
-
-  const promtEmailInvalidName = document.createElement('p');
-  promtEmailInvalidName.classList.add('promt');
-  promtEmailInvalidName.innerHTML =
-    'Неверный формат емайла (пример: exam@ple.com)';
-  promtEmailBlock.appendChild(promtEmailInvalidName);
   regForm.appendChild(promtEmailBlock);
 
   /* Инпут пароля с блоком подсказок */
@@ -230,6 +240,7 @@ export function createModal() {
 
   /* Инпут повтора пароля с блоком подсказок */
   const passwordRepR = document.createElement('input');
+  passwordRepR.id = 'passwordR';
   passwordRepR.type = 'password';
   passwordRepR.name = 'password';
   passwordRepR.placeholder = 'Повторите Пароль';
@@ -240,6 +251,7 @@ export function createModal() {
   promtRepPasswordBlock.name = 'signup-password';
 
   const promtRepPasswordInvalid = document.createElement('p');
+  promtRepPasswordInvalid.id = 'passrep';
   promtRepPasswordInvalid.classList.add('promt');
   promtRepPasswordInvalid.innerHTML = 'Пароли должны совпадать';
   promtRepPasswordBlock.appendChild(promtRepPasswordInvalid);
@@ -281,12 +293,11 @@ export function createModal() {
     const rating = 0;
     const profilePic = 'static/img/default_image.jpg';
 
-    const response = Ajax.asyncPostUsingFetch({url: 'http://89.19.190.83:5001/users/signup',
+    const response = Ajax.asyncPostUsingFetch({url: 'http://89.19.190.83:5001/signup',
       body: {email, password, name, rating, profilePic}});
 
     response.then(({status, parsedBody}) => {
-      console.log(status, parsedBody);
-      if (status != 201) {
+      if (status != 200) {
         return;
       }
       const {code} = parsedBody;
