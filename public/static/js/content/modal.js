@@ -83,7 +83,7 @@ export function createModal() {
     email: /^[a-zA-Z0-9]+@[a-zA-Z0-9]+\.[a-zA-Z0-9]+$/,
     /* /^(?=.*[0-9])(?=.*[!@#$%^&*])(?=.*[a-z])(?=.*[A-Z])
     [0-9a-zA-Z!@#$%^&*]{8,}$/i, */
-    password: /^[a-z\d]{5,20}$/i,
+    password: /^[a-zA-z0-9!@#$%^&*.,$№%\d]{8,}$/i,
   };
 
   const validate = (field, regex) => {
