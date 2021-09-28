@@ -287,7 +287,6 @@ export function createModal() {
       body: {email, password, name, rating, profilePic}});
 
     response.then(({status, parsedBody}) => {
-      console.log('kek');
       console.log(status, parsedBody);
       if (status != 201) {
         return;
@@ -301,11 +300,8 @@ export function createModal() {
         black.click();
         return;
       }
-      const {message} = parsedBody;
-      if (message != null) {
-        emailR.className = 'invalid';
-        promtEmailAlrdyExist.classList.add('show');
-      }
+      emailR.className = 'invalid';
+      promtEmailAlrdyExist.classList.add('show');
     });
   });
 
