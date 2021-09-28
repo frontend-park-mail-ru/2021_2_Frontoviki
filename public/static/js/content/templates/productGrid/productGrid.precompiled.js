@@ -11,7 +11,7 @@ templates['productGrid'] = template({"1":function(container,depth0,helpers,parti
   return "    <div class=\"card\">\n      <a href=\""
     + alias4(((helper = (helper = lookupProperty(helpers,"href") || (depth0 != null ? lookupProperty(depth0,"href") : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"href","hash":{},"data":data,"loc":{"start":{"line":4,"column":15},"end":{"line":4,"column":23}}}) : helper)))
     + "\">\n        <div class=\"image-container\">\n          <figure>\n            <img src=\""
-    + alias4(((helper = (helper = lookupProperty(helpers,"src") || (depth0 != null ? lookupProperty(depth0,"src") : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"src","hash":{},"data":data,"loc":{"start":{"line":7,"column":22},"end":{"line":7,"column":29}}}) : helper)))
+    + alias4(((helper = (helper = lookupProperty(helpers,"image") || (depth0 != null ? lookupProperty(depth0,"image") : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"image","hash":{},"data":data,"loc":{"start":{"line":7,"column":22},"end":{"line":7,"column":31}}}) : helper)))
     + "\" alt=\"Картинка объявления\" />\n            <figcaption>\n              <h3>"
     + alias4(((helper = (helper = lookupProperty(helpers,"name") || (depth0 != null ? lookupProperty(depth0,"name") : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"name","hash":{},"data":data,"loc":{"start":{"line":9,"column":18},"end":{"line":9,"column":26}}}) : helper)))
     + "</h3>\n            </figcaption>\n          </figure>\n        </div>\n        <div class=\"card-info\">\n          <p>"

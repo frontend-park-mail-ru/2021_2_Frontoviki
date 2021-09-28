@@ -82,7 +82,6 @@ export function createHeader() {
 
   const el3 = document.createElement('li');
   el3.classList.add('main_elements');
-  console.log('login created');
   const login = document.createElement('a');
   login.id = 'auth';
   login.href = '';
