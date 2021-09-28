@@ -82,8 +82,6 @@ export function createModal() {
     /* /^(?=.*[0-9])(?=.*[!@#$%^&*])(?=.*[a-z])(?=.*[A-Z])
     [0-9a-zA-Z!@#$%^&*]{8,}$/i, */
     password: /^[a-z\d]{5,20}$/i,
-    telephone: /^\d{11}$/,
-    slug: /^[a-z\d-]{8,20}$/i,
   };
 
   const validate = (field, regex) => {
@@ -172,8 +170,8 @@ export function createModal() {
 
   const promtUsernameInvalidName = document.createElement('p');
   promtUsernameInvalidName.classList.add('promt');
-  promtUsernameInvalidName.innerHTML =
-    'Имя пользователя должно быть от 5 до 20 символов';
+  promtUsernameInvalidName.innerHTML = 
+    'Имя пользователя должно быть от 5 до 20 символов и состоять только из букв';
   promtUsernameBlock.appendChild(promtUsernameInvalidName);
   regForm.appendChild(promtUsernameBlock);
 
