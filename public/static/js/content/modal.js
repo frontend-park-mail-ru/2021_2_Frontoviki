@@ -287,15 +287,22 @@ export function createModal() {
       body: {email, password, name, rating, profilePic}});
 
     response.then(({status, parsedBody}) => {
-      if (status === 201) {
-        // если зарегались, показываем окно логина
-        ent.click();
+      console.log('kek');
+      console.log(status, parsedBody);
+      if (status != 201) {
         return;
       }
-
-      const {error} = parsedBody;
-      console.log(error);
-      if (error != null) {
+      const {code} = parsedBody;
+      console.log(parsedBody);
+      console.log('kek');
+      if (code === 201) {
+        // если зарегались, показываем окно логина
+        createHeader();
+        black.click();
+        return;
+      }
+      const {message} = parsedBody;
+      if (message != null) {
         emailR.className = 'invalid';
         promtEmailAlrdyExist.classList.add('show');
       }

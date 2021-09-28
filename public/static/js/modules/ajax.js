@@ -53,7 +53,6 @@
         },
       });
       // ошибка пустого json ловится и не ломает все
-      console.log(response);
       const parsedBody = await response.json().catch(() => {
         return {};
       }).then((data) => {

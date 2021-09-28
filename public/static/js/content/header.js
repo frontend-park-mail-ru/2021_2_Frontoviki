@@ -95,12 +95,10 @@ export function createHeader() {
     }
     let isAuthorized = false;
     const {code} = parsedBody;
-    console.log('code is ', code);
     if (code === 200) {
       isAuthorized = true;
     }
     if (isAuthorized) {
-      console.log('AAAAAAAAAAAAA');
       el3.style.display = 'none';
       const {profilePic} = parsedBody;
       img.src = 'static/img/default_image.jpg';

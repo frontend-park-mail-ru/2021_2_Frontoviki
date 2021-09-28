@@ -62,7 +62,8 @@ function profile() {
 */
 function logout() {
   const res = Ajax.asyncPostUsingFetch({url: 'http://89.19.190.83:5001/logout', body: null});
-  res.then(()=> {
+  res.then(({status, parsedBody})=> {
+    console.log(status, parsedBody);
     modalWork();
     main();
   });
