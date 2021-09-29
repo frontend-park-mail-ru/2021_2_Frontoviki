@@ -1,4 +1,5 @@
 import {createModal} from './modal.js';
+import {domainUrl, secureDomainUrl} from '../constatns.js';
 
 /**
   * Создает хедер страницы, при этом происходит
@@ -9,7 +10,7 @@ import {createModal} from './modal.js';
 export function createHeader() {
   // отправляем запрос до начала отрисовки
   const res = Ajax.asyncGetUsingFetch({
-    url: 'http://89.19.190.83:5001/users/profile',
+    url: secureDomainUrl + 'users/profile',
     body: null,
   });
   const wrapper = document.querySelector('.wrapper');
@@ -84,7 +85,6 @@ export function createHeader() {
   el3.classList.add('main_elements');
   const login = document.createElement('a');
   login.id = 'auth';
-  login.href = '';
   login.innerHTML = 'Войти';
   el3.appendChild(login);
   subnav.appendChild(el3);

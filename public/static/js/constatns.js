@@ -28,7 +28,7 @@ export const adsArray = [
 ];
 
 export const navigation = {
-  category: 'Исккуство',
+  category: 'Искуcство',
   subCategory: 'Картины',
   categoryHref: '',
   subCategoryHref: '',
@@ -65,3 +65,5 @@ export const validationErrors = {
     20 символов и состоять только из букв`,
 };
 
+export const domainUrl = 'http://www.volchock.ru/';
+export const secureDomainUrl = 'https://www.volchock.ru/';

@@ -1,5 +1,6 @@
 import {createHeader} from './header.js';
 import {validationErrors} from '../constatns.js';
+import { domainUrl, secureDomainUrl} from '../constatns.js';
 
 /**
   * Экспортируемая функция для генерации модального окна
@@ -102,7 +103,7 @@ export function createModal() {
     const email = logemail.value.trim();
     const password = logpassword.value.trim();
     const response = Ajax.asyncPostUsingFetch({
-      url: 'http://89.19.190.83:5001/signin',
+      url: secureDomainUrl + 'signin',
       body: {email, password}});
 
     response.then(({status, parsedBody}) => {
@@ -293,7 +294,7 @@ export function createModal() {
     const rating = 0;
     const profilePic = 'static/img/default_image.jpg';
 
-    const response = Ajax.asyncPostUsingFetch({url: 'http://89.19.190.83:5001/signup',
+    const response = Ajax.asyncPostUsingFetch({url: secureDomainUrl +'signup',
       body: {email, password, name, rating, profilePic}});
 
     response.then(({status, parsedBody}) => {
