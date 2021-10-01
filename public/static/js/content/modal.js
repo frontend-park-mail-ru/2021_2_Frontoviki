@@ -305,7 +305,6 @@ export function createModal() {
       console.log(parsedBody);
       console.log('kek');
       if (code === 201) {
-        // если зарегались, показываем окно логина
         createHeader();
         black.click();
         return;
