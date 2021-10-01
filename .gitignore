@@ -1,4 +1,4 @@
-html_storage
 node_modules
-server
+server/
+html_storage/
 *.txt
