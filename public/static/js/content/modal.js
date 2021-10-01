@@ -301,6 +301,7 @@ export function createModal() {
       if (status != 200) {
         return;
       }
+      console.log('registation done', status, parsedBody);
       const {code} = parsedBody;
       console.log(parsedBody);
       console.log('kek');
