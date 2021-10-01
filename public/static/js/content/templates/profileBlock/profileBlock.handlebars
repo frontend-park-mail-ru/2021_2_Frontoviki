@@ -1,0 +1,19 @@
+
+    <div class="profile-block">
+        <h1>Профиль</h1>
+        {{!-- поменять на шаблон когда добавим загрузку аватарок --}}
+        <img src="../../../../../static/img/default_image.jpg">
+        <div class="nickname">{{name}}</div>
+        <div class="rating-result">
+            {{#times rating }}
+            <span class="active"></span>
+            {{/times}}
+        </div>
+    <button id='reviews' class="profile-btn">Отзывы</button>
+    <button id='ads' class="profile-btn">Мои объявления</a>
+    <button id='my-reviews' class="profile-btn">Мои отзывы</a>
+    <button id='fav' class="profile-btn">Избранное</a>
+    <button id='messages' class="profile-btn">Сообщения</button>
+    <button id='paid' class="profile-btn">Платные услуги</button>
+    <button id='settings' class="profile-btn">Настройки</button>
+    <button id='exit' class="profile-btn">Выход</button>

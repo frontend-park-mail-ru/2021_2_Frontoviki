@@ -1,0 +1,80 @@
+:root {
+    --color-soft-blue: #56baed;
+    --color-soft-black: #272727;
+	
+}
+
+body {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    box-sizing: border-box;
+    font-family: "Montserrat", Verdana, sans-serif;
+}
+
+.content {
+    width: 1200px;
+	margin: auto;
+	min-height: calc(100vh - 70px);
+}
+
+
+.footer {
+    background-color: var(--color-soft-black);
+    padding: 0.75rem;
+    color: white;
+    text-align: center;
+    font-size: 0.75rem;
+    flex-shrink: 0;
+	height: 50px;
+
+	
+}
+
+.header {
+    background: var(--color-soft-black);
+    font-family: "Montserrat", Verdana, sans-serif;
+    position: relative;
+    width: 100%;
+    padding-top: 20px;
+    padding-bottom: 20px;
+	margin-bottom: 40px;
+}
+
+.header > .nav_menu {
+    text-align: center;
+}
+
+.header > .nav_menu > a {
+    margin-right: 10px;
+    color: #f6f4e6;
+    text-decoration: none;
+    font-size: 1.2em;
+    text-transform: uppercase;
+    font-weight: 500;
+    display: inline-block;
+    transition: all 0.2s ease-in-out;
+}
+
+.header > .nav_menu > a:hover {
+    /*color: #93CAED;*/
+    color: var(--color-soft-blue);
+}
+
+.custom_button {
+    display: block;
+    margin: auto;
+	margin-top: 15px;
+    margin-bottom: 10px;
+    text-align: center;
+
+    width: 150px;
+    padding: 10px;
+    background-color: white;
+    border: 2px solid var(--color-soft-blue);
+    border-radius: 10px;
+    text-decoration: none;
+    color: var(--color-soft-black);
+    font-size: 12pt;
+    transition: all 0.5s ease;
+}

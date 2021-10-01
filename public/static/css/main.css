@@ -1,0 +1,158 @@
+/* Для профиля */
+
+.inner-profile-content {
+  display: flex;
+  justify-content: space-between;
+  padding: 1em;
+  box-sizing: border-box;
+  margin-top: 50px;
+}
+
+.profile-block {
+  margin-left: 5%;
+  margin-right: 5%;
+}
+
+.profile-block>img {
+  width: 200px;
+  height: 200px;
+  border-radius: 100%;
+}
+
+.nickname {
+  margin: 10px;
+  font-size: 18pt;
+}
+
+.rating {
+  margin: 10px;
+  font-size: larger;
+}
+
+.profile-btn {
+  display: block;
+  margin: auto;
+  margin-bottom: 10px;
+  text-align: center;
+
+  width: 150px;
+  padding: 10px;
+  background-color: white;
+  border: 2px solid var(--color-soft-blue);
+  border-radius: 10px;
+  text-decoration: none;
+  color: var(--color-soft-black);
+  font-size: 12pt;
+  transition: all 0.5s ease;
+}
+
+.profile-btn:hover {
+  background-color: var(--color-soft-blue);
+  color: white;
+}
+
+.profile-info {
+  width: 80%;
+  margin-right: 5%;
+}
+
+.nickname {
+  text-align: center;
+  margin: 20px;
+  padding: 3px;
+}
+
+.rating {
+  text-align: center;
+  margin: 20px;
+  padding: 3px;
+}
+
+/* Форма нового объявления */
+
+.new-ad-form label {
+  font-size: 1.5rem;
+}
+
+.new-ad-form {
+  padding-left: 20%;
+  text-align: start;
+}
+
+.contact-info {
+  font-size: 1.7rem;
+  color: #111;
+  font-family: ‘Helvetica Neue’, sans-serif;
+  font-weight: bold;
+  letter-spacing: -1px;
+  line-height: 1;
+  text-align: center;
+}
+
+.new-ad-form input {
+  margin-top: 20px;
+  margin-left: 30px;
+  width: 20rem;
+  font-size: 1.2rem;
+}
+
+input.choose {
+  width: 1rem;
+}
+
+.condition-btn {
+  width: 2rem;
+  font-size: 0.7rem;
+}
+
+.new-ad-form textarea {
+  margin-top: 20px;
+  margin-left: 30px;
+  font-size: 1.2rem;
+}
+
+#fname {
+  margin-left: 8rem;
+}
+
+#fcat {
+  margin-left: 17.2rem;
+}
+
+#fcond {
+  margin-left: 17rem;
+}
+
+#fdesc {
+  margin-left: 7.5rem;
+}
+
+#fprice {
+  margin-left: 21rem;
+}
+
+#fplace {
+  margin-left: 0px;
+  width: 35rem;
+}
+
+a.glo {
+  color: #0288ad;
+  padding: 10px 20px;
+  width: 10rem;
+  text-decoration: none;
+  text-align: center;
+  margin: 20px auto;
+  display: block;
+  background-image: linear-gradient( to left, transparent, transparent 50%, #0288ad 50%, #0288ad);
+  background-position: 100% 0;
+  background-size: 200% 100%;
+  transition: all 0.25s ease-in;
+  font: 400 18px tahoma;
+  border: 1px solid #0288ad;
+}
+
+a.glo:hover {
+  background-position: 0 0;
+  color: #fff;
+}

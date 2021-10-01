@@ -1,0 +1,226 @@
+:root {
+  /* z-index у модального окна больше чем у затемнения! */
+  --blackout-z-index: 20;
+  --modal-z-index: 30;
+  /* одинаковая анимация при появлении / закрытии модального окна */
+  --transition-params: 0.3s all;
+}
+
+.blackout {
+  opacity: 0;
+  visibility: hidden;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: var(--blackout-z-index);
+  transition: var(--transition-params);
+}
+
+.modal-window {
+  opacity: 0;
+  visibility: hidden;
+  width: 100%;
+  max-width: 700px;
+  position: fixed;
+  display: flex;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: var(--modal-z-index);
+  box-shadow: 0 3px 10px -0.5px rgba(0, 0, 0, 0.2);
+  /*padding: 30px;*/
+  border-radius: 3px;
+  background-color: white;
+  transition-property: opacity, visibility;
+  transition: var(--transition-params);
+}
+
+.active {
+  opacity: 1;
+  visibility: visible;
+}
+
+.modal-window .socials {
+  margin-right: 10px;
+  padding-top: 30px;
+  padding-bottom: 30px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  border-right: 1px solid #56443F;
+}
+
+.modal-window>.socials {
+  flex: 40%;
+  background: linear-gradient(45deg, rgba(0, 0, 0, 1) 0%, rgba(5, 55, 65, 1) 100%);
+  padding-top: 10px;
+  padding-bottom: 10px;
+  color: white;
+}
+
+.modal-window>.socials>h1 {
+  text-align: center;
+}
+
+.modal-window>.socials>* {
+  margin-left: auto;
+  margin-right: auto;
+}
+
+#modal-login-form, #modal-signup-form {
+  flex: 60%;
+  padding-top: 30px;
+  padding-bottom: 10px;
+  padding-left: 10px;
+}
+
+.mf-unactive {
+  display: none;
+}
+
+.modal-window .mf-signup-unactive {
+  display: none;
+}
+
+.modal-window div form input, .modal-window div div a {
+  display: block;
+}
+
+.modal-window div form>* {
+  font-size: 13pt;
+}
+
+.modal-window div form input {
+  display: block;
+  padding: 15px 10px;
+  margin-bottom: 10px;
+  width: 90%;
+  border: 1px solid var(--border-color-unactive-input);
+  transition: border-width 0.2s ease;
+  border-radius: 3px;
+  box-shadow: 0 0 5px rgba(0, 0, 0, .1) inset;
+  color: var(--color-unactive-input);
+}
+
+.modal-window div form input:focus {
+  outline: none;
+  border-color: var(--border-color-focus-input);
+  box-shadow: none;
+  color: black;
+}
+
+.modal-window input[type="text"].valid,
+.modal-window input[type="email"].valid,
+.modal-window input[type="password"].valid {
+  border-color: var(--color-lime);
+}
+
+.modal-window input[type="text"].invalid,
+.modal-window input[type="email"].invalid,
+.modal-window input[type="password"].invalid {
+  border-color: var(--color-red);
+}
+
+.modal-window p.promt {
+  font-size: 8pt;
+  color: #696969;
+}
+
+input + div {
+  display: none;
+}
+
+input.invalid + div.promt-block {
+  display: block;
+}
+
+p.server-invalid {
+  display: none;
+}
+
+p.show {
+  display: block;
+}
+
+p.show + p {
+  display: none;
+}
+
+.modal-window div form input[type="submit"] {
+  padding: 15px 10px;
+  margin-bottom: 10px;
+  width: 40%;
+  border: 1px solid var(--color-soft-blue);
+  border-radius: 3px;
+  background-color: var(--color-soft-blue);
+  transition: background-color 0.2s ease;
+  box-shadow: 0 0 5px rgba(0, 0, 0, .1);
+  color: white;
+  display: inline-block;
+  margin-right: 5%;
+}
+
+.modal-window div form input[type="submit"]:hover {
+  background-color: var(--color-hover-input);
+  cursor: pointer;
+}
+
+.modal-window div form a {
+  padding: 15px 10px;
+  margin-bottom: 10px;
+  width: 40%;
+  border: 1px solid var(--color-soft-blue);
+  border-radius: 3px;
+  background-color: white;
+  transition: all 0.5s ease;
+  color: black;
+  display: inline-block;
+  text-align: center;
+  text-decoration: none;
+  margin-right: 5%;
+}
+
+.modal-window div form a:hover {
+  background-color: var(--color-hover-input);
+  color: white;
+  cursor: pointer;
+}
+
+.modal-window .socials {
+  margin-right: 10px;
+  border-right: 1px solid #56443F;
+}
+
+.modal-window .socials div {
+  width: 70%;
+  display: block;
+  text-align: center;
+}
+
+.modal-window .socials div:before {
+  content: '';
+  display: inline-block;
+  height: 10%;
+  vertical-align: middle;
+}
+
+.modal-window .socials div a {
+  font: monospace 1.2em;
+  text-transform: uppercase;
+  text-decoration: none;
+  background-color: var(--color-soft-blue);
+  color: white;
+  padding: 10px;
+  margin-bottom: 10px;
+  border: none;
+  border-radius: 10px;
+  transition: background-color 0.5s ease;
+}
+
+.modal-window .socials div a:hover {
+  background-color: #F47174;
+}

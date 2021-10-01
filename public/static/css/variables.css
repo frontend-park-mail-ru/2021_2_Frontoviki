@@ -1,0 +1,15 @@
+@import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap");
+
+:root {
+    --color-soft-blue: #56baed;
+    --color-soft-black: #272727;
+    --color-soft-white: #f2f3f4;
+    --color-lime: #75AD50;
+    --color-red: #CD2527;
+    
+    --color-unactive-input: #444;
+    --color-hover-input: #2196F3;
+
+    --border-color-unactive-input: #ddd;
+    --border-color-focus-input: #2196F3;
+}
