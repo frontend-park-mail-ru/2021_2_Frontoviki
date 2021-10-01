@@ -31,7 +31,7 @@ const ad1 = {
 
 const users = {
     'd.dorofeev@corp.mail.ru': {
-        email: 'd.dorofeev@corp.mail.ru',
+        email: 'kek@mail.ru',
         password: 'password',
         name : 'dmitry',
         profilePic : 'static/img/2spooky4me.jpg',
