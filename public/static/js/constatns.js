@@ -66,4 +66,5 @@ export const validationErrors = {
 };
 
 export const domainUrl = 'http://www.volchock.ru/';
-export const secureDomainUrl = 'https://www.volchock.ru/';
+export const secureDomainUrl = 'https://www.volchock.ru/v1/api';
+export const pureIp = 'http://89.19.190.83/';

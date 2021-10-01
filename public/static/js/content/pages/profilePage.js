@@ -2,7 +2,7 @@ import {createProductGrid} from '../templates/productGrid/productGrid.js';
 import {createProfileBlock} from '../templates/profileBlock/profileBlock.js';
 import {modalWork} from '../../modules/modalWork.js';
 import {main} from '../../main.js';
-import { domainUrl, secureDomainUrl} from '../../constatns.js';
+import {secureDomainUrl} from '../../constatns.js';
 
 
 /**
@@ -55,7 +55,10 @@ export class ProfilePage {
       const exitBtn = document.querySelector('#exit');
       exitBtn.addEventListener('click', (e)=> {
         e.preventDefault();
-        const res = Ajax.asyncPostUsingFetch({url: secureDomainUrl + 'logout', body: null});
+        const res = Ajax.asyncPostUsingFetch({
+          url: secureDomainUrl + 'logout',
+          body: null,
+        });
         res.then(()=> {
           modalWork();
           main();

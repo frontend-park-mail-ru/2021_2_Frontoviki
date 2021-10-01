@@ -1,5 +1,5 @@
 import {createModal} from './modal.js';
-import {domainUrl, secureDomainUrl} from '../constatns.js';
+import {secureDomainUrl} from '../constatns.js';
 
 /**
   * Создает хедер страницы, при этом происходит

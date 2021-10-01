@@ -1,6 +1,6 @@
 import {createHeader} from './header.js';
 import {validationErrors} from '../constatns.js';
-import { domainUrl, secureDomainUrl} from '../constatns.js';
+import {secureDomainUrl} from '../constatns.js';
 
 /**
   * Экспортируемая функция для генерации модального окна
@@ -303,8 +303,6 @@ export function createModal() {
       }
       console.log('registation done', status, parsedBody);
       const {code} = parsedBody;
-      console.log(parsedBody);
-      console.log('kek');
       if (code === 201) {
         createHeader();
         black.click();
