@@ -4,12 +4,14 @@ import {modalWork} from './modules/modalWork.js';
 import {ErrorPage} from './content/pages/404Page.js';
 import {createFooter} from './content/templates/footer/footer.js';
 import {MainPage} from './content/pages/mainPage.js';
-import {navigation, categories, domainUrl, secureDomainUrl} from './constatns.js';
+import {navigation, categories, secureDomainUrl} from './constatns.js';
 
 const wrapper = document.querySelector('.wrapper');
 const root = document.createElement('div');
 root.id = 'root';
 root.classList.add('content');
+
+console.log('nginx test');
 
 modalWork();
 wrapper.appendChild(root);
@@ -37,7 +39,10 @@ export function main() {
  * Функция создания профиля
  */
 function profile() {
-  const res = Ajax.asyncGetUsingFetch({url: secureDomainUrl + 'users/profile', body: null});
+  const res = Ajax.asyncGetUsingFetch({
+    url: secureDomainUrl + 'users/profile',
+    body: null,
+  });
   res.then(({status, parsedBody})=> {
     if (status != 200) {
       return;
@@ -61,7 +66,10 @@ function profile() {
  * Функция выхода из авторизации
 */
 function logout() {
-  const res = Ajax.asyncPostUsingFetch({url: secureDomainUrl + 'logout', body: null});
+  const res = Ajax.asyncPostUsingFetch({
+    url: secureDomainUrl + 'logout',
+    body: null,
+  });
   res.then(({status, parsedBody})=> {
     console.log(status, parsedBody);
     modalWork();
