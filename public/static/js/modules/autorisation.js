@@ -30,7 +30,6 @@ export function autorisation(logForm, logEmail, logPassword, validateField) {
         document.querySelector('.blackout').click();
         return;
       }
-      console.log(parsedBody);
       switch (code) {
         case statusCodes.NOTEXIST: {
           validateField.innerHTML = validationErrors.noSuchUser;
@@ -40,7 +39,7 @@ export function autorisation(logForm, logEmail, logPassword, validateField) {
           validateField.innerHTML = validationErrors.badData;
           break;
         }
-        case statusCodes.UNTHORISED: {
+        case statusCodes.UNATHORISED: {
           validateField.innerHTML = validationErrors.passwordMissmatch;
           break;
         }

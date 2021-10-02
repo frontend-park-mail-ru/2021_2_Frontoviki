@@ -91,12 +91,12 @@ export function createHeader() {
   el3.appendChild(login);
   subnav.appendChild(el3);
   res.then(({status, parsedBody}) => {
-    if (status != 200) {
+    if (status != statusCodes.OK) {
       return;
     }
     let isAuthorized = false;
     const {code} = parsedBody;
-    if (code === 200) {
+    if (code === statusCodes.OK) {
       isAuthorized = true;
     }
     if (isAuthorized) {
