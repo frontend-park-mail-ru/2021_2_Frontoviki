@@ -4,7 +4,8 @@ import {modalWork} from './modules/modalWork.js';
 import {ErrorPage} from './content/pages/404Page.js';
 import {createFooter} from './content/templates/footer/footer.js';
 import {MainPage} from './content/pages/mainPage.js';
-import {navigation, categories, secureDomainUrl, statusCodes} from './constatns.js';
+import {navigation, categories, secureDomainUrl,
+  statusCodes} from './constatns.js';
 import {Ajax} from './modules/ajax.js';
 
 const wrapper = document.querySelector('.wrapper');

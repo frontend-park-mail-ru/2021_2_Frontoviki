@@ -28,8 +28,8 @@ export function registration(regForm, regName, regEmail, regPass, regPassRep) {
       regPassRep.className = 'invalid';
       return;
     }
-
-    if (name.length < 2 || surname.length < 2) {
+    const allowedNameLen = 2;
+    if (name.length < allowedNameLen || surname.length < allowedNameLen) {
       regName.className = 'invalid';
       return;
     }
