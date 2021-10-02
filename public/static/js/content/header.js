@@ -1,5 +1,6 @@
 import {createModal} from './modal.js';
 import {secureDomainUrl} from '../constatns.js';
+import {Ajax} from '../modules/ajax.js';
 
 /**
   * Создает хедер страницы, при этом происходит
@@ -8,7 +9,7 @@ import {secureDomainUrl} from '../constatns.js';
   * разные виды хедера
 */
 export function createHeader() {
-  // отправляем запрос до начала отрисовки
+  // отправляем запрос до начала отрисовки на получение пользователя
   const res = Ajax.asyncGetUsingFetch({
     url: secureDomainUrl + 'users/profile',
     body: null,

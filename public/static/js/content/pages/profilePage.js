@@ -3,6 +3,7 @@ import {createProfileBlock} from '../templates/profileBlock/profileBlock.js';
 import {modalWork} from '../../modules/modalWork.js';
 import {main} from '../../main.js';
 import {secureDomainUrl} from '../../constatns.js';
+import {Ajax} from '../../modules/ajax.js';
 
 
 /**
@@ -12,7 +13,6 @@ import {secureDomainUrl} from '../../constatns.js';
 */
 export class ProfilePage {
     #parent
-
     /**
      * Конструктор класса
      * @param {HTMLElement} parent - родительский элемент страницы,

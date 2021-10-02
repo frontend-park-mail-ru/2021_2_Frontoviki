@@ -5,6 +5,7 @@ import {ErrorPage} from './content/pages/404Page.js';
 import {createFooter} from './content/templates/footer/footer.js';
 import {MainPage} from './content/pages/mainPage.js';
 import {navigation, categories, secureDomainUrl} from './constatns.js';
+import {Ajax} from './modules/ajax.js';
 
 const wrapper = document.querySelector('.wrapper');
 const root = document.createElement('div');
@@ -25,7 +26,9 @@ main();
 export function main() {
   const res = Ajax.asyncGetUsingFetch({url: secureDomainUrl, body: null});
   res.then(({status, parsedBody})=> {
-    console.log(parsedBody);
+    if (status != 200) {
+      return;
+    }
     const {code} = parsedBody;
     if (code === 200) {
       const mainPg = new MainPage(root);
@@ -70,8 +73,10 @@ function logout() {
     url: secureDomainUrl + 'logout',
     body: null,
   });
-  res.then(({status, parsedBody})=> {
-    console.log(status, parsedBody);
+  res.then(({status})=> {
+    if (status != 200) {
+      return;
+    }
     modalWork();
     main();
   });

@@ -1,6 +1,6 @@
-import {createHeader} from './header.js';
 import {validationErrors} from '../constatns.js';
-import {secureDomainUrl} from '../constatns.js';
+import {registration} from '../modules/registration.js';
+import {autorisation} from '../modules/autorisation.js';
 
 /**
   * Экспортируемая функция для генерации модального окна
@@ -78,66 +78,7 @@ export function createModal() {
 
   const btn = document.createElement('input');
   btn.type = 'submit';
-
-  const patterns = {
-    username: /^[a-zА-Яа-я()\d]{5,20}$/i,
-    email: /^[a-zA-Z0-9]+@[a-zA-Z0-9]+\.[a-zA-Z0-9]+$/,
-    /* /^(?=.*[0-9])(?=.*[!@#$%^&*])(?=.*[a-z])(?=.*[A-Z])
-    [0-9a-zA-Z!@#$%^&*]{8,}$/i, */
-    password: /^[a-zA-z0-9!@#$%^&*.,$№%\d]{8,}$/i,
-  };
-
-  const validate = (field, regex) => {
-    const valid = regex.test(field.value);
-    if (valid) {
-      field.className = 'valid';
-    } else {
-      field.className = 'invalid';
-    }
-    return valid;
-  };
-
-  logForm.addEventListener('submit', (e) => {
-    e.preventDefault();
-
-    const email = logemail.value.trim();
-    const password = logpassword.value.trim();
-    const response = Ajax.asyncPostUsingFetch({
-      url: secureDomainUrl + 'signin',
-      body: {email, password}});
-
-    response.then(({status, parsedBody}) => {
-      if (status != 200) {
-        return;
-      }
-      console.log(parsedBody);
-      const {code} = parsedBody;
-      if (code === 200) {
-        // в случае если мы зашли убрать модальное и обновить хедер
-        createHeader();
-        black.click();
-        return;
-      }
-
-      const {message} = parsedBody;
-      switch (message) {
-        case 'user with this email not exist': {
-          promtPasswordInvalidLogin.innerHTML = validationErrors.noSuchUser;
-          break;
-        }
-        case 'no rights to access this resource': {
-          promtPasswordInvalidLogin.innerHTML =
-            validationErrors.passwordMissmatch;
-          break;
-        }
-        default: {
-          promtPasswordInvalidLogin.innerHTML = 'Непредвиденная ошибка';
-          break;
-        };
-      }
-      logpassword.className = 'invalid';
-    });
-  });
+  autorisation(logForm, logemail, logpassword, promtPasswordInvalidLogin);
   btn.value = 'Войти';
   logForm.appendChild(btn);
 
@@ -270,48 +211,7 @@ export function createModal() {
   ent.innerHTML = 'Вход';
   regForm.appendChild(ent);
 
-  regForm.addEventListener('submit', (e) => {
-    e.preventDefault();
-
-    const valid = validate(nameR, patterns[nameR.attributes.name.value]) &&
-                    validate(emailR, patterns[emailR.attributes.name.value]) &&
-                    validate(pswrdR, patterns[pswrdR.attributes.name.value]);
-
-    const name = nameR.value.trim();
-    const email = emailR.value.trim();
-    const password = pswrdR.value.trim();
-    const passwordRep = passwordRepR.value.trim();
-
-    if (password !== passwordRep) {
-      passwordRepR.className = 'invalid';
-    }
-
-    if (!valid || password !== passwordRep) {
-      return;
-    }
-
-    // значения по умолчанию при регистрации
-    const rating = 0;
-    const profilePic = 'static/img/default_image.jpg';
-
-    const response = Ajax.asyncPostUsingFetch({url: secureDomainUrl +'signup',
-      body: {email, password, name, rating, profilePic}});
-
-    response.then(({status, parsedBody}) => {
-      if (status != 200) {
-        return;
-      }
-      console.log('registation done', status, parsedBody);
-      const {code} = parsedBody;
-      if (code === 201) {
-        createHeader();
-        black.click();
-        return;
-      }
-      emailR.className = 'invalid';
-      promtEmailAlrdyExist.classList.add('show');
-    });
-  });
+  registration(regForm, nameR, emailR, pswrdR, passwordRepR);
 
   regView.appendChild(regForm);
 
