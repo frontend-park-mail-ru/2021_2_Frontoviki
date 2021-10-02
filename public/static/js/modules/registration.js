@@ -1,5 +1,5 @@
 import {Ajax} from './ajax.js';
-import {secureDomainUrl} from '../constatns.js';
+import {secureDomainUrl, statusCodes} from '../constatns.js';
 import {createHeader} from '../content/header.js';
 /**
  * функция регистрация нового пользователя
@@ -11,21 +11,27 @@ import {createHeader} from '../content/header.js';
  * действие submit
  */
 export function registration(regForm, regName, regEmail, regPass, regPassRep) {
-  const promtEmailAlrdyExist = document.querySelector('#emailExst');
   regForm.addEventListener('submit', (e) => {
     e.preventDefault();
 
-    const valid = validate(regName, patterns[regName.attributes.name.value]) &&
-        validate(regEmail, patterns[regEmail.attributes.name.value]) &&
-        validate(regPass, patterns[regPass.attributes.name.value]);
-
-    const name = regName.value.trim();
+    const data = regName.value.trim().split(' ');
+    const name = data[0];
+    const surname = data[1];
     const email = regEmail.value.trim();
     const password = regPass.value.trim();
     const passwordRep = regPassRep.value.trim();
 
+    const valid = validate(regEmail, patterns['email']) &&
+    validate(regPass, patterns['password']);
+
     if (password !== passwordRep) {
       regPassRep.className = 'invalid';
+      return;
+    }
+
+    if (name.length < 2 || surname.length < 2) {
+      regName.className = 'invalid';
+      return;
     }
 
     if (!valid || password !== passwordRep) {
@@ -38,31 +44,29 @@ export function registration(regForm, regName, regEmail, regPass, regPassRep) {
 
     const response = Ajax.asyncPostUsingFetch({
       url: secureDomainUrl + 'signup',
-      body: {email, password, name, rating, profilePic},
+      body: {email, password, name, surname, rating, profilePic},
     });
 
     response.then(({status, parsedBody}) => {
-      if (status != 200) {
+      if (status != statusCodes.OK) {
         return;
       }
+      console.log(parsedBody);
       const {code} = parsedBody;
-      if (code === 201) {
+      if (code === statusCodes.REGDONE) {
         createHeader();
         document.querySelector('.blackout').click();
         return;
       }
       regEmail.className = 'invalid';
-      promtEmailAlrdyExist.classList.add('show');
+      document.querySelector('#emailExst').classList.add('show');
     });
   });
 }
 
 const patterns = {
-  username: /^[a-zА-Яа-я()\d]{5,20}$/i,
   email: /^[a-zA-Z0-9]+@[a-zA-Z0-9]+\.[a-zA-Z0-9]+$/,
-  /* /^(?=.*[0-9])(?=.*[!@#$%^&*])(?=.*[a-z])(?=.*[A-Z])
-  [0-9a-zA-Z!@#$%^&*]{8,}$/i, */
-  password: /^[a-zA-z0-9!@#$%^&*.,$№%\d]{8,}$/i,
+  password: /^[\w]{4,}$/,
 };
 
 const validate = (field, regex) => {

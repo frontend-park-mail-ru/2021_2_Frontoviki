@@ -1,5 +1,5 @@
 import {createModal} from './modal.js';
-import {secureDomainUrl} from '../constatns.js';
+import {secureDomainUrl, statusCodes} from '../constatns.js';
 import {Ajax} from '../modules/ajax.js';
 
 /**
@@ -86,6 +86,7 @@ export function createHeader() {
   el3.classList.add('main_elements');
   const login = document.createElement('a');
   login.id = 'auth';
+  login.dataset.section = 'modal';
   login.innerHTML = 'Войти';
   el3.appendChild(login);
   subnav.appendChild(el3);

@@ -89,9 +89,7 @@ export function createModal() {
   reg.innerHTML = 'Регистрация';
   logForm.appendChild(btn);
   logForm.appendChild(reg);
-
   loginView.appendChild(logForm);
-
 
   const regView = document.createElement('div');
   regView.id = 'modal-signup-form';
@@ -107,7 +105,7 @@ export function createModal() {
   const nameR = document.createElement('input');
   nameR.type = 'text';
   nameR.name = 'username';
-  nameR.placeholder = 'Имя';
+  nameR.placeholder = 'Имя Фамилия';
   nameR.addEventListener('keyup', (e) => {
     e.target.classList = '';
     // очищаю класс show у server-invalid
@@ -119,12 +117,6 @@ export function createModal() {
   const promtUsernameBlock = document.createElement('div');
   promtUsernameBlock.name = 'signup-username';
   promtUsernameBlock.classList.add('promt-block');
-
-  const promtUsernameAlrdyExist = document.createElement('p');
-  promtUsernameAlrdyExist.classList.add('promt', 'server-invalid');
-  promtUsernameAlrdyExist.innerHTML =
-    'Пользователь с таким именем уже существует';
-  promtUsernameBlock.appendChild(promtUsernameAlrdyExist);
 
   const promtUsernameInvalidName = document.createElement('p');
   promtUsernameInvalidName.classList.add('promt');
@@ -176,7 +168,7 @@ export function createModal() {
   const promtPasswordInvalid = document.createElement('p');
   promtPasswordInvalid.classList.add('promt');
   promtPasswordInvalid.innerHTML = `Пароль должен состоять из букв,
-    цифр и спец символов, длинной от 8 символов`;
+    цифр и спец символов, длиной от 4 символов`;
   promtPasswordBlock.appendChild(promtPasswordInvalid);
   regForm.appendChild(promtPasswordBlock);
 

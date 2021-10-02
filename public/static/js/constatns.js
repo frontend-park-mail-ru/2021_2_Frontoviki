@@ -1,32 +1,3 @@
-export const AJAX_STATUSES = {
-  OK: 200,
-};
-
-const ad = {
-  href: '',
-  src: './static/img/2spooky4me.jpg',
-  name: 'Картина',
-  productPrice: '100$',
-  location: 'Москва',
-};
-
-const ad1 = {
-  href: '',
-  src: './static/img/shpicz.jpg',
-  name: 'Кек',
-  productPrice: '100500$',
-  location: 'Ракетный завод',
-};
-
-export const adsArray = [
-  ad1,
-  ad1,
-  ad,
-  ad,
-  ad1,
-  ad,
-];
-
 export const navigation = {
   category: 'Искуcство',
   subCategory: 'Картины',
@@ -61,10 +32,21 @@ export const validationErrors = {
   passwordMissmatch: 'Неверный пароль',
   noSuchUser: 'Пользователя не существует',
   emailIsUsed: 'Пользователь с такой почтой уже существует',
-  nameError: `Имя пользователя должно быть от 5 до 
-    20 символов и состоять только из букв`,
+  nameError: `Имя пользователя должно быть от 3 до 
+    10 символов и состоять только из букв`,
+  badData: 'Ошибка в email/пароле',
 };
 
 export const domainUrl = 'http://www.volchock.ru/';
 export const secureDomainUrl = 'https://www.volchock.ru/v1/api';
 export const pureIp = 'http://89.19.190.83/';
+
+export const statusCodes = {
+  OK: 200,
+  REGDONE: 201,
+  BADREQUEST: 400,
+  UNTHORISED: 401,
+  FORBIDEN: 403,
+  NOTEXIST: 404,
+  INTERNALERROR: 500,
+};

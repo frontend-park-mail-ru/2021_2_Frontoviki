@@ -4,7 +4,7 @@ import {modalWork} from './modules/modalWork.js';
 import {ErrorPage} from './content/pages/404Page.js';
 import {createFooter} from './content/templates/footer/footer.js';
 import {MainPage} from './content/pages/mainPage.js';
-import {navigation, categories, secureDomainUrl} from './constatns.js';
+import {navigation, categories, secureDomainUrl, statusCodes} from './constatns.js';
 import {Ajax} from './modules/ajax.js';
 
 const wrapper = document.querySelector('.wrapper');
@@ -24,17 +24,20 @@ main();
  * Функция генерации основного окна
  */
 export function main() {
-  const res = Ajax.asyncGetUsingFetch({url: secureDomainUrl, body: null});
+  const res = Ajax.asyncGetUsingFetch({
+    url: secureDomainUrl + 'adverts', body: null,
+  });
   res.then(({status, parsedBody})=> {
-    if (status != 200) {
+    if (status != statusCodes.OK) {
       return;
     }
+    console.log(parsedBody);
     const {code} = parsedBody;
-    if (code === 200) {
+    if (code === statusCodes.OK) {
       const mainPg = new MainPage(root);
       const {body} = parsedBody;
-      const {advts} = body;
-      mainPg.render(navigation, categories, advts);
+      const {advert} = body;
+      mainPg.render(navigation, categories, advert);
     }
   });
 }
@@ -47,12 +50,12 @@ function profile() {
     body: null,
   });
   res.then(({status, parsedBody})=> {
-    if (status != 200) {
+    if (status != statusCodes.OK) {
       return;
     }
     const {code} = parsedBody;
     let isAuthorized = false;
-    if (code === 200) {
+    if (code === statusCodes.OK) {
       isAuthorized = true;
     }
     if (isAuthorized) {
@@ -74,7 +77,7 @@ function logout() {
     body: null,
   });
   res.then(({status})=> {
-    if (status != 200) {
+    if (status != statusCodes.OK) {
       return;
     }
     modalWork();
@@ -123,4 +126,14 @@ const configApp = {
     name: 'Ошибка',
     open: err,
   },
+  modal: {
+    href: '#',
+    name: 'Войти',
+    open: crutch,
+  },
 };
+
+/**
+ * Костыль для кнопки войти чтобы в консоли не было ошибки
+ */
+function crutch() {};

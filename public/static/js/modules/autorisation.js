@@ -1,5 +1,5 @@
 import {Ajax} from './ajax.js';
-import {validationErrors, secureDomainUrl} from '../constatns.js';
+import {validationErrors, secureDomainUrl, statusCodes} from '../constatns.js';
 import {createHeader} from '../content/header.js';
 
 /**
@@ -20,23 +20,27 @@ export function autorisation(logForm, logEmail, logPassword, validateField) {
       body: {email, password}});
 
     response.then(({status, parsedBody}) => {
-      if (status != 200) {
+      if (status != statusCodes.OK) {
         return;
       }
       const {code} = parsedBody;
-      if (code === 200) {
+      if (code === statusCodes.OK) {
         // в случае если мы зашли убрать модальное и обновить хедер
         createHeader();
         document.querySelector('.blackout').click();
         return;
       }
-      const {message} = parsedBody;
-      switch (message) {
-        case 'user with this email not exist': {
+      console.log(parsedBody);
+      switch (code) {
+        case statusCodes.NOTEXIST: {
           validateField.innerHTML = validationErrors.noSuchUser;
           break;
         }
-        case 'no rights to access this resource': {
+        case statusCodes.BADREQUEST: {
+          validateField.innerHTML = validationErrors.badData;
+          break;
+        }
+        case statusCodes.UNTHORISED: {
           validateField.innerHTML = validationErrors.passwordMissmatch;
           break;
         }
