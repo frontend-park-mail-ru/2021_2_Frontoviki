@@ -4,7 +4,9 @@
   "description": "---",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "./node_modules/.bin/eslint public/static/",
+    "buildTemplates":"./build.sh",
+    "cleanTemplates": "rm -r public/build"
   },
   "repository": {
     "type": "git",

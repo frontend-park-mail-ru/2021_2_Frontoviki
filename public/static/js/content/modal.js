@@ -152,7 +152,7 @@ export function createModal() {
   const pswrdR = document.createElement('input');
   pswrdR.type = 'password';
   pswrdR.name = 'password';
-  pswrdR.placeholder = 'Пароль';
+  pswrdR.placeholder = 'Пароль (от 4-х символов)';
   pswrdR.addEventListener('keyup', (e) => {
     e.target.classList = '';
     // очищаю класс show у server-invalid
