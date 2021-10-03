@@ -1,4 +1,5 @@
 node_modules
 server/
 html_storage/
+public/build/
 *.txt
