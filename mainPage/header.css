@@ -14,6 +14,17 @@ header {
     align-items: center;
 }
 
+.header__left-block {
+    margin-left: 10%;
+    margin-right: 5%;
+}
+
+.header__right-block {
+    margin-left: 5%;
+    margin-right: 10%;
+}
+
+
 .logo {
     height: 24px;
     margin-right: 10px;
@@ -71,7 +82,6 @@ header {
 
 .search__input:focus-visible {
     border: none;
-    outline: none;
     background-color: inherit;
 }
 

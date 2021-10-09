@@ -1,0 +1,10 @@
+footer {
+    background-color: var(--header-background-color);
+    margin-top: auto;
+    height: var(--footer-text-size) + 10px;
+}
+
+.footer__capture {
+    font-size: var(--footer-text-size);
+    font-weight: bold;
+}

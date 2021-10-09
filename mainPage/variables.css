@@ -4,3 +4,7 @@
     --search-text-default-color: #ACACAC;
     --header-capture-color: #E9E3E6;
 }
+
+:root {
+    --footer-text-size: 20px;
+}

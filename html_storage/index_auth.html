@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Volchock</title>
+    <link rel="stylesheet" href="./static/css/variables.css">
+    <link rel="stylesheet" href="./static/css/search.css">
+    <link rel="stylesheet" href="./static/css/products.css">
+    <link rel="stylesheet" href="./static/css/modal.css">
+    <link rel="stylesheet" href="./static/css/index.css">
+    <link rel="shortcut icon" href="static/img/icon.png" type="image/x-icon" />
+</head>
+
+<body>
+    <div class="wrapper">
+        <header>
+            <nav class="nav_menu">
+                <ul class="sub_nav_menu">
+                    <li class="main_elements"><a href="./index.html">Volchock</a></li>
+                    <li class="main_elements"><a href="./404.html">Создать объявление</a></li>
+                    <li class="hide"><a id="auth" href="">Войти</a></li>
+                    <li class="dropdown dropdown-9">Профиль
+                        <ul class="dropdown_menu dropdown_menu--animated dropdown_menu-9">
+                            <li class="dropdown_item">
+                                <a href="./profile.html">
+                                    <img src="https://helpx.adobe.com/content/dam/help/en/photoshop/using/convert-color-image-black-white/jcr_content/main-pars/before_and_after/image-before/Landscape-Color.jpg"
+                                        alt="Profile image">
+                                </a>
+                            </li>
+                            <li class="logout_item">
+                                <a href="./index.html">Выход</a>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </nav>
+        </header>
+
+        <!-- Дивак для контента -->
+        <div id="root" class="content">
+            <!-- поисковая строка с категориями -->
+            <div class="navigation">
+                <nav class="categories">
+                    <p>III</p>
+                    <input id="categories_toogle" type="checkbox" checked>
+                    <ul>
+                        <li><a href="#">Одежда</a></li>
+                        <li><a href="#">Обувь</a></li>
+                        <li><a href="#">Питомцы</a></li>
+                        <li><a href="#">Разное</a></li>
+                    </ul>
+                </nav>
+                <div class="search">
+                    <input type="text" class="search_term" placeholder="What are you looking for?">
+                    <button type="submit" class="search_button">
+                        <i>GO</i>
+                    </button>
+                </div>
+            </div>
+
+            <div class="product-path">
+                <ul>
+                    <li><a href="./index.html">Главная</a></li>
+                    <li><a href="#">Картины</a></li>
+                </ul>
+            </div>
+            <div class="product-grid">
+                <section class="cards">
+                    <div class="card">
+                        <a href="./product_detail.html">
+                            <div class="image-container">
+                                <figure>
+                                    <img src="https://adobe.ly/2Xp9Brm" alt="Картинка объявления">
+                                    <figcaption>
+                                        <h3>Картина A</h3>
+                                    </figcaption>
+                                </figure>
+                            </div>
+                            <div class="card-info">
+                                <p>Москва</p>
+                                <p class="card_price">100р</p>
+                            </div>
+                        </a>
+                    </div>
+
+                    <div class="card">
+                        <a href="./404.html">
+                            <div class="image-container">
+                                <figure>
+                                    <img src="https://lh3.googleusercontent.com/proxy/R0lU80V4Se8so6LQOIZ3u4dsZZhjHDUcEQc_Q-ptSpdh-YiwhbvTKe1GoCdpmjURS7pS2CDhTxRs4cz5yG-fmonBDwbgfibK9u7gcgB_8eSxYCqUltOqIbvgWzkxte861hBrsiJAqNRDV_WogT5CAWsI6Ipl"
+                                        alt="Картинка объявления">
+                                    <figcaption>
+                                        <h3>Картина A</h3>
+                                    </figcaption>
+                                </figure>
+                            </div>
+                            <div class="card-info">
+                                <p>Москва</p>
+                                <p class="card_price">100р</p>
+                            </div>
+                        </a>
+                    </div>
+
+                    <div class="card">
+                        <a href="#">
+                            <div class="image-container">
+                                <figure>
+                                    <img src="https://cloudfront-us-east-2.images.arcpublishing.com/reuters/F6INOOMSRRL5XOOQDRPZUWPWBA.jpg"
+                                        alt="Картинка объявления">
+                                    <figcaption>
+                                        <h3>Картина A</h3>
+                                    </figcaption>
+                                </figure>
+                            </div>
+                            <div class="card-info">
+                                <p>Москва</p>
+                                <p class="card_price">100р</p>
+                            </div>
+                        </a>
+                    </div>
+
+                    <div class="card">
+                        <a href="#">
+                            <div class="image-container">
+                                <figure>
+                                    <img src="https://adobe.ly/2Xp9Brm" alt="Картинка объявления">
+                                    <figcaption>
+                                        <h3>Картина A</h3>
+                                    </figcaption>
+                                </figure>
+                            </div>
+                            <div class="card-info">
+                                <p>Москва</p>
+                                <p class="card_price">100р</p>
+                            </div>
+                        </a>
+                    </div>
+
+                    <div class="card">
+                        <a href="#">
+                            <div class="image-container">
+                                <figure>
+                                    <img src="https://lh3.googleusercontent.com/proxy/R0lU80V4Se8so6LQOIZ3u4dsZZhjHDUcEQc_Q-ptSpdh-YiwhbvTKe1GoCdpmjURS7pS2CDhTxRs4cz5yG-fmonBDwbgfibK9u7gcgB_8eSxYCqUltOqIbvgWzkxte861hBrsiJAqNRDV_WogT5CAWsI6Ipl"
+                                        alt="Картинка объявления">
+                                    <figcaption>
+                                        <h3>Картина A</h3>
+                                    </figcaption>
+                                </figure>
+                            </div>
+                            <div class="card-info">
+                                <p>Москва</p>
+                                <p class="card_price">100р</p>
+                            </div>
+                        </a>
+                    </div>
+                </section>
+            </div>
+        </div>
+        <footer>
+            <p>&copy; 2021. Volchock team</p>
+        </footer>
+
+    </div>
+</body>
+
+</html>
