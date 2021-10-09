@@ -41,6 +41,8 @@
 }
 
 .profile-content__avatar__image {
+    width: 200px;
+    height: 200px;
     border-radius: 50%;
 }
 
@@ -76,4 +78,19 @@
 
     height: 100%;
     width: 100%;
+}
+
+@media screen and (max-width: 700px) {
+    .profile-content {
+        display: block;
+    }
+
+    .profile-content_left {
+        width: 100%;
+        margin-bottom: 20px;
+    }
+
+    .profile-content_right {
+        width: 100%;
+    }
 }
