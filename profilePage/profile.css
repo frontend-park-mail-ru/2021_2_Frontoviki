@@ -3,7 +3,7 @@
 .rating-result {
 	width: 265px;
 	margin: 0 auto;
-    margin-bottom: 5%;
+    margin-bottom: 3%;
 }
 .rating-result span {
 	padding: 0;
@@ -38,7 +38,7 @@
 
 .profile__avatar {
     display: block;
-    margin-bottom: 5%;
+    margin-bottom: 3%;
 }
 
 .profile__avatar img {
@@ -49,7 +49,6 @@
     font-size: 22px;
     font-family: "Montserrat", Verdana, sans-serif;
     color: #756A6A;
-    margin-bottom: 5%;
 }
 
 /*  */
