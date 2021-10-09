@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Volchock</title>
+
+    <link rel="stylesheet" href="../variables.css">
+    <link rel="stylesheet" href="../layout.css">
+    <link rel="stylesheet" href="../header.css">
+    <link rel="stylesheet" href="../footer.css">
+    <link rel="stylesheet" href="../products.css">
+    <link rel="stylesheet" href="./profile.css">
+    <link rel="stylesheet" href="./profileButton.css">
+    <link rel="stylesheet" href="../button.css">
+    <link rel="stylesheet" href="../settings.css">
+</head>
+
+<body>
+    <div class="wrapper">
+
+        <header>
+            <div class="header__left-block">
+                <div class="header__left-block logo">
+                    <img class="logo__image" src="../icon.png">
+                    <p class="logo__capture">Volchock</p>
+                </div>
+                <div class="header__left-block search">
+                    <svg class="search__icon" width="11" height="11" viewBox="0 0 11 11"
+                        xmlns="http://www.w3.org/2000/svg">
+                        <path fill-rule="evenodd" clip-rule="evenodd"
+                            d="M6.45286 7.1599C5.77551 7.68645 4.92437 8 4 8C1.79086 8 0 6.20914 0 4C0 1.79086 1.79086 0 4 0C6.20914 0 8 1.79086 8 4C8 4.92434 7.68647 5.77545 7.15996 6.45279L10.3536 9.6464L9.6465 10.3535L6.45286 7.1599ZM7 4C7 5.65685 5.65685 7 4 7C2.34315 7 1 5.65685 1 4C1 2.34315 2.34315 1 4 1C5.65685 1 7 2.34315 7 4Z" />
+                    </svg>
+                    <input class="search__input" type="search" placeholder="Поиск">
+                </div>
+            </div>
+
+            <div class="header__right-block">
+                <div class="header__right-block mini-profile">
+                    <p class="mini-profile__capture">Василий</p>
+                    <img class="mini-profile__avatar"
+                        src="https://i.pinimg.com/236x/e3/31/57/e33157ea21bd33ddea822beb78f6df16.jpg">
+                </div>
+                <div class="mini-profile__options">
+                    <svg class="mini-profile__options__icon" width="10" height="6" viewBox="0 0 10 6"
+                        xmlns="http://www.w3.org/2000/svg">
+                        <path d="M0 0.5L5 5.5L10 0.5H0Z" />
+                    </svg>
+                </div>
+            </div>
+        </header>
+
+        <div id="root">
+            <div class="root__profile-content profile-content">
+                <div class="profile-content_left">
+                    <h3 class="profile-content__title profile-content__title_center">Профиль</h3>
+                    <div class="profile-content__personal">
+                        <div class="profile-content__avatar">
+                            <img class="profile-content__avatar__image" src="https://i.pinimg.com/236x/e3/31/57/e33157ea21bd33ddea822beb78f6df16.jpg">
+                        </div>
+                        <p class="profile-content__username">Василий</p>
+                        <div class="profile-content__rating stars">
+                            <svg class="stars__star star_active" width="32" height="30" viewBox="0 0 32 30" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M15.9412 0L21.3399 9.20457L31.8235 11.459L24.6765 19.4021L25.757 30L15.9412 25.7046L6.12535 30L7.20589 19.4021L0.0588379 11.459L10.5425 9.20457L15.9412 0Z" />
+                            </svg>
+                            <svg class="stars__star star_active" width="32" height="30" viewBox="0 0 32 30" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M15.9412 0L21.3399 9.20457L31.8235 11.459L24.6765 19.4021L25.757 30L15.9412 25.7046L6.12535 30L7.20589 19.4021L0.0588379 11.459L10.5425 9.20457L15.9412 0Z" />
+                            </svg>
+                            <svg class="stars__star star_active" width="32" height="30" viewBox="0 0 32 30" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M15.9412 0L21.3399 9.20457L31.8235 11.459L24.6765 19.4021L25.757 30L15.9412 25.7046L6.12535 30L7.20589 19.4021L0.0588379 11.459L10.5425 9.20457L15.9412 0Z" />
+                            </svg>
+                            <svg class="stars__star star_active" width="32" height="30" viewBox="0 0 32 30" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M15.9412 0L21.3399 9.20457L31.8235 11.459L24.6765 19.4021L25.757 30L15.9412 25.7046L6.12535 30L7.20589 19.4021L0.0588379 11.459L10.5425 9.20457L15.9412 0Z" />
+                            </svg>
+                            <svg class="stars__star star_active" width="32" height="30" viewBox="0 0 32 30" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M15.9412 0L21.3399 9.20457L31.8235 11.459L24.6765 19.4021L25.757 30L15.9412 25.7046L6.12535 30L7.20589 19.4021L0.0588379 11.459L10.5425 9.20457L15.9412 0Z" />
+                            </svg>
+                        </div>
+                    </div>
+
+                    <div class="profile-content__buttons">
+                        <button class="button profile-content__button">Мои объявления</button>
+                        <button class="button profile-content__button">Отзывы</button>
+                        <button class="button profile-content__button">Избранное</button>
+                        <button class="button profile-content__button">Корзина</button>
+                        <button class="button profile-content__button">Сообщения</button>
+                        <button class="button profile-content__button">Платные услуги</button>
+                        <button class="button profile-content__button">Настройки</button>
+                    </div>
+                </div>
+
+                <div class="profile-content_right">
+                    <h3 class="profile-content__title"> Настройки </h3>
+                    <div class="profile__settings-elem">
+                        <div class="settings-elem__title">
+                            Имя
+                            <img src="./edit.jpg" width="24" height="24">
+                        </div>
+                        <input class="settings-elem__input" placeholder="Василий" disabled>
+                    </div>
+                    <div class="profile__settings-elem">
+                        <div class="settings-elem__title">
+                            Фамилия
+                            <img src="./edit.jpg" width="24" height="24">
+                        </div>
+                        <input class="settings-elem__input" placeholder="Пупкин" disabled>
+                    </div>
+                    <div class="profile__settings-elem">
+                        <div class="settings-elem__title">
+                            Электронная почта
+                            <img src="./edit.jpg" width="24" height="24">
+                        </div>
+                        <input class="settings-elem__input" placeholder="vpupkin@mail.ru" disabled>
+                    </div>
+                    <div class="profile__settings-elem">
+                        <div class="settings-elem__title">
+                            Мобильный телефон
+                            <img src="./edit.jpg" width="24" height="24">
+                        </div>
+                        <input class="settings-elem__input" placeholder="88005553535" disabled type="email">
+                    </div>
+
+                    <div class="profile__settings-elem">
+                        <div class="settings-elem__title">
+                            Новый пароль
+                        </div>
+                        <input class="settings-elem__input" placeholder="" type="password">
+                    </div>
+                    <div class="profile__settings-elem">
+                        <div class="settings-elem__title">
+                            Повторите пароль
+                        </div>
+                        <input class="settings-elem__input" placeholder="" type="password">
+                    </div>
+                    <button class="button" id="settings__change-password">Изменить пароль</button>
+                </div>
+            </div>
+        </div>
+
+
+
+        <footer>
+            <p class="footer__capture">&reg; Frontoviki</p>
+        </footer>
+
+    </div>
+</body>
+
+</html>

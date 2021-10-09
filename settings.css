@@ -1,0 +1,39 @@
+.profile__settings-elem {
+  margin-top: 1%;
+}
+
+.settings-elem__title {
+  height: 27px;
+
+  font-family: Source Sans Pro;
+  font-style: normal;
+  font-weight: 300;
+  font-size: 24px;
+  line-height: 150%;
+  /* or 36px */
+
+  color: #000000;
+}
+
+.settings-elem__input {
+  margin-top: 1%;
+  text-align: left;
+  width: 330px;
+  height: 54px;
+
+  background: #ffffff;
+  border: 1px solid #6eb9ff;
+  box-sizing: border-box;
+  border-radius: 34px;
+
+  font-family: Montserrat;
+  font-style: normal;
+  text-align: center;
+  font-size: 22px;
+  font-weight: bold;
+}
+
+#settings__change-password {
+    margin-left: 50px;
+    margin-top: 1.5%;
+}
