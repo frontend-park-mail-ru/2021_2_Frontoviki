@@ -15,13 +15,11 @@ header {
 }
 
 .header__left-block {
-    margin-left: 10%;
-    margin-right: 5%;
+    margin-left: 3%;
 }
 
 .header__right-block {
-    margin-left: 5%;
-    margin-right: 10%;
+    margin-right: 3%;
 }
 
 

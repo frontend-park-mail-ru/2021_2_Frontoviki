@@ -1,12 +1,7 @@
-footer {
-    background-color: var(--header-background-color);
-    margin-top: auto;
-    height: var(--footer-text-size) + 10px;
-}
-
 .footer__capture {
-    /* Хоть где то он должен же быть :) */
-    font-family: "Comic Sans MS", "Comic Sans", cursive; 
+    letter-spacing: 1px;
     font-size: var(--footer-text-size);
     font-weight: bold;
+    color: var(--footer-text-color);
+    text-transform: uppercase;
 }

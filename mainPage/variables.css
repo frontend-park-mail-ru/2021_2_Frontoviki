@@ -6,5 +6,11 @@
 }
 
 :root {
-    --footer-text-size: 20px;
+    --footer-text-size: 16px;
+    --footer-text-color: #E9E3E6;
+}
+
+:root {
+    --info-block-capture-color: #000000;
+    --info-block-capture-size: 20px;
 }
