@@ -4,8 +4,8 @@
   "description": "---",
   "main": "index.js",
   "scripts": {
-    "test": "./node_modules/.bin/eslint public/static/",
-    "buildTemplates":"./build.sh",
+    "test": "eslint public/static/",
+    "buildTemplates": "./build.sh",
     "cleanTemplates": "rm -r public/build"
   },
   "repository": {
@@ -34,7 +34,7 @@
     "babel-eslint": "^10.1.0",
     "eslint": "^7.32.0",
     "eslint-config-google": "^0.14.0",
-    "webpack": "^5.54.0",
+    "webpack": "^5.56.0",
     "webpack-cli": "^4.8.0"
   }
 }

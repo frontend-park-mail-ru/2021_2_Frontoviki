@@ -13,7 +13,6 @@ const root = document.createElement('div');
 root.id = 'root';
 root.classList.add('content');
 
-console.log('nginx test');
 
 modalWork();
 wrapper.appendChild(root);
