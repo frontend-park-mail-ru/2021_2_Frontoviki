@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;700&family=Mulish:wght@300;400;500;700&display=swap');
+
 :root {
     --header-background-color: #373F47;
     --search-background-color: #F8F8F8;
@@ -13,4 +15,14 @@
 :root {
     --info-block-capture-color: #000000;
     --info-block-capture-size: 20px;
+}
+
+:root {
+    --star-gold-color: #ffcb45;
+}
+
+:root {
+    --button-background-color: #54a5f3;
+    --button-background-color_hover: #3c98f1;
+    --button-text-color: #ffffff;
 }
