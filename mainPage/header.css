@@ -42,6 +42,7 @@ header {
 }
 
 .search {
+    margin: auto;
     width: 340px;
     height: 32px;
     background-color: var(--search-background-color);

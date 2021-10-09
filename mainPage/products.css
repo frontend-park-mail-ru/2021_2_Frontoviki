@@ -74,7 +74,7 @@
     color: var(--search-background-color);
 }
 
-.product-grid__cards__card-info {
+.card__card-info {
     padding: 20px;
     display: flex;
     align-self: end;

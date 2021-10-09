@@ -5,6 +5,8 @@ footer {
 }
 
 .footer__capture {
+    /* Хоть где то он должен же быть :) */
+    font-family: "Comic Sans MS", "Comic Sans", cursive; 
     font-size: var(--footer-text-size);
     font-weight: bold;
 }

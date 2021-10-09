@@ -12,6 +12,7 @@
     <link rel="stylesheet" href="./header.css">
     <link rel="stylesheet" href="./footer.css">
     <link rel="stylesheet" href="./products.css">
+    <link rel="stylesheet" href="./info-block.css">
 </head>
 
 <body>
@@ -49,6 +50,20 @@
         </header>
 
         <div id="root">
+            <div class='root_info-block'>
+                <div class="info-block__category">
+                    <ul class="category__list">
+                        <li class="category__list__main"> <a href="./index.html">Главная</a></li>
+                        <li class="category__list__sub"> <a href="#">Картины</a></li>
+                    </ul>
+                </div>
+
+                <div class="info-block__search">
+                <span class="search__text">
+                    Объявления по запросу "картины"
+                </span>
+                </div>
+            </div>
             <div class="root__product-grid">
                 <section class="product-grid__cards">
                     <div class="card">
@@ -61,8 +76,8 @@
                                     </figcaption>
                                 </figure>
                             </div>
-                            <div class="product-grid__cards__card-info">
-                                <p>Москва</p>
+                            <div class="card__card-info">
+                                <p class="card-info__card_location">Москва</p>
                                 <p class="card-info__card_price">100р</p>
                             </div>
                         </a>
