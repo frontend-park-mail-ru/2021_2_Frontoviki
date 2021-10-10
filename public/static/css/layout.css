@@ -1,0 +1,39 @@
+*, *::before, *::after {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+    font-family: "Montserrat", Verdana, sans-serif;
+}
+
+body {
+    height: 100%;
+    min-width: 300px;
+    box-sizing: border-box;
+}
+
+.wrapper {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+#root {
+    margin: 0;
+    height: 100%;
+    padding: 30px;
+}
+
+footer {
+    background-color: var(--header-background-color);
+    margin-top: auto;
+    height: 30px;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+header {
+    position: relative;
+    width: 100%;
+}

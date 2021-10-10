@@ -1,6 +1,5 @@
 import {createProductGrid} from '../templates/productGrid/productGrid.js';
-import {createProductPath} from '../templates/productPath/productPath.js';
-import {createNavigation} from '../templates/navigation/navigation.js';
+import {createInfoBlock} from '../templates/infoBlock/infoBlock.js';
 
 /**
   * Экспортируемый класс для генерации страницы с сеткой
@@ -18,16 +17,14 @@ export class MainPage {
     }
     /**
      * Функция рендера генерерует весь контент страницы
-     * @param {string} navigation основная категория сортировки страницы.
+     * @param {string} search текст поиска страницы
+     * @param {string} categories основная категория сортировки страницы.
      * Например 'Электротехника'.
-     * @param {Array<string>} searchCategories массив для выпадающего
-     * меню поиска
      * @param {JSON} jsonElements массив объявлений
     */
-    render(navigation, searchCategories, jsonElements) {
+    render(search, categories, jsonElements) {
       this.#parent.innerHTML = '';
-      this.#parent.appendChild(createNavigation(searchCategories));
-      this.#parent.appendChild(createProductPath(navigation));
+      this.#parent.appendChild(createInfoBlock(search, categories));
       this.#parent.appendChild(createProductGrid(jsonElements));
     };
 }

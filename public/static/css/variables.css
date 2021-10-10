@@ -1,15 +1,28 @@
-@import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap");
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;700&family=Mulish:wght@300;400;500;700&display=swap');
 
 :root {
-    --color-soft-blue: #56baed;
-    --color-soft-black: #272727;
-    --color-soft-white: #f2f3f4;
-    --color-lime: #75AD50;
-    --color-red: #CD2527;
-    
-    --color-unactive-input: #444;
-    --color-hover-input: #2196F3;
+    --header-background-color: #373F47;
+    --search-background-color: #F8F8F8;
+    --search-text-default-color: #ACACAC;
+    --header-capture-color: #E9E3E6;
+}
 
-    --border-color-unactive-input: #ddd;
-    --border-color-focus-input: #2196F3;
+:root {
+    --footer-text-size: 16px;
+    --footer-text-color: #E9E3E6;
+}
+
+:root {
+    --info-block-capture-color: #000000;
+    --info-block-capture-size: 20px;
+}
+
+:root {
+    --star-gold-color: #ffcb45;
+}
+
+:root {
+    --button-background-color: #54a5f3;
+    --button-background-color_hover: #3c98f1;
+    --button-text-color: #ffffff;
 }

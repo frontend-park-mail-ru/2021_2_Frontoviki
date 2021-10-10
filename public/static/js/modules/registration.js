@@ -1,6 +1,6 @@
 import {Ajax} from './ajax.js';
 import {secureDomainUrl, statusCodes} from '../constatns.js';
-import {createHeader} from '../content/header.js';
+import {createHeader} from '../content/templates/header/header.js';
 /**
  * функция регистрация нового пользователя
  * @param {HTMLFormElement} regForm форма регистрации, для которой изменится

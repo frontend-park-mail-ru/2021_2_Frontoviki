@@ -1,6 +1,4 @@
 import {createProductGrid} from '../templates/productGrid/productGrid.js';
-import {createProfileBlock} from '../templates/profileBlock/profileBlock.js';
-import {modalWork} from '../../modules/modalWork.js';
 import {main} from '../../main.js';
 import {secureDomainUrl} from '../../constatns.js';
 import {Ajax} from '../../modules/ajax.js';
@@ -42,7 +40,6 @@ export class ProfilePage {
       if (ads != null) {
         contentBlock.appendChild(createProductGrid(ads));
       }
-      content.appendChild(createProfileBlock(name, rating, profilePic));
       content.appendChild(contentBlock);
       this.#parent.appendChild(content);
       this.#addEventsToButtons();

@@ -1,6 +1,6 @@
 import {Ajax} from './ajax.js';
 import {validationErrors, secureDomainUrl, statusCodes} from '../constatns.js';
-import {createHeader} from '../content/header.js';
+import {createHeader} from '../content/templates/header/header.js';
 
 /**
  * фунцкия авторизации

@@ -6,7 +6,7 @@
 export function createProductGrid(jsonElements) {
   const gridTemplate = Handlebars.templates.productGrid;
   const productGrid = document.createElement('div');
-  productGrid.classList.add('product-grid');
+  productGrid.classList.add('root__product-grid');
   productGrid.innerHTML = gridTemplate({adsArray: jsonElements});
   return productGrid;
 };
