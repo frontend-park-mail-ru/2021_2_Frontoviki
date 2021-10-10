@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Volchock</title>
+
+    <link rel="stylesheet" href="../variables.css">
+    <link rel="stylesheet" href="../layout.css">
+    <link rel="stylesheet" href="../header.css">
+    <link rel="stylesheet" href="../footer.css">
+    <link rel="stylesheet" href="../products.css">
+    <link rel="stylesheet" href="../button.css">
+    <link rel="stylesheet" href="./newAdv.css">
+
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no, maximum-scale=1" />
+    <script src="https://api-maps.yandex.ru/2.1/?apikey=ваш API-ключ&lang=ru_RU" type="text/javascript">
+    </script>
+</head>
+
+<body>
+    <div class="wrapper">
+
+        <header>
+            <div class="header__left-block">
+                <div class="header__left-block logo">
+                    <img class="logo__image" src="../icon.png">
+                    <p class="logo__capture">Volchock</p>
+                </div>
+                <div class="header__left-block search">
+                    <svg class="search__icon" width="11" height="11" viewBox="0 0 11 11"
+                        xmlns="http://www.w3.org/2000/svg">
+                        <path fill-rule="evenodd" clip-rule="evenodd"
+                            d="M6.45286 7.1599C5.77551 7.68645 4.92437 8 4 8C1.79086 8 0 6.20914 0 4C0 1.79086 1.79086 0 4 0C6.20914 0 8 1.79086 8 4C8 4.92434 7.68647 5.77545 7.15996 6.45279L10.3536 9.6464L9.6465 10.3535L6.45286 7.1599ZM7 4C7 5.65685 5.65685 7 4 7C2.34315 7 1 5.65685 1 4C1 2.34315 2.34315 1 4 1C5.65685 1 7 2.34315 7 4Z" />
+                    </svg>
+                    <input class="search__input" type="search" placeholder="Поиск">
+                </div>
+            </div>
+
+            <div class="header__right-block">
+                <div class="header__right-block mini-profile">
+                    <p class="mini-profile__capture">Василий</p>
+                    <img class="mini-profile__avatar"
+                        src="https://i.pinimg.com/236x/e3/31/57/e33157ea21bd33ddea822beb78f6df16.jpg">
+                </div>
+                <div class="mini-profile__options">
+                    <svg class="mini-profile__options__icon" width="10" height="6" viewBox="0 0 10 6"
+                        xmlns="http://www.w3.org/2000/svg">
+                        <path d="M0 0.5L5 5.5L10 0.5H0Z" />
+                    </svg>
+                </div>
+            </div>
+        </header>
+
+        </script>
+        <script type="text/javascript">
+            ymaps.ready(function () {
+                var myMap = new ymaps.Map("YMapsID", {
+                    center: [55.76, 37.64],
+                    zoom: 10
+                });
+                myMap.events.add('click', (e) => {
+                    var coords = e.get('coords');
+                    var myGeoObject = new ymaps.GeoObject({
+                        geometry: {
+                            type: "Point", // тип геометрии - точка
+                            coordinates: coords, // координаты точки
+                        }
+                    });
+                    myMap.geoObjects.add(myGeoObject);
+                });
+            });
+        </script>
+
+        <div id="root">
+            <div class="new-ad">
+                <div class="new-ad__title"> Новое объявление </div>
+                <div class="root__new-ad-form">
+                    <div>
+                        <label for="new-ad-form__input"> Категория</label>
+                        <input class="new-ad-form__input" type="text">
+                    </div>
+
+                    <div>
+                        <label for="new-ad-form__input"> Подкатегория</label>
+                        <input class="new-ad-form__input" type="text">
+                    </div>
+                    <div>
+                        <label for="new-ad-form__input"> Название</label>
+                        <input class="new-ad-form__input" type="text">
+                    </div>
+
+                    <div class="form_radio_btn">
+                        <input id="radio-3" type="radio" name="radio" value="new">
+                        <label for="radio-3">Новое</label>
+                    </div>
+                    <div class="form_radio_btn">
+                        <input id="radio-4" type="radio" name="radio" value="used">
+                        <label for="radio-4">Б/У</label>
+                    </div>
+
+                    <div>
+                        <textarea class="new-ad-form__textarea" rows="3" cols="30"
+                            placeholder="Описание продукта"></textarea>
+                    </div>
+                    <div>
+                        <label for="new-ad-form__input"> Цена </label>
+                        <input class="new-ad-form__input" type="text">
+                    </div>
+                    <div>
+                        <input class="new-ad-form__input" type="file" name="photo" multiple accept="image/*,image/jpeg">
+                    </div>
+                    <div>
+                        <label for="new-ad-form__input"> Место сделки </label>
+                        <input class="new-ad-form__input" type="text">
+                    </div>
+                    <div id="YMapsID"></div>
+                    <button class="button" id="newAdForm">Опубликовать</button>
+                </div>
+            </div>
+        </div>
+
+
+
+        <footer>
+            <p class="footer__capture">&reg; Frontoviki</p>
+        </footer>
+
+    </div>
+</body>
+
+<script src="./newAdv.js">
+
+</script>
+
+</html>
