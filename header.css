@@ -118,4 +118,5 @@ header {
 
 .mini-profile__options__icon {
     fill: var(--header-capture-color);
+    margin-left: 5px;
 }

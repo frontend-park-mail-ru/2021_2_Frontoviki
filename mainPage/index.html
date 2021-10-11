@@ -7,12 +7,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Volchock</title>
 
-    <link rel="stylesheet" href="./variables.css">
-    <link rel="stylesheet" href="./layout.css">
-    <link rel="stylesheet" href="./header.css">
-    <link rel="stylesheet" href="./footer.css">
-    <link rel="stylesheet" href="./products.css">
+    <link rel="stylesheet" href="../variables.css">
+    <link rel="stylesheet" href="../layout.css">
+    <link rel="stylesheet" href="../header.css">
+    <link rel="stylesheet" href="../footer.css">
+    <link rel="stylesheet" href="../products.css">
     <link rel="stylesheet" href="./info-block.css">
+    <link rel="stylesheet" href="../expand-menu.css">
 </head>
 
 <body>
@@ -35,16 +36,26 @@
             </div>
 
             <div class="header__right-block">
-                <div class="header__right-block mini-profile">
-                    <p class="mini-profile__capture">Василий</p>
-                    <img class="mini-profile__avatar"
-                        src="https://i.pinimg.com/236x/e3/31/57/e33157ea21bd33ddea822beb78f6df16.jpg">
-                </div>
-                <div class="mini-profile__options">
-                    <svg class="mini-profile__options__icon" width="10" height="6" viewBox="0 0 10 6"
-                        xmlns="http://www.w3.org/2000/svg">
-                        <path d="M0 0.5L5 5.5L10 0.5H0Z" />
-                    </svg>
+                <div class="mini-profile__options expand-menu">
+                    <input class="expand-menu__toogle" type="checkbox" id="mini-profile__toogle">
+                    <label class="expand-menu__label" for="mini-profile__toogle">
+                        <div class="header__right-block mini-profile">
+                            <p class="mini-profile__capture">Василий</p>
+                            <img class="mini-profile__avatar"
+                                src="https://i.pinimg.com/236x/e3/31/57/e33157ea21bd33ddea822beb78f6df16.jpg">
+                            <svg class="mini-profile__options__icon" width="10" height="6" viewBox="0 0 10 6"
+                                xmlns="http://www.w3.org/2000/svg">
+                                <path d="M0 0.5L5 5.5L10 0.5H0Z" />
+                            </svg>
+                        </div>
+                    </label>
+                    <div class="expand-menu__content">
+                        <span class="expand-menu__sublabel"><a class="expand-menu__link" href="">Профиль</a></span>
+                        <span class="expand-menu__sublabel"><a class="expand-menu__link" href="">Создать
+                                объявление</a></span>
+                        <span class="expand-menu__sublabel"><a class="expand-menu__link" href="">Настройки</a></span>
+                        <span class="expand-menu__sublabel"><a class="expand-menu__link" href="">Выйти</a></span>
+                    </div>
                 </div>
             </div>
         </header>

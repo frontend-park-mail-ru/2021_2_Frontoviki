@@ -1,0 +1,73 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500&display=swap');
+
+:root {
+  --expand-menu-background-color: #373F47;
+  --header-height: 60px;
+  --background-expand-menu-content: #1e1e25;
+}
+
+.expand-menu {
+  width: 100%;
+}
+
+.expand-menu__toogle {
+  opacity: 0;
+}
+
+.expand-menu__toogle:checked ~ .expand-menu__content {
+  opacity: 1;
+  visibility: visible;
+  transform: scale(1.0);
+  transition-delay: 0s, 0s;
+}
+
+.expand-menu__label {
+  position: relative;
+  transform: translateX(-13px);
+  
+  background-color: transparent;
+}
+
+.expand-menu__label:hover {
+  cursor: pointer;
+}
+
+.expand-menu__content {
+  display: flex;
+  flex-direction: column;
+  
+  position: absolute;
+  right: 10px;
+  top: 60px;
+  transform: translateY(10px);
+  width: 225px;
+  
+  background-color: var(--background-expand-menu-content);
+  border-radius: 6px;
+  z-index: 20;
+  
+  opacity: 0;
+  visibility: hidden;
+  padding: 10px 0;
+  transform: scale(0.9);
+  transition: all 0.2s ease, visibolity 0s linear .2s;
+}
+
+.expand-menu__sublabel {
+  width: 100%;
+  padding: 5px 10px;
+}
+
+.expand-menu__sublabel:last-child::before {
+  content: "";
+  display: block;
+  margin-bottom: 10px;
+  border-bottom: 1px solid rgb(68, 72, 87);
+}
+
+.expand-menu__link {
+  width: 100%;
+  text-decoration: none;
+  color: white;
+}
+
