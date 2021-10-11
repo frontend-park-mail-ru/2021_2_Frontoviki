@@ -7,6 +7,7 @@ import {navigation, secureDomainUrl,
   statusCodes} from './constatns.js';
 import {Ajax} from './modules/ajax.js';
 import {createHeader} from './content/templates/header/header.js';
+import { createModal } from './content/templates/modal/modal.js';
 
 const wrapper = document.querySelector('.wrapper');
 const root = document.createElement('div');
@@ -15,6 +16,7 @@ root.classList.add('content');
 
 
 createHeader();
+createModal();
 wrapper.appendChild(root);
 createFooter();
 
@@ -52,7 +54,7 @@ export function main() {
     ad,
   ];
   const mainPg = new MainPage(root);
-  mainPg.render('картины', navigation, advert);
+  mainPg.render(undefined, navigation, advert);
 }
 /**
  * Функция создания профиля
@@ -149,4 +151,9 @@ const configApp = {
 /**
  * Костыль для кнопки войти чтобы в консоли не было ошибки
  */
-function crutch() {};
+function crutch() {
+  const modal = document.querySelector('.modal-window');
+  const blackout = document.querySelector('.blackout');
+  modal.classList.add('active');
+  blackout.classList.add('active');
+};

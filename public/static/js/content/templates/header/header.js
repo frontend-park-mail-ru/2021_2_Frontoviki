@@ -26,6 +26,7 @@ export function createHeader() {
   const headerTemplate = Handlebars.templates.header;
   header.innerHTML = headerTemplate({userName: 'Василий', userAvatar: 'https://i.pinimg.com/236x/e3/31/57/e33157ea21bd33ddea822beb78f6df16.jpg'});
 
+
   // res.then(({status, parsedBody}) => {
   //   if (status != statusCodes.OK) {
   //     return;
@@ -47,4 +48,6 @@ export function createHeader() {
   //   }
   // });
   wrapper.prepend(header);
+  const title = document.querySelector('.logo__capture');
+  title.dataset.section = 'menu';
 }
