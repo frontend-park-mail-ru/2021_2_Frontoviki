@@ -1,6 +1,5 @@
-import {secureDomainUrl, statusCodes} from '../../../constatns.js';
-import {Ajax} from '../../../modules/ajax.js';
-
+import {isLogged} from '../../../modules/isLogged.js';
+import {statusCodes} from '../../../constatns.js';
 /**
   * Создает хедер страницы, при этом происходит
   * запрос на сервер, чтобы узнать, авторизован ли
@@ -9,10 +8,7 @@ import {Ajax} from '../../../modules/ajax.js';
 */
 export function createHeader() {
   // отправляем запрос до начала отрисовки на получение пользователя
-  const res = Ajax.asyncGetUsingFetch({
-    url: secureDomainUrl + 'users/profile',
-    body: null,
-  });
+  const res = isLogged();
   const wrapper = document.querySelector('.wrapper');
   let header = document.querySelector('#header');
 
@@ -44,7 +40,10 @@ export function createHeader() {
       authLink.style.display = 'none';
       document.querySelector('.expand-menu__label').style.display = 'flex';
     } else {
-      header.innerHTML = headerTemplate({userName: undefined, userAvatar: undefined});
+      header.innerHTML = headerTemplate({
+        userName: undefined,
+        userAvatar: undefined,
+      });
       document.querySelector('.expand-menu__label').style.display = 'none';
       document.getElementById('auth').style.display = 'flex';
     }

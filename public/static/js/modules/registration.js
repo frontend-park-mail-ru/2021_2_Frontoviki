@@ -1,6 +1,6 @@
-import { Ajax } from './ajax.js';
-import { secureDomainUrl, statusCodes } from '../constatns.js';
-import { createHeader } from '../content/templates/header/header.js';
+import {Ajax} from './ajax.js';
+import {secureDomainUrl, statusCodes} from '../constatns.js';
+import {createHeader} from '../content/templates/header/header.js';
 const inputNum = 3;
 /**
  * функция регистрация нового пользователя
