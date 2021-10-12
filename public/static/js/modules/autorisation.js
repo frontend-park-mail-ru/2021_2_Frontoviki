@@ -1,5 +1,6 @@
 import {Ajax} from './ajax.js';
 import {secureDomainUrl, statusCodes} from '../constatns.js';
+import {clearInput} from './clearInput.js';
 import {createHeader} from '../content/templates/header/header.js';
 
 /**
@@ -21,9 +22,11 @@ export function autorisation(logEmail, logPassword) {
       return;
     }
     const {code} = parsedBody;
+    console.log(parsedBody)
     if (code === statusCodes.OK) {
       // в случае если мы зашли убрать модальное и обновить хедер
       createHeader();
+      clearAllLogInputs(logEmail, logPassword);
       document.querySelector('.blackout').click();
       return;
     }
@@ -33,10 +36,14 @@ export function autorisation(logEmail, logPassword) {
         break;
       }
       case statusCodes.BADREQUEST: {
-        logEmail.classList.add('text-input_wrong');
+        logEmail.classList.remove('text-input_wrong');
+        logEmail.classList.add('text-input_correct');
+        logPassword.classList.add('text-input_wrong');
         break;
       }
       case statusCodes.UNATHORISED: {
+        logEmail.classList.remove('text-input_wrong');
+        logEmail.classList.add('text-input_correct');
         logPassword.classList.add('text-input_wrong');
         break;
       }
@@ -46,4 +53,14 @@ export function autorisation(logEmail, logPassword) {
       };
     }
   });
+}
+
+/**
+ * очищает инпуты формы логина
+ * @param {HTMLDivElement} logEmail
+ * @param {HTMLDivElement} logPassword
+ */
+function clearAllLogInputs(logEmail, logPassword) {
+  clearInput(logEmail);
+  clearInput(logPassword);
 }
