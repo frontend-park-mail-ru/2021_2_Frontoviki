@@ -7,7 +7,7 @@ import {navigation, secureDomainUrl,
   statusCodes} from './constatns.js';
 import {Ajax} from './modules/ajax.js';
 import {createHeader} from './content/templates/header/header.js';
-import { createModal } from './content/templates/modal/modal.js';
+import {createModal} from './content/templates/modal/modal.js';
 
 const wrapper = document.querySelector('.wrapper');
 const root = document.createElement('div');
@@ -95,7 +95,7 @@ function logout() {
     if (status != statusCodes.OK) {
       return;
     }
-    modalWork();
+    createHeader();
     main();
   });
 }
@@ -113,8 +113,7 @@ function err() {
 wrapper.addEventListener('click', (e) => {
   const {target} = e;
 
-  if (target instanceof HTMLAnchorElement ||
-      target instanceof HTMLImageElement) {
+  if (target instanceof HTMLAnchorElement) {
     e.preventDefault();
     configApp[target.dataset.section].open();
   }
@@ -144,14 +143,19 @@ const configApp = {
   modal: {
     href: '#',
     name: 'Войти',
-    open: crutch,
+    open: modal,
+  },
+  crutch: {
+    href: '#',
+    name: 'Костыль',
+    open: () => {},
   },
 };
 
 /**
  * Костыль для кнопки войти чтобы в консоли не было ошибки
  */
-function crutch() {
+function modal() {
   const modal = document.querySelector('.modal-window');
   const blackout = document.querySelector('.blackout');
   modal.classList.add('active');

@@ -23,31 +23,34 @@ export function createHeader() {
   }
 
   header.id = 'header';
-  const headerTemplate = Handlebars.templates.header;
-  header.innerHTML = headerTemplate({userName: 'Василий', userAvatar: 'https://i.pinimg.com/236x/e3/31/57/e33157ea21bd33ddea822beb78f6df16.jpg'});
-
-
-  // res.then(({status, parsedBody}) => {
-  //   if (status != statusCodes.OK) {
-  //     return;
-  //   }
-  //   let isAuthorized = false;
-  //   const {code} = parsedBody;
-  //   if (code === statusCodes.OK) {
-  //     isAuthorized = true;
-  //   }
-  //   if (isAuthorized) {
-  //     el3.style.display = 'none';
-  //     const {profilePic} = parsedBody;
-  //     img.src = 'static/img/default_image.jpg';
-  //     if (profilePic != null) {
-  //       img.src = profilePic;
-  //     }
-  //   } else {
-  //     profile.style.display = 'none';
-  //   }
-  // });
   wrapper.prepend(header);
-  const title = document.querySelector('.logo__capture');
-  title.dataset.section = 'menu';
+  const headerTemplate = Handlebars.templates.header;
+  res.then(({status, parsedBody}) => {
+    if (status != statusCodes.OK) {
+      return;
+    }
+    let isAuthorized = false;
+    const {code, body} = parsedBody;
+    if (code === statusCodes.OK) {
+      isAuthorized = true;
+    }
+    if (isAuthorized) {
+      let {name, image} = body.profile;
+      if (image != null) {
+        image = 'static/img/default_image.jpg';
+      }
+      header.innerHTML = headerTemplate({userName: name, userAvatar: image});
+      const authLink = document.getElementById('auth');
+      authLink.style.display = 'none';
+      document.querySelector('.expand-menu__label').style.display = 'flex';
+    } else {
+      header.innerHTML = headerTemplate({userName: undefined, userAvatar: undefined});
+      document.querySelector('.expand-menu__label').style.display = 'none';
+      document.getElementById('auth').style.display = 'flex';
+    }
+    const title = document.querySelector('.logo__capture');
+    title.dataset.section = 'menu';
+    const authLink = document.getElementById('auth');
+    authLink.dataset.section = 'modal';
+  });
 }

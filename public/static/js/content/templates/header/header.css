@@ -96,7 +96,6 @@ header {
     }
 }
 .mini-profile__capture {
-    display: none;
     cursor: default;
     font-weight: 500;
     font-style: normal;
@@ -108,14 +107,12 @@ header {
 }
 
 .mini-profile__avatar {
-    display: none;
     width: 37px;
     height: 37px;
     border-radius: 50%;
 }
 
 .mini-profile__options {
-    display: none;
     width: 24px;
     height: 24px;
 
@@ -125,6 +122,5 @@ header {
 }
 
 .mini-profile__options__icon {
-    display: none;
     fill: var(--header-capture-color);
 }
