@@ -12,6 +12,7 @@ export const Ajax = {
     const response = await fetch(args.url, {
       method: AJAX_METHODS.POST,
       mode: 'cors',
+      cache: 'no-store',
       credentials: 'include',
       headers: {
         'Content-Type': 'application/json',
@@ -39,6 +40,7 @@ export const Ajax = {
     const response = await fetch(args.url, {
       method: AJAX_METHODS.GET,
       mode: 'cors',
+      cache: 'no-store',
       credentials: 'include',
       headers: {
         'Content-Type': 'application/json',

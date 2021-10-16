@@ -1,7 +1,7 @@
 import {Ajax} from './ajax.js';
 import {secureDomainUrl, statusCodes} from '../constatns.js';
 import {clearInput} from './clearInput.js';
-import {createHeader} from '../content/templates/header/header.js';
+import {createHeader} from '../templates/header/header.js';
 
 /**
  * фунцкия авторизации
@@ -22,7 +22,6 @@ export function autorisation(logEmail, logPassword) {
       return;
     }
     const {code} = parsedBody;
-    console.log(parsedBody)
     if (code === statusCodes.OK) {
       // в случае если мы зашли убрать модальное и обновить хедер
       createHeader();
