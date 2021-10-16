@@ -36,7 +36,6 @@ export default class Router {
 
     let routeNotFound = true;
     for (const route of this.routes) {
-      console.log(route)
       if (route.regExp.test(URL)) {
         const parsedURL = route.regExp.exec(URL);
         console.log(parsedURL)

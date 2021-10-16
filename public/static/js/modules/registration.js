@@ -13,7 +13,7 @@ const inputNum = 3;
  * действие submit
  */
 export function registration(regName, regSurname, regEmail,
-    regPass, regPassRep) {
+    regPass, regPassRep, globalEventBus) {
   const name = regName.childNodes[inputNum].value.trim();
   const surname = regSurname.childNodes[inputNum].value.trim();
   const email = regEmail.childNodes[inputNum].value.trim();
@@ -60,7 +60,7 @@ export function registration(regName, regSurname, regEmail,
     }
     const {code} = parsedBody;
     if (code === statusCodes.REGDONE) {
-      createHeader();
+      createHeader(globalEventBus);
       clearAllRegInputs(regName, regSurname, regEmail, regPass, regPassRep);
       document.querySelector('.blackout').click();
       return;

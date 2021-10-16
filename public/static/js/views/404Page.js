@@ -39,8 +39,7 @@ export default class ErrorPage {
 
       const btn = document.createElement('a');
       btn.innerHTML = 'Вернуться на главную';
-      btn.href = '';
-      btn.dataset.section = 'menu';
+      btn.href = '/';
       innerContent.appendChild(btn);
 
       content.appendChild(innerContent);

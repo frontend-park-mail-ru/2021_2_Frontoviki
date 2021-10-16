@@ -107,6 +107,7 @@ header {
 }
 
 .mini-profile__avatar {
+    margin-right: 10px;
     width: 37px;
     height: 37px;
     border-radius: 50%;

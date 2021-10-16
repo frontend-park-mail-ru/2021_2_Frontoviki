@@ -12,12 +12,21 @@ export default class MainPageController {
      * @param {Object} globalEventBus - for trigger login global event
      */
   constructor(router, globalEventBus) {
-    console.log('Main page created');
+    this.globalEventBus = globalEventBus;
     this.eventBus = new EventBus([
       'getAds',
       'getData',
+      'clickModal',
     ]);
     this.view = new MainPageView(this.eventBus);
     this.model = new MainPageModel(this.eventBus);
+    globalEventBus.on('clickModal', this.callModal.bind(this));
+  }
+
+  /**
+   * Передаем глобальный эвент в локальный котроллер
+   */
+  callModal() {
+    this.eventBus.emit('clickModal');
   }
 }

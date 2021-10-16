@@ -8,7 +8,7 @@ import {createHeader} from '../templates/header/header.js';
  * @param {HTMLFormElement} logEmail инпут логина
  * @param {HTMLFormElement} logPassword инпут пароля
  */
-export function autorisation(logEmail, logPassword) {
+export function autorisation(logEmail, logPassword, globalEventBus) {
   const email = logEmail.childNodes[3].value.trim();
   const password = logPassword.childNodes[3].value.trim();
 
@@ -24,7 +24,7 @@ export function autorisation(logEmail, logPassword) {
     const {code} = parsedBody;
     if (code === statusCodes.OK) {
       // в случае если мы зашли убрать модальное и обновить хедер
-      createHeader();
+      createHeader(globalEventBus);
       clearAllLogInputs(logEmail, logPassword);
       document.querySelector('.blackout').click();
       return;

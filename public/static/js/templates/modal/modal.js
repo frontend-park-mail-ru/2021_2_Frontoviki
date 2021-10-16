@@ -1,12 +1,12 @@
-import { autorisation } from "../../modules/autorisation.js";
-import { registration } from "../../modules/registration.js";
+import {autorisation} from '../../modules/autorisation.js';
+import {registration} from '../../modules/registration.js';
 
 /**
   * Создает модальное окно и цепляет его в основной div 'wrapper'
   * Важно, что функция запускается после создания root,
   * в котором лежит основной контент страницы
 */
-export function createModal() {
+export function createModal(globalEventBus) {
   const modalTemplate = Handlebars.templates.modal;
   const modal = document.createElement('div');
   modal.classList.add('modal-window');
@@ -48,13 +48,14 @@ export function createModal() {
   const regRepPassword = document.querySelector('#regRepPassword');
   document.querySelector('#regButton').addEventListener('click', (e) => {
     e.preventDefault();
-    registration(regName, regSurname, regEmail, regPassword, regRepPassword);
+    registration(regName, regSurname, regEmail, regPassword,
+        regRepPassword, globalEventBus);
   });
 
   const logEmail = document.querySelector('#logEmail');
   const logPassword = document.querySelector('#logPassword');
   document.querySelector('#logButton').addEventListener('click', (e) => {
     e.preventDefault();
-    autorisation(logEmail, logPassword);
+    autorisation(logEmail, logPassword, globalEventBus);
   });
 }

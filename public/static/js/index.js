@@ -11,24 +11,27 @@ document.addEventListener('DOMContentLoaded', () => {
   const root = document.createElement('div');
   root.id = 'root';
   root.classList.add('content');
-  createHeader();
-  createModal();
+
+  const globalEventBus = new EventBus([
+    'modalClick',
+    'checkAutorisation',
+    'logout',
+    'loggedIn',
+  ]);
+  const router = new Router(wrapper, globalEventBus);
+
+  createHeader(globalEventBus);
+  createModal(globalEventBus);
   wrapper.appendChild(root);
   createFooter();
 
-  const globalEventBus = new EventBus([
-    'logout',
-  ]);
-  const router = new Router(wrapper, globalEventBus);
+
   const MainPage = new MainPageController(router, globalEventBus);
   router.setRoute('^/$', MainPage.view.render);
+  router.setRoute('^/logout', MainPage.view.render);
 
   router.go(window.location.pathname);
 });
-
-/**
- * Функция генерации основного окна
- */
 
 /**
  * Функция создания профиля
@@ -56,21 +59,3 @@ document.addEventListener('DOMContentLoaded', () => {
 //     }
 //   });
 // }
-
-// /**
-//  * Функция выхода из авторизации
-// */
-// function logout() {
-//   const res = Ajax.asyncPostUsingFetch({
-//     url: secureDomainUrl + 'logout',
-//     body: null,
-//   });
-//   res.then(({status})=> {
-//     if (status != statusCodes.OK) {
-//       return;
-//     }
-//     createHeader();
-//     main();
-//   });
-// }
-

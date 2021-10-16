@@ -1,4 +1,5 @@
 import {isLogged} from '../../modules/isLogged.js';
+import {logout} from '../../modules/logout.js';
 import {statusCodes} from '../../constatns.js';
 /**
   * Создает хедер страницы, при этом происходит
@@ -6,7 +7,7 @@ import {statusCodes} from '../../constatns.js';
   * пользователь. В зависимости от этого рисуется
   * разные виды хедера
 */
-export function createHeader() {
+export function createHeader(globalEventBus) {
   // отправляем запрос до начала отрисовки на получение пользователя
   const res = isLogged();
   const wrapper = document.querySelector('.wrapper');
@@ -50,6 +51,18 @@ export function createHeader() {
     const title = document.querySelector('.logo__capture');
     title.dataset.section = 'menu';
     const authLink = document.getElementById('auth');
-    authLink.dataset.section = 'modal';
+    authLink.addEventListener('click', (e) => {
+      e.preventDefault();
+      e.stopPropagation();
+      globalEventBus.emit('clickModal');
+    });
+    const logoutHref = document.getElementById('logout');
+    logoutHref.addEventListener('click', (e) => {
+      e.preventDefault();
+      e.stopPropagation();
+      logout(globalEventBus);
+      createHeader(globalEventBus);
+    });
   });
 }
+
