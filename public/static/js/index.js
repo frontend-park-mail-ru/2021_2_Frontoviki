@@ -5,6 +5,7 @@ import {createModal} from './templates/modal/modal.js';
 import Router from './modules/Router.js';
 import EventBus from './modules/EventBus.js';
 import MainPageController from './controllers/mainPageController.js';
+import {egg} from './templates/easterEgg/easterEgg.js';
 
 document.addEventListener('DOMContentLoaded', () => {
   if ('serviceWorker' in navigator) {
@@ -39,6 +40,12 @@ document.addEventListener('DOMContentLoaded', () => {
   router.setRoute('^/logout', MainPage.view.render);
 
   router.go(window.location.pathname);
+  if (navigator.onLine !== true) {
+    console.log('jeje');
+    const easterEggTemplate = Handlebars.templates.easterEgg;
+    root.innerHTML = easterEggTemplate();
+    egg();
+  }
 });
 
 /**

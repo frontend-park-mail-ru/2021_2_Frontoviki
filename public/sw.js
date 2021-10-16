@@ -36,6 +36,8 @@ const cacheUrls = [
 	'./public/static/js/templates/modal/modal.js',
 	'./public/static/js/templates/modal/modal.handlebars',
 	'./public/static/js/templates/modal/modal.css',
+	'./public/static/js/templates/easterEgg/easterEgg.css',
+	'./public/static/js/templates/easterEgg/easterEgg.js',
 	'./public/static/js/controllers/mainPageController.js',
 	'./public/static/js/index.js',
 	'./public/static/js/models/mainPage.js',
@@ -77,25 +79,26 @@ self.addEventListener('install', (event) => {
 });
 
 self.addEventListener('fetch', (event) => {
-	/** online first */
-	if (navigator.onLine === true) {
-		return fetch(event.request);
-	}
-	/** cache first */
-	event.respondWith(
-		// ищем запрашиваемый ресурс в хранилище кэша'
-		caches
-			.match(event.request)
-			.then((cachedResponse) => {
-				// выдаём кэш, если он есть'
-				if (cachedResponse) {
-					return cachedResponse;
-				}
+    event.respondWith((() => {
+        if (navigator.onLine === true) {
+            return fetch(event.request)
+                .then((response) => {
+                    if (event.request.method !== 'GET') {
+                        return response;
+                    }
 
-				return fetch(event.request);
-			})
-			.catch((err) => {
-				console.error('smth went wrong with caches.match: ', err);
-			})
-	);
+                    const responseClone = response.clone();
+                    caches.open(CACHE_NAME)
+                        .then((cache) => {
+                            cache.put(event.request, responseClone);
+                        });
+
+                    return response;
+                });
+        }
+        return caches.match(event.request)
+            .then((response) => {
+                return response || new Response(null, {status: 500});
+            });
+    })());
 });

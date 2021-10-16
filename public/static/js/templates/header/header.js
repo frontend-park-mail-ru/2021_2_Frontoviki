@@ -8,8 +8,6 @@ import {statusCodes} from '../../constatns.js';
   * разные виды хедера
 */
 export function createHeader(globalEventBus) {
-  // отправляем запрос до начала отрисовки на получение пользователя
-  const res = isLogged();
   const wrapper = document.querySelector('.wrapper');
   let header = document.querySelector('#header');
 
@@ -22,7 +20,11 @@ export function createHeader(globalEventBus) {
   header.id = 'header';
   wrapper.prepend(header);
   const headerTemplate = Handlebars.templates.header;
-  res.then(({status, parsedBody}) => {
+  header.innerHTML = headerTemplate({
+    userName: undefined,
+    userAvatar: undefined,
+  });
+  isLogged().then(({status, parsedBody}) => {
     if (status != statusCodes.OK) {
       return;
     }

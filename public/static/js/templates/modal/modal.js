@@ -2,10 +2,11 @@ import {autorisation} from '../../modules/autorisation.js';
 import {registration} from '../../modules/registration.js';
 
 /**
-  * Создает модальное окно и цепляет его в основной div 'wrapper'
-  * Важно, что функция запускается после создания root,
-  * в котором лежит основной контент страницы
-*/
+ * Создает модальное окно и цепляет его в основной div 'wrapper'
+ * Важно, что функция запускается после создания root,
+ * в котором лежит основной контент страницы
+ * @param {*} globalEventBus глобальный емитер событий
+ */
 export function createModal(globalEventBus) {
   const modalTemplate = Handlebars.templates.modal;
   const modal = document.createElement('div');

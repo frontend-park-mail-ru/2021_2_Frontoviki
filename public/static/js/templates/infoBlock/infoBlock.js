@@ -36,6 +36,6 @@ function createProductSearch(searchText) {
   search.classList.add('info-block__left');
   search.classList.add('info-block__search');
   const searchTemplate = Handlebars.templates.productSearch;
-  search.innerHTML = searchTemplate({searchText : searchText});
+  search.innerHTML = searchTemplate({searchText: searchText});
   return search;
 }

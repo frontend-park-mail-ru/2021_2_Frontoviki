@@ -38,7 +38,7 @@ export default class Router {
     for (const route of this.routes) {
       if (route.regExp.test(URL)) {
         const parsedURL = route.regExp.exec(URL);
-        console.log(parsedURL)
+        console.log(parsedURL);
         route.handler(parsedURL.input);
         routeNotFound = false;
         break;
@@ -50,7 +50,7 @@ export default class Router {
       error.render();
     }
     if (pushState && URL !== oldURL) {
-      window.history.pushState({ url: URL }, '', URL);
+      window.history.pushState({url: URL}, '', URL);
     }
   }
 

@@ -7,17 +7,17 @@ import BaseView from './baseView.js';
   * товаров, поиском и меню категорий
 */
 export default class MainPageView extends BaseView {
-    constructor(eventBus) {
-      super(eventBus);
+  constructor(eventBus) {
+    super(eventBus);
 
-      this.render = this.render.bind(this);
-      this.eventBus.on('getAds', this.renderAds.bind(this));
-      this.eventBus.on('clickModal', this.modal.bind(this));
-    }
+    this.render = this.render.bind(this);
+    this.eventBus.on('getAds', this.renderAds.bind(this));
+    this.eventBus.on('clickModal', this.modal.bind(this));
+  }
 
-    render() {
-      this.eventBus.emit('getData');
-    }
+  render() {
+    this.eventBus.emit('getData');
+  }
   /**
      * Функция рендера генерерует весь контент страницы
      * @param {string} search текст поиска страницы
