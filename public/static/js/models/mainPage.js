@@ -8,7 +8,7 @@ export default class MainPageModel {
      */
     constructor(eventBus) {
         this.eventBus = eventBus;
-        this.getAds();
+        this.eventBus.on('getData', this.getAds.bind(this));
     }
 
     getAds() {
@@ -30,7 +30,7 @@ export default class MainPageModel {
         //   }
         // });
         const ad = {
-            href: '#',
+            href: '/ads/3',
             image: 'https://volchock.ru/static/img/2spooky4me.jpg',
             name: 'Картина A',
             location: 'Moscow',

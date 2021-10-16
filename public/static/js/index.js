@@ -21,8 +21,7 @@ document.addEventListener('DOMContentLoaded', () => {
   ]);
   const router = new Router(wrapper, globalEventBus);
   const MainPage = new MainPageController(router, globalEventBus);
-  router.setRoute('^/', MainPage.view.render);
-  router.setRoute('^/menu', MainPage.view.render);
+  router.setRoute('^/$', MainPage.view.render);
 
   router.go(window.location.pathname);
 });

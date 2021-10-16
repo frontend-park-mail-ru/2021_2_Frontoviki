@@ -11,7 +11,7 @@ export default class MainPageView extends BaseView {
       super(eventBus);
 
       this.render = this.render.bind(this);
-      this.eventBus.on('getAds', this.render);
+      this.eventBus.on('getAds', this.renderAds.bind(this));
     }
     /**
      * Функция рендера генерерует весь контент страницы
@@ -20,13 +20,15 @@ export default class MainPageView extends BaseView {
      * Например 'Электротехника'.
      * @param {JSON} jsonElements массив объявлений
     */
-    render(search, categories, jsonElements) {
+    render(data) {
+        this.eventBus.emit('getData');
+    }
+
+    renderAds(search, categories, jsonElements) {
       this.root.innerHTML = '';
-      if (search !== undefined && categories !== undefined) {
-        this.root.appendChild(createInfoBlock(search, categories));
-      }
+      this.root.appendChild(createInfoBlock(search, categories));
       this.root.appendChild(createProductGrid(jsonElements));
-    };
+    }
 
     modal() {
       const modal = document.querySelector('.modal-window');

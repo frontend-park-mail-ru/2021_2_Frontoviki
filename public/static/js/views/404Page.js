@@ -1,7 +1,7 @@
 /**
     * Экспортируемый класс для генерации окна с 404 ошибкой
 */
-export class ErrorPage {
+export default class ErrorPage {
     #parent
 
     /**

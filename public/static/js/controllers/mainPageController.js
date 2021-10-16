@@ -15,6 +15,7 @@ export default class MainPageController {
     console.log('Main page created');
     this.eventBus = new EventBus([
       'getAds',
+      'getData',
     ]);
     this.view = new MainPageView(this.eventBus);
     this.model = new MainPageModel(this.eventBus);

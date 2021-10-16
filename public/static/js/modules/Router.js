@@ -1,3 +1,5 @@
+import ErrorPage from '../views/404Page.js';
+
 export default class Router {
   constructor(root, globalBus) {
     this.routes = [];
@@ -44,7 +46,9 @@ export default class Router {
       }
     }
     if (routeNotFound) {
-      document.getElementById('root').innerHTML = '404';
+      const root = document.getElementById('root');
+      const error = new ErrorPage(root);
+      error.render();
     }
     if (pushState && URL !== oldURL) {
       window.history.pushState({ url: URL }, '', URL);
