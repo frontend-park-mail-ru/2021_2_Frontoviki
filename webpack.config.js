@@ -27,7 +27,7 @@ module.exports = {
             },
         }]
     },
-    
+
     plugins: [
         new ServiceWorkerWebpackPlugin({
             entry: path.join(__dirname, 'public/sw.js'),
