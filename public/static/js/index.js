@@ -7,6 +7,16 @@ import EventBus from './modules/EventBus.js';
 import MainPageController from './controllers/mainPageController.js';
 
 document.addEventListener('DOMContentLoaded', () => {
+  if ('serviceWorker' in navigator) {
+    navigator.serviceWorker.register('./sw.js', {scope: '/'})
+        .then((registration) => {
+          console.log('sw registration on scope:', registration.scope);
+        })
+        .catch((err) => {
+          console.error(err);
+        });
+  };
+
   const wrapper = document.querySelector('.wrapper');
   const root = document.createElement('div');
   root.id = 'root';
@@ -19,12 +29,10 @@ document.addEventListener('DOMContentLoaded', () => {
     'loggedIn',
   ]);
   const router = new Router(wrapper, globalEventBus);
-
   createHeader(globalEventBus);
   createModal(globalEventBus);
   wrapper.appendChild(root);
   createFooter();
-
 
   const MainPage = new MainPageController(router, globalEventBus);
   router.setRoute('^/$', MainPage.view.render);

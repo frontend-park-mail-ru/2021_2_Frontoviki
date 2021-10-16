@@ -46,6 +46,7 @@ export function createHeader(globalEventBus) {
         userAvatar: undefined,
       });
       document.querySelector('.expand-menu__label').style.display = 'none';
+      document.querySelector('.expand-menu').style.display = 'none';
       document.getElementById('auth').style.display = 'flex';
     }
     const title = document.querySelector('.logo__capture');
