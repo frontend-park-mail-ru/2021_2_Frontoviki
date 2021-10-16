@@ -1,0 +1,126 @@
+header {
+    height: 60px;
+    background-color: var(--header-background-color);
+
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.header__left-block,
+.header__right-block {
+    width: max-content;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.header__left-block {
+    margin-left: 3%;
+}
+
+.header__right-block {
+    margin-right: 3%;
+}
+
+
+.logo {
+    height: 24px;
+    margin-right: 10px;
+}
+
+.logo__icon {
+    height: 24px;
+    width: 24px;
+}
+
+.logo__capture {
+    cursor: pointer;
+    width: fit-content;
+    font-weight: 700;
+    text-transform: uppercase;
+    color: var(--header-capture-color);
+}
+
+.search {
+    margin-left: 2%;
+    margin-right: 2%;
+    width: 350px;
+    height: 32px;
+    background-color: var(--search-background-color);
+    border-radius: 4px;
+
+    justify-content: space-around;
+    padding: 10px;
+}
+
+.search__icon {
+    width: 12px;
+    height: 12px;
+    margin-right: 10px;
+    fill: var(--search-text-default-color);
+}
+
+.search__input {
+    border: none;
+    outline: none;
+    width: 100%;
+    background-color: inherit;
+
+    color: var(--header-background-color);
+    font-family: "Roboto", 'Open Sans', sans-serif;
+    font-size: 14px;
+    font-weight: 400;
+}
+
+.search__input::-webkit-input-placeholder{
+    color: var(--search-text-default-color);
+}
+
+.search__input::-webkit-search-cancel-button {
+    display: none;
+  }
+
+.search__input:focus-visible {
+    border: none;
+    background-color: inherit;
+}
+
+/* скрытие имени пользователя на мобилке */
+@media only screen and (max-device-width: 480px) {
+    .mini-profile__capture {
+        display: none;
+    }
+    .search {
+        width: fit-content;
+    }
+}
+.mini-profile__capture {
+    cursor: default;
+    font-weight: 500;
+    font-style: normal;
+    font-size: 16px;
+    line-height: 24px;
+    color: var(--header-capture-color);
+
+    margin-right: 10px;
+}
+
+.mini-profile__avatar {
+    width: 37px;
+    height: 37px;
+    border-radius: 50%;
+}
+
+.mini-profile__options {
+    width: 24px;
+    height: 24px;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.mini-profile__options__icon {
+    fill: var(--header-capture-color);
+}

@@ -1,0 +1,34 @@
+.root__info-block {
+    position: relative;
+}
+
+.info-block__left {
+    margin-left: 3%;
+}
+
+.category__list > * {
+    display: inline;
+}
+
+.category__list a {
+    font-family: "Montserrat", Verdana, sans-serif;
+    text-decoration: none;
+}
+
+.category__list__main::after,
+.category__list__sub {
+    content: '/';
+}
+
+.category__list__sub > a {
+    color: var(--color-unactive-input);
+}
+
+.category__list__sub::after {
+    content: '';
+}
+
+.info-block__capture {
+    color: var(--info-block-capture-color);
+    font-size: var(--info-block-capture-size);
+}
