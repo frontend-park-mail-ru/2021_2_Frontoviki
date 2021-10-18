@@ -12,7 +12,7 @@ module.exports = {
     publicPath: '/',
   },
   resolve: {
-    extensions: ['.js'],
+    extensions: ['.ts', '.tsx', '.js'],
   },
 
   module: {
@@ -29,9 +29,7 @@ module.exports = {
       },
       {
         test: /\.handlebars$/,
-        use: {
-          loader: 'handlebars-loader',
-        },
+        loader: 'handlebars-loader',
         exclude: /(node_modules)/,
       },
       {
@@ -52,6 +50,9 @@ module.exports = {
 
   plugins: [
     new HtmlWebpackPlugin({inject: true, template: './public/index.html'}),
+    new MiniCssExtractPlugin({
+      filename: 'main.css',
+    }),
     new ServiceWorkerWebpackPlugin({
       entry: path.join(__dirname, 'public/sw.js'),
     }),

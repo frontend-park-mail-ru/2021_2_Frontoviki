@@ -36,7 +36,7 @@ export function createHeader(globalEventBus) {
     if (isAuthorized) {
       let {name, surname, email, image, id} = body.profile;
       if (image != null) {
-        image = 'https://volchock.ru/static/img/default_image.jpg';
+        image = '/static/img/default_image.jpg';
       }
       localStorage.setItem('id', id);
       localStorage.setItem('name', name);

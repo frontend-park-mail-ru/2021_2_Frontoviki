@@ -11,7 +11,7 @@ import {egg, eggTemplate} from './templates/easterEgg/easterEgg.js';
 
 document.addEventListener('DOMContentLoaded', () => {
   if ('serviceWorker' in navigator) {
-    navigator.serviceWorker.register('https://volchock.ru/sw.js', {scope: '/'})
+    navigator.serviceWorker.register('/sw.js', {scope: '/'})
         .then((registration) => {
           console.log('sw registration on scope:', registration.scope);
         })
