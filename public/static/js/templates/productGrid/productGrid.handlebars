@@ -2,6 +2,9 @@
   {{#each adsArray}}
     <div class="card">
       <a href="{{href}}">
+        {{#if canDelete}}
+        <img class="card__delete" src="https://volchock.ru/static/img/remove.png" width="35" height="35">
+        {{/if}}
         <div class="card__image-container">
           <figure>
             <img src="{{image}}" alt="Картинка объявления" />
@@ -12,6 +15,9 @@
         </div>
         <div class="card__card-info">
           <p class="card-info__card_location">{{location}}</p>
+          {{#if canBuy}}
+          <p class="card-info__card_buy">Купить</p>
+          {{/if}}
           <p class="card-info__card_price">{{price}} ₽</p>
         </div>
       </a>

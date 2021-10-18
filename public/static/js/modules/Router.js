@@ -28,18 +28,13 @@ export default class Router {
   go(URL, pushState = true) {
     const oldURL = window.history.state?.url;
 
-    // if ((/^\/login\/?$/.test(URL) || /^\/join\/?$/.test(URL)) &&
-    //   (!/^\/login\/?$/.test(oldURL) && !/^\/join\/?$/.test(oldURL)) &&
-    //   !this.redirectUlrAfterAuthUrl) {
-    //   this.redirectUlrAfterAuthUrl = oldURL;
-    // }
-
     let routeNotFound = true;
     for (const route of this.routes) {
+      console.log(route)
       if (route.regExp.test(URL)) {
         const parsedURL = route.regExp.exec(URL);
         console.log(parsedURL);
-        route.handler(parsedURL.input);
+        route.handler(parsedURL.group);
         routeNotFound = false;
         break;
       }

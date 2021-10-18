@@ -1,66 +1,75 @@
 import {createProductGrid} from '../templates/productGrid/productGrid.js';
-import {main} from '../../main.js';
-import {secureDomainUrl} from '../../constatns.js';
-import {Ajax} from '../../modules/ajax.js';
-
+import {profileInfoBlock} from '../templates/profileInfoBlock/profileInfoBlock.js';
+import { settings } from '../templates/settings/settings.js';
+import BaseView from './baseView.js';
 
 /**
   * Экспортируемый класс для генерации страницы профиля с сеткой
   * товаров
-  * Пока в тестовом режиме!!!
 */
-export class ProfilePage {
-    #parent
-    /**
-     * Конструктор класса
-     * @param {HTMLElement} parent - родительский элемент страницы,
-     *  в который записывается весь контент, чаще всего root
-    */
-    constructor(parent) {
-      this.#parent = parent;
-    }
+export default class ProfilePageView extends BaseView {
+  /**
+    * Конструктор класса
+    * @param {*} eventBus - родительский элемент страницы,
+    *  в который записывается весь контент, чаще всего root
+  */
+  constructor(eventBus) {
+    super(eventBus);
+    this.render = this.render.bind(this);
+    eventBus.on('gotAds', this.renderAds.bind(this));
+    eventBus.on('getSettings', this.renderSettings.bind(this));
+  }
+  /**
+    * функция отрисовки страницы профиля
+  */
+  render() {
+    this.eventBus.emit('checkLog');
+    document.getElementById('mini-profile__toogle').checked = false;
+    this.root.innerHTML = '';
+    const profileContent = profileInfoBlock();
+    this.root.appendChild(profileContent);
+    const rightBlock = document.createElement('div');
+    rightBlock.classList.add('profile-content_right');
+    profileContent.appendChild(rightBlock);
 
-    /**
-     * функция отрисовки страницы профиля
-     * @param {string} name имя пользователя
-     * @param {int} rating рейтинг
-     * @param {string} profilePic ссылка на аватар
-     * @param {array<JSON>} ads массив объявлений пользователя
-     */
-    render(name, rating, profilePic, ads) {
-      this.#parent.innerHTML = '';
+    const myAdsBtn =
+      document.querySelector('.profile-content__buttons').childNodes[1];
+    myAdsBtn.addEventListener('click', (e) => {
+      this.eventBus.emit('getAds');
+    });
 
-      const content = document.createElement('div');
-      content.classList.add('inner-profile-content');
-      const contentBlock = document.createElement('div');
-      contentBlock.classList.add('profile-info');
-      const blockText = document.createElement('h1');
-      blockText.innerHTML = 'Ваши объявления';
-      contentBlock.appendChild(blockText);
-      if (ads != null) {
-        contentBlock.appendChild(createProductGrid(ads));
-      }
-      content.appendChild(contentBlock);
-      this.#parent.appendChild(content);
-      this.#addEventsToButtons();
-    }
+    const settingBtn =
+      document.querySelector('.profile-content__buttons').childNodes[13];
+    settingBtn.addEventListener('click', (e) => {
+      this.eventBus.emit('getSettings');
+    });
+    this.eventBus.emit('getAds');
+  }
 
-    /**
-     * Функция связки кнопок на профиле с действиями
-     */
-    #addEventsToButtons() {
-      const exitBtn = document.querySelector('#exit');
-      exitBtn.addEventListener('click', (e)=> {
-        e.preventDefault();
-        const res = Ajax.asyncPostUsingFetch({
-          url: secureDomainUrl + 'logout',
-          body: null,
-        });
-        res.then(()=> {
-          modalWork();
-          main();
-        });
-      });
+  /**
+   * Отрисовывает объявления пользователя
+   * @param {jsonArray} ads массив объявлений
+   */
+  renderAds(ads) {
+    const rightBlock = document.querySelector('.profile-content_right');
+    rightBlock.innerHTML = '';
+    const title = document.createElement('h3');
+    title.classList.add('profile-content__title');
+    title.innerHTML = ' Ваши объявления ';
+    rightBlock.appendChild(title);
+    if (ads!= null) {
+      rightBlock.appendChild(createProductGrid({jsonElements: ads}, true, false));
     }
+  }
+  /**
+   * Отрисовывает настройки
+   * @param {json} profileInfo полная информация о профиле
+   */
+  renderSettings(profileInfo) {
+    const rightBlock = document.querySelector('.profile-content_right');
+    rightBlock.innerHTML = '';
+    const settingsDiv = settings();
+    rightBlock.appendChild(settingsDiv);
+  }
 };
 

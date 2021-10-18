@@ -9,7 +9,6 @@ import BaseView from './baseView.js';
 export default class MainPageView extends BaseView {
   constructor(eventBus) {
     super(eventBus);
-
     this.render = this.render.bind(this);
     this.eventBus.on('getAds', this.renderAds.bind(this));
     this.eventBus.on('clickModal', this.modal.bind(this));
@@ -28,7 +27,7 @@ export default class MainPageView extends BaseView {
   renderAds(search, categories, jsonElements) {
     this.root.innerHTML = '';
     this.root.appendChild(createInfoBlock(search, categories));
-    this.root.appendChild(createProductGrid(jsonElements));
+    this.root.appendChild(createProductGrid(jsonElements, false, false));
   }
 
   /**

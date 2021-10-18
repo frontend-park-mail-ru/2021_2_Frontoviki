@@ -34,10 +34,15 @@ export function createHeader(globalEventBus) {
       isAuthorized = true;
     }
     if (isAuthorized) {
-      let {name, image} = body.profile;
+      let {name, surname, email, image, id} = body.profile;
       if (image != null) {
         image = 'static/img/default_image.jpg';
       }
+      localStorage.setItem('id', id);
+      localStorage.setItem('name', name);
+      localStorage.setItem('surname', surname);
+      localStorage.setItem('email', email);
+      localStorage.setItem('image', image);
       header.innerHTML = headerTemplate({userName: name, userAvatar: image});
       const authLink = document.getElementById('auth');
       authLink.style.display = 'none';
@@ -61,8 +66,12 @@ export function createHeader(globalEventBus) {
     });
     const logoutHref = document.getElementById('logout');
     logoutHref.addEventListener('click', (e) => {
-      e.preventDefault();
-      e.stopPropagation();
+      localStorage.removeItem('id');
+      localStorage.removeItem('name');
+      localStorage.removeItem('surname');
+      localStorage.removeItem('email');
+      localStorage.removeItem('image');
+      document.getElementById('mini-profile__toogle').checked = false;
       logout(globalEventBus);
       createHeader(globalEventBus);
     });

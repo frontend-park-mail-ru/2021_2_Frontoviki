@@ -52,9 +52,10 @@ export const Ajax = {
     }).then((data) => {
       return data;
     });
-    const {status} = response;
+    console.log(parsedBody)
+    const {status: code} = response;
     return {
-      status,
+      status: code,
       parsedBody,
     };
   },

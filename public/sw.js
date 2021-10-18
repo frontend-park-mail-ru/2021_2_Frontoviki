@@ -1,48 +1,7 @@
-const {assets} = global.serviceWorkerOption;
-const CACHE_NAME = 'volchockApp';
-
-const cacheUrls = [
-  ...assets,
-];
-
-self.addEventListener('install', (event) => {
-	// задержим обработку события',
-	// если произойдёт ошибка, serviceWorker не установится'
-	event.waitUntil(
-		// находим в глобальном хранилище Cache-объект с нашим именем'
-		// если такого не существует, то он будет создан'
-		caches.open(CACHE_NAME)
-			.then((cache) => {
-				// загружаем в наш cache необходимые файлы'
-				return cache.addAll(cacheUrls);
-			})
-			.catch((err) => {
-				console.error('smth went wrong with caches.open: ', err);
-			})
-	);
-});
-
-self.addEventListener('fetch', (event) => {
-    event.respondWith((() => {
-        if (navigator.onLine === true) {
-            return fetch(event.request)
-                .then((response) => {
-                    if (event.request.method !== 'GET') {
-                        return response;
-                    }
-
-                    const responseClone = response.clone();
-                    caches.open(CACHE_NAME)
-                        .then((cache) => {
-                            cache.put(event.request, responseClone);
-                        });
-
-                    return response;
-                });
-        }
-        return caches.match(event.request)
-            .then((response) => {
-                return response || new Response(null, {status: 500});
-            });
-    })());
-});
+var serviceWorkerOption = {
+  "assets": [
+    "/bundle.b6091b10e4216ced0472.js"
+  ]
+};
+        
+        !function(t){var e={};function n(r){if(e[r])return e[r].exports;var o=e[r]={i:r,l:!1,exports:{}};return t[r].call(o.exports,o,o.exports,n),o.l=!0,o.exports}n.m=t,n.c=e,n.d=function(t,e,r){n.o(t,e)||Object.defineProperty(t,e,{enumerable:!0,get:r})},n.r=function(t){"undefined"!=typeof Symbol&&Symbol.toStringTag&&Object.defineProperty(t,Symbol.toStringTag,{value:"Module"}),Object.defineProperty(t,"__esModule",{value:!0})},n.t=function(t,e){if(1&e&&(t=n(t)),8&e)return t;if(4&e&&"object"==typeof t&&t&&t.__esModule)return t;var r=Object.create(null);if(n.r(r),Object.defineProperty(r,"default",{enumerable:!0,value:t}),2&e&&"string"!=typeof t)for(var o in t)n.d(r,o,function(e){return t[e]}.bind(null,o));return r},n.n=function(t){var e=t&&t.__esModule?function(){return t.default}:function(){return t};return n.d(e,"a",e),e},n.o=function(t,e){return Object.prototype.hasOwnProperty.call(t,e)},n.p="/",n(n.s=0)}([function(t,e,n){(function(t){function e(t,e){(null==e||e>t.length)&&(e=t.length);for(var n=0,r=new Array(e);n<e;n++)r[n]=t[n];return r}var n,r=t.serviceWorkerOption.assets,o=function(t){if(Array.isArray(t))return e(t)}(n=r)||function(t){if("undefined"!=typeof Symbol&&null!=t[Symbol.iterator]||null!=t["@@iterator"])return Array.from(t)}(n)||function(t,n){if(t){if("string"==typeof t)return e(t,n);var r=Object.prototype.toString.call(t).slice(8,-1);return"Object"===r&&t.constructor&&(r=t.constructor.name),"Map"===r||"Set"===r?Array.from(t):"Arguments"===r||/^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(r)?e(t,n):void 0}}(n)||function(){throw new TypeError("Invalid attempt to spread non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method.")}();self.addEventListener("install",(function(t){t.waitUntil(caches.open("volchockApp").then((function(t){return t.addAll(o)})).catch((function(t){console.error("smth went wrong with caches.open: ",t)})))})),self.addEventListener("fetch",(function(t){t.respondWith(!0===navigator.onLine?fetch(t.request).then((function(e){if("GET"!==t.request.method)return e;var n=e.clone();return caches.open("volchockApp").then((function(e){e.put(t.request,n)})),e})):caches.match(t.request).then((function(t){return t||new Response(null,{status:500})})))}))}).call(this,n(1))},function(t,e){var n;n=function(){return this}();try{n=n||new Function("return this")()}catch(t){"object"==typeof window&&(n=window)}t.exports=n}]);
