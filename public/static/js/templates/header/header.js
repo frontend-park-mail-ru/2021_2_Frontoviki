@@ -1,6 +1,7 @@
 import {isLogged} from '../../modules/isLogged.js';
 import {logout} from '../../modules/logout.js';
 import {statusCodes} from '../../constatns.js';
+import headerT from './header.handlebars';
 /**
   * Создает хедер страницы, при этом происходит
   * запрос на сервер, чтобы узнать, авторизован ли
@@ -19,8 +20,7 @@ export function createHeader(globalEventBus) {
 
   header.id = 'header';
   wrapper.prepend(header);
-  const headerTemplate = Handlebars.templates.header;
-  header.innerHTML = headerTemplate({
+  header.innerHTML = headerT({
     userName: undefined,
     userAvatar: undefined,
   });
@@ -36,19 +36,19 @@ export function createHeader(globalEventBus) {
     if (isAuthorized) {
       let {name, surname, email, image, id} = body.profile;
       if (image != null) {
-        image = 'static/img/default_image.jpg';
+        image = 'https://volchock.ru/static/img/default_image.jpg';
       }
       localStorage.setItem('id', id);
       localStorage.setItem('name', name);
       localStorage.setItem('surname', surname);
       localStorage.setItem('email', email);
       localStorage.setItem('image', image);
-      header.innerHTML = headerTemplate({userName: name, userAvatar: image});
+      header.innerHTML = headerT({userName: name, userAvatar: image});
       const authLink = document.getElementById('auth');
       authLink.style.display = 'none';
       document.querySelector('.expand-menu__label').style.display = 'flex';
     } else {
-      header.innerHTML = headerTemplate({
+      header.innerHTML = headerT({
         userName: undefined,
         userAvatar: undefined,
       });

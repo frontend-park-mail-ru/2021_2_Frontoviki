@@ -1,3 +1,4 @@
+import eggT from './easterEgg.handlebars';
 /**
  * Пасхалочка
  */
@@ -218,4 +219,8 @@ export function egg() {
       clear();
     });
   });
+}
+
+export function eggTemplate() {
+  return eggT();
 }

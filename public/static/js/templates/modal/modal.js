@@ -1,5 +1,6 @@
 import {autorisation} from '../../modules/autorisation.js';
 import {registration} from '../../modules/registration.js';
+import modalT from './modal.handlebars';
 
 /**
  * Создает модальное окно и цепляет его в основной div 'wrapper'
@@ -8,11 +9,10 @@ import {registration} from '../../modules/registration.js';
  * @param {*} globalEventBus глобальный емитер событий
  */
 export function createModal(globalEventBus) {
-  const modalTemplate = Handlebars.templates.modal;
   const modal = document.createElement('div');
   modal.classList.add('modal-window');
   modal.id = 'modal-window';
-  modal.innerHTML = modalTemplate();
+  modal.innerHTML = modalT();
   const wrapper = document.querySelector('.wrapper');
   wrapper.appendChild(modal);
 

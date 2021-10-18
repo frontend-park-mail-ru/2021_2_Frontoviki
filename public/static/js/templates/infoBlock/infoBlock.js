@@ -1,3 +1,5 @@
+import productPathT from './productPath.handlebars';
+import productSearchT from './productSearch.handlebars';
 /**
  * Функция создания меню 'пути продукта' вида category / subcategory
  * @param {JSON} productPath формата
@@ -9,7 +11,6 @@
  * subCategoryHref
  * @return {HTMLDivElement}
 */
-
 export function createInfoBlock(searchText = null, productPath = null) {
   const infoBlock = document.createElement('div');
   infoBlock.classList.add('root__info-block');
@@ -26,8 +27,7 @@ function createProductPath(productPath) {
   const productClass = document.createElement('div');
   productClass.classList.add('info-block__left');
   productClass.classList.add('info-block__category');
-  const productClassTemplate = Handlebars.templates.productPath;
-  productClass.innerHTML = productClassTemplate(productPath);
+  productClass.innerHTML = productPathT(productPath);
   return productClass;
 };
 
@@ -35,7 +35,6 @@ function createProductSearch(searchText) {
   const search = document.createElement('div');
   search.classList.add('info-block__left');
   search.classList.add('info-block__search');
-  const searchTemplate = Handlebars.templates.productSearch;
-  search.innerHTML = searchTemplate({searchText: searchText});
+  search.innerHTML = productSearchT({searchText: searchText});
   return search;
 }

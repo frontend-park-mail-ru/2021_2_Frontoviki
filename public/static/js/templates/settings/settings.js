@@ -1,7 +1,7 @@
+import settingsT from './settings.handlebars';
 export function settings() {
-    const setTemplate = Handlebars.templates.settings;
     const settings = document.createElement('div');
-    settings.innerHTML = setTemplate({
+    settings.innerHTML = settingsT({
         userName: localStorage.getItem('name'),
         userSurname: localStorage.getItem('surname'),
         userEmail: localStorage.getItem('email'),
