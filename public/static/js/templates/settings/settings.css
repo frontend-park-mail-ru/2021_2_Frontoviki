@@ -2,90 +2,39 @@
   margin-top: 1%;
 }
 
-.settings-elem__title {
-  height: 27px;
-
-  font-family: Source Sans Pro;
-  font-style: normal;
-  font-weight: 300;
-  font-size: 24px;
-  line-height: 150%;
-  /* or 36px */
-
-  color: #000000;
+.profile__settings-elem input{
+  line-height: 30px;
 }
 
-.settings-elem__input {
-  margin-top: 1%;
-  text-align: left;
-  width: 330px;
-  height: 54px;
-
-  background: #ffffff;
-  border: 1px solid #6eb9ff;
-  box-sizing: border-box;
-  border-radius: 34px;
-
-  font-family: Montserrat;
-  font-style: normal;
-  text-align: center;
-  font-size: 22px;
-  font-weight: bold;
-}
-
-#settings__change-password {
-  margin-left: 50px;
+#settings__change-info, #settings__change-uploadPhoto {
+  margin-left: 25px;
   margin-top: 1.5%;
 }
 
-[type="file"] {
+.settings-elem__uploadPhotoInput {
   height: 0;
   overflow: hidden;
   width: 0;
 }
 
-[type="file"] + label {
-  border: none;
-  border-radius: 5px;
-  color: #fff;
+.settings-elem__uploadPhotoInput + .settings-elem__uploadPhotoBtn {
   cursor: pointer;
   display: inline-block;
-  font-family: "Rubik", sans-serif;
-  font-size: inherit;
-  font-weight: 500;
   margin-bottom: 1rem;
   outline: none;
-  padding: 1rem 50px;
+  padding: 1rem 30px;
   position: relative;
   transition: all 0.3s;
   vertical-align: middle;
+  border-radius: 20px;
+  margin-left: 50px;
+  background-color: #4fe1e1;
 }
 
-.btn-2 {
-    margin-left: 20px;
+.settings-elem__uploadPhotoBtn {
     margin-top: 2%;
-  background-color: #99c793;
-  border-radius: 50px;
+  background-color: var(--button-background-color_hover);
   overflow: hidden;
 }
 
-.btn-2::before {
-  color: #fff;
-  content: "\f382";
-  font-family: "Font Awesome 5 Pro";
-  font-size: 100%;
-  height: 100%;
-  right: 130%;
-  line-height: 3.3;
-  position: absolute;
-  top: 0px;
-  transition: all 0.3s;
-}
 
-.btn-2:hover {
-  background-color: darken(#99c793, 30%);
-}
-
-.btn-2:hover::before {
-  right: 75%;
-}

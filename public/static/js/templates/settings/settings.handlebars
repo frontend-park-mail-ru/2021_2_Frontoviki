@@ -1,41 +1,42 @@
 <h3 class="profile-content__title"> Настройки </h3>
 <div class="profile__settings-elem">
-  <div class="settings-elem__title">
-    Имя
-    <img src="https://volchock.ru/static/img/edit.jpg" width="24" height="24" />
+  <div id="settingName" class="text-input">
+    <label class="text-input__label">Имя</label>
+    <input class="text-input__input" type="text" placeholder="{{userName}}" />
+    <span class="text-input__description">Имя должно быть больше 2 символов</span>
   </div>
-  <input class="settings-elem__input" placeholder="{{userName}}" disabled />
 </div>
 <div class="profile__settings-elem">
-  <div class="settings-elem__title">
-    Фамилия
-    <img src="https://volchock.ru/static/img/edit.jpg" width="24" height="24" />
+  <div id="settingSurname" class="text-input">
+    <label class="text-input__label">Фамилия</label>
+    <input
+      class="text-input__input"
+      type="text"
+      placeholder="{{userSurname}}"
+    />
+    <span class="text-input__description">Фамилия должна быть больше 2 символов</span>
   </div>
-  <input class="settings-elem__input" placeholder="{{userSurname}}" disabled />
 </div>
 <div class="profile__settings-elem">
-  <div class="settings-elem__title">
-    Электронная почта
-    <img src="https://volchock.ru/static/img/edit.jpg" width="24" height="24" />
+  <div id="settingEmail" class="text-input">
+    <label class="text-input__label">Email</label>
+    <input class="text-input__input" type="text" placeholder="{{userEmail}}" />
+    <span class="text-input__description">Введите валидную почту</span>
   </div>
-  <input class="settings-elem__input" placeholder="{{userEmail}}" disabled />
 </div>
 
 <div class="profile__settings-elem">
-  <input type="file" id="file" />
-  <label for="file" class="btn-2">Загрузить фотографию</label>
+  <div id="settingPassword" class="text-input">
+    <label class="text-input__label">Новый Пароль</label>
+    <input class="text-input__input" type="password" />
+    <span class="text-input__description">Должен быть от 5-ти символов</span>
+  </div>
 </div>
+<button class="button" id="settings__change-info"> Изменить информацию </button>
 
 <div class="profile__settings-elem">
-  <div class="settings-elem__title">
-    Новый пароль
-  </div>
-  <input class="settings-elem__input" placeholder="" type="password" />
+  <input class= 'settings-elem__uploadPhotoInput' type="file" id="file" accept="image/*" />
+  <label for="file" class="settings-elem__uploadPhotoBtn"><img id='avatar' src="/static/img/photo.png"
+  width="100" height="100"></label>
 </div>
-<div class="profile__settings-elem">
-  <div class="settings-elem__title">
-    Повторите пароль
-  </div>
-  <input class="settings-elem__input" placeholder="" type="password" />
-</div>
-<button class="button" id="settings__change-password">Изменить пароль</button>
+<button class="button" id="settings__change-uploadPhoto"> Загрузить фотографию </button>

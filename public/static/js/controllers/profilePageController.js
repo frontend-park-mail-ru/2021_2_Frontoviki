@@ -19,11 +19,14 @@ export default class ProfilePageController {
       'notLogged',
       'getAds',
       'gotAds',
+      'uploadPhoto',
+      'changeInfo',
     ]);
     this.view = new ProfilePageView(this.eventBus);
     this.model = new ProfilePageModel(this.eventBus);
     this.eventBus.on('notLogged', this.redirectToMain.bind(this));
-    // this.eventBus.on('getSettings', this.redirectToSettings.bind(this));
+    this.eventBus.on('getAds', this.redirectToProfile.bind(this));
+    this.eventBus.on('getSettings', this.redirectToSettings.bind(this));
   }
 
   /**
@@ -34,15 +37,16 @@ export default class ProfilePageController {
     window.location.reload();
   }
 
-  triggerSettings() {
-      this.eventBus.emit('getSettings');
+  redirectToProfile() {
+    this.router.go('/profile');
+    window.location.reload();
   }
 
   /**
    * Редирект ту сеттингс
    */
-//   redirectToSettings() {
-//     this.router.go('/profile/settings');
-//     window.location.reload();
-//   }
+  redirectToSettings() {
+    this.router.go('/profile/settings');
+    window.location.reload();
+  }
 }

@@ -59,6 +59,31 @@ export const Ajax = {
       parsedBody,
     };
   },
+
+  /**
+   * Функция для отправки пост запросов картинки
+  * @param {any} args аргументы для запроса
+  * @return {Promise}
+  */
+  async asyncPostImageUsingFetch(args = {}) {
+    const response = await fetch(args.url, {
+      method: AJAX_METHODS.POST,
+      mode: 'cors',
+      cache: 'no-store',
+      credentials: 'include',
+      body: JSON.stringify(args.body),
+    });
+    const parsedBody = await response.json().catch(() => {
+      return {};
+    }).then((data) => {
+      return data;
+    });
+    const {status} = response;
+    return {
+      status,
+      parsedBody,
+    };
+  },
 };
 
 const AJAX_METHODS = {

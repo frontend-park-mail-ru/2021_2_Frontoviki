@@ -49,10 +49,10 @@ module.exports = {
   },
 
   plugins: [
-    new HtmlWebpackPlugin({inject: true, template: './public/index.html'}),
     new MiniCssExtractPlugin({
       filename: 'main.css',
     }),
+    new HtmlWebpackPlugin({inject: false, template: './public/index.html'}),
     new ServiceWorkerWebpackPlugin({
       entry: path.join(__dirname, 'public/sw.js'),
     }),

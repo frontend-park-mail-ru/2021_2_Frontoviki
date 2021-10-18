@@ -16,6 +16,8 @@ export default class ProfilePageView extends BaseView {
   constructor(eventBus) {
     super(eventBus);
     this.render = this.render.bind(this);
+    this.renderAds = this.renderAds.bind(this);
+    this.renderSettings = this.renderSettings.bind(this);
     eventBus.on('gotAds', this.renderAds.bind(this));
     eventBus.on('getSettings', this.renderSettings.bind(this));
   }
@@ -43,7 +45,6 @@ export default class ProfilePageView extends BaseView {
     settingBtn.addEventListener('click', (e) => {
       this.eventBus.emit('getSettings');
     });
-    this.eventBus.emit('getAds');
   }
 
   /**
@@ -51,6 +52,7 @@ export default class ProfilePageView extends BaseView {
    * @param {jsonArray} ads массив объявлений
    */
   renderAds(ads) {
+    this.render();
     const rightBlock = document.querySelector('.profile-content_right');
     rightBlock.innerHTML = '';
     const title = document.createElement('h3');
@@ -63,13 +65,33 @@ export default class ProfilePageView extends BaseView {
   }
   /**
    * Отрисовывает настройки
-   * @param {json} profileInfo полная информация о профиле
    */
-  renderSettings(profileInfo) {
+  renderSettings() {
+    this.render();
     const rightBlock = document.querySelector('.profile-content_right');
     rightBlock.innerHTML = '';
     const settingsDiv = settings();
     rightBlock.appendChild(settingsDiv);
+
+    const photoInput = document.getElementById('file');
+    console.log(photoInput);
+    const img = document.getElementById('avatar');
+    photoInput.onchange = (e) => {
+      const [file] = photoInput.files;
+      if (file) {
+        img.src = URL.createObjectURL(file);
+      }
+    };
+
+    const uploadPhotoBtn = document.getElementById('settings__change-uploadPhoto');
+    uploadPhotoBtn.addEventListener('click', ()=>{
+      const [file] = photoInput.files;
+      if (file) {
+        const formData = new FormData();
+        formData.append('file', file);
+        this.eventBus.emit('uploadPhoto', formData);
+      }
+    });
   }
 };
 

@@ -55,6 +55,11 @@ export function createHeader(globalEventBus) {
       document.querySelector('.expand-menu__label').style.display = 'none';
       document.querySelector('.expand-menu').style.display = 'none';
       document.getElementById('auth').style.display = 'flex';
+      localStorage.removeItem('id');
+      localStorage.removeItem('name');
+      localStorage.removeItem('surname');
+      localStorage.removeItem('email');
+      localStorage.removeItem('image');
     }
     const title = document.querySelector('.logo__capture');
     title.dataset.section = 'menu';
@@ -66,11 +71,6 @@ export function createHeader(globalEventBus) {
     });
     const logoutHref = document.getElementById('logout');
     logoutHref.addEventListener('click', (e) => {
-      localStorage.removeItem('id');
-      localStorage.removeItem('name');
-      localStorage.removeItem('surname');
-      localStorage.removeItem('email');
-      localStorage.removeItem('image');
       document.getElementById('mini-profile__toogle').checked = false;
       logout(globalEventBus);
       createHeader(globalEventBus);

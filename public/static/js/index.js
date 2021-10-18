@@ -42,8 +42,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
   router.setRoute('^\/$', MainPage.view.render);
   router.setRoute('^\/logout', MainPage.view.render);
-  router.setRoute('^\/profile', ProfilePage.view.render);
-  // router.setRoute('^\/profile\/settings', ProfilePage.view.render);
+  router.setRoute('^\/profile$', ProfilePage.view.renderAds);
+  router.setRoute('^\/profile\/settings$', ProfilePage.view.renderSettings);
 
   router.go(window.location.pathname);
   if (navigator.onLine !== true) {
