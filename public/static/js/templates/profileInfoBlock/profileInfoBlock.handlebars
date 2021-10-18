@@ -1,0 +1,37 @@
+<div class="profile-content_left">
+  <h3 class="profile-content__title profile-content__title_center">Профиль</h3>
+  <div class="profile-content__personal">
+    <div class="profile-content__avatar">
+      <img
+        class="profile-content__avatar__image"
+        src="{{userAvatar}}"
+      />
+    </div>
+    <p class="profile-content__username">{{userName}}</p>
+    <div class="profile-content__rating stars">
+        {{#each star}}
+      <svg
+        class="stars__star star_active"
+        width="32"
+        height="30"
+        viewBox="0 0 32 30"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <path
+          d="M15.9412 0L21.3399 9.20457L31.8235 11.459L24.6765 19.4021L25.757 30L15.9412 25.7046L6.12535 30L7.20589 19.4021L0.0588379 11.459L10.5425 9.20457L15.9412 0Z"
+        ></path>
+      </svg>
+      {{/each}}
+    </div>
+  </div>
+
+  <div class="profile-content__buttons">
+    <button class="button profile-content__button">Мои объявления</button>
+    <button class="button profile-content__button">Отзывы</button>
+    <button class="button profile-content__button">Избранное</button>
+    <button class="button profile-content__button">Корзина</button>
+    <button class="button profile-content__button">Сообщения</button>
+    <button class="button profile-content__button">Платные услуги</button>
+    <button class="button profile-content__button">Настройки</button>
+  </div>
+</div>
