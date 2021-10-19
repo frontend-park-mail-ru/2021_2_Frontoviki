@@ -23,6 +23,7 @@ export default class ProfilePageController {
       'uploadPhoto',
       'fileUploaded',
       'changeInfo',
+      'getGrid',
     ]);
     this.view = new ProfilePageView(this.eventBus);
     this.model = new ProfilePageModel(this.eventBus);
@@ -37,7 +38,6 @@ export default class ProfilePageController {
    */
   redirectToMain() {
     this.router.go('/');
-    window.location.reload();
   }
 
   /**
@@ -46,7 +46,6 @@ export default class ProfilePageController {
    */
   redirectToProfile() {
     this.router.go('/profile');
-    window.location.reload();
   }
 
   /**
@@ -54,7 +53,6 @@ export default class ProfilePageController {
    */
   redirectToSettings() {
     this.router.go('/profile/settings');
-    window.location.reload();
   }
 
   /**

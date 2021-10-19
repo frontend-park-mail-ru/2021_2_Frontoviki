@@ -19,7 +19,7 @@ export default class ProfilePageView extends BaseView {
     this.render = this.render.bind(this);
     this.renderAds = this.renderAds.bind(this);
     this.renderSettings = this.renderSettings.bind(this);
-    eventBus.on('gotAds', this.renderAds.bind(this));
+    eventBus.on('gotAds', this.renderGrid.bind(this));
     eventBus.on('getSettings', this.renderSettings.bind(this));
   }
   /**
@@ -47,12 +47,11 @@ export default class ProfilePageView extends BaseView {
       this.eventBus.emit('getSettings');
     });
   }
-
   /**
    * Отрисовывает объявления пользователя
-   * @param {jsonArray} ads массив объявлений
+   * @param {jsonArray} adverts массив объявлений
    */
-  renderAds(ads) {
+  renderAds() {
     this.render();
     const rightBlock = document.querySelector('.profile-content_right');
     rightBlock.innerHTML = '';
@@ -60,9 +59,14 @@ export default class ProfilePageView extends BaseView {
     title.classList.add('profile-content__title');
     title.innerHTML = ' Ваши объявления ';
     rightBlock.appendChild(title);
-    if (ads!= null) {
+    this.eventBus.emit('getGrid');
+  }
+
+  renderGrid(adverts) {
+    const rightBlock = document.querySelector('.profile-content_right');
+    if (adverts.length !== 0) {
       rightBlock.appendChild(createProductGrid(
-          {jsonElements: ads}, true, false));
+          {jsonElements: adverts}, true, false));
     }
   }
   /**

@@ -12,7 +12,7 @@ export default class ProfilePageModel {
   */
   constructor(eventBus) {
     this.eventBus = eventBus;
-    this.eventBus.on('getAds', this.getAds.bind(this));
+    this.eventBus.on('getGrid', this.getAds.bind(this));
     this.eventBus.on('checkLog', this.checkForLogging.bind(this));
     this.eventBus.on('uploadPhoto', this.uploadPhoto.bind(this));
     this.eventBus.on('settingsRendered', this.handleSettings.bind(this));
@@ -25,11 +25,12 @@ export default class ProfilePageModel {
       url: secureDomainUrl + 'adverts/salesman/' + localStorage.getItem('id'),
       body: null,
     });
-    res.then(({status, parsedBody}) => {
-      if (status != statusCodes.OK) {
+    res.then(({parsedBody}) => {
+      const {code} = parsedBody;
+      if (code === statusCodes.NOTEXIST) {
         return;
       }
-      const {adverts} = parsedBody;
+      const {adverts} = parsedBody.body;
       this.eventBus.emit('gotAds', adverts);
     });
   }
