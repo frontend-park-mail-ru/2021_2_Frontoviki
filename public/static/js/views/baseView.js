@@ -1,3 +1,8 @@
+import '../../css/expand-menu.css';
+import '../../css/layout.css';
+import '../../css/variables.css';
+import '../templates/button/button.css';
+import '../templates/input/input.css';
 /**
  * Base view class, each view must extends it
  */

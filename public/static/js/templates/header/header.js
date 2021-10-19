@@ -2,6 +2,7 @@ import {isLogged} from '../../modules/isLogged.js';
 import {logout} from '../../modules/logout.js';
 import {statusCodes} from '../../constatns.js';
 import headerT from './header.handlebars';
+import './header.css';
 /**
   * Создает хедер страницы, при этом происходит
   * запрос на сервер, чтобы узнать, авторизован ли

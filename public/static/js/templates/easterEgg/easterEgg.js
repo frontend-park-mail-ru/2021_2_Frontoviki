@@ -1,4 +1,5 @@
 import eggT from './easterEgg.handlebars';
+import './easterEgg.css';
 /**
  * Пасхалочка
  */

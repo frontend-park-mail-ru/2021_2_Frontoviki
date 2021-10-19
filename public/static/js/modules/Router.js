@@ -1,5 +1,8 @@
-import ErrorPage from '../views/404Page.js';
+import ErrorPage from '../templates/404Page/404Page.js';
 
+/**
+ * Класс роутера для навигации в спа
+ */
 export default class Router {
   constructor(root, globalBus) {
     this.routes = [];
@@ -30,7 +33,6 @@ export default class Router {
 
     let routeNotFound = true;
     for (const route of this.routes) {
-      console.log(route)
       if (route.regExp.test(URL)) {
         const parsedURL = route.regExp.exec(URL);
         console.log(parsedURL);
