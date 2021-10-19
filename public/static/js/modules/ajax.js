@@ -52,7 +52,7 @@ export const Ajax = {
     }).then((data) => {
       return data;
     });
-    console.log(parsedBody)
+    console.log(parsedBody);
     const {status: code} = response;
     return {
       status: code,
@@ -71,13 +71,14 @@ export const Ajax = {
       mode: 'cors',
       cache: 'no-store',
       credentials: 'include',
-      body: JSON.stringify(args.body),
+      body: args.body,
     });
     const parsedBody = await response.json().catch(() => {
       return {};
     }).then((data) => {
       return data;
     });
+    console.log(parsedBody);
     const {status} = response;
     return {
       status,

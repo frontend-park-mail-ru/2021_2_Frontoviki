@@ -19,7 +19,9 @@ export default class ProfilePageController {
       'notLogged',
       'getAds',
       'gotAds',
+      'settingsRendered',
       'uploadPhoto',
+      'fileUploaded',
       'changeInfo',
     ]);
     this.view = new ProfilePageView(this.eventBus);
@@ -27,6 +29,7 @@ export default class ProfilePageController {
     this.eventBus.on('notLogged', this.redirectToMain.bind(this));
     this.eventBus.on('getAds', this.redirectToProfile.bind(this));
     this.eventBus.on('getSettings', this.redirectToSettings.bind(this));
+    this.eventBus.on('fileUploaded', this.refreshPage.bind(this));
   }
 
   /**
@@ -47,6 +50,10 @@ export default class ProfilePageController {
    */
   redirectToSettings() {
     this.router.go('/profile/settings');
+    window.location.reload();
+  }
+
+  refreshPage() {
     window.location.reload();
   }
 }

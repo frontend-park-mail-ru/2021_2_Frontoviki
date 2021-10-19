@@ -35,15 +35,15 @@ export function createHeader(globalEventBus) {
     }
     if (isAuthorized) {
       let {name, surname, email, image, id} = body.profile;
-      if (image != null) {
+      if (image == null) {
         image = '/static/img/default_image.jpg';
       }
       localStorage.setItem('id', id);
       localStorage.setItem('name', name);
       localStorage.setItem('surname', surname);
       localStorage.setItem('email', email);
-      localStorage.setItem('image', image);
-      header.innerHTML = headerT({userName: name, userAvatar: image});
+      localStorage.setItem('image', '/' + image);
+      header.innerHTML = headerT({userName: name, userAvatar: '/' + image});
       const authLink = document.getElementById('auth');
       authLink.style.display = 'none';
       document.querySelector('.expand-menu__label').style.display = 'flex';

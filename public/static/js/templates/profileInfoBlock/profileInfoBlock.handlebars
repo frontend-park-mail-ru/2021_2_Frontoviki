@@ -4,7 +4,7 @@
     <div class="profile-content__avatar">
       <img
         class="profile-content__avatar__image"
-        src="{{userAvatar}}"
+        src="{{userAvatar}}" onerror="this.onerror=null;this.src='{{userAvatar}}';"
       />
     </div>
     <p class="profile-content__username">{{userName}}</p>

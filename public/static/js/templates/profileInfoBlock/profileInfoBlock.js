@@ -9,6 +9,7 @@ export function profileInfoBlock() {
   infoBlock.classList.add('profile-content');
   infoBlock.innerHTML = infoBlockT(
       {userName: localStorage.getItem('name'),
-        userAvatar: localStorage.getItem('image'), star: [true, true, true]});
+        userAvatar: localStorage.getItem('image'),
+        star: [true, true, true]});
   return infoBlock;
 }

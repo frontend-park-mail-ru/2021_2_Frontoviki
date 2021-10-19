@@ -72,26 +72,7 @@ export default class ProfilePageView extends BaseView {
     rightBlock.innerHTML = '';
     const settingsDiv = settings();
     rightBlock.appendChild(settingsDiv);
-
-    const photoInput = document.getElementById('file');
-    console.log(photoInput);
-    const img = document.getElementById('avatar');
-    photoInput.onchange = (e) => {
-      const [file] = photoInput.files;
-      if (file) {
-        img.src = URL.createObjectURL(file);
-      }
-    };
-
-    const uploadPhotoBtn = document.getElementById('settings__change-uploadPhoto');
-    uploadPhotoBtn.addEventListener('click', ()=>{
-      const [file] = photoInput.files;
-      if (file) {
-        const formData = new FormData();
-        formData.append('file', file);
-        this.eventBus.emit('uploadPhoto', formData);
-      }
-    });
+    this.eventBus.emit('settingsRendered');
   }
 };
 

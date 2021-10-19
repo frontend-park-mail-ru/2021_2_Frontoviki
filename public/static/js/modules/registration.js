@@ -2,7 +2,7 @@ import {Ajax} from './ajax.js';
 import {secureDomainUrl, statusCodes} from '../constatns.js';
 import {clearInput} from './clearInput.js';
 import {createHeader} from '../templates/header/header.js';
-const inputNum = 3;
+import {validateInfo} from './validation.js';
 /**
  * функция регистрация нового пользователя
  * @param {HTMLFormElement} regName имя пользователя
@@ -14,41 +14,12 @@ const inputNum = 3;
  */
 export function registration(regName, regSurname, regEmail,
     regPass, regPassRep, globalEventBus) {
-  const name = regName.childNodes[inputNum].value.trim();
-  const surname = regSurname.childNodes[inputNum].value.trim();
-  const email = regEmail.childNodes[inputNum].value.trim();
-  const password = regPass.childNodes[inputNum].value.trim();
-  const passwordRep = regPassRep.childNodes[inputNum].value.trim();
-
-  const valid = validate(regEmail.childNodes[inputNum], patterns['email']) &&
-    validate(regPass.childNodes[inputNum], patterns['password']);
-
-  if (!valid) {
-    regEmail.childNodes[5].innerHtml = 'Введите валидный email';
+  const trimmedData =
+    validateInfo(regName, regSurname, regEmail, regPass, regPassRep);
+  if (trimmedData === undefined) {
     return;
   }
-  if (password !== passwordRep) {
-    regPassRep.classList.add('text-input_wrong');
-    return;
-  }
-  regPassRep.classList.remove('text-input_wrong');
-  regPassRep.classList.add('text-input_correct');
-
-  const allowedNameLen = 2;
-  if (name.length < allowedNameLen) {
-    regName.classList.add('text-input_wrong');
-    return;
-  }
-  regName.classList.remove('text-input_wrong');
-  regName.classList.add('text-input_correct');
-
-  if (surname.length < allowedNameLen) {
-    regSurname.classList.add('text-input_wrong');
-    return;
-  }
-  regSurname.classList.remove('text-input_wrong');
-  regSurname.classList.add('text-input_correct');
-
+  const {name, surname, email, password} = trimmedData;
   const response = Ajax.asyncPostUsingFetch({
     url: secureDomainUrl + 'signup',
     body: {email, password, name, surname},
@@ -70,21 +41,6 @@ export function registration(regName, regSurname, regEmail,
     regEmail.classList.add('text-input_wrong');
   });
 }
-
-const patterns = {
-  email: /^[a-zA-Z0-9]+@[a-zA-Z0-9]+\.[a-zA-Z0-9]+$/,
-  password: /^[\w]{4,}$/,
-};
-
-const validate = (field, regex) => {
-  const valid = regex.test(field.value);
-  if (valid) {
-    field.parentNode.classList.add('text-input_correct');
-  } else {
-    field.parentNode.classList.add('text-input_wrong');
-  }
-  return valid;
-};
 
 /**
  * очищает все input'ы регистрации в модальном окне
