@@ -37,4 +37,8 @@
   overflow: hidden;
 }
 
+.upload-photo-input__avatar {
+  border-radius: 50%;
+}
+
 

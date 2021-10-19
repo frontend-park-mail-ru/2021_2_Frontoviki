@@ -40,6 +40,10 @@ export default class ProfilePageController {
     window.location.reload();
   }
 
+  /**
+   * Редирект на главную страницу пользователя
+   * с объявлениями
+   */
   redirectToProfile() {
     this.router.go('/profile');
     window.location.reload();
@@ -53,6 +57,9 @@ export default class ProfilePageController {
     window.location.reload();
   }
 
+  /**
+   * функция перезагрузки страницы
+   */
   refreshPage() {
     window.location.reload();
   }

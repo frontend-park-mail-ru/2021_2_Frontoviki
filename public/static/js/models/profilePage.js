@@ -80,19 +80,19 @@ export default class ProfilePageModel {
 
     const changeInfoBtn = document.getElementById('settings__change-info');
     changeInfoBtn.addEventListener('click', (e)=>{
-      let name =
-        document.getElementById('settingName').childNodes[3].value.trim();
-      let surname =
-        document.getElementById('settingSurname').childNodes[3].value.trim();
+      const nameInput = document.getElementById('settingName').childNodes[3];
+      let name = nameInput.value.trim();
+      const surnInpt = document.getElementById('settingSurname').childNodes[3];
+      let surname = surnInpt.value.trim();
       const email =
         document.getElementById('settingEmail').childNodes[3].placeholder;
       const password =
         document.getElementById('settingPassword').childNodes[3].value.trim();
       if (name == '') {
-            name = document.getElementById('settingName').childNodes[3].placeholder;
+        name = nameInput.placeholder;
       }
       if (surname == '') {
-            surname = document.getElementById('settingSurname').childNodes[3].placeholder;
+        surname = surnInpt.placeholder;
       }
 
       if (name.length < 2) {

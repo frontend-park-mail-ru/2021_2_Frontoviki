@@ -1,6 +1,7 @@
 import {createProductGrid} from '../templates/productGrid/productGrid.js';
-import {profileInfoBlock} from '../templates/profileInfoBlock/profileInfoBlock.js';
-import { settings } from '../templates/settings/settings.js';
+import {profileInfoBlock} from
+  '../templates/profileInfoBlock/profileInfoBlock.js';
+import {settings} from '../templates/settings/settings.js';
 import BaseView from './baseView.js';
 
 /**
@@ -60,7 +61,8 @@ export default class ProfilePageView extends BaseView {
     title.innerHTML = ' Ваши объявления ';
     rightBlock.appendChild(title);
     if (ads!= null) {
-      rightBlock.appendChild(createProductGrid({jsonElements: ads}, true, false));
+      rightBlock.appendChild(createProductGrid(
+          {jsonElements: ads}, true, false));
     }
   }
   /**
