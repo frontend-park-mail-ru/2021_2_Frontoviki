@@ -59,6 +59,7 @@ const patterns = {
 const validate = (field, regex) => {
   const valid = regex.test(field.value);
   if (valid) {
+    field.parentNode.classList.remove('text-input_wrong');
     field.parentNode.classList.add('text-input_correct');
   } else {
     field.parentNode.classList.add('text-input_wrong');

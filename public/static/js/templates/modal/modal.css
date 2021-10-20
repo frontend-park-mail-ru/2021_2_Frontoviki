@@ -158,3 +158,36 @@
     z-index: var(--blackout-z-index);
     transition: var(--transition-params);
   }
+
+  @media only screen and (max-device-width: 480px) {
+    .modal-window {
+        max-width: 350px;
+        height: 530px;
+    }
+    .modal-window__form > .text-input {
+        width: 140px;
+    }
+    /* уменьшаем все кнопки модального окна */
+    #overlay-sign-up, #overlay-sign-in,
+    #logButton, #regButton {
+        width: 150px;
+    }
+    .modal-window__title {
+        font-size: 22px;
+        margin-bottom: 5px;
+    }
+    .modal-window__form > .text-input {
+        margin-bottom: 7px;
+        top: 7px;
+    }
+    .modal-window__form > .text-input > .text-input__label {
+        font-size: 11px;
+    }
+    .modal-window__form > .text-input > .text-input__input {
+        font-size: 12px;
+        line-height: 16px;
+    }
+    .modal-window__form > .text-input > .text-input__description {
+        font-size: 11px;
+    }
+}
