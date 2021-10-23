@@ -1,12 +1,11 @@
 .new-ad {
-  display: block;
   text-align: center;
   margin: auto;
   width: 20%;
 }
 
 .new-ad__title {
-  display: flex;
+  display: block;
   margin-top: 1%;
   margin-bottom: 1%;
 
@@ -15,9 +14,8 @@
   font-size: 36px;
 }
 
-.new-ad-form__input {
-  margin-top: 10px;
-  margin-bottom: 10px;
+.new-ad > .text-input {
+  width: 350px;
 }
 
 .form_radio_btn {

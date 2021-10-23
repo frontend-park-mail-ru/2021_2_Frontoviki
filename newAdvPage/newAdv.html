@@ -13,6 +13,7 @@
     <link rel="stylesheet" href="../products.css">
     <link rel="stylesheet" href="../button.css">
     <link rel="stylesheet" href="./newAdv.css">
+    <link rel="stylesheet" href="./input.css">
 
     <meta name="viewport" content="initial-scale=1.0, user-scalable=no, maximum-scale=1" />
     <script src="https://api-maps.yandex.ru/2.1/?apikey=ваш API-ключ&lang=ru_RU" type="text/javascript">
@@ -76,19 +77,16 @@
         <div id="root">
             <div class="new-ad">
                 <div class="new-ad__title"> Новое объявление </div>
-                <div class="root__new-ad-form">
-                    <div>
-                        <label for="new-ad-form__input"> Категория</label>
-                        <input class="new-ad-form__input" type="text">
+                    <div class="text-input">
+                        <label class="text-input__label">Категория</label>
+                        <input class="text-input__input"/>
+                        <span class="text-input__description"> Невалидная категория </span>
                     </div>
 
-                    <div>
-                        <label for="new-ad-form__input"> Подкатегория</label>
-                        <input class="new-ad-form__input" type="text">
-                    </div>
-                    <div>
-                        <label for="new-ad-form__input"> Название</label>
-                        <input class="new-ad-form__input" type="text">
+                    <div class="text-input">
+                        <label class="text-input__label">Название</label>
+                        <input class="text-input__input"/>
+                        <span class="text-input__description"> Ошибка в названии </span>
                     </div>
 
                     <div class="form_radio_btn">
@@ -104,21 +102,23 @@
                         <textarea class="new-ad-form__textarea" rows="3" cols="30"
                             placeholder="Описание продукта"></textarea>
                     </div>
-                    <div>
-                        <label for="new-ad-form__input"> Цена </label>
-                        <input class="new-ad-form__input" type="text">
+
+                    <div class="text-input">
+                        <label class="text-input__label">Цена</label>
+                        <input class="text-input__input"/>
+                        <span class="text-input__description"> Ошибка в цене </span>
                     </div>
+
                     <div>
                         <input class="new-ad-form__input" type="file" name="photo" multiple accept="image/*,image/jpeg">
                     </div>
-                    <div>
-                        <label for="new-ad-form__input"> Место сделки </label>
-                        <input class="new-ad-form__input" type="text">
+                    <div class="text-input">
+                        <label class="text-input__label">Место сделки</label>
+                        <input class="text-input__input"/>
                     </div>
                     <div id="YMapsID"></div>
                     <button class="button" id="newAdForm">Опубликовать</button>
                 </div>
-            </div>
         </div>
 
 
