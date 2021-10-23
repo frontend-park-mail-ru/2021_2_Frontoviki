@@ -31,10 +31,15 @@ export default class MainPageView extends BaseView {
      * Например 'Электротехника'.
      * @param {JSON} jsonElements массив объявлений
     */
-  renderAds(search, categories, jsonElements) {
+  renderAds(search, categories, adverts) {
+    adverts.forEach((elem) => {
+      elem.href = '/advert/' + elem.id;
+      elem.image = '/' + elem.image;
+    });
     this.root.innerHTML = '';
+    console.log(adverts, 'lel');
     this.root.appendChild(createInfoBlock(search, categories));
-    this.root.appendChild(createProductGrid(jsonElements, false, false));
+    this.root.appendChild(createProductGrid(adverts, false, false));
   }
 
   /**
