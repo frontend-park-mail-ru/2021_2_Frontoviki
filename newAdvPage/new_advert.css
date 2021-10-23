@@ -1,0 +1,20 @@
+.new-advert {
+    margin: 0 auto;
+    width: 75%;
+}
+
+.new-advert__state {
+    margin-bottom: 20px;
+}
+
+.new-advert__images {
+    margin-bottom: 20px;
+}
+
+#YMapsID {
+    width: 550px;
+    height: 450px;
+    display: inline-block;
+    margin: auto;
+    align-self: center;
+  }

@@ -12,8 +12,10 @@
     <link rel="stylesheet" href="../footer.css">
     <link rel="stylesheet" href="../products.css">
     <link rel="stylesheet" href="../button.css">
-    <link rel="stylesheet" href="./newAdv.css">
-    <link rel="stylesheet" href="./input.css">
+    <link rel="stylesheet" href="./new_advert.css">
+    <link rel="stylesheet" href="../text_input.css">
+    <link rel="stylesheet" href="../textarea.css">
+    <link rel="stylesheet" href="../radio_button.css">
 
     <meta name="viewport" content="initial-scale=1.0, user-scalable=no, maximum-scale=1" />
     <script src="https://api-maps.yandex.ru/2.1/?apikey=ваш API-ключ&lang=ru_RU" type="text/javascript">
@@ -75,50 +77,60 @@
         </script>
 
         <div id="root">
-            <div class="new-ad">
-                <div class="new-ad__title"> Новое объявление </div>
-                    <div class="text-input">
-                        <label class="text-input__label">Категория</label>
-                        <input class="text-input__input"/>
-                        <span class="text-input__description"> Невалидная категория </span>
-                    </div>
-
-                    <div class="text-input">
-                        <label class="text-input__label">Название</label>
-                        <input class="text-input__input"/>
-                        <span class="text-input__description"> Ошибка в названии </span>
-                    </div>
-
-                    <div class="form_radio_btn">
-                        <input id="radio-3" type="radio" name="radio" value="new">
-                        <label for="radio-3">Новое</label>
-                    </div>
-                    <div class="form_radio_btn">
-                        <input id="radio-4" type="radio" name="radio" value="used">
-                        <label for="radio-4">Б/У</label>
-                    </div>
-
-                    <div>
-                        <textarea class="new-ad-form__textarea" rows="3" cols="30"
-                            placeholder="Описание продукта"></textarea>
-                    </div>
-
-                    <div class="text-input">
-                        <label class="text-input__label">Цена</label>
-                        <input class="text-input__input"/>
-                        <span class="text-input__description"> Ошибка в цене </span>
-                    </div>
-
-                    <div>
-                        <input class="new-ad-form__input" type="file" name="photo" multiple accept="image/*,image/jpeg">
-                    </div>
-                    <div class="text-input">
-                        <label class="text-input__label">Место сделки</label>
-                        <input class="text-input__input"/>
-                    </div>
-                    <div id="YMapsID"></div>
-                    <button class="button" id="newAdForm">Опубликовать</button>
+            <div class="new-advert">
+                <div class="new-advert__title">
+                    <h3 class="title">Новое объявление</h3>
                 </div>
+                <div class="text-input new-advert__name">
+                    <label class="text-input__label">Название</label>
+                    <input class="text-input__input" type="text">
+                    <span class="text-input__description">Ошибка в названии</span>
+                </div>
+                <div class="text-input new-advert__category">
+                    <label class="text-input__label">Категория</label>
+                    <input class="text-input__input" type="text">
+                    <span class="text-input__description">Неверная категория</span>
+                </div>
+                <div class="textarea new-advert__description">
+                    <label class="textarea__label">Описание объявления</label>
+                    <textarea class="textarea__textarea" rows="10"></textarea>
+                </div>
+
+                <div class="new-advert__state single-choice">
+                    <p class="single-choice__capture">Состояние</p>
+                    <div class="single-choice__radio-button-block">
+                        <label class="single-choice__label" for="radio-new">
+                            <input class="single-choice__radio-button" name="radio" id="radio-new" type="radio">
+                            <div class="single-choice__fake-radio-button"></div>
+                            <p class="single-choice__variant">Новое</p>
+                        </label>
+                    </div>
+                    <div class="single-choice__radio-button-block">
+                        <label class="single-choice__label" for="radio-old">
+                            <input class="single-choice__radio-button" name="radio" id="radio-old" type="radio">
+                            <div class="single-choice__fake-radio-button"></div>
+                            <p class="single-choice__variant">Б/У</p>
+                        </label>
+                    </div>
+                </div>
+
+                <div class="text-input new-advert__price">
+                    <label class="text-input__label">Цена</label>
+                    <input class="text-input__input" type="text">
+                    <span class="text-input__description">Ошибка в цене</span>
+                </div>
+
+                <input type="file" class="new-advert__images" multiple>
+
+                <div class="text-input new-advert__location">
+                    <label class="text-input__label">Адрес локации</label>
+                    <input class="text-input__input" type="text">
+                    <span class="text-input__description">Неверное местоположение</span>
+                </div>
+
+                <div id="YMapsID"></div>
+                <button class="button" id="newAdForm">Опубликовать</button>
+            </div>
         </div>
 
 
