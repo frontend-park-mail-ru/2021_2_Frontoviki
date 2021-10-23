@@ -38,6 +38,7 @@ export default class ProfilePageController {
    */
   redirectToMain() {
     this.router.go('/');
+    window.location.reload();
   }
 
   /**

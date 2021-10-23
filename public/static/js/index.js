@@ -8,6 +8,7 @@ import EventBus from './modules/EventBus.js';
 import MainPageController from './controllers/mainPageController.js';
 import ProfilePageController from './controllers/profilePageController.js';
 import SalesmanPageController from './controllers/salesmanPageController.js';
+import NewAdPageController from './controllers/newAdController.js';
 import {egg, eggTemplate} from './templates/easterEgg/easterEgg.js';
 
 document.addEventListener('DOMContentLoaded', () => {
@@ -41,11 +42,13 @@ document.addEventListener('DOMContentLoaded', () => {
   const MainPage = new MainPageController(router, globalEventBus);
   const ProfilePage = new ProfilePageController(router, globalEventBus);
   const SalesmanPage = new SalesmanPageController(router, globalEventBus);
+  const NewAdPage = new NewAdPageController(router, globalEventBus);
 
   router.setRoute('^\/$', MainPage.view.render);
   router.setRoute('^\/logout', MainPage.view.render);
   router.setRoute('^\/profile$', ProfilePage.view.renderAds);
   router.setRoute('^\/profile\/settings$', ProfilePage.view.renderSettings);
+  router.setRoute('^\/newAd$', NewAdPage.view.render);
   router.setRoute('^/salesman/(?<salesmanID>\\d+)$', SalesmanPage.view.render);
 
   router.go(window.location.pathname);

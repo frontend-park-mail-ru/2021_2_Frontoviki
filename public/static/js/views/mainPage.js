@@ -7,6 +7,10 @@ import BaseView from './baseView.js';
   * товаров, поиском и меню категорий
 */
 export default class MainPageView extends BaseView {
+  /**
+   * конструктор
+   * @param {*} eventBus eventBus модели
+   */
   constructor(eventBus) {
     super(eventBus);
     this.render = this.render.bind(this);
@@ -14,6 +18,9 @@ export default class MainPageView extends BaseView {
     this.eventBus.on('clickModal', this.modal.bind(this));
   }
 
+  /**
+   * Рендер делает запрос на получение информации о товарах
+   */
   render() {
     this.eventBus.emit('getData');
   }
