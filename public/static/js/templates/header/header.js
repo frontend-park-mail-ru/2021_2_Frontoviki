@@ -9,7 +9,7 @@ import './header.css';
   * пользователь. В зависимости от этого рисуется
   * разные виды хедера
 */
-export function createHeader(globalEventBus) {
+export async function createHeader(globalEventBus) {
   const wrapper = document.querySelector('.wrapper');
   let header = document.querySelector('#header');
 
@@ -25,7 +25,7 @@ export function createHeader(globalEventBus) {
     userName: undefined,
     userAvatar: undefined,
   });
-  isLogged().then(({status, parsedBody}) => {
+  await isLogged().then(({status, parsedBody}) => {
     if (status != statusCodes.OK) {
       return;
     }

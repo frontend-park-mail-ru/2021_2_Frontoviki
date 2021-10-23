@@ -31,6 +31,7 @@ export default class ProfilePageModel {
         return;
       }
       const {adverts} = parsedBody.body;
+      console.log(adverts);
       this.eventBus.emit('gotAds', adverts);
     });
   }
