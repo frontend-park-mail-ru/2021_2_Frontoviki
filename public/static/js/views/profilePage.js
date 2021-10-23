@@ -63,10 +63,20 @@ export default class ProfilePageView extends BaseView {
   }
 
   renderGrid(adverts) {
+    adverts.forEach((elem) => {
+      elem.href = '/advert/' + elem.id;
+
+      // elem.image = '/' + elem.image; после исправления на беке вернуть!
+      let data = elem.image;
+      console.log(data);
+      data = data.split('/');
+      data = '/' + data[0] + '/advertImages/' + data[2]
+      elem.image = data;
+    });
+    console.log(adverts);
     const rightBlock = document.querySelector('.profile-content_right');
     if (adverts.length !== 0) {
-      rightBlock.appendChild(createProductGrid(
-          {jsonElements: adverts}, true, false));
+      rightBlock.appendChild(createProductGrid(adverts, true, false));
     }
   }
   /**
