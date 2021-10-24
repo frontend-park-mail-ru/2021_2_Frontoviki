@@ -14,6 +14,7 @@ export default class ProfilePageModel {
   constructor(eventBus) {
     this.eventBus = eventBus;
     this.eventBus.on('getGrid', this.getAds.bind(this));
+    this.eventBus.on('getArchive', this.getArchive.bind(this));
     this.eventBus.on('checkLog', this.checkForLogging.bind(this));
     this.eventBus.on('uploadPhoto', this.uploadPhoto.bind(this));
     this.eventBus.on('settingsRendered', this.handleSettings.bind(this));
@@ -35,6 +36,23 @@ export default class ProfilePageModel {
       }
       const {adverts} = parsedBody.body;
       this.eventBus.emit('gotAds', adverts);
+    });
+  }
+  /**
+   * Получить архивные объявления
+   */
+  getArchive() {
+    const res = Ajax.asyncGetUsingFetch({
+      url: secureDomainUrl + 'adverts/archive',
+      body: null,
+    });
+    res.then(({parsedBody}) => {
+      const {code} = parsedBody;
+      if (code === statusCodes.NOTEXIST) {
+        return;
+      }
+      const {adverts} = parsedBody.body;
+      this.eventBus.emit('gotAds', adverts, true);
     });
   }
   /**
@@ -194,7 +212,24 @@ export default class ProfilePageModel {
       const res = Ajax.asyncDeleteAdUsingFetch({
         url: secureDomainUrl + 'adverts/' + id,
       });
-      // обновить страницу если успешно удалил
+      // обновить страницу если успешно удалили
+      res.then(({status, parsedBody}) => {
+        if (status != statusCodes.OK) {
+          return;
+        }
+        const {code} = parsedBody;
+        if (code === statusCodes.OK) {
+          window.location.reload();
+        };
+      });
+    });
+
+    const archiveBtn = document.getElementById('modal__button-to-archive');
+    archiveBtn.addEventListener('click', (e)=>{
+      const res = Ajax.asyncPostUsingFetch({
+        url: secureDomainUrl + 'adverts/' + id + '/close',
+      });
+        // обновить страницу если успешно закрыли
       res.then(({status, parsedBody}) => {
         if (status != statusCodes.OK) {
           return;

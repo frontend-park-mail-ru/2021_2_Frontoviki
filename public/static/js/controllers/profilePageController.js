@@ -26,6 +26,7 @@ export default class ProfilePageController {
       'changeInfo',
       'getGrid',
       'onDeleteClick',
+      'getArchive',
     ]);
     this.view = new ProfilePageView(this.eventBus);
     this.model = new ProfilePageModel(this.eventBus);

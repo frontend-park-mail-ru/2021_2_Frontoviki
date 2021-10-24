@@ -21,4 +21,5 @@ export const statusCodes = {
   INTERNALERROR: 500,
 };
 
-export const categories = ['Обувь', 'Одежда', 'Животные'];
+export const categories = ['Обувь', 'Одежда', 'Животные',
+  'Смартфоны', 'Бытовая Техника', 'Ноутбуки'];

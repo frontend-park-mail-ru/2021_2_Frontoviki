@@ -67,10 +67,22 @@ export default class ProfilePageView extends BaseView {
 
     active.addEventListener('click', ()=>{
       // удаляем предыдущие обявления
-      rightBlock.removeChild(document.querySelector('.root__product-grid'));
+      if (document.querySelector('.root__product-grid') !== null) {
+        rightBlock.removeChild(document.querySelector('.root__product-grid'));
+      }
       this.eventBus.emit('getGrid');
       active.style.color = '#004ad7';
       archive.style.color = 'black';
+    });
+
+    archive.addEventListener('click', ()=>{
+      // удаляем предыдущие обявления
+      if (document.querySelector('.root__product-grid') !== null) {
+        rightBlock.removeChild(document.querySelector('.root__product-grid'));
+      }
+      this.eventBus.emit('getArchive');
+      active.style.color = 'black';
+      archive.style.color = '#004ad7';
     });
     rightBlock.appendChild(title);
     rightBlock.appendChild(active);
@@ -81,18 +93,36 @@ export default class ProfilePageView extends BaseView {
   /**
    * Создание списка объявлений профиля
    * @param {*} adverts массив объявлений
+   * @param {bool} archive если объявления в архиве, то не отображаем удаление
    */
-  renderGrid(adverts) {
-    adverts.forEach((elem) => {
-      elem.href = '/advert/' + elem.id;
-      elem.image = '/' + elem.image;
-    });
+  renderGrid(adverts, archive) {
+    console.log(adverts)
+    // поправляем ошибки бэка
+    if (archive) {
+      adverts.forEach((elem) => {
+        elem.href = '/advert/' + elem.id;
+        elem.image = '/' + elem.images[0];
+      });
+    } else {
+      adverts.forEach((elem) => {
+        elem.href = '/advert/' + elem.id;
+        elem.image = '/' + elem.image;
+      });
+    }
+
     const rightBlock = document.querySelector('.profile-content_right');
 
     if (adverts.length !== 0) {
+      if (archive) {
+        rightBlock.appendChild(createProductGrid(adverts, false, false));
+        const cards = document.querySelectorAll('.card');
+        cards.forEach((elem)=>{
+          elem.addEventListener('click', (e)=> e.preventDefault());
+        });
+        return;
+      }
       rightBlock.appendChild(createProductGrid(adverts, true, false));
       const cards = document.querySelectorAll('.card');
-
       cards.forEach((elem, key)=>{
         elem.addEventListener('click', (e)=> {
           if (e.target.classList.contains('card__delete')) {
