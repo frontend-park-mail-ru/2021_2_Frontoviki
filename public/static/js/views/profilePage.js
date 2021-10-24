@@ -57,7 +57,24 @@ export default class ProfilePageView extends BaseView {
     const title = document.createElement('h3');
     title.classList.add('profile-content__title');
     title.innerHTML = ' Ваши объявления ';
+    const active = document.createElement('span');
+    active.innerHTML = 'Активные';
+    active.classList.add('profile-content-right__ads-type');
+    active.style.color = '#004ad7';
+    const archive = document.createElement('span');
+    archive.innerHTML='Архив';
+    archive.classList.add('profile-content-right__ads-type');
+
+    active.addEventListener('click', ()=>{
+      // удаляем предыдущие обявления
+      rightBlock.removeChild(document.querySelector('.root__product-grid'));
+      this.eventBus.emit('getGrid');
+      active.style.color = '#004ad7';
+      archive.style.color = 'black';
+    });
     rightBlock.appendChild(title);
+    rightBlock.appendChild(active);
+    rightBlock.appendChild(archive);
     this.eventBus.emit('getGrid');
   }
 
@@ -99,4 +116,3 @@ export default class ProfilePageView extends BaseView {
     this.eventBus.emit('settingsRendered');
   }
 };
-

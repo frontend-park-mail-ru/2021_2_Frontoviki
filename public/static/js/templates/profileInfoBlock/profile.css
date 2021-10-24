@@ -21,6 +21,7 @@
 .profile-content__title {
     font-weight: 700;
     font-size: 36px;
+    margin-bottom: 10px;
 }
 
 .profile-content__title_center {
@@ -82,6 +83,16 @@
 
 .profile-content__buttons .button{
     margin: 6px 0;
+}
+
+.profile-content-right__ads-type {
+    font-size: 20px;
+    font-weight: 400;
+    margin: 0px 40px;
+}
+
+.profile-content-right__ads-type:hover{
+    cursor: pointer;
 }
 
 @media screen and (max-width: 700px) {
