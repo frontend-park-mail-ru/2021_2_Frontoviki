@@ -1,0 +1,42 @@
+.new-advert {
+  margin: 0 auto;
+  width: 75%;
+}
+
+.new-advert__state {
+  margin-bottom: 20px;
+}
+
+.new-advert__photos {
+    margin-top: 30px;
+  margin-bottom: 20px;
+}
+
+.new-advert-photos__title {
+    margin-bottom: 15px;
+    font-weight: normal;
+    color: var(--text-input-label-color);
+}
+
+.new-advert__location {
+    width: fit-content;
+    min-width: 280px;
+    max-width: 400px;
+}
+
+#YMapsID {
+  width: 100%;
+  height: 100%;
+  display: inline-block;
+  margin: auto;
+  align-self: center;
+  max-width: 500px;
+  max-height: 450px;
+  min-width: 200px;
+  height: 400px;
+  margin-top: 20px;
+}
+
+#newAdForm {
+    display: block;
+}
