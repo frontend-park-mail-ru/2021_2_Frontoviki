@@ -85,9 +85,38 @@ export const Ajax = {
       parsedBody,
     };
   },
+
+  /**
+   * Функция для удаления объявления
+  * @param {any} args аргументы для запроса
+  * @return {Promise}
+  */
+  async asyncDeleteAdUsingFetch(args = {}) {
+    const response = await fetch(args.url, {
+      method: AJAX_METHODS.DELETE,
+      mode: 'cors',
+      cache: 'no-store',
+      credentials: 'include',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    });
+    const parsedBody = await response.json().catch(() => {
+      return {};
+    }).then((data) => {
+      return data;
+    });
+    console.log(parsedBody);
+    const {status} = response;
+    return {
+      status,
+      parsedBody,
+    };
+  },
 };
 
 const AJAX_METHODS = {
   POST: 'POST',
   GET: 'GET',
+  DELETE: 'DELETE',
 };

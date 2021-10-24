@@ -6,7 +6,8 @@
   line-height: 30px;
 }
 
-#settings__change-info, #settings__change-uploadPhoto {
+#settings__change-info, #settings__change-uploadPhoto,
+#settings__change-password {
   margin-left: 25px;
   margin-top: 30px;
 }

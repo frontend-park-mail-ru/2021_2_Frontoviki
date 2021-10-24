@@ -16,6 +16,8 @@ export default class ProfilePageModel {
     this.eventBus.on('checkLog', this.checkForLogging.bind(this));
     this.eventBus.on('uploadPhoto', this.uploadPhoto.bind(this));
     this.eventBus.on('settingsRendered', this.handleSettings.bind(this));
+    this.eventBus.on('changePassword', this.changePassword.bind(this));
+    this.eventBus.on('onDeleteClick', this.handleDelete.bind(this));
   }
   /**
  * Получить все объявления пользователя
@@ -78,6 +80,8 @@ export default class ProfilePageModel {
         this.eventBus.emit('uploadPhoto', formData);
       }
     });
+    const email =
+    document.getElementById('settingEmail').childNodes[3].placeholder;
 
     const changeInfoBtn = document.getElementById('settings__change-info');
     changeInfoBtn.addEventListener('click', (e)=>{
@@ -85,17 +89,12 @@ export default class ProfilePageModel {
       let name = nameInput.value.trim();
       const surnInpt = document.getElementById('settingSurname').childNodes[3];
       let surname = surnInpt.value.trim();
-      const email =
-        document.getElementById('settingEmail').childNodes[3].placeholder;
-      const password =
-        document.getElementById('settingPassword').childNodes[3].value.trim();
       if (name == '') {
         name = nameInput.placeholder;
       }
       if (surname == '') {
         surname = surnInpt.placeholder;
       }
-
       if (name.length < 2) {
         document.getElementById('settingName').classList.add('text-input_wrong');
         return;
@@ -105,16 +104,9 @@ export default class ProfilePageModel {
         document.getElementById('settingSurname').classList.add('text-input_wrong');
         return;
       }
-      if (password.length < 5) {
-        document.getElementById('settingSurname').classList.remove('text-input_wrong');
-        document.getElementById('settingPassword').classList.add('text-input_wrong');
-        return;
-      }
-      document.getElementById('settingPassword').classList.remove('text-input_wrong');
-      console.log(password);
       const response = Ajax.asyncPostUsingFetch({
         url: secureDomainUrl + 'users/profile',
-        body: {email, password, name, surname},
+        body: {email, name, surname},
       });
       response.then(({status, parsedBody}) => {
         if (status != statusCodes.OK) {
@@ -127,5 +119,69 @@ export default class ProfilePageModel {
         };
       });
     });
+
+    const changePasswrdBtn = document.getElementById('settings__change-password');
+    changePasswrdBtn.addEventListener('click', (e)=> {
+      const password =
+      document.getElementById('settingPassword').childNodes[3].value.trim();
+      const oldPassword = document.getElementById('settingOldPassword').childNodes[3].value.trim();
+      this.eventBus.emit('changePassword', email, oldPassword, password);
+    });
+  }
+
+  /**
+   * Смена пароля
+   * @param {*} email
+   * @param {*} oldPassword
+   * @param {*} password
+   * @return
+   */
+  changePassword(email, oldPassword, password) {
+    if (password.length < 5) {
+      document.getElementById('settingPassword').classList.add('text-input_wrong');
+      return;
+    }
+    document.getElementById('settingPassword').classList.remove('text-input_wrong');
+    const response = Ajax.asyncPostUsingFetch({
+      url: secureDomainUrl + 'users/profile/password',
+      body: {email: email,
+        password: oldPassword,
+        new_password: password},
+    });
+    response.then(({status, parsedBody}) => {
+      if (status != statusCodes.OK) {
+        return;
+      }
+      const {code} = parsedBody;
+      console.log(parsedBody);
+      if (code === statusCodes.OK) {
+        document.getElementById('settingOldPassword').classList.remove('text-input_wrong');
+        return;
+      };
+      document.getElementById('settingOldPassword').classList.add('text-input_wrong');
+    });
+  }
+
+  /**
+   * Обработка удаления
+   * @param {number} id айдишник объявления
+   */
+  handleDelete(id) {
+    const del = confirm('Удаляем нахой?');
+    if (del) {
+      const res = Ajax.asyncDeleteAdUsingFetch({
+        url: secureDomainUrl + 'adverts/' + id,
+      });
+      // обновить страницу если успешно удалил
+      res.then(({status, parsedBody}) => {
+        if (status != statusCodes.OK) {
+          return;
+        }
+        const {code} = parsedBody;
+        if (code === statusCodes.OK) {
+          window.location.reload();
+        };
+      });
+    }
   }
 }

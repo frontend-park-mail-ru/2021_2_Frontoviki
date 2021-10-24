@@ -71,8 +71,20 @@ export default class ProfilePageView extends BaseView {
       elem.image = '/' + elem.image;
     });
     const rightBlock = document.querySelector('.profile-content_right');
+
     if (adverts.length !== 0) {
       rightBlock.appendChild(createProductGrid(adverts, true, false));
+      const cards = document.querySelectorAll('.card');
+
+      cards.forEach((elem, key)=>{
+        elem.addEventListener('click', (e)=> {
+          if (e.target.classList.contains('card__delete')) {
+            e.preventDefault();
+            console.log('delete', adverts[key].id);
+            this.eventBus.emit('onDeleteClick', adverts[key].id);
+          }
+        });
+      });
     }
   }
   /**

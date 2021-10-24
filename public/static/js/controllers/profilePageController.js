@@ -20,10 +20,12 @@ export default class ProfilePageController {
       'getAds',
       'gotAds',
       'settingsRendered',
+      'changePassword',
       'uploadPhoto',
       'fileUploaded',
       'changeInfo',
       'getGrid',
+      'onDeleteClick',
     ]);
     this.view = new ProfilePageView(this.eventBus);
     this.model = new ProfilePageModel(this.eventBus);
