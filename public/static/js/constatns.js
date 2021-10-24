@@ -1,25 +1,3 @@
-export const navigation = {
-  category: 'Искуcство',
-  subCategory: 'Картины',
-  categoryHref: '',
-  subCategoryHref: '',
-};
-
-export const categories = [
-  {
-    title: 'Кек',
-    href: '',
-  },
-  {
-    title: 'кошка',
-    href: '',
-  },
-  {
-    title: 'Найс',
-    href: '',
-  },
-];
-
 export const validationErrors = {
   passwordMissmatch: 'Неверный пароль',
   noSuchUser: 'Пользователя не существует',
@@ -42,3 +20,5 @@ export const statusCodes = {
   NOTEXIST: 404,
   INTERNALERROR: 500,
 };
+
+export const categories = ['Обувь', 'Одежда', 'Животные'];

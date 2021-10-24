@@ -1,5 +1,6 @@
 import {Ajax} from '../modules/ajax.js';
 import {secureDomainUrl, statusCodes} from '../constatns.js';
+import {createDeleteModal} from '../templates/deleteModal/deleteModal.js';
 
 
 /**
@@ -167,8 +168,29 @@ export default class ProfilePageModel {
    * @param {number} id айдишник объявления
    */
   handleDelete(id) {
-    const del = confirm('Удаляем нахой?');
-    if (del) {
+    const modalT = createDeleteModal();
+    const modal = document.createElement('div');
+    modal.innerHTML = modalT();
+    document.getElementsByTagName('body')[0].appendChild(modal);
+    const modal1 = document.getElementById('modal-1');
+    modal1.classList.add('modal_active');
+    const closeButton = modal1.getElementsByClassName('modal__close-button')[0];
+
+    closeButton.onclick = function(e) {
+      e.preventDefault();
+      modal1.classList.remove('modal_active');
+      document.getElementsByTagName('body')[0].removeChild(modal);
+    };
+
+    modal1.onmousedown = function(e) {
+      const modalContent = modal1.getElementsByClassName('modal__content')[0];
+      if (e.target.closest('.' + modalContent.className) === null) {
+        this.classList.remove('modal_active');
+        document.getElementsByTagName('body')[0].removeChild(modal);
+      }
+    };
+    const deleteBtn = document.getElementById('modal__button-delete');
+    deleteBtn.addEventListener('click', (e)=>{
       const res = Ajax.asyncDeleteAdUsingFetch({
         url: secureDomainUrl + 'adverts/' + id,
       });
@@ -182,6 +204,6 @@ export default class ProfilePageModel {
           window.location.reload();
         };
       });
-    }
+    });
   }
 }
