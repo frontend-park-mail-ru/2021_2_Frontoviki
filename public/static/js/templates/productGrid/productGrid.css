@@ -100,7 +100,7 @@
 
 .card__delete {
     position: absolute;
-    z-index: 100;
+    z-index: 13;
     right: -4%;
     top: -4%;
 }

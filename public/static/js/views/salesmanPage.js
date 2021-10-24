@@ -44,8 +44,12 @@ export default class SalesmanPageView extends BaseView {
           star: stars,
         });
     if (adverts.length !== 0) {
+      adverts.forEach((elem) => {
+        elem.href = '/advert/' + elem.id;
+        elem.image = '/' + elem.image;
+      });
       document.querySelector('.profile-content_right').appendChild(
-          createProductGrid({jsonElements: adverts}, false, false));
+          createProductGrid(adverts, false, false));
     }
   }
 }

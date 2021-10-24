@@ -49,7 +49,6 @@ export default class ProfilePageView extends BaseView {
   }
   /**
    * Отрисовывает объявления пользователя
-   * @param {jsonArray} adverts массив объявлений
    */
   renderAds() {
     this.render();
@@ -62,12 +61,15 @@ export default class ProfilePageView extends BaseView {
     this.eventBus.emit('getGrid');
   }
 
+  /**
+   * Создание списка объявлений профиля
+   * @param {*} adverts массив объявлений
+   */
   renderGrid(adverts) {
     adverts.forEach((elem) => {
       elem.href = '/advert/' + elem.id;
       elem.image = '/' + elem.image;
     });
-    console.log(adverts);
     const rightBlock = document.querySelector('.profile-content_right');
     if (adverts.length !== 0) {
       rightBlock.appendChild(createProductGrid(adverts, true, false));

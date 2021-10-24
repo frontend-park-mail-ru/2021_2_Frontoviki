@@ -29,15 +29,14 @@ export default class MainPageView extends BaseView {
      * @param {string} search текст поиска страницы
      * @param {string} categories основная категория сортировки страницы.
      * Например 'Электротехника'.
-     * @param {JSON} jsonElements массив объявлений
+     * @param {JSON} adverts массив объявлений
     */
   renderAds(search, categories, adverts) {
     adverts.forEach((elem) => {
       elem.href = '/advert/' + elem.id;
-      elem.image = '/' + elem.image;
+      elem.image = '/' + elem.images[0];
     });
     this.root.innerHTML = '';
-    console.log(adverts, 'lel');
     this.root.appendChild(createInfoBlock(search, categories));
     this.root.appendChild(createProductGrid(adverts, false, false));
   }
