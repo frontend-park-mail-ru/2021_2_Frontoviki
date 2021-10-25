@@ -33,24 +33,6 @@
     padding-top: 44px;
 }
 
-@media screen and (max-width: 800px) {
-    .advert-detail__main-info {
-        width: 100%;
-        height: 100%;
-        display: flex;
-        flex-direction: column;
-        align-items: flex-start;
-    }
-
-    .advert-detail__main-info__main {
-        width: 100%;
-    }
-
-    .advert-detail__main-info__shop {
-        width: 100%;
-    }
-}
-
 .advert-detail__main-info__main__name {
     font-size: 24px;
     padding: 10px;
@@ -67,11 +49,21 @@
 }
 
 .advert-detail__main-info__main__gallery__image-block {
-    width: 480px;
-    height: auto;
+    width: 100%;
+    height: 100%;
+
+    display: flex;
+    justify-self: center;
+    flex-direction: column;
+    align-items: center;
+
+    background-color: var(--header-background-color);
+
+    margin: 10px;
 }
 
 .advert-detail__main-info__main__gallery__image-block__image {
+    max-width: 720px;
     width: inherit;
     height: auto;
 }
@@ -88,6 +80,8 @@
 .advert-detail__main-info__main__gallery__roundabout__image {
     height: inherit;
     width: auto;
+
+    margin: 0 5px;
 }
 
 .advert-detail__main-info__shop__price {
@@ -178,4 +172,26 @@
 .advert-detail__capture {
     font-size: 16px;
     font-weight: 400;
+}
+
+@media screen and (max-width: 800px) {
+    .advert-detail__main-info {
+        width: 100%;
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .advert-detail__main-info__main {
+        width: 100%;
+    }
+
+    .advert-detail__main-info__shop {
+        width: 100%;
+    }
+
+    .advert-detail__add-info {
+        width: 100%;
+    }
 }
