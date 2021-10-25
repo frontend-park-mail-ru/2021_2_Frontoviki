@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Volchock</title>
+
+    <link rel="stylesheet" href="../variables.css">
+    <link rel="stylesheet" href="../layout.css">
+    <link rel="stylesheet" href="../header.css">
+    <link rel="stylesheet" href="../footer.css">
+    <link rel="stylesheet" href="../products.css">
+    <link rel="stylesheet" href="../info-block.css">
+    <link rel="stylesheet" href="../expand-menu.css">
+    <link rel="stylesheet" href="../button.css">
+    <link rel="stylesheet" href="./advert_detail_page.css">
+</head>
+
+<body>
+    <div class="wrapper">
+
+        <header>
+            <div class="header__left-block">
+                <div class="header__left-block logo">
+                    <img class="logo__image" src="./icon.png">
+                    <p class="logo__capture">Volchock</p>
+                </div>
+                <div class="header__left-block search">
+                    <svg class="search__icon" width="11" height="11" viewBox="0 0 11 11"
+                        xmlns="http://www.w3.org/2000/svg">
+                        <path fill-rule="evenodd" clip-rule="evenodd"
+                            d="M6.45286 7.1599C5.77551 7.68645 4.92437 8 4 8C1.79086 8 0 6.20914 0 4C0 1.79086 1.79086 0 4 0C6.20914 0 8 1.79086 8 4C8 4.92434 7.68647 5.77545 7.15996 6.45279L10.3536 9.6464L9.6465 10.3535L6.45286 7.1599ZM7 4C7 5.65685 5.65685 7 4 7C2.34315 7 1 5.65685 1 4C1 2.34315 2.34315 1 4 1C5.65685 1 7 2.34315 7 4Z" />
+                    </svg>
+                    <input class="search__input" type="search" placeholder="Поиск">
+                </div>
+            </div>
+
+            <div class="header__right-block">
+                <div class="mini-profile__options expand-menu">
+                    <input class="expand-menu__toogle" type="checkbox" id="mini-profile__toogle">
+                    <label class="expand-menu__label" for="mini-profile__toogle">
+                        <div class="header__right-block mini-profile">
+                            <p class="mini-profile__capture">Василий</p>
+                            <img class="mini-profile__avatar"
+                                src="https://i.pinimg.com/236x/e3/31/57/e33157ea21bd33ddea822beb78f6df16.jpg">
+                            <svg class="mini-profile__options__icon" width="10" height="6" viewBox="0 0 10 6"
+                                xmlns="http://www.w3.org/2000/svg">
+                                <path d="M0 0.5L5 5.5L10 0.5H0Z" />
+                            </svg>
+                        </div>
+                    </label>
+                    <div class="expand-menu__content">
+                        <span class="expand-menu__sublabel"><a class="expand-menu__link" href="">Профиль</a></span>
+                        <span class="expand-menu__sublabel"><a class="expand-menu__link" href="">Создать
+                                объявление</a></span>
+                        <span class="expand-menu__sublabel"><a class="expand-menu__link" href="">Настройки</a></span>
+                        <span class="expand-menu__sublabel"><a class="expand-menu__link" href="">Выйти</a></span>
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        <div id="root">
+            <div class='root__info-block'>
+                <div class="info-block__left info-block__category">
+                    <ul class="category__list">
+                        <li class="category__list__main info-block__capture"> <a href="./index.html">Главная</a></li>
+                        <li class="category__list__main info-block__capture"> <a href="./index.html">Картины</a></li>
+                        <li class="category__list__sub info-block__capture"> <a href="#">Моя картина</a></li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="advert-detail">
+                <div class="advert-detail__main-info">
+                    <div class="advert-detail__main-info__main">
+                        <h3 class="advert-detail__main-info__main__name">
+                            Моя картина
+                        </h3>
+                        <div class="advert-detail__main-info__main__gallery">
+                            <div class="advert-detail__main-info__main__gallery__image-block">
+                                <img class="advert-detail__main-info__main__gallery__image-block__image"
+                                    src="https://img5.goodfon.ru/wallpaper/nbig/3/73/abstraktsiia-antisfera-vodovorot-krasok-kartinka-chernyi-fon.jpg">
+                            </div>
+                            <div class="advert-detail__main-info__main__gallery__roundabout">
+                                <img class="advert-detail__main-info__main__gallery__roundabout__image"
+                                    src="https://img5.goodfon.ru/wallpaper/nbig/3/73/abstraktsiia-antisfera-vodovorot-krasok-kartinka-chernyi-fon.jpg">
+                                <img class="advert-detail__main-info__main__gallery__roundabout__image"
+                                    src="https://img5.goodfon.ru/wallpaper/nbig/3/73/abstraktsiia-antisfera-vodovorot-krasok-kartinka-chernyi-fon.jpg">
+                                <img class="advert-detail__main-info__main__gallery__roundabout__image"
+                                    src="https://img5.goodfon.ru/wallpaper/nbig/3/73/abstraktsiia-antisfera-vodovorot-krasok-kartinka-chernyi-fon.jpg">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="advert-detail__main-info__shop">
+                        <p class="advert-detail__main-info__shop__price">
+                            500р
+                        </p>
+                        <button class="button">Написать продавцу</button>
+                        <button class="button">Добавить в корзину</button>
+                        <div class="advert-detail__main-info__shop__salesman">
+                            <div class="advert-detail__main-info__shop__salesman__avatar">
+
+                            </div>
+                            <div class="advert-detail__main-info__shop__salesman__info">
+                                <p class="advert-detail__main-info__shop__salesman__info__name advert-detail__capture">
+                                    Вася Пупкин</p>
+                                <p class="advert-detail__main-info__shop__salesman__info__started advert-detail__capture">
+                                    24.10.2000</p>
+                                <div class="advert-detail__main-info__shop__salesman__info__rate">
+                                    <div class="advert-detail__main-info__shop__salesman__info__rate__star">*</div>
+                                    <p class="advert-detail__capture">4.5</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="advert-detail__add-info">
+                    <div class="advert-detail__add-info__location">
+                        <div class="advert-detail__add-info__location__name-block">
+                            <p class="advert-detail__add-info__location__name-block_capture advert-detail__capture">
+                                Москва
+                            </p>
+                            <label for="toogle_maps">Раскрыть карту</label>
+                        </div>
+                        <input class="advert-detail__add-info__location__toogle" type="checkbox" id="toogle_maps">
+                        <div class="advert-detail__add-info__location__map">
+                            <!-- здесь твоя карта -->
+                        </div>
+                    </div>
+                    <div class="advert-detail__add-info__published-date-block">
+                        <p class="advert-detail__add-info__published-date advert-detail__capture">
+                            21.03.2021
+                        </p>
+                    </div>
+                    <div class="advert-detail__add-info__description-block">
+                        <p class="advert-detail__add-info__description advert-detail__capture">Многа букав</p>
+                    </div>
+                </div>
+                <div class="advert-detail__similar_adverts"></div>
+            </div>
+        </div>
+
+
+
+        <footer>
+            <p class="footer__capture">&reg; Frontoviki</p>
+        </footer>
+
+    </div>
+</body>
+
+</html>
