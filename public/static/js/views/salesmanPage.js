@@ -45,7 +45,7 @@ export default class SalesmanPageView extends BaseView {
         });
     if (adverts.length !== 0) {
       adverts.forEach((elem) => {
-        elem.href = '/advert/' + elem.id;
+        elem.href = '/ad/' + elem.id;
         elem.image = '/' + elem.image;
       });
       document.querySelector('.profile-content_right').appendChild(

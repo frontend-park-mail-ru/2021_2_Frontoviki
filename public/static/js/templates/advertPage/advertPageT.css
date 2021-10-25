@@ -1,0 +1,316 @@
+.advertisment-detail {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+.advertisment-detail__main-info {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+    margin-bottom: 20px;
+}
+
+.advertisment-detail__main-info__main {
+    width: 70%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+.advertisment-detail__main-info__shop {
+    /* width: 30%; */
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 10px;
+    padding-top: 54px;
+    margin: 0 auto;
+}
+
+.advertisment-detail__main-info__button {
+    margin: 6px 0;
+}
+
+
+.advertisment-detail__main-info__main__name {
+    font-size: 24px;
+    padding: 10px;
+    margin-left: 10px;
+}
+
+.advertisment-detail__main-info__main__gallery {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.advertisment-detail__main-info__main__gallery__image-block {
+    width: 100%;
+    height: 100%;
+
+    display: flex;
+    justify-self: center;
+    flex-direction: column;
+    align-items: center;
+
+    background-color: var(--header-background-color);
+
+    margin: 10px;
+}
+
+.advertisment-detail__main-info__main__gallery__image-block__image {
+    max-width: 720px;
+    width: inherit;
+    height: auto;
+}
+
+.advertisment-detail__main-info__main__gallery__roundabout {
+    height: 100px;
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+    justify-content: flex-start;
+}
+
+.advertisment-detail__main-info__main__gallery__roundabout__image {
+    height: inherit;
+    width: auto;
+
+    margin: 0 5px;
+}
+
+.advertisment-detail__main-info__shop__price {
+    font-size: 20px;
+    font-weight: 500;
+    margin-bottom: 10px;
+}
+
+.advertisment-detail__main-info__shop__salesman {
+    height: 100%;
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: flex-start;
+}
+
+.advertisment-detail__main-info__shop__salesman__avatar {
+    width: 30px;
+    height: 30px;
+    border: none;
+    border-radius: 50%;
+}
+
+.advertisment-detail__main-info__shop__salesman__avatar > a {
+    width: inherit;
+    height: inherit;
+    border: inherit;
+    border-radius: inherit;
+}
+
+.advertisment-detail__main-info__shop__salesman__avatar > a > img {
+    width: inherit;
+    height: inherit;
+    border: inherit;
+    border-radius: inherit;
+}
+
+.advertisment-detail__main-info__shop__salesman__info {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: flex-start;
+    margin-left: 20px;
+}
+
+.advertisment-detail__main-info__shop__salesman__info__rate {
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+    justify-content: flex-start;
+}
+
+.advertisment-detail__add-info {
+    width: 70%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.advertisment-detail__add-info__location {
+    width: 100%;
+    padding: 20px;
+}
+
+.advertisment-detail__add-info__location__name-block {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.advertisment-detail__add-info__location__map {
+    width: 100%;
+    height: 300px;
+    display: none;
+}
+
+#YMapsIDNewAd{
+    width: inherit;
+    height: inherit;
+}
+
+.advertisment-detail__add-info__location__toogle {
+    display: none;
+}
+
+.advertisment-detail__add-info__location__toogle:checked+.advertisment-detail__add-info__location__map {
+    display: block;
+}
+
+.advertisment-detail__add-info__published-date-block {
+    width: 100%;
+    padding: 20px;
+}
+
+.advertisment-detail__add-info__description-block {
+    width: 100%;
+    padding: 20px;
+    border: solid;
+    border-color: var(--button-background-color);
+    border-radius: 5px;
+    border-width: 1px;
+}
+
+.advertisment-detail__capture {
+    font-size: 16px;
+    font-weight: 400;
+}
+
+@media screen and (max-width: 800px) {
+    .advertisment-detail__main-info {
+        width: 100%;
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .advertisment-detail__main-info__main {
+        width: 100%;
+    }
+
+    .advertisment-detail__main-info__shop {
+        /* width: 100%; */
+    }
+
+    .advertisment-detail__add-info {
+        width: 100%;
+    }
+}
+
+Slideshow container
+.slideshow-container {
+    max-width: 1000px;
+    position: relative;
+    margin: auto;
+  }
+  
+  /* Hide the images by default */
+  .mySlides {
+      display: none;
+  }
+  
+  /* Next & previous buttons */
+  .prev, .next {
+    cursor: pointer;
+    position: relative;
+    top: 50%;
+    width: auto;
+    margin-top: -22px;
+    padding: 16px;
+    color: white;
+    font-weight: bold;
+    font-size: 18px;
+    transition: 0.6s ease;
+    border-radius: 0 3px 3px 0;
+  }
+  
+  /* Position the "next button" to the right */
+  .next {
+    right: 0;
+    border-radius: 3px 0 0 3px;
+  }
+  
+  /* On hover, add a black background color with a little bit see-through */
+  .prev:hover, .next:hover {
+    background-color: rgba(0,0,0,0.8);
+  }
+  
+  /* Caption text */
+  .text {
+    color: #f2f2f2;
+    font-size: 15px;
+    padding: 8px 12px;
+    position: absolute;
+    bottom: 8px;
+    width: 100%;
+    text-align: center;
+  }
+  
+  /* Number text (1/3 etc) */
+  .numbertext {
+    color: #f2f2f2;
+    font-size: 12px;
+    padding: 8px 12px;
+    position: absolute;
+    top: 0;
+  }
+  
+  /* The dots/bullets/indicators */
+  .dot {
+    cursor: pointer;
+    height: 15px;
+    width: 15px;
+    margin: 0 2px;
+    background-color: #bbb;
+    border-radius: 50%;
+    display: inline-block;
+    transition: background-color 0.6s ease;
+  }
+  
+  .active-hover, .dot:hover {
+    background-color: #717171;
+  }
+  
+  /* Fading animation */
+  .fade {
+    -webkit-animation-name: fade;
+    -webkit-animation-duration: 1.5s;
+    animation-name: fade;
+    animation-duration: 1.5s;
+  }
+  
+  @-webkit-keyframes fade {
+    from {opacity: .4}
+    to {opacity: 1}
+  }
+  
+  @keyframes fade {
+    from {opacity: .4}
+    to {opacity: 1}
+  }

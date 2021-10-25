@@ -1,6 +1,6 @@
 import EventBus from '../modules/EventBus.js';
 import NewAdPageModel from '../models/newAd.js';
-import NewAdPageView from '../views/newAd.js';
+import NewAdPageView from '../views/newAdPage.js';
 
 /**
  * Контроллер главной страницы

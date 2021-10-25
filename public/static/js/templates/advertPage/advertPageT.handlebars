@@ -1,0 +1,114 @@
+<div class="root__info-block">
+  <div class="info-block__left info-block__category">
+    <ul class="category__list">
+      <li class="category__list__main info-block__capture">
+        <a href="/">Главная</a></li>
+      <li class="category__list__main info-block__capture">
+        <a href="/">{{category}}</a></li>
+      <li class="category__list__sub info-block__capture">
+        <a href="{{href}}">{{name}}</a></li>
+    </ul>
+  </div>
+</div>
+<div class="advertisment-detail">
+  <div class="advertisment-detail__main-info">
+    <div class="advertisment-detail__main-info__main">
+      <h3 class="advertisment-detail__main-info__main__name">
+        {{name}}
+      </h3>
+      <!-- Slideshow container -->
+      <div class="slideshow-container">
+
+        <!-- Full-width images with number and caption text -->
+        {{#each images}}
+        <div class="mySlides fade">
+          <img src="{{this}}" style="width:100%" />
+        </div>
+        {{/each}}
+        <!-- Next and previous buttons -->
+        <a class="prev">&#10094;</a>
+        <a class="next">&#10095;</a>
+      </div>
+      <br />
+
+      <!-- The dots/circles -->
+      <div style="text-align:center">
+        {{#each images}}
+        <span class="dot"></span>
+        {{/each}}
+      </div>
+    </div>
+    <div class="advertisment-detail__main-info__shop">
+      <p class="advertisment-detail__main-info__shop__price">
+        Цена:
+        {{price}}
+        ₽
+      </p>
+      <button class="button advertisment-detail__main-info__button">Написать продавцу</button>
+      <button class="button advertisment-detail__main-info__button">Добавить в корзину</button>
+      <div class="advertisment-detail__main-info__shop__salesman">
+        <div class="advertisment-detail__main-info__shop__salesman__avatar">
+          <a href="{{salesmanHref}}">
+            <img src="{{salesmanAvatar}}" />
+          </a>
+        </div>
+        <div class="advertisment-detail__main-info__shop__salesman__info">
+          Продавец:
+          <p
+            class="advertisment-detail__main-info__shop__salesman__info__name advertisment-detail__capture"
+          >
+            {{salesmanName}}
+            {{salesmanSurname}}</p>
+          <p
+            class="advertisment-detail__main-info__shop__salesman__info__started advertisment-detail__capture"
+          >
+            На сайте с
+            {{salesmanCreatedAt}}</p>
+          <div
+            class="advertisment-detail__main-info__shop__salesman__info__rate"
+          >
+            <div
+              class="advertisment-detail__main-info__shop__salesman__info__rate__star"
+            >&#9733;</div>
+            <p class="advertisment-detail__capture">{{salesmanRating}}</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="advertisment-detail__add-info">
+    <div class="advertisment-detail__add-info__location">
+      <div class="advertisment-detail__add-info__location__name-block">
+        <p
+          class="advertisment-detail__add-info__location__name-block_capture advertisment-detail__capture"
+        >
+          {{location}}
+        </p>
+        <label for="toogle_maps">Раскрыть карту</label>
+      </div>
+      <input
+        class="advertisment-detail__add-info__location__toogle"
+        type="checkbox"
+        id="toogle_maps"
+      />
+      <div class="advertisment-detail__add-info__location__map">
+        <div id="YMapsIDNewAd"></div>
+      </div>
+    </div>
+    <div class="advertisment-detail__add-info__published-date-block">
+      <p
+        class="advertisment-detail__add-info__published-date advertisment-detail__capture"
+      >
+        Дата публикации:
+        {{publishedAt}}
+      </p>
+    </div>
+    <div class="advertisment-detail__add-info__description-block">
+      <label for="advertisment-detail__add-info__description">Описание:</label>
+      <p
+        class="advertisment-detail__add-info__description advertisment-detail__capture"
+      > <br> {{description}}</p>
+    </div>
+  </div>
+  <div class="advertisment-detail__similar_advertisments"></div>
+</div>

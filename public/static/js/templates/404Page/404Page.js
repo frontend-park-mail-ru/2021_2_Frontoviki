@@ -39,6 +39,7 @@ export default class ErrorPage {
       innerContent.appendChild(text);
 
       const btn = document.createElement('a');
+      btn.classList.add('button');
       btn.innerHTML = 'Вернуться на главную';
       btn.href = '/';
       innerContent.appendChild(btn);

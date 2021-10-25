@@ -1,4 +1,3 @@
-import EventBus from '../modules/EventBus.js';
 import {Ajax} from '../modules/ajax.js';
 import {secureDomainUrl, statusCodes} from '../constatns.js';
 

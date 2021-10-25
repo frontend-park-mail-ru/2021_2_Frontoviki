@@ -96,16 +96,16 @@ export default class ProfilePageView extends BaseView {
    * @param {bool} archive если объявления в архиве, то не отображаем удаление
    */
   renderGrid(adverts, archive) {
-    console.log(adverts)
+    console.log(adverts);
     // поправляем ошибки бэка
     if (archive) {
       adverts.forEach((elem) => {
-        elem.href = '/advert/' + elem.id;
+        elem.href = '/ad/' + elem.id;
         elem.image = '/' + elem.images[0];
       });
     } else {
       adverts.forEach((elem) => {
-        elem.href = '/advert/' + elem.id;
+        elem.href = '/ad/' + elem.id;
         elem.image = '/' + elem.image;
       });
     }

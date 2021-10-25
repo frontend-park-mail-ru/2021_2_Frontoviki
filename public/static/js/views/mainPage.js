@@ -33,7 +33,7 @@ export default class MainPageView extends BaseView {
     */
   renderAds(search, categories, adverts) {
     adverts.forEach((elem) => {
-      elem.href = '/advert/' + elem.id;
+      elem.href = '/ad/' + elem.id;
       elem.image = '/' + elem.images[0];
     });
     this.root.innerHTML = '';

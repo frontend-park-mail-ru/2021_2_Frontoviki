@@ -23,13 +23,13 @@ export default class SalesmanPageController {
     ]);
     this.view = new SalesmanPageView(this.eventBus);
     this.model = new SalesmanPageModel(this.eventBus);
-    this.eventBus.on('noSuchSalesman', this.redirectToMain.bind(this));
+    this.eventBus.on('noSuchSalesman', this.redirectToError.bind(this));
   }
 
   /**
-   * Редирект ту мейн
+   * Редирект
    */
-  redirectToMain() {
+  redirectToError() {
     this.router.go('/noSuchSalesman');
   }
 }
