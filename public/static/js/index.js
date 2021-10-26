@@ -52,6 +52,7 @@ document.addEventListener('DOMContentLoaded', () => {
   router.setRoute('^\/profile\/settings$', ProfilePage.view.renderSettings);
   router.setRoute('^\/newAd$', NewAdPage.view.render);
   router.setRoute('^\/ad\/(?<advertID>\\d+)$', AdvertPage.view.render);
+  router.setRoute('^\/ad\/(?<advertID>\\d+)\/edit$', NewAdPage.view.edit);
   router.setRoute('^\/salesman\/(?<salesmanID>\\d+)$', SalesmanPage.view.render);
 
   router.go(window.location.pathname);

@@ -6,6 +6,7 @@ import {secureDomainUrl, statusCodes, categories} from '../constatns.js';
  */
 export default class NewAdPageModel {
   #coords
+  #myMap
   /**
     * @description Constructor
     * @param {Object} eventBus to call and subscribe for signals
@@ -16,6 +17,7 @@ export default class NewAdPageModel {
     this.eventBus.on('checkLog', this.checkForLogging.bind(this));
     this.eventBus.on('sendAd', this.sendAd.bind(this));
     this.eventBus.on('successSend', this.sendPhoto.bind(this));
+    this.eventBus.on('getExistData', this.getData.bind(this));
   }
 
   /**
@@ -23,11 +25,11 @@ export default class NewAdPageModel {
    */
   initMap() {
     ymaps.ready(() => {
-      const myMap = new ymaps.Map('YMapsID', {
+      this.#myMap = new ymaps.Map('YMapsID', {
         center: [55.766062, 37.684488],
         zoom: 13,
       });
-      myMap.events.add('click', async (e) => {
+      this.#myMap.events.add('click', async (e) => {
         const coords = e.get('coords');
         const myGeoObject = new ymaps.GeoObject({
           geometry: {
@@ -37,10 +39,10 @@ export default class NewAdPageModel {
         });
         this.#coords = coords;
         console.log(coords);
-        myMap.geoObjects.removeAll();
-        myMap.geoObjects.add(myGeoObject);
+        this.#myMap.geoObjects.removeAll();
+        this.#myMap.geoObjects.add(myGeoObject);
         const response =
-          await fetch(`https://geocode-maps.yandex.ru/1.x/?apikey=&format=json&geocode=${coords[1].toFixed(6)},${coords[0].toFixed(6)}`);
+          await fetch(`https://geocode-maps.yandex.ru/1.x/?apikey=a4627984-d4ae-4e59-a89b-7c1c4d5cf56d&format=json&geocode=${coords[1].toFixed(6)},${coords[0].toFixed(6)}`);
         const json = await response.json();
         let data = json.response.GeoObjectCollection.featureMember[0].GeoObject.metaDataProperty.GeocoderMetaData.Address.formatted;
         console.log(data);
@@ -64,7 +66,7 @@ export default class NewAdPageModel {
   /**
    * отправка объявления на сервер
    */
-  sendAd() {
+  sendAd(isNew) {
     const nameDiv = document.querySelector('.new-advert__name');
     const title = nameDiv.childNodes[3].value.trim();
     if (!validate(nameDiv)) {
@@ -92,16 +94,16 @@ export default class NewAdPageModel {
     }
     document.querySelector('.new-advert__location').classList.remove('text-input_wrong');
     const address = document.querySelector('.new-advert__location').childNodes[3].value.trim();
-    console.log('name:',
-        title,
-        'category:', category,
-        'description:', description,
-        'condition-new:', condition,
-        'price:', price,
-        'coords:', coords);
-
+    // отправка на разные endpoint
+    let endpointUrl;
+    if (isNew) {
+      endpointUrl = secureDomainUrl + 'adverts';
+    } else {
+      const adId = window.location.pathname.split('/')[2];
+      endpointUrl = secureDomainUrl + 'adverts/' + adId;
+    }
     const response = Ajax.asyncPostUsingFetch({
-      url: secureDomainUrl + 'adverts',
+      url: endpointUrl,
       body: {
         name: title,
         description: description,
@@ -133,6 +135,9 @@ export default class NewAdPageModel {
    */
   sendPhoto(id) {
     const [file] = document.querySelector('.new-advert__images').files;
+    if (file.length === 0) {
+      return;
+    }
     const formData = new FormData();
     formData.append('images', file);
     const res = Ajax.asyncPostImageUsingFetch({
@@ -147,6 +152,44 @@ export default class NewAdPageModel {
       console.log(code, parsedBody);
       console.log('hooray!');
       this.eventBus.emit('photosSend');
+    });
+  }
+
+  /**
+   * Функция получения и автозаполнения информации
+   */
+  getData() {
+    const adId = window.location.pathname.split('/')[2];
+    const res = Ajax.asyncGetUsingFetch({
+      url: secureDomainUrl + 'adverts/' + adId,
+    });
+    res.then(({parsedBody}) => {
+      const {code} = parsedBody;
+      if (code === statusCodes.NOTEXIST) {
+        this.eventBus.emit('NoAd');
+        return;
+      }
+      const {advert} = parsedBody.body;
+      advert.images.forEach((elem, key) => {
+        advert.images[key] = '/' + elem;
+      });
+      document.querySelector('.new-advert__name').childNodes[3].value = advert.name;
+      document.querySelector('.new-advert__category').childNodes[3].value = advert.category;
+      document.querySelector('.new-advert__description').childNodes[3].value = advert.description;
+      document.getElementById('radio-new').checked = advert.is_new;
+      document.querySelector('.new-advert__price').childNodes[3].value = advert.price;
+      document.querySelector('.new-advert__location').childNodes[3].value = advert.location;
+
+      ymaps.ready(()=> {
+        const myGeoObject = new ymaps.GeoObject({
+          geometry: {
+            type: 'Point', // тип геометрии - точка
+            coordinates: [advert.latitude, advert.longitude], // координаты точки
+          },
+        });
+        this.#coords = [advert.latitude, advert.longitude];
+        this.#myMap.geoObjects.add(myGeoObject);
+      });
     });
   }
 }

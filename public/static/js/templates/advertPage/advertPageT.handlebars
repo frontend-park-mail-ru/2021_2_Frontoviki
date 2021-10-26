@@ -17,12 +17,12 @@
         {{name}}
       </h3>
       <!-- Slideshow container -->
-      <div class="slideshow-container">
+      <div class="slideshow-container advertisment-detail__main-info__main__gallery">
 
         <!-- Full-width images with number and caption text -->
         {{#each images}}
-        <div class="mySlides fade">
-          <img src="{{this}}" style="width:100%" />
+        <div class="mySlides fade advertisment-detail__main-info__main__gallery__image-block">
+          <img class="advertisment-detail__main-info__main__gallery__image-block__image"src="{{this}}"/>
         </div>
         {{/each}}
         <!-- Next and previous buttons -->
@@ -44,8 +44,9 @@
         {{price}}
         ₽
       </p>
-      <button class="button advertisment-detail__main-info__button">Написать продавцу</button>
-      <button class="button advertisment-detail__main-info__button">Добавить в корзину</button>
+      <button id="chatBtn" class="button advertisment-detail__main-info__button">Написать продавцу</button>
+      <button id="addToCartBtn" class="button advertisment-detail__main-info__button">Добавить в корзину</button>
+      <button id="editBtn" class="button advertisment-detail__main-info__button" style="display: none;">Редактировать</button>
       <div class="advertisment-detail__main-info__shop__salesman">
         <div class="advertisment-detail__main-info__shop__salesman__avatar">
           <a href="{{salesmanHref}}">

@@ -19,10 +19,12 @@ export default class AdvertPageController {
       'NoAd',
       'gotAd',
       'adDrawn',
+      'onEditClicked',
     ]);
     this.view = new AdvertPageView(this.eventBus);
     this.model = new AdvertPageModel(this.eventBus);
     this.eventBus.on('NoAd', this.noAd.bind(this));
+    this.eventBus.on('onEditClicked', this.redirectToEdit.bind(this));
   }
 
   /**
@@ -30,5 +32,13 @@ export default class AdvertPageController {
    */
   noAd() {
     this.router.go('/noSuchAdvert');
+  }
+
+  /**
+   * редирект на страницу редактирования объявления
+   * @param {Number} id объявления
+   */
+  redirectToEdit(id) {
+    this.router.go('/ad/' + id + '/edit');
   }
 }

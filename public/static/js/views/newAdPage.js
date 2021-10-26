@@ -13,6 +13,9 @@ export default class NewAdPageView extends BaseView {
   constructor(eventBus) {
     super(eventBus);
     this.render = this.render.bind(this);
+    this.edit = this.edit.bind(this);
+    this.sendAd = this.sendAd.bind(this);
+    this.editAd = this.editAd.bind(this);
   }
 
   /**
@@ -31,8 +34,26 @@ export default class NewAdPageView extends BaseView {
       select.appendChild(el);
     });
     this.eventBus.emit('renderDone');
-    document.getElementById('newAdForm').addEventListener('click', (e)=>{
-      this.eventBus.emit('sendAd');
-    });
+    document.getElementById('newAdForm').addEventListener('click', this.sendAd);
+  }
+
+  /**
+   * Функция редактирования
+   */
+  edit() {
+    this.render();
+    this.eventBus.emit('getExistData');
+    const submitButton = document.getElementById('newAdForm');
+    submitButton.removeEventListener('click', this.sendAd);
+    submitButton.addEventListener('click', this.editAd);
+    submitButton.innerHTML = 'Редактировать';
+  }
+
+  sendAd() {
+    this.eventBus.emit('sendAd', true);
+  }
+
+  editAd() {
+    this.eventBus.emit('sendAd', false);
   }
 }

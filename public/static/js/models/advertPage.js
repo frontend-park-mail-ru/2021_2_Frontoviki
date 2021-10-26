@@ -41,18 +41,19 @@ export default class AdvertPageModel {
 
   /**
    * Логика и интерактивные объекты
+   * @param {*} advert объявление
    */
   adLogic(advert) {
     const carousel = new SliderLogic();
     document.querySelector('.prev').addEventListener('click', (e) => {
       e.preventDefault();
+      e.stopPropagation();
       carousel.plusSlides(-1);
-      e.stopImmediatePropagation();
     });
     document.querySelector('.next').addEventListener('click', (e) => {
       e.preventDefault();
+      e.stopPropagation();
       carousel.plusSlides(1);
-      e.stopImmediatePropagation();
     });
     document.querySelectorAll('.dot').forEach((elem, key) =>{
       elem.addEventListener('click', (e)=>{
@@ -73,5 +74,12 @@ export default class AdvertPageModel {
       });
       myMap.geoObjects.add(myGeoObject);
     });
+    if (Number(localStorage.getItem('id')) === advert.publisher_id) {
+      document.getElementById('chatBtn').style.display = 'none';
+      document.getElementById('addToCartBtn').style.display = 'none';
+      const editBtn = document.getElementById('editBtn');
+      editBtn.style.display = 'inline-block';
+      editBtn.addEventListener('click', () => this.eventBus.emit('onEditClicked', advert.id));
+    }
   }
 }
