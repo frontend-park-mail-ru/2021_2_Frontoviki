@@ -21,11 +21,15 @@ export default class NewAdPageController {
       'notLogged',
       'checkLog',
       'photosSend',
+      'redirectToAd',
+      'notOwner',
     ]);
     this.view = new NewAdPageView(this.eventBus);
     this.model = new NewAdPageModel(this.eventBus);
     this.eventBus.on('notLogged', this.redirectToMain.bind(this));
+    this.eventBus.on('notOwner', this.redirectToMain.bind(this));
     this.eventBus.on('photosSend', this.redirectToProfile.bind(this));
+    this.eventBus.on('redirectToAd', this.redirectToAd.bind(this));
   }
 
   /**
@@ -41,5 +45,12 @@ export default class NewAdPageController {
    */
   redirectToProfile() {
     this.router.go('/profile');
+  }
+
+  /**
+   *
+   */
+  redirectToAd(id) {
+    this.router.go('/ad/'+id);
   }
 }

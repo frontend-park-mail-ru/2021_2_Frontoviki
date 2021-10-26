@@ -114,6 +114,7 @@ export default class NewAdPageModel {
         latitude: coords[0],
         longitude: coords[1],
         amount: 1,
+        publisher_id: Number(localStorage.getItem('id')),
       },
     });
     response.then(({status, parsedBody}) => {
@@ -124,7 +125,7 @@ export default class NewAdPageModel {
       console.log(code, parsedBody);
       if (code == statusCodes.REGDONE) {
         const id = parsedBody.body.advert.id;
-        this.eventBus.emit('successSend', id);
+        this.eventBus.emit('successSend', id, isNew);
       }
     });
   }
@@ -133,9 +134,12 @@ export default class NewAdPageModel {
    * Отправляет фото
    * @param {number} id id объявления
    */
-  sendPhoto(id) {
+  sendPhoto(id, isNew) {
     const file = document.querySelector('.new-advert__images').files;
     if (file.length === 0) {
+      if (!isNew) {
+        this.eventBus.emit('redirectToAd', id);
+      }
       return;
     }
     const formData = new FormData();
@@ -153,7 +157,13 @@ export default class NewAdPageModel {
       const {code} = parsedBody;
       console.log(code, parsedBody);
       console.log('hooray!');
-      this.eventBus.emit('photosSend');
+      // Переход на страницу профиля при новом
+      // или на странциу объявления при редактировании
+      if (isNew) {
+        this.eventBus.emit('photosSend');
+      } else {
+        this.eventBus.emit('redirectToAd', id);
+      }
     });
   }
 
@@ -172,6 +182,10 @@ export default class NewAdPageModel {
         return;
       }
       const {advert} = parsedBody.body;
+      if (advert.publisher_id !== Number(localStorage.getItem('id'))) {
+        this.eventBus.emit('notOwner');
+        return;
+      }
       advert.images.forEach((elem, key) => {
         advert.images[key] = '/' + elem;
       });
