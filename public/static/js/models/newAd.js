@@ -134,12 +134,14 @@ export default class NewAdPageModel {
    * @param {number} id id объявления
    */
   sendPhoto(id) {
-    const [file] = document.querySelector('.new-advert__images').files;
+    const file = document.querySelector('.new-advert__images').files;
     if (file.length === 0) {
       return;
     }
     const formData = new FormData();
-    formData.append('images', file);
+    for (let i = 0; i < file.length; i++) {
+      formData.append('images', file[i]);
+    }
     const res = Ajax.asyncPostImageUsingFetch({
       url: secureDomainUrl + 'adverts/' + id + '/upload',
       body: formData,

@@ -35,6 +35,7 @@ export function autorisation(logEmail, logPassword, globalEventBus) {
       createHeader(globalEventBus);
       clearAllLogInputs(logEmail, logPassword);
       document.querySelector('.blackout').click();
+      window.location.reload();
       return;
     }
     switch (code) {
