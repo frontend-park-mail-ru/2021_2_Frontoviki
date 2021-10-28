@@ -27,12 +27,18 @@ export default class ProfilePageController {
       'getGrid',
       'onDeleteClick',
       'getArchive',
+      'getCart',
+      'gotCart',
+      'renderCart',
+      'deleteFromCart',
+      'buyFromCart',
     ]);
     this.view = new ProfilePageView(this.eventBus);
     this.model = new ProfilePageModel(this.eventBus);
     this.eventBus.on('notLogged', this.redirectToMain.bind(this));
     this.eventBus.on('getAds', this.redirectToProfile.bind(this));
     this.eventBus.on('getSettings', this.redirectToSettings.bind(this));
+    this.eventBus.on('renderCart', this.redirectToCart.bind(this));
     this.eventBus.on('fileUploaded', this.refreshPage.bind(this));
   }
 
@@ -64,5 +70,12 @@ export default class ProfilePageController {
    */
   refreshPage() {
     window.location.reload();
+  }
+
+  /**
+   * Меняют урл когда идем в корзину
+   */
+  redirectToCart() {
+    this.router.go('/profile/cart');
   }
 }

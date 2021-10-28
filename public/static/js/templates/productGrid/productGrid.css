@@ -24,6 +24,7 @@
 }
 
 .card {
+    width: fit-content;
     position: relative;
     grid-column-end: span 4;
     display: flex;

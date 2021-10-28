@@ -97,3 +97,8 @@
   display: inline-block;
   width: 180px;
 }
+
+.modal__content > p {
+  margin-bottom: 5px;
+  font-weight: 500;
+}

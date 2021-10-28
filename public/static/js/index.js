@@ -50,6 +50,7 @@ document.addEventListener('DOMContentLoaded', () => {
   router.setRoute('^\/logout', MainPage.view.render);
   router.setRoute('^\/profile$', ProfilePage.view.renderAds);
   router.setRoute('^\/profile\/settings$', ProfilePage.view.renderSettings);
+  router.setRoute('^\/profile\/cart$', ProfilePage.view.renderCart);
   router.setRoute('^\/newAd$', NewAdPage.view.render);
   router.setRoute('^\/ad\/(?<advertID>\\d+)$', AdvertPage.view.render);
   router.setRoute('^\/ad\/(?<advertID>\\d+)\/edit$', NewAdPage.view.edit);

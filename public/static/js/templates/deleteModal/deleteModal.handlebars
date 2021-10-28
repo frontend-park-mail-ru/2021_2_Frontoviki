@@ -2,8 +2,10 @@
     <div class="modal__content">
       <button class="modal__close-button"><img src="/static/img/close.svg" width="12" alt=""></button>
       <!-- Контент модального окна -->
-      <h2 class="modal__title">По какой причине вы хотите удалить объявление?</h2>
+      <h2 class="modal__title">{{modalText}}</h2>
+      {{#if deleteModal}}
       <button class = 'modal__button button' id='modal__button-to-archive'>Продал на Волчке</button>
       <button class = 'modal__button button' id='modal__button-delete'>Другая причина</button>
+      {{/if}}
     </div>
 </div>

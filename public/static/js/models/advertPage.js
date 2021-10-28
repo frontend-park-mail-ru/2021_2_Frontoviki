@@ -1,6 +1,7 @@
 import {Ajax} from '../modules/ajax.js';
 import {secureDomainUrl, statusCodes} from '../constatns.js';
 import {SliderLogic} from '../templates/advertPage/sliderLogic.js';
+import {createDeleteModal} from '../templates/deleteModal/deleteModal.js';
 
 /**
  * Класс главной страницы с последними объявлениями
@@ -74,12 +75,69 @@ export default class AdvertPageModel {
       });
       myMap.geoObjects.add(myGeoObject);
     });
+    const addBtn = document.getElementById('addToCartBtn');
     if (Number(localStorage.getItem('id')) === advert.publisher_id) {
       document.getElementById('chatBtn').style.display = 'none';
-      document.getElementById('addToCartBtn').style.display = 'none';
+      addBtn.style.display = 'none';
       const editBtn = document.getElementById('editBtn');
       editBtn.style.display = 'inline-block';
       editBtn.addEventListener('click', () => this.eventBus.emit('onEditClicked', advert.id));
     }
+
+
+    addBtn.addEventListener('click', ()=> {
+      if (localStorage.getItem('id') === null) {
+        this.eventBus.emit('notLogged');
+        return;
+      }
+    });
+
+    /**
+     * обработчик добавления в корзину
+    */
+    function addToCart() {
+      const res = Ajax.asyncPostUsingFetch({
+        url: secureDomainUrl + 'cart/one',
+        body: {
+          advert_id: Number(advert.id),
+          amount: 1,
+        },
+      });
+      res.then(({parsedBody}) => {
+        const {code} = parsedBody;
+        if (code === statusCodes.NOTEXIST) {
+          return;
+        }
+        console.log(parsedBody);
+        addBtn.innerHTML = 'В корзине';
+        addBtn.removeEventListener('click', addToCart);
+        addBtn.addEventListener('click', () => {
+          window.location.href = '/profile/cart';
+        });
+      });
+    }
+
+    const res = Ajax.asyncGetUsingFetch({
+      url: secureDomainUrl + 'cart',
+    });
+    res.then(({parsedBody}) => {
+      console.log(parsedBody);
+      const {cart} = parsedBody.body;
+      let canAdd = true;
+      cart.forEach((elem) => {
+        if (elem.advert_id === advert.id) {
+          addBtn.innerHTML = 'В корзине';
+          console.log('cant add');
+          addBtn.removeEventListener('click', addToCart);
+          canAdd = false;
+          addBtn.addEventListener('click', () => this.eventBus.emit('goToCart'));
+          return;
+        }
+      });
+      if (canAdd) {
+        console.log('can add');
+        addBtn.addEventListener('click', addToCart);
+      }
+    });
   }
 }

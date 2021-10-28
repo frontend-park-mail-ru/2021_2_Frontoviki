@@ -20,11 +20,15 @@ export default class AdvertPageController {
       'gotAd',
       'adDrawn',
       'onEditClicked',
+      'notLogged',
+      'goToCart',
     ]);
     this.view = new AdvertPageView(this.eventBus);
     this.model = new AdvertPageModel(this.eventBus);
     this.eventBus.on('NoAd', this.noAd.bind(this));
     this.eventBus.on('onEditClicked', this.redirectToEdit.bind(this));
+    this.eventBus.on('notLogged', this.openModal.bind(this));
+    this.eventBus.on('goToCart', this.goToCart.bind(this));
   }
 
   /**
@@ -40,5 +44,18 @@ export default class AdvertPageController {
    */
   redirectToEdit(id) {
     this.router.go('/ad/' + id + '/edit');
+  }
+  /**
+   * Открывает модальное окно, если пользователь пытается
+   * добавить в корзину без авторизации
+   */
+  openModal() {
+    this.globalEventBus.emit('clickModal');
+  }
+  /**
+   * Идем в корзину
+   */
+  goToCart() {
+    this.router.go('/profile/cart');
   }
 }

@@ -14,12 +14,15 @@ export default class ProfilePageModel {
   constructor(eventBus) {
     this.eventBus = eventBus;
     this.eventBus.on('getGrid', this.getAds.bind(this));
+    this.eventBus.on('getCart', this.getCart.bind(this));
     this.eventBus.on('getArchive', this.getArchive.bind(this));
     this.eventBus.on('checkLog', this.checkForLogging.bind(this));
     this.eventBus.on('uploadPhoto', this.uploadPhoto.bind(this));
     this.eventBus.on('settingsRendered', this.handleSettings.bind(this));
     this.eventBus.on('changePassword', this.changePassword.bind(this));
     this.eventBus.on('onDeleteClick', this.handleDelete.bind(this));
+    this.eventBus.on('deleteFromCart', this.deleteFromCart.bind(this));
+    this.eventBus.on('buyFromCart', this.buyFromCart.bind(this));
   }
   /**
  * Получить все объявления пользователя
@@ -188,7 +191,10 @@ export default class ProfilePageModel {
   handleDelete(id) {
     const modalT = createDeleteModal();
     const modal = document.createElement('div');
-    modal.innerHTML = modalT();
+    modal.innerHTML = modalT({
+      modalText: 'По какой причине вы хотите удалить объявление?',
+      deleteModal: true,
+    });
     document.getElementsByTagName('body')[0].appendChild(modal);
     const modal1 = document.getElementById('modal-1');
     modal1.classList.add('modal_active');
@@ -239,6 +245,106 @@ export default class ProfilePageModel {
           window.location.reload();
         };
       });
+    });
+  }
+
+  /**
+   * Получение объявлений в корзине
+   */
+  getCart() {
+    const res = Ajax.asyncGetUsingFetch({
+      url: secureDomainUrl + 'cart',
+    });
+    res.then(({status, parsedBody}) => {
+      if (status != statusCodes.OK) {
+        return;
+      }
+      const {code} = parsedBody;
+      console.log(parsedBody);
+      if (code === statusCodes.OK) {
+        this.eventBus.emit('gotCart', parsedBody.body.adverts);
+        return;
+      };
+    });
+  }
+
+  /**
+   * удаляет из корзины
+   * @param {*} id
+   */
+  deleteFromCart(id) {
+    const res = Ajax.asyncPostUsingFetch({
+      url: secureDomainUrl + 'cart/one',
+      body: {
+        advert_id: Number(id),
+        amount: 0,
+      },
+    });
+    res.then(({parsedBody}) => {
+      const {code} = parsedBody;
+      if (code === statusCodes.NOTEXIST) {
+        return;
+      }
+      window.location.reload();
+    });
+  }
+
+  /**
+   * Оформление покупки
+   * @param {*} id
+   */
+  buyFromCart(advert) {
+    const res = Ajax.asyncPostUsingFetch({
+      url: secureDomainUrl + 'cart/' + advert.id +'/checkout',
+      body: {
+        advert_id: advert.id,
+      },
+    });
+    res.then(({parsedBody}) => {
+      const {code} = parsedBody;
+      if (code === statusCodes.NOTEXIST) {
+        this.eventBus.emit('NoAd');
+        return;
+      }
+      console.log(parsedBody);
+      const {salesman} = parsedBody.body;
+
+      const modalT = createDeleteModal();
+      const modal = document.createElement('div');
+      modal.innerHTML = modalT({
+        modalText: 'Покупка',
+        deleteModal: false,
+      });
+      document.getElementsByTagName('body')[0].appendChild(modal);
+      const modal1 = document.getElementById('modal-1');
+      modal1.classList.add('modal_active');
+      const modalText = document.querySelector('.modal__content');
+
+      const modalAdvName = document.createElement('p');
+      modalAdvName.innerHTML = `Товар: ${advert.name}`;
+      modalText.appendChild(modalAdvName);
+      const modalAdvEmail = document.createElement('p');
+      modalAdvEmail.innerHTML = `email продавца: ${salesman.email}`;
+      modalText.appendChild(modalAdvEmail);
+      const modalAdvPrice = document.createElement('p');
+      modalAdvPrice.innerHTML = `Цена: ${advert.price} ₽`;
+      modalText.appendChild(modalAdvPrice);
+
+      const closeButton = modal1.getElementsByClassName('modal__close-button')[0];
+      closeButton.onclick = function(e) {
+        e.preventDefault();
+        modal1.classList.remove('modal_active');
+        document.getElementsByTagName('body')[0].removeChild(modal);
+        location.reload();
+      };
+      modal1.onmousedown = function(e) {
+        const modalContent = modal1.getElementsByClassName('modal__content')[0];
+        if (e.target.closest('.' + modalContent.className) === null) {
+          this.classList.remove('modal_active');
+          document.getElementsByTagName('body')[0].removeChild(modal);
+          location.reload();
+        }
+      };
     });
   }
 }

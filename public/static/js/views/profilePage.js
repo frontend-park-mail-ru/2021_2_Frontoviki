@@ -18,9 +18,12 @@ export default class ProfilePageView extends BaseView {
     super(eventBus);
     this.render = this.render.bind(this);
     this.renderAds = this.renderAds.bind(this);
+    this.renderCart = this.renderCart.bind(this);
     this.renderSettings = this.renderSettings.bind(this);
     eventBus.on('gotAds', this.renderGrid.bind(this));
     eventBus.on('getSettings', this.renderSettings.bind(this));
+    eventBus.on('renderCart', this.renderCart.bind(this));
+    eventBus.on('gotCart', this.renderCartGrid.bind(this));
   }
   /**
     * функция отрисовки страницы профиля
@@ -41,8 +44,14 @@ export default class ProfilePageView extends BaseView {
       this.eventBus.emit('getAds');
     });
 
+    const cartBtn =
+    document.querySelector('.profile-content__buttons').childNodes[5];
+    cartBtn.addEventListener('click', (e) => {
+      this.eventBus.emit('renderCart');
+    });
+
     const settingBtn =
-      document.querySelector('.profile-content__buttons').childNodes[13];
+      document.querySelector('.profile-content__buttons').childNodes[11];
     settingBtn.addEventListener('click', (e) => {
       this.eventBus.emit('getSettings');
     });
@@ -134,6 +143,7 @@ export default class ProfilePageView extends BaseView {
       });
     }
   }
+
   /**
    * Отрисовывает настройки
    */
@@ -144,5 +154,47 @@ export default class ProfilePageView extends BaseView {
     const settingsDiv = settings();
     rightBlock.appendChild(settingsDiv);
     this.eventBus.emit('settingsRendered');
+  }
+
+  /**
+   * Отрисовывает корзину
+   */
+  renderCart() {
+    this.render();
+    const rightBlock = document.querySelector('.profile-content_right');
+    rightBlock.innerHTML = '';
+    const title = document.createElement('h3');
+    title.classList.add('profile-content__title');
+    title.innerHTML = ' Корзина ';
+    rightBlock.appendChild(title);
+    this.eventBus.emit('getCart');
+  }
+
+  /**
+   * Отрисовка объявлений в корзине
+   * @param {*} adverts
+   */
+  renderCartGrid(adverts) {
+    adverts.forEach((elem) => {
+      elem.href = '/ad/' + elem.id;
+      elem.image = '/' + elem.images[0];
+    });
+    const rightBlock = document.querySelector('.profile-content_right');
+    rightBlock.appendChild(createProductGrid(adverts, true, true));
+    const cards = document.querySelectorAll('.card');
+    cards.forEach((elem, key)=>{
+      elem.addEventListener('click', (e)=> {
+        if (e.target.classList.contains('card__delete')) {
+          e.preventDefault();
+          console.log('delete', adverts[key].id);
+          this.eventBus.emit('deleteFromCart', adverts[key].id);
+        }
+        if (e.target.classList.contains('card-info__card_buy')) {
+          e.preventDefault();
+          console.log('buy');
+          this.eventBus.emit('buyFromCart', adverts[key]);
+        }
+      });
+    });
   }
 };
