@@ -23,25 +23,33 @@ self.addEventListener('install', (event) => {
 });
 
 self.addEventListener('fetch', (event) => {
-  event.respondWith((() => {
+  event.respondWith((async () => {
     if (navigator.onLine === true) {
-      return fetch(event.request)
-          .then((response) => {
-            if (event.request.method !== 'GET') {
-              return response;
-            }
-
-            const responseClone = response.clone();
-            caches.open(CACHE_NAME)
-                .then((cache) => {
-                  cache.put(event.request, responseClone);
-                });
-            return response;
+      const response = await fetch(event.request);
+      if (event.request.method !== 'GET') {
+        return response;
+      }
+      const responseClone = response.clone();
+      caches.open(CACHE_NAME)
+          .then((cache) => {
+            cache.put(event.request, responseClone);
           });
+      return response;
     }
-    return caches.match(event.request)
-        .then((response) => {
-          return response || new Response(null, {status: 500});
-        });
+    const response = await caches.match(event.request);
+    return response || new Response(null, { status: 500 });
   })());
+});
+
+self.addEventListener('activate', (event) => {
+  event.waitUntil(
+      caches.keys().then((keys) => Promise.all(
+          keys.map((key) => {
+              if (key !== CACHE_NAME) {
+                  caches.delete(key)
+                      .then(() => console.log(`Deleted cache: ${key}`));
+              }
+          }),
+      )),
+  );
 });

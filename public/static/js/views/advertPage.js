@@ -40,6 +40,7 @@ export default class AdvertPageView extends BaseView {
       href: '/ad/' + advert.id,
       category: advert.category,
       images: advert.images,
+      new: advert.is_new,
       salesmanName: salesman.name,
       salesmanSurname: salesman.surname,
       salesmanAvatar: '/' + salesman.image,

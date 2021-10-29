@@ -15,10 +15,12 @@
         </div>
         <div class="card__card-info">
           <p class="card-info__card_location">{{location}}</p>
+          <div class="card-info__price-and-buy-block">
+          <p class="card-info__card_price">{{price}} ₽</p>
           {{#if canBuy}}
           <p class="card-info__card_buy">Купить</p>
           {{/if}}
-          <p class="card-info__card_price">{{price}} ₽</p>
+          </div>
         </div>
       </a>
     </div>

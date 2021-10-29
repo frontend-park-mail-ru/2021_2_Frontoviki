@@ -104,6 +104,21 @@
         {{publishedAt}}
       </p>
     </div>
+    <div class="advertisment-detail__add-info__condition-block">
+      {{#if new}}
+      <p
+        class="advertisment-detail__add-info__condition advertisment-detail__capture"
+      >
+        Состояние: Новое
+      </p>
+      {{else}}
+            <p
+        class="advertisment-detail__add-info__condition advertisment-detail__capture"
+      >
+        Состояние: Б/У
+      </p>
+      {{/if}}
+    </div>
     <div class="advertisment-detail__add-info__description-block">
       <label for="advertisment-detail__add-info__description">Описание:</label>
       <p

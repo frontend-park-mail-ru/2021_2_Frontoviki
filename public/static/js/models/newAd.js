@@ -42,7 +42,7 @@ export default class NewAdPageModel {
         this.#myMap.geoObjects.removeAll();
         this.#myMap.geoObjects.add(myGeoObject);
         const response =
-          await fetch(`https://geocode-maps.yandex.ru/1.x/?apikey=&format=json&geocode=${coords[1].toFixed(6)},${coords[0].toFixed(6)}`);
+          await fetch(`https://geocode-maps.yandex.ru/1.x/?apikey=a4627984-d4ae-4e59-a89b-7c1c4d5cf56d&format=json&geocode=${coords[1].toFixed(6)},${coords[0].toFixed(6)}`);
         const json = await response.json();
         let data = json.response.GeoObjectCollection.featureMember[0].GeoObject.metaDataProperty.GeocoderMetaData.Address.formatted;
         console.log(data);
@@ -81,7 +81,7 @@ export default class NewAdPageModel {
     const condition = document.getElementById('radio-new').checked;
     const priceDiv = document.querySelector('.new-advert__price');
     const price = priceDiv.childNodes[3].value.trim();
-    if (price.length === 0) {
+    if (price.length === 0 || price < 0) {
       priceDiv.classList.add('text-input_wrong');
       return;
     }

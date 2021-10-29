@@ -58,6 +58,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
   router.go(window.location.pathname);
   if (navigator.onLine !== true) {
+    console.log('offline');
     root.innerHTML = eggTemplate();
     egg();
   }

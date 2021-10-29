@@ -106,6 +106,17 @@
     top: -4%;
 }
 
+.card-info__price-and-buy-block {
+    margin: 5px;
+    align-items: center;
+    align-content: center;
+}
+
+.card-info__card_buy {
+    margin-top: 20px;
+    text-align: center;
+}
+
 @media only screen and (max-width: 1300px) {
     .root__product-grid {
         grid-template-columns: 1fr repeat(12, minmax(auto, 60px)) 1fr;
@@ -146,5 +157,8 @@
     }
     .card {
         grid-column-end: span 6;
+    }
+    .root__product-grid p {
+        font-size: 14px;
     }
 }
