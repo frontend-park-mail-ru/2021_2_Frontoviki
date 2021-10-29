@@ -23,12 +23,14 @@
   "dependencies": {
     "body-parser": "^1.18.3",
     "cookie-parser": "^1.4.4",
+    "core-js": "^3.19.0",
     "debug": "^4.1.1",
     "express": "^4.16.4",
     "handlebars": "^4.7.7",
     "handlebars-loader": "^1.7.1",
     "morgan": "^1.9.1",
     "pug": "^3.0.2",
+    "regenerator-runtime": "^0.13.9",
     "serviceworker-webpack-plugin": "^1.0.1",
     "uuid": "^3.3.2"
   },

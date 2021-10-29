@@ -39,7 +39,7 @@ export default class ProfilePageController {
     this.eventBus.on('getAds', this.redirectToProfile.bind(this));
     this.eventBus.on('getSettings', this.redirectToSettings.bind(this));
     this.eventBus.on('renderCart', this.redirectToCart.bind(this));
-    this.eventBus.on('fileUploaded', this.refreshPage.bind(this));
+    this.eventBus.on('fileUploaded', this.redirectToSettings.bind(this));
   }
 
   /**
@@ -47,7 +47,6 @@ export default class ProfilePageController {
    */
   redirectToMain() {
     this.router.go('/');
-    window.location.reload();
   }
 
   /**
@@ -64,14 +63,6 @@ export default class ProfilePageController {
   redirectToSettings() {
     this.router.go('/profile/settings');
   }
-
-  /**
-   * функция перезагрузки страницы
-   */
-  refreshPage() {
-    window.location.reload();
-  }
-
   /**
    * Меняют урл когда идем в корзину
    */

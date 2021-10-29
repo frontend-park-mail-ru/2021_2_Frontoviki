@@ -1,3 +1,5 @@
+import "core-js/stable";
+import "regenerator-runtime/runtime";
 const {assets} = global.serviceWorkerOption;
 const CACHE_NAME = 'volchockApp';
 
@@ -39,17 +41,4 @@ self.addEventListener('fetch', (event) => {
     const response = await caches.match(event.request);
     return response || new Response(null, { status: 500 });
   })());
-});
-
-self.addEventListener('activate', (event) => {
-  event.waitUntil(
-      caches.keys().then((keys) => Promise.all(
-          keys.map((key) => {
-              if (key !== CACHE_NAME) {
-                  caches.delete(key)
-                      .then(() => console.log(`Deleted cache: ${key}`));
-              }
-          }),
-      )),
-  );
 });

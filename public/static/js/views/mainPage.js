@@ -39,6 +39,15 @@ export default class MainPageView extends BaseView {
     this.root.innerHTML = '';
     this.root.appendChild(createInfoBlock(search, categories));
     this.root.appendChild(createProductGrid(adverts, false, false));
+    const cards = document.querySelectorAll('.card');
+    cards.forEach((elem, num)=>{
+      elem.addEventListener('click', (e)=>{
+        console.log('click', elem, adverts[num].id);
+        e.preventDefault();
+        e.stopPropagation();
+        this.eventBus.emit('onCardClicked', adverts[num].id);
+      });
+    });
   }
 
   /**

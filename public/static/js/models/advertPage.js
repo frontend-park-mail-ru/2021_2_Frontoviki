@@ -21,6 +21,7 @@ export default class AdvertPageModel {
    * Получение информации об объявлении
    */
   getAdData() {
+    console.log(window.location.pathname);
     const adId = window.location.pathname.split('/')[2];
     const res = Ajax.asyncGetUsingFetch({
       url: secureDomainUrl + 'adverts/' + adId,
@@ -88,14 +89,44 @@ export default class AdvertPageModel {
     addBtn.addEventListener('click', ()=> {
       if (localStorage.getItem('id') === null) {
         this.eventBus.emit('notLogged');
+        console.log('not logged');
         return;
+      }
+    });
+
+    if (localStorage.getItem('id') === null) {
+      return;
+    }
+
+    console.log('cart ');
+    const res = Ajax.asyncGetUsingFetch({
+      url: secureDomainUrl + 'cart',
+    });
+    res.then(({parsedBody}) => {
+      console.log(parsedBody);
+      const {cart} = parsedBody.body;
+      let canAdd = true;
+      cart.forEach((elem) => {
+        if (elem.advert_id === advert.id) {
+          addBtn.innerHTML = 'В корзине';
+          console.log('cant add');
+          addBtn.removeEventListener('click', ()=> addToCart(this));
+          canAdd = false;
+          addBtn.addEventListener('click', () => this.eventBus.emit('goToCart'));
+          return;
+        }
+      });
+      if (canAdd) {
+        console.log('can add');
+        addBtn.addEventListener('click', ()=> addToCart(this));
       }
     });
 
     /**
      * обработчик добавления в корзину
     */
-    function addToCart() {
+     function addToCart(advertPage) {
+      console.log(advertPage);
       const res = Ajax.asyncPostUsingFetch({
         url: secureDomainUrl + 'cart/one',
         body: {
@@ -110,34 +141,11 @@ export default class AdvertPageModel {
         }
         console.log(parsedBody);
         addBtn.innerHTML = 'В корзине';
-        addBtn.removeEventListener('click', addToCart);
+        addBtn.removeEventListener('click', ()=> addToCart(advertPage));
         addBtn.addEventListener('click', () => {
-          window.location.href = '/profile/cart';
+          advertPage.eventBus.emit('goToCart');
         });
       });
     }
-
-    const res = Ajax.asyncGetUsingFetch({
-      url: secureDomainUrl + 'cart',
-    });
-    res.then(({parsedBody}) => {
-      console.log(parsedBody);
-      const {cart} = parsedBody.body;
-      let canAdd = true;
-      cart.forEach((elem) => {
-        if (elem.advert_id === advert.id) {
-          addBtn.innerHTML = 'В корзине';
-          console.log('cant add');
-          addBtn.removeEventListener('click', addToCart);
-          canAdd = false;
-          addBtn.addEventListener('click', () => this.eventBus.emit('goToCart'));
-          return;
-        }
-      });
-      if (canAdd) {
-        console.log('can add');
-        addBtn.addEventListener('click', addToCart);
-      }
-    });
   }
 }

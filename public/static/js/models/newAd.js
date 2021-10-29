@@ -140,6 +140,7 @@ export default class NewAdPageModel {
       if (!isNew) {
         this.eventBus.emit('redirectToAd', id);
       }
+      this.eventBus.emit('photosSend');
       return;
     }
     const formData = new FormData();

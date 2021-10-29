@@ -1,5 +1,6 @@
 'use strict';
-import 'regenerator-runtime/runtime';
+import "core-js/stable";
+import "regenerator-runtime/runtime";
 import {createFooter} from './templates/footer/footer.js';
 import {createHeader} from './templates/header/header.js';
 import {createModal} from './templates/modal/modal.js';
@@ -59,7 +60,9 @@ document.addEventListener('DOMContentLoaded', () => {
   router.go(window.location.pathname);
   if (navigator.onLine !== true) {
     console.log('offline');
-    root.innerHTML = eggTemplate();
-    egg();
+    setTimeout(()=> {
+      root.innerHTML = eggTemplate();
+      egg();
+    }, 1000);
   }
 });

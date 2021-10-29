@@ -30,6 +30,9 @@ export default class Router {
    */
   go(URL, pushState = true) {
     const oldURL = window.history.state?.url;
+    if (pushState && URL !== oldURL) {
+      window.history.pushState({url: URL}, '', URL);
+    }
 
     let routeNotFound = true;
     for (const route of this.routes) {
@@ -45,9 +48,6 @@ export default class Router {
       const root = document.getElementById('root');
       const error = new ErrorPage(root);
       error.render();
-    }
-    if (pushState && URL !== oldURL) {
-      window.history.pushState({url: URL}, '', URL);
     }
   }
 

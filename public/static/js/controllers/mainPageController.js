@@ -12,15 +12,18 @@ export default class MainPageController {
      * @param {Object} globalEventBus - for trigger login global event
      */
   constructor(router, globalEventBus) {
+    this.router = router;
     this.globalEventBus = globalEventBus;
     this.eventBus = new EventBus([
       'getAds',
       'getData',
       'clickModal',
+      'onCardClicked',
     ]);
     this.view = new MainPageView(this.eventBus);
     this.model = new MainPageModel(this.eventBus);
     globalEventBus.on('clickModal', this.callModal.bind(this));
+    this.eventBus.on('onCardClicked', this.goToCardPage.bind(this));
   }
 
   /**
@@ -28,5 +31,14 @@ export default class MainPageController {
    */
   callModal() {
     this.eventBus.emit('clickModal');
+  }
+
+  /**
+   * Переход на страницу объявления
+   * @param {*} id
+   */
+  async goToCardPage(id) {
+    await this.router.go('/ad/' + id);
+    console.log('go');
   }
 }
