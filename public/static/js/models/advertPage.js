@@ -1,7 +1,6 @@
 import {Ajax} from '../modules/ajax.js';
 import {secureDomainUrl, statusCodes} from '../constatns.js';
 import {SliderLogic} from '../templates/advertPage/sliderLogic.js';
-import {createDeleteModal} from '../templates/deleteModal/deleteModal.js';
 
 /**
  * Класс главной страницы с последними объявлениями
@@ -15,13 +14,13 @@ export default class AdvertPageModel {
     this.eventBus = eventBus;
     this.eventBus.on('GetAdData', this.getAdData.bind(this));
     this.eventBus.on('adDrawn', this.adLogic.bind(this));
+    this.eventBus.on('refreshCart', this.cartLogic.bind(this));
   }
 
   /**
    * Получение информации об объявлении
    */
   getAdData() {
-    console.log(window.location.pathname);
     const adId = window.location.pathname.split('/')[2];
     const res = Ajax.asyncGetUsingFetch({
       url: secureDomainUrl + 'adverts/' + adId,
@@ -96,7 +95,27 @@ export default class AdvertPageModel {
     if (localStorage.getItem('id') === null) {
       return;
     }
+    this.cartLogic(advert);
+  }
 
+  /**
+   * Проверка корзины
+   */
+  async cartLogic(advert) {
+    if (/ad/.test(window.location.pathname) === false) {
+      return;
+    }
+    console.log('wtf');
+    if (advert === undefined) {
+      const adId = window.location.pathname.split('/')[2];
+      const res = await Ajax.asyncGetUsingFetch({
+        url: secureDomainUrl + 'adverts/' + adId,
+      });
+      console.log(res);
+      advert = res.parsedBody.body.advert;
+    }
+    console.log(advert);
+    const addBtn = document.getElementById('addToCartBtn');
     const res = Ajax.asyncGetUsingFetch({
       url: secureDomainUrl + 'cart',
     });
@@ -124,7 +143,9 @@ export default class AdvertPageModel {
      * обработчик добавления в корзину
     */
      function addToCart(advertPage) {
-      console.log(advertPage);
+      if (/ad/.test(window.location.pathname) === false) {
+        return;
+      }
       const res = Ajax.asyncPostUsingFetch({
         url: secureDomainUrl + 'cart/one',
         body: {

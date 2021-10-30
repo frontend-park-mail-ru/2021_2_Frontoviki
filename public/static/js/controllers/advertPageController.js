@@ -22,6 +22,7 @@ export default class AdvertPageController {
       'onEditClicked',
       'notLogged',
       'goToCart',
+      'refreshCart',
     ]);
     this.view = new AdvertPageView(this.eventBus);
     this.model = new AdvertPageModel(this.eventBus);
@@ -29,6 +30,7 @@ export default class AdvertPageController {
     this.eventBus.on('onEditClicked', this.redirectToEdit.bind(this));
     this.eventBus.on('notLogged', this.openModal.bind(this));
     this.eventBus.on('goToCart', this.goToCart.bind(this));
+    this.globalEventBus.on('loggedIn', this.refreshCart.bind(this));
   }
 
   /**
@@ -57,5 +59,11 @@ export default class AdvertPageController {
    */
   goToCart() {
     this.router.go('/profile/cart');
+  }
+  /**
+   * После логина делаем запрос за корзиной
+   */
+  refreshCart() {
+    this.eventBus.emit('refreshCart');
   }
 }

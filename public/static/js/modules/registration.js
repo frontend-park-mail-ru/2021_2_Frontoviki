@@ -34,6 +34,7 @@ export function registration(regName, regSurname, regEmail,
       createHeader(globalEventBus);
       clearAllRegInputs(regName, regSurname, regEmail, regPass, regPassRep);
       document.querySelector('.blackout').click();
+      globalEventBus.emit('loggedIn');
       return;
     }
     regEmail.childNodes[5].innerHTML = 'Такой пользователь уже существует';

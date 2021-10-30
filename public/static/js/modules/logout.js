@@ -4,6 +4,7 @@ import {secureDomainUrl, statusCodes} from '../constatns.js';
 
 /**
  * Функция выхода из авторизации
+ * @param {*} globalEventBus глобальный эммитер событий
 */
 export function logout(globalEventBus) {
   const res = Ajax.asyncPostUsingFetch({
