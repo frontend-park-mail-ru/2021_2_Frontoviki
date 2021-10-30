@@ -18,6 +18,7 @@ export default class NewAdPageModel {
     this.eventBus.on('sendAd', this.sendAd.bind(this));
     this.eventBus.on('successSend', this.sendPhoto.bind(this));
     this.eventBus.on('getExistData', this.getData.bind(this));
+    this.eventBus.on('getCategory', this.getCategories.bind(this));
   }
 
   /**
@@ -64,7 +65,30 @@ export default class NewAdPageModel {
   }
 
   /**
+   * Получение списка возможных категорий
+   */
+  getCategories() {
+    const res = Ajax.asyncGetUsingFetch({
+      url: secureDomainUrl + 'category',
+    });
+    res.then(({status, parsedBody}) => {
+      if (status != statusCodes.OK) {
+        return;
+      }
+      const {categories} = parsedBody.body;
+      const select = document.getElementById('selCategory');
+      categories.forEach((elem) => {
+        const el = document.createElement('option');
+        el.value = elem.name;
+        el.innerHTML = elem.name;
+        select.appendChild(el);
+      });
+    });
+  }
+
+  /**
    * отправка объявления на сервер
+   * @param {bool} isNew новое объявление или редактирование старого
    */
   sendAd(isNew) {
     const nameDiv = document.querySelector('.new-advert__name');

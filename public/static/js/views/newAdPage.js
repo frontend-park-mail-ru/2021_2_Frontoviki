@@ -1,6 +1,5 @@
 import BaseView from './baseView.js';
 import {createNewAdForm} from '../templates/newAdForm/newAdFormT.js';
-import {categories} from '../constatns.js';
 
 /**
  * Класс вьюхи страницы добавления нового объявления
@@ -26,13 +25,7 @@ export default class NewAdPageView extends BaseView {
     document.getElementById('mini-profile__toogle').checked = false;
     const adFormT = createNewAdForm();
     this.root.innerHTML = adFormT();
-    const select = document.getElementById('selCategory');
-    categories.forEach((elem) => {
-      const el = document.createElement('option');
-      el.value = elem;
-      el.innerHTML = elem;
-      select.appendChild(el);
-    });
+    this.eventBus.emit('getCategory');
     this.eventBus.emit('renderDone');
     document.getElementById('newAdForm').addEventListener('click', this.sendAd);
   }

@@ -89,7 +89,6 @@ export default class AdvertPageModel {
     addBtn.addEventListener('click', ()=> {
       if (localStorage.getItem('id') === null) {
         this.eventBus.emit('notLogged');
-        console.log('not logged');
         return;
       }
     });
@@ -98,7 +97,6 @@ export default class AdvertPageModel {
       return;
     }
 
-    console.log('cart ');
     const res = Ajax.asyncGetUsingFetch({
       url: secureDomainUrl + 'cart',
     });

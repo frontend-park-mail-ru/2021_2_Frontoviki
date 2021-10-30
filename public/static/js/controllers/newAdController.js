@@ -19,6 +19,7 @@ export default class NewAdPageController {
       'sendAd',
       'successSend',
       'notLogged',
+      'getCategory',
       'checkLog',
       'photosSend',
       'redirectToAd',
