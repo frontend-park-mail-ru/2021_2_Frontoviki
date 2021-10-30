@@ -72,12 +72,9 @@ export default class ProfilePageModel {
    * @param {*} formData фото пользователя
    */
   uploadPhoto(formData) {
-    const res = Ajax.asyncPostImageUsingFetch({
+    Ajax.asyncPostImageUsingFetch({
       url: secureDomainUrl + 'users/profile/upload',
       body: formData,
-    });
-    res.then(()=>{
-      this.eventBus.emit('fileUploaded');
     });
   }
   /**
@@ -97,6 +94,11 @@ export default class ProfilePageModel {
     uploadPhotoBtn.addEventListener('click', ()=>{
       const [file] = photoInput.files;
       if (file) {
+        document.querySelector('.profile-content__avatar__image').src =
+          URL.createObjectURL(file);
+        document.querySelector('.mini-profile__avatar').src =
+          URL.createObjectURL(file);
+        localStorage.setItem('image', URL.createObjectURL(file));
         const formData = new FormData();
         formData.append('avatar', file);
         this.eventBus.emit('uploadPhoto', formData);
@@ -137,16 +139,23 @@ export default class ProfilePageModel {
         const {code} = parsedBody;
         console.log(parsedBody);
         if (code === statusCodes.OK) {
-          window.location.reload();
+          localStorage.setItem('name', name);
+          localStorage.setItem('surname', surname);
+          nameInput.value = name;
+          surnInpt.value = surname;
+          document.querySelector('.profile-content__username').innerHTML = name;
+          document.querySelector('.mini-profile__capture').innerHTML = name;
         };
       });
     });
 
-    const changePasswrdBtn = document.getElementById('settings__change-password');
+    const changePasswrdBtn = document.
+        getElementById('settings__change-password');
     changePasswrdBtn.addEventListener('click', (e)=> {
       const password =
       document.getElementById('settingPassword').childNodes[3].value.trim();
-      const oldPassword = document.getElementById('settingOldPassword').childNodes[3].value.trim();
+      const oldPassword = document.getElementById('settingOldPassword').
+          childNodes[3].value.trim();
       this.eventBus.emit('changePassword', email, oldPassword, password);
     });
   }
@@ -177,6 +186,9 @@ export default class ProfilePageModel {
       console.log(parsedBody);
       if (code === statusCodes.OK) {
         document.getElementById('settingOldPassword').classList.remove('text-input_wrong');
+        document.getElementById('settingOldPassword').classList.add('text-input_correct');
+        document.getElementById('settingPassword').classList.add('text-input_correct');
+        document.getElementById('settings__change-password').innerHTML = 'Пароль изменен';
         return;
       };
       document.getElementById('settingOldPassword').classList.add('text-input_wrong');

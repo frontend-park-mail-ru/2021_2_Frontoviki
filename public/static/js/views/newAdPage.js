@@ -42,10 +42,16 @@ export default class NewAdPageView extends BaseView {
     submitButton.innerHTML = 'Редактировать';
   }
 
+  /**
+   * Новое объявление
+   */
   sendAd() {
     this.eventBus.emit('sendAd', true);
   }
 
+  /**
+   * Редактирование старого
+   */
   editAd() {
     this.eventBus.emit('sendAd', false);
   }

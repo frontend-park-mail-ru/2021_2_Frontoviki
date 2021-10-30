@@ -1,4 +1,4 @@
-import "regenerator-runtime/runtime";
+import 'regenerator-runtime/runtime';
 const {assets} = global.serviceWorkerOption;
 const CACHE_NAME = 'volchockApp';
 
@@ -38,6 +38,6 @@ self.addEventListener('fetch', (event) => {
       return response;
     }
     const response = await caches.match(event.request);
-    return response || new Response(null, { status: 500 });
+    return response || new Response(null, {status: 500});
   })());
 });

@@ -48,7 +48,7 @@ export default class NewAdPageController {
   }
 
   /**
-   *
+   * @param {Number} id айди объявления для перехода
    */
   redirectToAd(id) {
     this.router.go('/ad/'+id);

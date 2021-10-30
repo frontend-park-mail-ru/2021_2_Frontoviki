@@ -1,6 +1,6 @@
 import BaseView from './baseView.js';
 import {createSalesman} from '../templates/salesmanBlock/salesmanBlock.js';
-import { createProductGrid } from '../templates/productGrid/productGrid.js';
+import {createProductGrid} from '../templates/productGrid/productGrid.js';
 
 /**
   * Экспортируемый класс для генерации страницы профиля с сеткой

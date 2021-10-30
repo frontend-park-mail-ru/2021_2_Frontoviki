@@ -8,6 +8,7 @@ import './header.css';
   * запрос на сервер, чтобы узнать, авторизован ли
   * пользователь. В зависимости от этого рисуется
   * разные виды хедера
+  * @param {*} globalEventBus глобальный эмиттер событий
 */
 export async function createHeader(globalEventBus) {
   const wrapper = document.querySelector('.wrapper');
