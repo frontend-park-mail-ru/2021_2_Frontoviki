@@ -32,6 +32,7 @@ export default class ProfilePageController {
       'renderCart',
       'deleteFromCart',
       'buyFromCart',
+      'onCardClicked',
     ]);
     this.view = new ProfilePageView(this.eventBus);
     this.model = new ProfilePageModel(this.eventBus);
@@ -40,6 +41,7 @@ export default class ProfilePageController {
     this.eventBus.on('getSettings', this.redirectToSettings.bind(this));
     this.eventBus.on('renderCart', this.redirectToCart.bind(this));
     this.eventBus.on('fileUploaded', this.redirectToSettings.bind(this));
+    this.eventBus.on('onCardClicked', this.goToCardPage.bind(this));
   }
 
   /**
@@ -68,5 +70,12 @@ export default class ProfilePageController {
    */
   redirectToCart() {
     this.router.go('/profile/cart');
+  }
+  /**
+   * Переход на страницу объявления
+   * @param {*} id
+   */
+  goToCardPage(id) {
+    this.router.go('/ad/' + id);
   }
 }

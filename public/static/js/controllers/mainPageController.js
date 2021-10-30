@@ -37,8 +37,7 @@ export default class MainPageController {
    * Переход на страницу объявления
    * @param {*} id
    */
-  async goToCardPage(id) {
-    await this.router.go('/ad/' + id);
-    console.log('go');
+  goToCardPage(id) {
+    this.router.go('/ad/' + id);
   }
 }

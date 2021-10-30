@@ -134,11 +134,14 @@ export default class ProfilePageView extends BaseView {
       const cards = document.querySelectorAll('.card');
       cards.forEach((elem, key)=>{
         elem.addEventListener('click', (e)=> {
+          e.preventDefault();
+          e.stopPropagation();
           if (e.target.classList.contains('card__delete')) {
-            e.preventDefault();
             console.log('delete', adverts[key].id);
-            this.eventBus.emit('onDeleteClick', adverts[key].id);
+            this.eventBus.emit('onDeleteClick', adverts[key].id, key);
+            return;
           }
+          this.eventBus.emit('onCardClicked', adverts[key].id);
         });
       });
     }
@@ -184,16 +187,23 @@ export default class ProfilePageView extends BaseView {
     const cards = document.querySelectorAll('.card');
     cards.forEach((elem, key)=>{
       elem.addEventListener('click', (e)=> {
+        e.preventDefault();
+        e.stopPropagation();
+        // удаляем
         if (e.target.classList.contains('card__delete')) {
           e.preventDefault();
-          console.log('delete', adverts[key].id);
-          this.eventBus.emit('deleteFromCart', adverts[key].id);
+          this.eventBus.emit('deleteFromCart', adverts[key].id, key);
+          return;
         }
+        // покупаем
         if (e.target.classList.contains('card-info__card_buy')) {
           e.preventDefault();
           console.log('buy');
-          this.eventBus.emit('buyFromCart', adverts[key]);
+          this.eventBus.emit('buyFromCart', adverts[key], key);
+          return;
         }
+        // просто переходим на страницу
+        this.eventBus.emit('onCardClicked', adverts[key].id);
       });
     });
   }

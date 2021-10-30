@@ -1,4 +1,3 @@
-import "core-js/stable";
 import "regenerator-runtime/runtime";
 const {assets} = global.serviceWorkerOption;
 const CACHE_NAME = 'volchockApp';

@@ -156,7 +156,6 @@ export default class ProfilePageModel {
    * @param {*} email
    * @param {*} oldPassword
    * @param {*} password
-   * @return
    */
   changePassword(email, oldPassword, password) {
     if (password.length < 5) {
@@ -187,8 +186,9 @@ export default class ProfilePageModel {
   /**
    * Обработка удаления
    * @param {number} id айдишник объявления
+   * @param {Number} advertPos позиция удаляемой карточки в гриде
    */
-  handleDelete(id) {
+  handleDelete(id, advertPos) {
     const modalT = createDeleteModal();
     const modal = document.createElement('div');
     modal.innerHTML = modalT({
@@ -225,7 +225,10 @@ export default class ProfilePageModel {
         }
         const {code} = parsedBody;
         if (code === statusCodes.OK) {
-          window.location.reload();
+          // если удалили, то удаляем карточку и закрываем модальное окно
+          document.querySelectorAll('.card')[advertPos].remove();
+          document.querySelector('.modal__content').classList.remove('modal_active');
+          document.getElementsByTagName('body')[0].removeChild(modal);
         };
       });
     });
@@ -242,7 +245,10 @@ export default class ProfilePageModel {
         }
         const {code} = parsedBody;
         if (code === statusCodes.OK) {
-          window.location.reload();
+          // если заархивировали закрываем модальное окно и удаляем карточку
+          document.querySelectorAll('.card')[advertPos].remove();
+          document.querySelector('.modal__content').classList.remove('modal_active');
+          document.getElementsByTagName('body')[0].removeChild(modal);
         };
       });
     });
@@ -270,9 +276,10 @@ export default class ProfilePageModel {
 
   /**
    * удаляет из корзины
-   * @param {*} id
+   * @param {*} id объявления
+   * @param {Number} advertPos позиция удаляемой карточки в гриде
    */
-  deleteFromCart(id) {
+  deleteFromCart(id, advertPos) {
     const res = Ajax.asyncPostUsingFetch({
       url: secureDomainUrl + 'cart/one',
       body: {
@@ -285,15 +292,16 @@ export default class ProfilePageModel {
       if (code === statusCodes.NOTEXIST) {
         return;
       }
-      window.location.reload();
+      document.querySelectorAll('.card')[advertPos].remove();
     });
   }
 
   /**
    * Оформление покупки
-   * @param {*} id
+   * @param {*} advert объект объявления
+   * @param {Number} advertPos позиция удаляем карточки в гриде
    */
-  buyFromCart(advert) {
+  buyFromCart(advert, advertPos) {
     const res = Ajax.asyncPostUsingFetch({
       url: secureDomainUrl + 'cart/' + advert.id +'/checkout',
       body: {
@@ -335,14 +343,14 @@ export default class ProfilePageModel {
         e.preventDefault();
         modal1.classList.remove('modal_active');
         document.getElementsByTagName('body')[0].removeChild(modal);
-        location.reload();
+        document.querySelectorAll('.card')[advertPos].remove();
       };
       modal1.onmousedown = function(e) {
         const modalContent = modal1.getElementsByClassName('modal__content')[0];
         if (e.target.closest('.' + modalContent.className) === null) {
           this.classList.remove('modal_active');
           document.getElementsByTagName('body')[0].removeChild(modal);
-          location.reload();
+          document.querySelectorAll('.card')[advertPos].remove();
         }
       };
     });
