@@ -53,7 +53,7 @@ export function validateInfo(regName, regSurname, regEmail,
 
 const patterns = {
   email: /^[a-zA-Z0-9]+@[a-zA-Z0-9]+\.[a-zA-Z0-9]+$/,
-  password: /^[\w]{4,}$/,
+  password: /^[\w\D]{4,}$/,
 };
 
 const validate = (field, regex) => {
