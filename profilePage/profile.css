@@ -70,6 +70,12 @@
 	fill: var(--star-gold-color);
 }
 
+.stars__star.star_unactive {
+	fill: transparent;
+    stroke: var(--star-gold-color);
+    stroke-width: 2;
+}
+
 .profile-content__buttons {
     display: flex;
     justify-content: center;
