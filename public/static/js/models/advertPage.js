@@ -46,12 +46,12 @@ export default class AdvertPageModel {
    */
   adLogic(advert) {
     const carousel = new SliderLogic();
-    document.querySelector('.prev').addEventListener('click', (e) => {
+    document.querySelector('.gallery__prev-button').addEventListener('click', (e) => {
       e.preventDefault();
       e.stopPropagation();
       carousel.plusSlides(-1);
     });
-    document.querySelector('.next').addEventListener('click', (e) => {
+    document.querySelector('.gallery__next-button').addEventListener('click', (e) => {
       e.preventDefault();
       e.stopPropagation();
       carousel.plusSlides(1);
@@ -116,6 +116,13 @@ export default class AdvertPageModel {
     }
     console.log(advert);
     const addBtn = document.getElementById('addToCartBtn');
+    if (Number(localStorage.getItem('id')) === advert.publisher_id) {
+      document.getElementById('chatBtn').style.display = 'none';
+      addBtn.style.display = 'none';
+      const editBtn = document.getElementById('editBtn');
+      editBtn.style.display = 'inline-block';
+      editBtn.addEventListener('click', () => this.eventBus.emit('onEditClicked', advert.id));
+    }
     const res = Ajax.asyncGetUsingFetch({
       url: secureDomainUrl + 'cart',
     });

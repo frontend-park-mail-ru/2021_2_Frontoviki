@@ -84,6 +84,7 @@
 }
 
 .card-info__card_price {
+    white-space: nowrap;
     margin-left: auto;
     padding: 5px 20px;
     background-color: white;

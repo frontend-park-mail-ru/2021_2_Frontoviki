@@ -1,3 +1,4 @@
+let CSRFToken;
 /**
  * Класс для отправки сообщений на сервер
  * используется fetch
@@ -15,6 +16,7 @@ export const Ajax = {
       cache: 'no-store',
       credentials: 'include',
       headers: {
+        'X-Csrf-Token': CSRFToken,
         'Content-Type': 'application/json',
       },
       body: JSON.stringify(args.body),
@@ -47,6 +49,7 @@ export const Ajax = {
       },
     });
     // ошибка пустого json ловится и не ломает все
+    CSRFToken = response.headers.get('X-Csrf-Token');
     const parsedBody = await response.json().catch(() => {
       return {};
     }).then((data) => {
@@ -71,6 +74,9 @@ export const Ajax = {
       mode: 'cors',
       cache: 'no-store',
       credentials: 'include',
+      headers: {
+        'X-Csrf-Token': CSRFToken,
+      },
       body: args.body,
     });
     const parsedBody = await response.json().catch(() => {
@@ -98,6 +104,7 @@ export const Ajax = {
       cache: 'no-store',
       credentials: 'include',
       headers: {
+        'X-Csrf-Token': CSRFToken,
         'Content-Type': 'application/json',
       },
     });

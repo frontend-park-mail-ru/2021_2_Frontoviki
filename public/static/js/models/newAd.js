@@ -105,7 +105,7 @@ export default class NewAdPageModel {
     const condition = document.getElementById('radio-new').checked;
     const priceDiv = document.querySelector('.new-advert__price');
     const price = priceDiv.childNodes[3].value.trim();
-    if (price.length === 0 || price < 0) {
+    if (price.length === 0 || price < 0 || !price.match(/^\d+$/)) {
       priceDiv.classList.add('text-input_wrong');
       return;
     }
@@ -230,6 +230,10 @@ export default class NewAdPageModel {
         });
         this.#coords = [advert.latitude, advert.longitude];
         this.#myMap.geoObjects.add(myGeoObject);
+        const card = document.getElementById('YMapsID');
+        if (card.childNodes.length > 1) {
+          card.removeChild(card.childNodes[0]);
+        }
       });
     });
   }

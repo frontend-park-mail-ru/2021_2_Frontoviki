@@ -32,16 +32,13 @@ export default class SalesmanPageView extends BaseView {
    * @param {JsonArray} adverts массив его объявлений
    */
   renderSalesman(name, image, rating, adverts) {
-    const stars = [];
-    // поменять на рейтинг когда будет его обработка
-    for (let i = 0; i < 5; i++) {
-      stars.push(true);
-    }
+    const stars = [true, true, true, true, true];
     const salesmanT = createSalesman();
     this.root.innerHTML = salesmanT(
         {userName: name,
           userAvatar: '/' + image,
-          star: stars,
+          star: stars.slice(0, rating),
+          emptyStar: stars.slice(rating, 6),
         });
     if (adverts.length !== 0) {
       adverts.forEach((elem) => {

@@ -30,3 +30,55 @@
 .button:active {
     transform: scale(0.98);
 }
+
+.profile-content__button {
+    color: black;
+    background-color: transparent;
+    font-weight: 500;
+    text-align: left;
+
+    display: flex;
+    align-items: center;
+}
+
+.profile-content__button_active {
+    color: var(--button-background-color);
+    background-color: transparent;
+    font-weight: 500;
+    text-align: left;
+
+    display: flex;
+    align-items: center;
+}
+
+.profile-content__button:hover {
+    color: var(--button-background-color);
+    background-color: transparent;
+}
+
+.profile-content__button_active:hover {
+    color: var(--button-background-color);
+    background-color: transparent;
+}
+
+.profile-content__button > * {
+    display: inline-block;
+}
+
+.profile-content__button_icon {
+    fill: black;
+    margin-right: 7px;
+    height: 18px;
+    width: 18px;
+}
+
+.profile-content__button_icon_active {
+    fill: var(--button-background-color);
+    margin-right: 7px;
+    height: 18px;
+    width: 18px;
+}
+
+.profile-content__button:hover .profile-content__button_icon {
+    fill: var(--button-background-color);
+}

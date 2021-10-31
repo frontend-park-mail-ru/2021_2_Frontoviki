@@ -61,6 +61,9 @@ export default class ProfilePageView extends BaseView {
    */
   renderAds() {
     this.render();
+    // красим кнопочку
+    makeBlue(document.querySelector('.profile-content__buttons').childNodes[1]);
+
     const rightBlock = document.querySelector('.profile-content_right');
     rightBlock.innerHTML = '';
     const title = document.createElement('h3');
@@ -152,6 +155,8 @@ export default class ProfilePageView extends BaseView {
    */
   renderSettings() {
     this.render();
+    makeBlue(document.querySelector('.profile-content__buttons').
+        childNodes[11]);
     const rightBlock = document.querySelector('.profile-content_right');
     rightBlock.innerHTML = '';
     const settingsDiv = settings();
@@ -164,6 +169,7 @@ export default class ProfilePageView extends BaseView {
    */
   renderCart() {
     this.render();
+    makeBlue(document.querySelector('.profile-content__buttons').childNodes[5]);
     const rightBlock = document.querySelector('.profile-content_right');
     rightBlock.innerHTML = '';
     const title = document.createElement('h3');
@@ -208,3 +214,14 @@ export default class ProfilePageView extends BaseView {
     });
   }
 };
+
+/**
+ * Делает кнопку активной
+ * @param {HTMLButtonElement} Btn кнопка которую надо покрасить
+ */
+function makeBlue(Btn) {
+  Btn.classList.add('profile-content__button_active');
+  Btn.classList.remove('profile-content__button');
+  Btn.childNodes[1].classList.add('profile-content__button_icon_active');
+  Btn.childNodes[1].classList.remove('profile-content__button_icon');
+}

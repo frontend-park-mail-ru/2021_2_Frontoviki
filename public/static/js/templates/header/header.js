@@ -36,7 +36,7 @@ export async function createHeader(globalEventBus) {
       isAuthorized = true;
     }
     if (isAuthorized) {
-      let {name, surname, email, image, id} = body.profile;
+      let {name, surname, email, image, id, rating} = body.profile;
       if (image == null) {
         image = '/static/img/default_image.jpg';
       }
@@ -45,6 +45,7 @@ export async function createHeader(globalEventBus) {
       localStorage.setItem('surname', surname);
       localStorage.setItem('email', email);
       localStorage.setItem('image', '/' + image);
+      localStorage.setItem('rating', rating);
       header.innerHTML = headerT({userName: name, userAvatar: '/' + image});
       const authLink = document.getElementById('auth');
       authLink.style.display = 'none';
@@ -62,6 +63,7 @@ export async function createHeader(globalEventBus) {
       localStorage.removeItem('surname');
       localStorage.removeItem('email');
       localStorage.removeItem('image');
+      localStorage.removeItem('rating');
     }
     const title = document.querySelector('.logo__capture');
     title.dataset.section = 'menu';
