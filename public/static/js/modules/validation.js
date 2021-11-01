@@ -34,15 +34,14 @@ export function validateInfo(regName, regSurname, regEmail,
     regPassRep.classList.remove('text-input_wrong');
     regPassRep.classList.add('text-input_correct');
   }
-  const allowedNameLen = 2;
-  if (name.length < allowedNameLen) {
+  if (!name.match(/^[a-zA-Z0-9_]{2,}$/)) {
     regName.classList.add('text-input_wrong');
     return;
   }
   regName.classList.remove('text-input_wrong');
   regName.classList.add('text-input_correct');
 
-  if (surname.length < allowedNameLen) {
+  if (!surname.match(/^[a-zA-Z0-9_]{2,}$/)) {
     regSurname.classList.add('text-input_wrong');
     return;
   }
