@@ -29,6 +29,7 @@ export default class ProfilePageView extends BaseView {
     * функция отрисовки страницы профиля
   */
   render() {
+    console.log('profile')
     this.eventBus.emit('checkLog');
     document.getElementById('mini-profile__toogle').checked = false;
     this.root.innerHTML = '';

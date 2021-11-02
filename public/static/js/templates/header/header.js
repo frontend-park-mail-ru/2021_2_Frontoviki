@@ -26,7 +26,7 @@ export async function createHeader(globalEventBus) {
     userName: undefined,
     userAvatar: undefined,
   });
-  await isLogged().then(({status, parsedBody}) => {
+  const {status, parsedBody} = await isLogged();
     if (status != statusCodes.OK) {
       return;
     }
@@ -46,6 +46,7 @@ export async function createHeader(globalEventBus) {
       localStorage.setItem('email', email);
       localStorage.setItem('image', '/' + image);
       localStorage.setItem('rating', rating);
+      console.log('header done');
       header.innerHTML = headerT({userName: name, userAvatar: '/' + image});
       const authLink = document.getElementById('auth');
       authLink.style.display = 'none';
@@ -79,6 +80,5 @@ export async function createHeader(globalEventBus) {
       logout(globalEventBus);
       createHeader(globalEventBus);
     });
-  });
 }
 

@@ -13,7 +13,7 @@ import NewAdPageController from './controllers/newAdController.js';
 import AdvertPageController from './controllers/advertPageController.js';
 import {egg, eggTemplate} from './templates/easterEgg/easterEgg.js';
 
-document.addEventListener('DOMContentLoaded', () => {
+document.addEventListener('DOMContentLoaded', async () => {
   if ('serviceWorker' in navigator) {
     navigator.serviceWorker.register('/sw.js', {scope: '/'})
         .then((registration) => {
@@ -36,7 +36,7 @@ document.addEventListener('DOMContentLoaded', () => {
     'loggedIn',
   ]);
   const router = new Router(wrapper, globalEventBus);
-  createHeader(globalEventBus);
+  await createHeader(globalEventBus);
   createModal(globalEventBus);
   wrapper.appendChild(root);
   createFooter();
