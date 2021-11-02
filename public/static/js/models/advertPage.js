@@ -75,6 +75,11 @@ export default class AdvertPageModel {
       });
       myMap.geoObjects.add(myGeoObject);
     });
+    document.querySelector('.advertisment-detail__main-info__shop__salesman__avatar').addEventListener('click', (e)=>{
+      e.stopPropagation();
+      e.preventDefault();
+      this.eventBus.emit('onSalesmanClicked', advert.publisher_id);
+    });
     const addBtn = document.getElementById('addToCartBtn');
     if (Number(localStorage.getItem('id')) === advert.publisher_id) {
       document.getElementById('chatBtn').style.display = 'none';

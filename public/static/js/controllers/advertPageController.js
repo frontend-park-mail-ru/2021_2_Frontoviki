@@ -23,6 +23,7 @@ export default class AdvertPageController {
       'notLogged',
       'goToCart',
       'refreshCart',
+      'onSalesmanClicked',
     ]);
     this.view = new AdvertPageView(this.eventBus);
     this.model = new AdvertPageModel(this.eventBus);
@@ -30,6 +31,7 @@ export default class AdvertPageController {
     this.eventBus.on('onEditClicked', this.redirectToEdit.bind(this));
     this.eventBus.on('notLogged', this.openModal.bind(this));
     this.eventBus.on('goToCart', this.goToCart.bind(this));
+    this.eventBus.on('onSalesmanClicked', this.goToSalesman.bind(this));
     this.globalEventBus.on('loggedIn', this.refreshCart.bind(this));
   }
 
@@ -65,5 +67,12 @@ export default class AdvertPageController {
    */
   refreshCart() {
     this.eventBus.emit('refreshCart');
+  }
+  /**
+   * Переход на страницу продавца
+   * @param {*} id айди продавца
+   */
+  goToSalesman(id) {
+    this.router.go('/salesman/' + id);
   }
 }
