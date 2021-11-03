@@ -273,13 +273,25 @@ export default class ProfilePageModel {
     const res = Ajax.asyncGetUsingFetch({
       url: secureDomainUrl + 'cart',
     });
-    res.then(({status, parsedBody}) => {
+    res.then(async ({status, parsedBody}) => {
       if (status != statusCodes.OK) {
         return;
       }
       const {code} = parsedBody;
       console.log(parsedBody);
       if (code === statusCodes.OK) {
+        parsedBody.body.adverts.forEach((elem, pos)=> {
+          if (elem.is_active === false) {
+            parsedBody.body.adverts.splice(pos, 1);
+            Ajax.asyncPostUsingFetch({
+              url: secureDomainUrl + 'cart/one',
+              body: {
+                advert_id: Number(elem.id),
+                amount: 0,
+              },
+            });
+          }
+        });
         this.eventBus.emit('gotCart', parsedBody.body.adverts);
         return;
       };
@@ -304,7 +316,9 @@ export default class ProfilePageModel {
       if (code === statusCodes.NOTEXIST) {
         return;
       }
-      document.querySelectorAll('.card')[advertPos].remove();
+      if (advertPos != null) {
+        document.querySelectorAll('.card')[advertPos].remove();
+      }
     });
   }
 

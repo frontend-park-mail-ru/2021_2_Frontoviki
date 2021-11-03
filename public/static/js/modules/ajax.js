@@ -1,3 +1,5 @@
+import {secureDomainUrl} from '../constatns';
+
 let CSRFToken;
 /**
  * Класс для отправки сообщений на сервер
@@ -10,6 +12,11 @@ export const Ajax = {
   * @return {Promise}
   */
   async asyncPostUsingFetch(args = {}) {
+    if (CSRFToken === null) {
+      const res = await this.asyncGetUsingFetch({
+        url: secureDomainUrl + 'adverts',
+      });
+    }
     const response = await fetch(args.url, {
       method: AJAX_METHODS.POST,
       mode: 'cors',

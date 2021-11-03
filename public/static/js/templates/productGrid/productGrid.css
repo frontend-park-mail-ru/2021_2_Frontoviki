@@ -118,6 +118,24 @@
     text-align: center;
 }
 
+.profile-content-right__empty-ads {
+    margin-top: 16px;
+    padding: 10% 20px;
+    text-align: center;
+}
+
+.profile-content-right-empty-ads-text-block__text {
+    display: block;
+    overflow-wrap: break-word;
+    white-space: pre-line;
+    line-height: 24px;
+    font-weight: 400;
+    font-size: 16px;
+    color: rgb(61, 61, 61);
+    margin-left: auto;
+    margin-right: auto;
+}
+
 @media only screen and (max-width: 1300px) {
     .root__product-grid {
         grid-template-columns: 1fr repeat(12, minmax(auto, 60px)) 1fr;

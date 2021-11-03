@@ -1,6 +1,7 @@
 import {createProductGrid} from '../templates/productGrid/productGrid.js';
 import {profileInfoBlock} from
   '../templates/profileInfoBlock/profileInfoBlock.js';
+import {emptyGrid} from '../templates/productGrid/emptyGrid.js';
 import {settings} from '../templates/settings/settings.js';
 import BaseView from './baseView.js';
 
@@ -29,7 +30,6 @@ export default class ProfilePageView extends BaseView {
     * функция отрисовки страницы профиля
   */
   render() {
-    console.log('profile')
     this.eventBus.emit('checkLog');
     document.getElementById('mini-profile__toogle').checked = false;
     this.root.innerHTML = '';
@@ -111,6 +111,9 @@ export default class ProfilePageView extends BaseView {
   renderGrid(adverts, archive) {
     console.log(adverts);
     // поправляем ошибки бэка
+    if (adverts === null) {
+      adverts = [];
+    }
     if (archive) {
       adverts.forEach((elem) => {
         elem.href = '/ad/' + elem.id;
@@ -124,6 +127,11 @@ export default class ProfilePageView extends BaseView {
     }
 
     const rightBlock = document.querySelector('.profile-content_right');
+    // смотрим осталось ли у нас уведомление о пустой сетке
+    const empty = document.getElementById('empty');
+    if (empty !== null) {
+      rightBlock.removeChild(empty);
+    }
 
     if (adverts.length !== 0) {
       if (archive) {
@@ -148,7 +156,19 @@ export default class ProfilePageView extends BaseView {
           this.eventBus.emit('onCardClicked', adverts[key].id);
         });
       });
+      return;
     }
+    // добавление уведомления об отсутсвии объявлений
+    const emptyGridActive = document.createElement('div');
+    emptyGridActive.id = 'empty';
+    const gridT = emptyGrid();
+    if (archive) {
+      emptyGridActive.innerHTML = gridT({text: `Архивные объявления будут
+        отображаться на этой странице`});
+    } else {
+      emptyGridActive.innerHTML = gridT({text: 'Активных объвлений нет'});
+    }
+    rightBlock.appendChild(emptyGridActive);
   }
 
   /**

@@ -10,8 +10,6 @@ import './productGrid.css';
 export function createProductGrid(jsonElements, canDelete, canBuy) {
   const productGrid = document.createElement('div');
   productGrid.classList.add('root__product-grid');
-  console.log(canBuy, canDelete);
-  console.log(jsonElements);
   jsonElements.forEach((element) => {
     element.canDelete = canDelete;
     element.canBuy = canBuy;

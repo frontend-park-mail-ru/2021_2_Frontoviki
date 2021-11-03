@@ -4,7 +4,7 @@
   </div>
   <div class="text-input new-advert__name">
     <label class="text-input__label">Название</label>
-    <input class="text-input__input" type="text" />
+    <input class="text-input__input" type="text" required/>
     <span class="text-input__description">Ошибка в названии</span>
   </div>
   <div class="text-input new-advert__category">
@@ -13,7 +13,7 @@
   </div>
   <div class="textarea new-advert__description">
     <label class="textarea__label">Описание объявления</label>
-    <textarea class="textarea__textarea" rows="10"></textarea>
+    <textarea class="textarea__textarea" rows="10" maxlength="500"></textarea>
   </div>
 
   <div class="new-advert__state single-choice">
@@ -46,7 +46,7 @@
 
   <div class="text-input new-advert__price">
     <label class="text-input__label">Цена</label>
-    <input class="text-input__input" type="text" />
+    <input class="text-input__input" type="number"/>
     <span class="text-input__description">Ошибка в цене</span>
   </div>
 

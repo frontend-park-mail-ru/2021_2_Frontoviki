@@ -19,7 +19,6 @@ export default class AdvertPageView extends BaseView {
    * Запрашиваем информацию об объявлении
    */
   render() {
-    console.log('Кря');
     this.eventBus.emit('GetAdData');
   }
 

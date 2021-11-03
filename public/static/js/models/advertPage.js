@@ -31,7 +31,6 @@ export default class AdvertPageModel {
         this.eventBus.emit('NoAd');
         return;
       }
-      console.log(parsedBody);
       const {advert, salesman} = parsedBody.body;
       advert.images.forEach((elem, key) => {
         advert.images[key] = '/' + elem;

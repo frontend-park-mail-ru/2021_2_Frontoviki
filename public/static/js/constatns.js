@@ -18,6 +18,7 @@ export const statusCodes = {
   UNATHORISED: 401,
   FORBIDEN: 403,
   NOTEXIST: 404,
+  DELETED: 409,
   INTERNALERROR: 500,
 };
 
