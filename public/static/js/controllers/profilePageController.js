@@ -32,14 +32,18 @@ export default class ProfilePageController {
       'deleteFromCart',
       'buyFromCart',
       'onCardClicked',
+      'goToActive',
+      'goToArchive',
     ]);
     this.view = new ProfilePageView(this.eventBus);
     this.model = new ProfilePageModel(this.eventBus);
     this.eventBus.on('notLogged', this.redirectToMain.bind(this));
     this.eventBus.on('getAds', this.redirectToProfile.bind(this));
+    this.eventBus.on('goToActive', this.redirectToProfile.bind(this));
     this.eventBus.on('getSettings', this.redirectToSettings.bind(this));
     this.eventBus.on('renderCart', this.redirectToCart.bind(this));
     this.eventBus.on('onCardClicked', this.goToCardPage.bind(this));
+    this.eventBus.on('goToArchive', this.goToArchive.bind(this));
   }
 
   /**
@@ -47,6 +51,10 @@ export default class ProfilePageController {
    */
   redirectToMain() {
     this.router.go('/');
+  }
+
+  goToArchive() {
+    this.router.go('/profile/archive');
   }
 
   /**

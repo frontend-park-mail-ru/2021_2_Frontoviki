@@ -21,6 +21,7 @@ export default class ProfilePageView extends BaseView {
     this.renderAds = this.renderAds.bind(this);
     this.renderCart = this.renderCart.bind(this);
     this.renderSettings = this.renderSettings.bind(this);
+    this.renderArchive = this.renderArchive.bind(this);
     eventBus.on('gotAds', this.renderGrid.bind(this));
     eventBus.on('getSettings', this.renderSettings.bind(this));
     eventBus.on('renderCart', this.renderCart.bind(this));
@@ -93,9 +94,7 @@ export default class ProfilePageView extends BaseView {
       if (document.querySelector('.root__product-grid') !== null) {
         rightBlock.removeChild(document.querySelector('.root__product-grid'));
       }
-      this.eventBus.emit('getArchive');
-      active.style.color = 'black';
-      archive.style.color = '#004ad7';
+      this.eventBus.emit('goToArchive');
     });
     rightBlock.appendChild(title);
     rightBlock.appendChild(active);
@@ -166,11 +165,45 @@ export default class ProfilePageView extends BaseView {
       emptyGridActive.innerHTML = gridT({text: `Архивные объявления будут
         отображаться на этой странице`});
     } else {
-      emptyGridActive.innerHTML = gridT({text: 'Активных объвлений нет'});
+      emptyGridActive.innerHTML = gridT({text: 'Активных объявлений нет'});
     }
     rightBlock.appendChild(emptyGridActive);
   }
 
+  /**
+   * Отрисовка архива если зайдем по ссылке
+   */
+  renderArchive() {
+    this.render();
+    // красим кнопочку
+    makeBlue(document.querySelector('.profile-content__buttons').childNodes[1]);
+
+    const rightBlock = document.querySelector('.profile-content_right');
+    rightBlock.innerHTML = '';
+    const title = document.createElement('h3');
+    title.classList.add('profile-content__title');
+    title.innerHTML = ' Ваши объявления ';
+    const active = document.createElement('span');
+    active.innerHTML = 'Активные';
+    active.classList.add('profile-content-right__ads-type');
+    active.style.color = '#004ad7';
+    const archive = document.createElement('span');
+    archive.innerHTML='Архив';
+    archive.classList.add('profile-content-right__ads-type');
+    active.style.color = 'black';
+    archive.style.color = '#004ad7';
+    active.addEventListener('click', ()=>{
+      // удаляем предыдущие обявления
+      if (document.querySelector('.root__product-grid') !== null) {
+        rightBlock.removeChild(document.querySelector('.root__product-grid'));
+      }
+      this.eventBus.emit('goToActive');
+    });
+    rightBlock.appendChild(title);
+    rightBlock.appendChild(active);
+    rightBlock.appendChild(archive);
+    this.eventBus.emit('getArchive');
+  }
   /**
    * Отрисовывает настройки
    */
@@ -205,6 +238,21 @@ export default class ProfilePageView extends BaseView {
    * @param {*} adverts
    */
   renderCartGrid(adverts) {
+    if (adverts.length === 0) {
+      const rightBlock = document.querySelector('.profile-content_right');
+      // смотрим осталось ли у нас уведомление о пустой сетке
+      const empty = document.getElementById('empty');
+      if (empty !== null) {
+        rightBlock.removeChild(empty);
+      }
+      // добавление уведомления об отсутсвии объявлений
+      const emptyGridActive = document.createElement('div');
+      emptyGridActive.id = 'empty';
+      const gridT = emptyGrid();
+      emptyGridActive.innerHTML = gridT({text: 'Корзина пуста'});
+      rightBlock.appendChild(emptyGridActive);
+      return;
+    }
     adverts.forEach((elem) => {
       elem.href = '/ad/' + elem.id;
       elem.image = '/' + elem.images[0];
