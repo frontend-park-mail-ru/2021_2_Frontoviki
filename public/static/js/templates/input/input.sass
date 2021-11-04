@@ -1,0 +1,87 @@
+.text-input
+  display: flex
+  flex-direction: column
+  align-items: flex-start
+  text-align: start
+
+  top: 30px
+
+  position: relative
+  width: 280px
+  height: 70px
+
+  font-family: 'Montserrat', sans-serif
+  font-weight: 400
+  margin-bottom: 10px
+
+  &__label
+    position: absolute
+    top: -8px
+    left: 16px
+
+    padding: 0 6px
+    border-radius: 8px
+    background-color: white
+
+    color: var(--text-input-label-color)
+    font-size: 13px
+
+
+  &__input
+    width: 100%
+    font-size: 16px
+    padding: 10px 16px
+    font-family: 'Montserrat', sans-serif
+    font-weight: 500
+    line-height: 18px
+    color: var(--text-input-text-color)
+    letter-spacing: 0.5px
+    border: 2px solid var(--text-input-border-color)
+    border-radius: 8px
+    transition: box-shadow 0.15s ease-in-out
+
+    &:focus-visible
+      outline: none
+      box-shadow: rgba(9, 30, 66, 0.25) 0px 1px 1px, rgba(9, 30, 66, 0.13) 0px 0px 1px 1px
+
+
+  &__description
+    padding-left: 8px
+    width: 100%
+
+    font-size: 13px
+    opacity: 0
+
+
+  &__description_visible
+    opacity: 0.8
+
+
+  &.text-input_wrong &__label
+    color: var(--text-input-wrong-color)
+
+
+  &.text-input_wrong &__input
+    border-color: var(--text-input-wrong-color)
+
+
+  &.text-input_wrong &__description
+    opacity: 0.8
+
+
+  &.text-input_correct &__label
+    color: var(--text-input-correct-color)
+
+
+  &.text-input_correct &__input
+    border-color: var(--text-input-correct-color)
+
+input[type="number"]::-webkit-outer-spin-button,
+input[type="number"]::-webkit-inner-spin-button
+  -webkit-appearance: none
+
+input[type='number'],
+input[type="number"]:hover,
+input[type="number"]:focus
+  appearance: none
+  -moz-appearance: textfield

@@ -1,0 +1,238 @@
+.advertisment-detail
+    width: 100%
+    height: 100%
+    display: flex
+    flex-direction: column
+    align-items: flex-start
+
+    &__main-info
+        width: 100%
+        height: 100%
+        display: flex
+        flex-direction: row
+        align-items: flex-start
+        margin-bottom: 20px
+
+        &__main
+            width: 70%
+            height: 100%
+            display: flex
+            flex-direction: column
+            align-items: flex-start
+
+            &__name
+                font-size: 24px
+                padding: 10px
+                margin-left: 10px
+
+            &__gallery
+                width: fit-content
+                height: 100%
+                display: flex
+                flex-direction: column
+                align-items: center
+                justify-content: center
+                position: relative
+
+                &__image-block
+                    width: 100%
+                    height: 100%
+                    display: flex
+                    justify-self: center
+                    flex-direction: column
+                    align-items: center
+
+                    background-color: var(--header-background-color)
+
+                    margin: 10px
+
+                    &__image
+                        max-height: 600px
+                        max-width: 800px
+                        width: inherit
+                        height: auto
+
+                &__roundabout
+                    height: 100px
+                    width: 100%
+                    display: flex
+                    flex-direction: row
+                    align-items: flex-start
+                    justify-content: flex-start
+
+                    &__image
+                        height: inherit
+                        width: auto
+                        margin: 0 5px
+
+        &__shop
+            height: 100%
+            display: flex
+            flex-direction: column
+            align-items: flex-start
+            padding: 10px
+            padding-top: 54px
+            margin: 0 auto
+
+            &__price
+                font-size: 20px
+                font-weight: 500
+                margin-bottom: 10px
+            &__salesman
+                height: 100%
+                width: 100%
+                display: flex
+                flex-direction: row
+                align-items: center
+                justify-content: flex-start
+                &__avatar
+                    width: 30px
+                    height: 30px
+                    border: none
+                    border-radius: 50%
+                    & > a
+                        width: inherit
+                        height: inherit
+                        border: inherit
+                        border-radius: inherit
+                        & > img
+                            width: inherit
+                            height: inherit
+                            border: inherit
+                            border-radius: inherit
+                &__info
+                    height: 100%
+                    display: flex
+                    flex-direction: column
+                    align-items: flex-start
+                    justify-content: flex-start
+                    margin-left: 20px
+                    &__rate
+                        display: flex
+                        flex-direction: row
+                        align-items: flex-start
+                        justify-content: flex-start
+
+        &__button
+            margin: 6px 0
+
+    &__add-info
+        width: 70%
+        height: 100%
+        display: flex
+        flex-direction: column
+        align-items: center
+
+    &__add-info__location
+        width: 100%
+        padding: 20px
+
+    &__add-info__location__name-block
+        width: 100%
+        height: 100%
+        display: flex
+        flex-direction: row
+        justify-content: space-between
+
+    &__add-info__location__map
+        width: 100%
+        height: 300px
+        display: none
+
+#YMapsIDNewAd
+    width: inherit
+    height: inherit
+
+.advertisment-detail__add-info__location__toogle
+    display: none
+
+    &:checked+.advertisment-detail__add-info__location__map
+        display: block
+
+.advertisment-detail__add-info__published-date-block
+    width: 100%
+    padding: 20px
+
+.advertisment-detail__add-info__condition-block
+    width: 100%
+    padding: 20px
+
+.advertisment-detail__add-info__description-block
+    width: 100%
+    padding: 20px
+    border: solid
+    border-color: var(--button-background-color)
+    border-radius: 5px
+    border-width: 1px
+
+.advertisment-detail__capture
+    font-size: 16px
+    font-weight: 400
+
+@media screen and (max-width: 800px)
+    .advertisment-detail__main-info
+        width: 100%
+        height: 100%
+        display: flex
+        flex-direction: column
+        align-items: flex-start
+
+        &__main
+            width: 100%
+
+    .advertisment-detail__add-info
+        width: 100%
+
+.slideshow-container
+    max-width: 1000px
+    position: relative
+    margin: auto
+
+.mySlides
+    display: none
+
+.advertisment-detail__main-info__main__dot-container
+    text-align: center
+
+.gallery__prev-button, .gallery__next-button
+    cursor: pointer
+    position: absolute
+    top: 50%
+    width: auto
+    margin-top: -22px
+    padding: 16px
+    color: white
+    font-weight: bold
+    font-size: 18px
+    transition: 0.6s ease
+    border-radius: 0 3px 3px 0
+
+.gallery__prev-button
+    left: 0%
+
+.gallery__next-button
+    right: 0
+    border-radius: 3px 0 0 3px
+
+
+.gallery__prev-button, .gallery__next-button:hover
+    background-color: rgba(0,0,0,0.8)
+
+.dot
+    cursor: pointer
+    height: 15px
+    width: 15px
+    margin: 0 2px
+    background-color: #bbb
+    border-radius: 50%
+    display: inline-block
+    transition: background-color 0.6s ease
+
+.active-hover, .dot:hover
+    background-color: #717171
+
+.fade
+    -webkit-animation-name: fade
+    -webkit-animation-duration: 1.5s
+    animation-name: fade
+    animation-duration: 1.5s
