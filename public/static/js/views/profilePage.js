@@ -131,6 +131,10 @@ export default class ProfilePageView extends BaseView {
     if (empty !== null) {
       rightBlock.removeChild(empty);
     }
+    const oldAdverts = document.querySelector('.root__product-grid');
+    if (oldAdverts !== null) {
+      rightBlock.removeChild(oldAdverts);
+    }
 
     if (adverts.length !== 0) {
       if (archive) {
@@ -238,6 +242,11 @@ export default class ProfilePageView extends BaseView {
    * @param {*} adverts
    */
   renderCartGrid(adverts) {
+    const rightBlock = document.querySelector('.profile-content_right');
+    const oldAdverts = document.querySelector('.root__product-grid');
+    if (oldAdverts !== null) {
+      rightBlock.removeChild(oldAdverts);
+    }
     if (adverts.length === 0) {
       const rightBlock = document.querySelector('.profile-content_right');
       // смотрим осталось ли у нас уведомление о пустой сетке
@@ -257,7 +266,6 @@ export default class ProfilePageView extends BaseView {
       elem.href = '/ad/' + elem.id;
       elem.image = '/' + elem.images[0];
     });
-    const rightBlock = document.querySelector('.profile-content_right');
     rightBlock.appendChild(createProductGrid(adverts, true, true));
     const cards = document.querySelectorAll('.card');
     cards.forEach((elem, key)=>{

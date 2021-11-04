@@ -53,6 +53,9 @@ export default class ProfilePageController {
     this.router.go('/');
   }
 
+  /**
+   * Редирект на страницу архива
+   */
   goToArchive() {
     this.router.go('/profile/archive');
   }

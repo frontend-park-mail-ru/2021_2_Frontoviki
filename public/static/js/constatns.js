@@ -21,6 +21,3 @@ export const statusCodes = {
   DELETED: 409,
   INTERNALERROR: 500,
 };
-
-export const categories = ['Обувь', 'Одежда', 'Животные',
-  'Смартфоны', 'Бытовая Техника', 'Ноутбуки'];

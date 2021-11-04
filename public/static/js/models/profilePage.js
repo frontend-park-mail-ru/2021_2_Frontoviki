@@ -238,7 +238,7 @@ export default class ProfilePageModel {
         const {code} = parsedBody;
         if (code === statusCodes.OK) {
           // если удалили, то удаляем карточку и закрываем модальное окно
-          document.querySelectorAll('.card')[advertPos].remove();
+          this.getAds();
           document.querySelector('.modal__content').classList.remove('modal_active');
           document.getElementsByTagName('body')[0].removeChild(modal);
         };
@@ -258,7 +258,7 @@ export default class ProfilePageModel {
         const {code} = parsedBody;
         if (code === statusCodes.OK) {
           // если заархивировали закрываем модальное окно и удаляем карточку
-          document.querySelectorAll('.card')[advertPos].remove();
+          document.querySelectorAll('.product-grid__cards').children[advertPos].remove();
           document.querySelector('.modal__content').classList.remove('modal_active');
           document.getElementsByTagName('body')[0].removeChild(modal);
         };
@@ -317,7 +317,7 @@ export default class ProfilePageModel {
         return;
       }
       if (advertPos != null) {
-        document.querySelectorAll('.card')[advertPos].remove();
+        this.getCart();
       }
     });
   }
