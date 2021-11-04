@@ -1,5 +1,5 @@
 import footerT from './footer.handlebars';
-import './footer.css';
+import './footer.sass';
 /**
   * Создает футер и цепляет его в основной div 'wrapper'
   * Важно, что функция запускается после создания root,

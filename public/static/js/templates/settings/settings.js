@@ -1,5 +1,5 @@
 import settingsT from './settings.handlebars';
-import './settings.css';
+import './settings.sass';
 /**
  * Создание настроек из шаблона
  * @return {HTMLDivElement} правый блок с настройками

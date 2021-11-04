@@ -1,8 +1,8 @@
 import newAdFormT from './newAdForm.handlebars';
-import './new_advert.css';
-import './radio_button.css';
-import './textarea.css';
-import './select.css';
+import './new_advert.sass';
+import './radio_button.sass';
+import './textarea.sass';
+import './select.sass';
 
 /**
  * Пробрасывает шаблон во вьюху

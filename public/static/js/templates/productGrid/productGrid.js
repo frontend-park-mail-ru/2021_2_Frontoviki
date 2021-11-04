@@ -1,5 +1,5 @@
 import productGridT from './productGrid.handlebars';
-import './productGrid.css';
+import './productGrid.sass';
 /**
   * Экспортируемая функция для создания сетки объявлений
   * @param {Array<JSON>} jsonElements массив объявлений в формате json

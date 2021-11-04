@@ -1,5 +1,5 @@
 import deleteModalT from './deleteModal.handlebars';
-import './deleteModal.css';
+import './deleteModal.sass';
 
 /**
  * пробрасывает модальное окно

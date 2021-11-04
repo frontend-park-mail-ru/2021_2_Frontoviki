@@ -1,5 +1,5 @@
 import advertPageT from './advertPageT.handlebars';
-import './advertPageT.css';
+import './advertPageT.sass';
 
 /**
  *  пробрасывает шаблон объявления

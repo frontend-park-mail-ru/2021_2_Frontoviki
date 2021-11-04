@@ -1,6 +1,6 @@
 import productPathT from './productPath.handlebars';
 import productSearchT from './productSearch.handlebars';
-import './info-block.css';
+import './info-block.sass';
 /**
  * Функция создания меню 'пути продукта' вида category / subcategory
  * @param {JSON} productPath формата

@@ -1,7 +1,7 @@
 import {autorisation} from '../../modules/autorisation.js';
 import {registration} from '../../modules/registration.js';
 import modalT from './modal.handlebars';
-import './modal.css';
+import './modal.sass';
 
 /**
  * Создает модальное окно и цепляет его в основной div 'wrapper'

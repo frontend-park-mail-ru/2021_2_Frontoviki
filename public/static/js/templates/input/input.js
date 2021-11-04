@@ -1,5 +1,5 @@
 import inputT from 'input.handlebars';
-import './input.css';
+import './input.sass';
 
 export function createInput(title, description) {
   const input = document.createElement('div');

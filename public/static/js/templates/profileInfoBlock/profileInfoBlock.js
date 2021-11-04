@@ -1,5 +1,5 @@
 import infoBlockT from './profileInfoBlock.handlebars';
-import './profile.css';
+import './profile.sass';
 /**
  * Создает левую часть страницы профиля из шаблона
  * @return {HTMLDivElement}
