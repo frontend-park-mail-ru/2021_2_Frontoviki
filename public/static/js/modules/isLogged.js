@@ -6,6 +6,7 @@ import {createHeader} from '../templates/header/header.js';
 /**
  * функция отправки запроса на сервер, чтобы проверить
  * вошел ли пользователь в аккаунт
+ * @param {*} globalEventBus глобальный эмиттер событий
  * @return {Promise} ответ с сервера
  */
 export async function isLogged(globalEventBus) {
