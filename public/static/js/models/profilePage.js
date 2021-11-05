@@ -81,29 +81,23 @@ export default class ProfilePageModel {
    * Логика работы настроек
    */
   handleSettings() {
-    const photoInput = document.getElementById('file');
-    const img = document.getElementById('avatar');
+    const photoInput = document.getElementById('avatar_loader');
+    const img = document.getElementById('avatar_preview');
     photoInput.onchange = () => {
       const [file] = photoInput.files;
       if (file) {
         img.src = URL.createObjectURL(file);
-      }
-    };
-    const uploadPhotoBtn =
-      document.getElementById('settings__change-uploadPhoto');
-    uploadPhotoBtn.addEventListener('click', ()=>{
-      const [file] = photoInput.files;
-      if (file) {
         document.querySelector('.profile-content__avatar__image').src =
-          URL.createObjectURL(file);
+        URL.createObjectURL(file);
         document.querySelector('.mini-profile__avatar').src =
-          URL.createObjectURL(file);
+        URL.createObjectURL(file);
         localStorage.setItem('image', URL.createObjectURL(file));
         const formData = new FormData();
         formData.append('avatar', file);
         this.eventBus.emit('uploadPhoto', formData);
       }
-    });
+    };
+
     const email =
     document.getElementById('settingEmail').childNodes[3].placeholder;
 
@@ -152,10 +146,12 @@ export default class ProfilePageModel {
     const changePasswrdBtn = document.
         getElementById('settings__change-password');
     changePasswrdBtn.addEventListener('click', (e)=> {
-      const password =
-      document.getElementById('settingPassword').childNodes[3].value.trim();
-      const oldPassword = document.getElementById('settingOldPassword').
-          childNodes[3].value.trim();
+      const passwordDiv = document.getElementById('settingPassword');
+      const oldPasswordDiv = document.getElementById('settingOldPassword');
+      const password = passwordDiv.childNodes[3].value.trim();
+      const oldPassword = oldPasswordDiv.childNodes[3].value.trim();
+      passwordDiv.classList.remove('text-input_correct');
+      oldPasswordDiv.classList.remove('text-input_correct');
       this.eventBus.emit('changePassword', email, oldPassword, password);
     });
   }
@@ -167,14 +163,22 @@ export default class ProfilePageModel {
    * @param {*} password
    */
   changePassword(email, oldPassword, password) {
+    const passwordDiv = document.getElementById('settingPassword');
     if (password.length < 5) {
-      document.getElementById('settingPassword').classList.add('text-input_wrong');
+      passwordDiv.classList.add('text-input_wrong');
       return;
     }
-    document.getElementById('settingPassword').classList.remove('text-input_wrong');
+    if (password === oldPassword) {
+      passwordDiv.childNodes[5].innerHTML = 'Пароли одинаковые';
+      passwordDiv.classList.add('text-input_wrong');
+      return;
+    }
+    passwordDiv.childNodes[5].innerHTML = 'Пароль слишком простой';
+    passwordDiv.classList.remove('text-input_wrong');
     const response = Ajax.postUsingFetch({
       url: secureDomainUrl + 'users/profile/password',
-      body: {email: email,
+      body: {
+        email: email,
         password: oldPassword,
         new_password: password},
     });
@@ -187,7 +191,7 @@ export default class ProfilePageModel {
       if (code === statusCodes.OK) {
         document.getElementById('settingOldPassword').classList.remove('text-input_wrong');
         document.getElementById('settingOldPassword').classList.add('text-input_correct');
-        document.getElementById('settingPassword').classList.add('text-input_correct');
+        passwordDiv.classList.add('text-input_correct');
         document.getElementById('settings__change-password').innerHTML = 'Пароль изменен';
         return;
       };

@@ -2,7 +2,7 @@
 import 'core-js/stable';
 import 'regenerator-runtime/runtime';
 import {createFooter} from './templates/footer/footer.js';
-import {createHeader} from './templates/header/header.js';
+import {isLogged} from './modules/isLogged.js';
 import {createModal} from './templates/modal/modal.js';
 import Router from './modules/Router.js';
 import EventBus from './modules/EventBus.js';
@@ -36,7 +36,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     'loggedIn',
   ]);
   const router = new Router(wrapper, globalEventBus);
-  await createHeader(globalEventBus);
+  await isLogged(globalEventBus);
   createModal(globalEventBus);
   wrapper.appendChild(root);
   createFooter();

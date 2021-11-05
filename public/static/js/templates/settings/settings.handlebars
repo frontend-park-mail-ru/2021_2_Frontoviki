@@ -1,54 +1,55 @@
-<h3 class="profile-content__title"> Настройки </h3>
-<div class="profile__settings-elem">
-  <div id="settingName" class="text-input">
-    <label class="text-input__label">Имя</label>
-    <input class="text-input__input" type="text" placeholder="{{userName}}" />
-    <span class="text-input__description">Имя должно быть больше 2 символов</span>
-  </div>
-</div>
-<div class="profile__settings-elem">
-  <div id="settingSurname" class="text-input">
-    <label class="text-input__label">Фамилия</label>
-    <input
-      class="text-input__input"
-      type="text"
-      placeholder="{{userSurname}}"
-    />
-    <span class="text-input__description">Фамилия должна быть больше 2 символов</span>
-  </div>
-</div>
-<div class="profile__settings-elem">
-  <div id="settingEmail" class="text-input">
-    <label class="text-input__label">Email</label>
-    <input class="text-input__input" type="text" placeholder="{{userEmail}}" disabled/>
-    <span class="text-input__description">Введите валидную почту</span>
-  </div>
-</div>
+                <div class="profile-content_right profile-content__settings">
+                    <h3 class="profile-content__settings__title">Настройки</h3>
 
-<button class="button" id="settings__change-info"> Изменить информацию </button>
+                    <div class="profile-content__settings__image-loader">
+                        <h3 class="profile-content__settings__subtitle">Загрузка аватара</h3>
+                        <input class="profile-content__settings__image-loader__input" type="file" accept="image/*"
+                            id="avatar_loader">
+                        <label class="profile-content__settings__image-loader__label" for="avatar_loader">
+                            <img class="profile-content__settings__image-loader__image" id="avatar_preview" alt="avatar_preview"
+                                src="/static/img/photo.png">
+                        </label>
+                    </div>
 
-<div class="profile__settings-elem">
-  <div id="settingOldPassword" class="text-input">
-    <label class="text-input__label">Старый пароль</label>
-    <input class="text-input__input" type="password" />
-    <span class="text-input__description">Неверный пароль</span>
-  </div>
-</div>
+                    <div class="profile-content__settings__password-change">
+                        <h3 class="profile-content__settings__subtitle">Изменение пароля</h3>
+                        <div id="settingOldPassword" class="text-input profile-content__settings__password-change__input">
+                            <label class="text-input__label">Старый пароль</label>
+                            <input class="text-input__input" type="password">
+                            <span class="text-input__description">Неверный пароль</span>
+                        </div>
+                        <div id="settingPassword" class="text-input profile-content__settings__password-change__input">
+                            <label class="text-input__label">Новый пароль</label>
+                            <input class="text-input__input" type="password">
+                            <span class="text-input__description">Пароль слишком простой</span>
+                        </div>
+                        <button class="button profile-content__settings__password-change__main-info"
+                            id="settings__change-password">Изменить
+                            пароль</button>
+                    </div>
 
-<div class="profile__settings-elem">
-  <div id="settingPassword" class="text-input">
-    <label class="text-input__label">Новый Пароль</label>
-    <input class="text-input__input" type="password" />
-    <span class="text-input__description">Должен быть от 5-ти символов</span>
-  </div>
-</div>
+                    <div class="profile-content__settings__main-info">
+                        <h3 class="profile-content__settings__subtitle">Личные данные</h3>
+                        <div id="settingName" class="text-input text-input profile-content__settings__main-info__input">
+                            <label class="text-input__label">Имя</label>
+                            <input class="text-input__input" type="text" placeholder="{{userName}}">
+                            <span class="text-input__description">Имя не удовлетворяет требованиям</span>
+                        </div>
+                        <div id="settingSurname" class="text-input profile-content__settings__main-info__input">
+                            <label class="text-input__label">Фамилия</label>
+                            <input class="text-input__input" type="text" placeholder="{{userSurname}}">
+                            <span class="text-input__description">Фамилия не удовлетворяет требованиям</span>
+                        </div>
+                        <div id="settingEmail" class="text-input profile-content__settings__main-info__input">
+                            <label class="text-input__label">Электронная почта</label>
+                            <input class="text-input__input" type="email" placeholder="{{userEmail}}" disabled>
+                            <span class="text-input__description">Ошибка в электронной почте</span>
+                        </div>
+                        <div id="settingPhone" class="text-input profile-content__settings__main-info__input">
+                            <label class="text-input__label">Мобильный телефон</label>
+                            <input class="text-input__input" type="text">
+                            <span class="text-input__description">Ошибка в телефоне</span>
+                        </div>
+                        <button class="button" id="settings__change-info"> Изменить информацию </button>
+                    </div>
 
-<button class="button" id="settings__change-password"> Изменить пароль </button>
-
-
-<div class="profile__settings-elem">
-  <input class= 'settings-elem__uploadPhotoInput' type="file" id="file" accept="image/*" />
-  <label for="file" class="settings-elem__uploadPhotoBtn"><img class= "upload-photo-input__avatar"id='avatar' src="/static/img/photo.png"
-  width="100" height="100"></label>
-</div>
-<button class="button" id="settings__change-uploadPhoto"> Изменить аватар </button>
