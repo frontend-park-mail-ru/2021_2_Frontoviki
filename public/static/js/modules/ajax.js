@@ -7,16 +7,22 @@ let CSRFToken;
  */
 export const Ajax = {
   /**
+   * Функция обновления csrf токена
+   */
+  async csrf() {
+    if (CSRFToken === null) {
+      await this.asyncGetUsingFetch({
+        url: secureDomainUrl + 'csrf',
+      });
+    }
+  },
+  /**
    * Функция для отправки пост запросов
   * @param {any} args аргументы для запроса
   * @return {Promise}
   */
-  async asyncPostUsingFetch(args = {}) {
-    if (CSRFToken === null) {
-      const res = await this.asyncGetUsingFetch({
-        url: secureDomainUrl + 'adverts',
-      });
-    }
+  async postUsingFetch(args = {}) {
+    await this.csrf();
     const response = await fetch(args.url, {
       method: AJAX_METHODS.POST,
       mode: 'cors',
@@ -28,7 +34,7 @@ export const Ajax = {
       },
       body: JSON.stringify(args.body),
     });
-
+    
     const parsedBody = await response.json().catch(() => {
       return {};
     }).then((data) => {
@@ -45,7 +51,7 @@ export const Ajax = {
    * @param {any} args args параметры для генерации запроса
    * @return {Promise}
    */
-  async asyncGetUsingFetch(args = {}) {
+  async getUsingFetch(args = {}) {
     const response = await fetch(args.url, {
       method: AJAX_METHODS.GET,
       mode: 'cors',
@@ -75,7 +81,8 @@ export const Ajax = {
   * @param {any} args аргументы для запроса
   * @return {Promise}
   */
-  async asyncPostImageUsingFetch(args = {}) {
+  async postImageUsingFetch(args = {}) {
+    await this.csrf();
     const response = await fetch(args.url, {
       method: AJAX_METHODS.POST,
       mode: 'cors',
@@ -104,7 +111,8 @@ export const Ajax = {
   * @param {any} args аргументы для запроса
   * @return {Promise}
   */
-  async asyncDeleteAdUsingFetch(args = {}) {
+  async deleteAdUsingFetch(args = {}) {
+    await this.csrf();
     const response = await fetch(args.url, {
       method: AJAX_METHODS.DELETE,
       mode: 'cors',

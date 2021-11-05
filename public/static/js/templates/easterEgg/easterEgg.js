@@ -15,7 +15,6 @@ export function egg() {
   const restartBtn = document.querySelectorAll('.minesweeper-btn')[0];
   const endscreen = document.querySelectorAll('.endscreen')[0];
 
-  // РќР°СЃС‚СЂРѕР№РєРё
   const boardSizeBtn = document.getElementById('boardSize');
   const difficultyBtns = document.querySelectorAll('.difficulty');
 

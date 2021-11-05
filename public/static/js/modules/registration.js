@@ -10,6 +10,7 @@ import {validateInfo} from './validation.js';
  * @param {HTMLFormElement} regEmail почта пользователя для регистрации
  * @param {HTMLFormElement} regPass пароль пользователя
  * @param {HTMLFormElement} regPassRep форма повторного ввода пароля
+ * @param {*} globalEventBus глобальный эмитер событий
  * действие submit
  */
 export function registration(regName, regSurname, regEmail,
@@ -20,7 +21,7 @@ export function registration(regName, regSurname, regEmail,
     return;
   }
   const {name, surname, email, password} = trimmedData;
-  const response = Ajax.asyncPostUsingFetch({
+  const response = Ajax.postUsingFetch({
     url: secureDomainUrl + 'signup',
     body: {email, password, name, surname},
   });

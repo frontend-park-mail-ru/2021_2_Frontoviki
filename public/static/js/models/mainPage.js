@@ -18,7 +18,7 @@ export default class MainPageModel {
    * Функция которая будет отправлять запрос на сервер
    */
   getAds() {
-    const res = Ajax.asyncGetUsingFetch({
+    const res = Ajax.getUsingFetch({
       url: secureDomainUrl + 'adverts', body: null,
     });
     res.then(({status, parsedBody})=> {

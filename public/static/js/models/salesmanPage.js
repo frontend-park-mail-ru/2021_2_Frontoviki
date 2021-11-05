@@ -20,7 +20,7 @@ export default class SalesmanPageModel {
    */
   getSalesman() {
     const salesmanID = window.location.pathname.split('/')[2];
-    const res = Ajax.asyncGetUsingFetch({
+    const res = Ajax.getUsingFetch({
       url: secureDomainUrl + 'adverts/salesman/' + salesmanID,
       body: null,
     });

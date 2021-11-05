@@ -22,7 +22,7 @@ export default class AdvertPageModel {
    */
   getAdData() {
     const adId = window.location.pathname.split('/')[2];
-    const res = Ajax.asyncGetUsingFetch({
+    const res = Ajax.getUsingFetch({
       url: secureDomainUrl + 'adverts/' + adId,
     });
     res.then(({parsedBody}) => {
@@ -112,7 +112,7 @@ export default class AdvertPageModel {
     console.log('wtf');
     if (advert === undefined) {
       const adId = window.location.pathname.split('/')[2];
-      const res = await Ajax.asyncGetUsingFetch({
+      const res = await Ajax.getUsingFetch({
         url: secureDomainUrl + 'adverts/' + adId,
       });
       console.log(res);
@@ -127,7 +127,7 @@ export default class AdvertPageModel {
       editBtn.style.display = 'inline-block';
       editBtn.addEventListener('click', () => this.eventBus.emit('onEditClicked', advert.id));
     }
-    const res = Ajax.asyncGetUsingFetch({
+    const res = Ajax.getUsingFetch({
       url: secureDomainUrl + 'cart',
     });
     res.then(({parsedBody}) => {
@@ -157,7 +157,7 @@ export default class AdvertPageModel {
       if (/ad/.test(window.location.pathname) === false) {
         return;
       }
-      const res = Ajax.asyncPostUsingFetch({
+      const res = Ajax.postUsingFetch({
         url: secureDomainUrl + 'cart/one',
         body: {
           advert_id: Number(advert.id),

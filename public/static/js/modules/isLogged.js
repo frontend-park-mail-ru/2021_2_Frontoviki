@@ -7,7 +7,7 @@ import {Ajax} from './ajax.js';
  * @return {Promise} ответ с сервера
  */
 export function isLogged() {
-  const res = Ajax.asyncGetUsingFetch({
+  const res = Ajax.getUsingFetch({
     url: secureDomainUrl + 'users/profile',
     body: null,
   });

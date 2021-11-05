@@ -68,7 +68,7 @@ export default class NewAdPageModel {
    * Получение списка возможных категорий
    */
   getCategories() {
-    const res = Ajax.asyncGetUsingFetch({
+    const res = Ajax.getUsingFetch({
       url: secureDomainUrl + 'category',
     });
     res.then(({status, parsedBody}) => {
@@ -126,7 +126,7 @@ export default class NewAdPageModel {
       const adId = window.location.pathname.split('/')[2];
       endpointUrl = secureDomainUrl + 'adverts/' + adId;
     }
-    const response = Ajax.asyncPostUsingFetch({
+    const response = Ajax.postUsingFetch({
       url: endpointUrl,
       body: {
         name: title,
@@ -171,7 +171,7 @@ export default class NewAdPageModel {
     for (let i = 0; i < file.length; i++) {
       formData.append('images', file[i]);
     }
-    const res = Ajax.asyncPostImageUsingFetch({
+    const res = Ajax.postImageUsingFetch({
       url: secureDomainUrl + 'adverts/' + id + '/upload',
       body: formData,
     });
@@ -197,7 +197,7 @@ export default class NewAdPageModel {
    */
   getData() {
     const adId = window.location.pathname.split('/')[2];
-    const res = Ajax.asyncGetUsingFetch({
+    const res = Ajax.getUsingFetch({
       url: secureDomainUrl + 'adverts/' + adId,
     });
     res.then(({parsedBody}) => {

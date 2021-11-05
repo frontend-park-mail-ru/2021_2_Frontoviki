@@ -28,7 +28,7 @@ export default class ProfilePageModel {
  * Получить все объявления пользователя
  */
   getAds() {
-    const res = Ajax.asyncGetUsingFetch({
+    const res = Ajax.getUsingFetch({
       url: secureDomainUrl + 'adverts/salesman/' + localStorage.getItem('id'),
       body: null,
     });
@@ -45,7 +45,7 @@ export default class ProfilePageModel {
    * Получить архивные объявления
    */
   getArchive() {
-    const res = Ajax.asyncGetUsingFetch({
+    const res = Ajax.getUsingFetch({
       url: secureDomainUrl + 'adverts/archive',
       body: null,
     });
@@ -72,7 +72,7 @@ export default class ProfilePageModel {
    * @param {*} formData фото пользователя
    */
   uploadPhoto(formData) {
-    Ajax.asyncPostImageUsingFetch({
+    Ajax.postImageUsingFetch({
       url: secureDomainUrl + 'users/profile/upload',
       body: formData,
     });
@@ -128,7 +128,7 @@ export default class ProfilePageModel {
         document.getElementById('settingSurname').classList.add('text-input_wrong');
         return;
       }
-      const response = Ajax.asyncPostUsingFetch({
+      const response = Ajax.postUsingFetch({
         url: secureDomainUrl + 'users/profile',
         body: {email, name, surname},
       });
@@ -172,7 +172,7 @@ export default class ProfilePageModel {
       return;
     }
     document.getElementById('settingPassword').classList.remove('text-input_wrong');
-    const response = Ajax.asyncPostUsingFetch({
+    const response = Ajax.postUsingFetch({
       url: secureDomainUrl + 'users/profile/password',
       body: {email: email,
         password: oldPassword,
@@ -227,7 +227,7 @@ export default class ProfilePageModel {
     };
     const deleteBtn = document.getElementById('modal__button-delete');
     deleteBtn.addEventListener('click', (e)=>{
-      const res = Ajax.asyncDeleteAdUsingFetch({
+      const res = Ajax.deleteAdUsingFetch({
         url: secureDomainUrl + 'adverts/' + id,
       });
       // обновить страницу если успешно удалили
@@ -247,7 +247,7 @@ export default class ProfilePageModel {
 
     const archiveBtn = document.getElementById('modal__button-to-archive');
     archiveBtn.addEventListener('click', (e)=>{
-      const res = Ajax.asyncPostUsingFetch({
+      const res = Ajax.postUsingFetch({
         url: secureDomainUrl + 'adverts/' + id + '/close',
       });
         // обновить страницу если успешно закрыли
@@ -270,7 +270,7 @@ export default class ProfilePageModel {
    * Получение объявлений в корзине
    */
   getCart() {
-    const res = Ajax.asyncGetUsingFetch({
+    const res = Ajax.getUsingFetch({
       url: secureDomainUrl + 'cart',
     });
     res.then(async ({status, parsedBody}) => {
@@ -283,7 +283,7 @@ export default class ProfilePageModel {
         parsedBody.body.adverts.forEach((elem, pos)=> {
           if (elem.is_active === false) {
             parsedBody.body.adverts.splice(pos, 1);
-            Ajax.asyncPostUsingFetch({
+            Ajax.postUsingFetch({
               url: secureDomainUrl + 'cart/one',
               body: {
                 advert_id: Number(elem.id),
@@ -304,7 +304,7 @@ export default class ProfilePageModel {
    * @param {Number} advertPos позиция удаляемой карточки в гриде
    */
   deleteFromCart(id, advertPos) {
-    const res = Ajax.asyncPostUsingFetch({
+    const res = Ajax.postUsingFetch({
       url: secureDomainUrl + 'cart/one',
       body: {
         advert_id: Number(id),
@@ -328,7 +328,7 @@ export default class ProfilePageModel {
    * @param {Number} advertPos позиция удаляем карточки в гриде
    */
   buyFromCart(advert, advertPos) {
-    const res = Ajax.asyncPostUsingFetch({
+    const res = Ajax.postUsingFetch({
       url: secureDomainUrl + 'cart/' + advert.id +'/checkout',
       body: {
         advert_id: advert.id,

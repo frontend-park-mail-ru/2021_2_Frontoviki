@@ -20,7 +20,7 @@ export function autorisation(logEmail, logPassword, globalEventBus) {
     return;
   }
 
-  const response = Ajax.asyncPostUsingFetch({
+  const response = Ajax.postUsingFetch({
     url: secureDomainUrl + 'signin',
     body: {email, password},
   });
