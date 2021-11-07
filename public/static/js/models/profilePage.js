@@ -15,6 +15,7 @@ export default class ProfilePageModel {
     this.eventBus = eventBus;
     this.eventBus.on('getGrid', this.getAds.bind(this));
     this.eventBus.on('getCart', this.getCart.bind(this));
+    this.eventBus.on('getFavorite', this.getFavorite.bind(this));
     this.eventBus.on('getArchive', this.getArchive.bind(this));
     this.eventBus.on('checkLog', this.checkForLogging.bind(this));
     this.eventBus.on('uploadPhoto', this.uploadPhoto.bind(this));
@@ -23,6 +24,7 @@ export default class ProfilePageModel {
     this.eventBus.on('onDeleteClick', this.handleDelete.bind(this));
     this.eventBus.on('deleteFromCart', this.deleteFromCart.bind(this));
     this.eventBus.on('buyFromCart', this.buyFromCart.bind(this));
+    this.eventBus.on('deleteFromFav', this.deleteFromFavorite.bind(this));
   }
   /**
  * Получить все объявления пользователя
@@ -306,7 +308,7 @@ export default class ProfilePageModel {
         const {code} = parsedBody;
         if (code === statusCodes.OK) {
           // если заархивировали закрываем модальное окно и удаляем карточку
-          document.querySelectorAll('.product-grid__cards').children[advertPos].remove();
+          this.getAds();
           document.querySelector('.modal__content').classList.remove('modal_active');
           document.getElementsByTagName('body')[0].removeChild(modal);
         };
@@ -347,6 +349,34 @@ export default class ProfilePageModel {
   }
 
   /**
+   * Получение объявлений в избранном
+   */
+  getFavorite() {
+    const res = Ajax.getUsingFetch({
+      url: secureDomainUrl + 'adverts/favorite',
+    });
+    res.then(async ({status, parsedBody}) => {
+      if (status != statusCodes.OK) {
+        return;
+      }
+      const {code} = parsedBody;
+      console.log(parsedBody);
+      if (code === statusCodes.OK) {
+        parsedBody.body.adverts.forEach((elem, pos)=> {
+          if (elem.is_active === false) {
+            parsedBody.body.adverts.splice(pos, 1);
+            Ajax.deleteAdUsingFetch({
+              url: secureDomainUrl + 'adverts/favourite/' + elem.id,
+            });
+          }
+        });
+        this.eventBus.emit('gotAds', parsedBody.body.adverts, false, true);
+        return;
+      };
+    });
+  }
+
+  /**
    * удаляет из корзины
    * @param {*} id объявления
    * @param {Number} advertPos позиция удаляемой карточки в гриде
@@ -366,6 +396,27 @@ export default class ProfilePageModel {
       }
       if (advertPos != null) {
         this.getCart();
+      }
+    });
+  }
+
+  /**
+   * удаляет из избранного
+   * @param {*} id объявления
+   * @param {Number} advertPos позиция удаляемой карточки в гриде
+   */
+  deleteFromFavorite(id, advertPos) {
+    console.log('kek');
+    const res = Ajax.deleteAdUsingFetch({
+      url: secureDomainUrl + 'adverts/favorite/' + id,
+    });
+    res.then(({parsedBody}) => {
+      const {code} = parsedBody;
+      if (code === statusCodes.NOTEXIST) {
+        return;
+      }
+      if (advertPos != null) {
+        this.getFavorite();
       }
     });
   }

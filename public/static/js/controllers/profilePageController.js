@@ -44,6 +44,7 @@ export default class ProfilePageController {
     this.eventBus.on('renderCart', this.redirectToCart.bind(this));
     this.eventBus.on('onCardClicked', this.goToCardPage.bind(this));
     this.eventBus.on('goToArchive', this.goToArchive.bind(this));
+    this.eventBus.on('renderFavorite', this.redirectToFav.bind(this));
   }
 
   /**
@@ -79,6 +80,12 @@ export default class ProfilePageController {
    */
   redirectToCart() {
     this.router.go('/profile/cart');
+  }
+  /**
+   * Меняют урл когда идем в избранное
+   */
+  redirectToFav() {
+    this.router.go('/profile/favorite');
   }
   /**
    * Переход на страницу объявления

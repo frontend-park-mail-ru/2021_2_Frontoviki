@@ -15,6 +15,7 @@ export default class AdvertPageModel {
     this.eventBus.on('GetAdData', this.getAdData.bind(this));
     this.eventBus.on('adDrawn', this.adLogic.bind(this));
     this.eventBus.on('refreshCart', this.cartLogic.bind(this));
+    this.eventBus.on('addToFavourite', this.addToFav.bind(this));
   }
 
   /**
@@ -114,10 +115,8 @@ export default class AdvertPageModel {
       const res = await Ajax.getUsingFetch({
         url: secureDomainUrl + 'adverts/' + adId,
       });
-      console.log(res);
       advert = res.parsedBody.body.advert;
     }
-    console.log(advert);
     const addBtn = document.getElementById('addToCartBtn');
     if (Number(localStorage.getItem('id')) === advert.publisher_id) {
       document.getElementById('chatBtn').style.display = 'none';
@@ -174,5 +173,24 @@ export default class AdvertPageModel {
         });
       });
     }
+  }
+  /**
+   * Добавление в избранное
+   */
+  addToFav() {
+    const adId = window.location.pathname.split('/')[2];
+    const res = Ajax.postUsingFetch({
+      url: secureDomainUrl + 'adverts/favorite/'+ adId,
+    });
+    res.then(({parsedBody}) => {
+      console.log(parsedBody);
+      const {code} = parsedBody;
+      if (code === statusCodes.NOTEXIST) {
+        return;
+      }
+      const addToFav = document.getElementById('favBtn');
+      addToFav.style.color = '#8897f9';
+      addToFav.onclick = () => this.eventBus.emit('goToFav');
+    });
   }
 }

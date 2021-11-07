@@ -22,9 +22,8 @@ export default class ProfilePageView extends BaseView {
     this.renderCart = this.renderCart.bind(this);
     this.renderSettings = this.renderSettings.bind(this);
     this.renderArchive = this.renderArchive.bind(this);
+    this.renderFavorite = this.renderFavorite.bind(this);
     eventBus.on('gotAds', this.renderGrid.bind(this));
-    eventBus.on('getSettings', this.renderSettings.bind(this));
-    eventBus.on('renderCart', this.renderCart.bind(this));
     eventBus.on('gotCart', this.renderCartGrid.bind(this));
   }
   /**
@@ -44,6 +43,12 @@ export default class ProfilePageView extends BaseView {
       document.querySelector('.profile-content__buttons').childNodes[1];
     myAdsBtn.addEventListener('click', (e) => {
       this.eventBus.emit('getAds');
+    });
+
+    const favoriteBtn =
+    document.querySelector('.profile-content__buttons').childNodes[3];
+    favoriteBtn.addEventListener('click', (e) => {
+      this.eventBus.emit('renderFavorite');
     });
 
     const cartBtn =
@@ -107,13 +112,13 @@ export default class ProfilePageView extends BaseView {
    * @param {*} adverts массив объявлений
    * @param {bool} archive если объявления в архиве, то не отображаем удаление
    */
-  renderGrid(adverts, archive) {
+  renderGrid(adverts, archive, favorite) {
     console.log(adverts);
     // поправляем ошибки бэка
     if (adverts === null) {
       adverts = [];
     }
-    if (archive) {
+    if (archive || favorite) {
       adverts.forEach((elem) => {
         elem.href = '/ad/' + elem.id;
         elem.image = '/' + elem.images[0];
@@ -153,7 +158,11 @@ export default class ProfilePageView extends BaseView {
           e.stopPropagation();
           if (e.target.classList.contains('card__delete')) {
             console.log('delete', adverts[key].id);
-            this.eventBus.emit('onDeleteClick', adverts[key].id, key);
+            if (favorite) {
+              this.eventBus.emit('deleteFromFav', adverts[key].id, key);
+            } else {
+              this.eventBus.emit('onDeleteClick', adverts[key].id, key);
+            }
             return;
           }
           this.eventBus.emit('onCardClicked', adverts[key].id);
@@ -165,7 +174,9 @@ export default class ProfilePageView extends BaseView {
     const emptyGridActive = document.createElement('div');
     emptyGridActive.id = 'empty';
     const gridT = emptyGrid();
-    if (archive) {
+    if (favorite) {
+      emptyGridActive.innerHTML = gridT({text: `В избранном ничего нет`});
+    } else if (archive) {
       emptyGridActive.innerHTML = gridT({text: `Архивные объявления будут
         отображаться на этой странице`});
     } else {
@@ -220,6 +231,22 @@ export default class ProfilePageView extends BaseView {
     const settingsDiv = settings();
     rightBlock.appendChild(settingsDiv);
     this.eventBus.emit('settingsRendered');
+  }
+
+  /**
+   * Отрисовывает избранное
+   */
+  renderFavorite() {
+    this.render();
+    makeBlue(document.querySelector('.profile-content__buttons').
+        childNodes[3]);
+    const rightBlock = document.querySelector('.profile-content_right');
+    rightBlock.innerHTML = '';
+    const title = document.createElement('h3');
+    title.classList.add('profile-content__title');
+    title.innerHTML = ' Избранное ';
+    rightBlock.appendChild(title);
+    this.eventBus.emit('getFavorite');
   }
 
   /**

@@ -32,6 +32,7 @@ export default class AdvertPageController {
     this.eventBus.on('notLogged', this.openModal.bind(this));
     this.eventBus.on('goToCart', this.goToCart.bind(this));
     this.eventBus.on('onSalesmanClicked', this.goToSalesman.bind(this));
+    this.eventBus.on('goToFav', this.goToFav.bind(this));
     this.globalEventBus.on('loggedForCart', this.refreshCart.bind(this));
   }
 
@@ -74,5 +75,11 @@ export default class AdvertPageController {
    */
   goToSalesman(id) {
     this.router.go('/salesman/' + id);
+  }
+  /**
+   * Переход в избранное
+   */
+  goToFav() {
+    this.router.go('/profile/favorite');
   }
 }

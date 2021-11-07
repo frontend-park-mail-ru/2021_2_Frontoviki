@@ -48,5 +48,13 @@ export default class AdvertPageView extends BaseView {
       salesmanCreatedAt: salesman.created_at.slice(0, 10),
     });
     this.eventBus.emit('adDrawn', advert);
+    const addToFav = document.getElementById('favBtn');
+    addToFav.addEventListener('mouseover', ()=>{
+      addToFav.style.color = '#8897f9';
+    });
+    addToFav.addEventListener('mouseout', ()=>{
+      addToFav.style.color = '#333';
+    });
+    addToFav.onclick = () => this.eventBus.emit('addToFavourite');
   }
 }
