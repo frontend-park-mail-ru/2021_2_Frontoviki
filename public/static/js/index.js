@@ -1,6 +1,4 @@
 'use strict';
-import 'core-js/stable';
-import 'regenerator-runtime/runtime';
 import {createFooter} from './templates/footer/footer.js';
 import {isLogged} from './modules/isLogged.js';
 import {createModal} from './templates/modal/modal.js';

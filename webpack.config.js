@@ -49,7 +49,7 @@ module.exports = {
           },
           {
             loader: 'postcss-loader',
-            options: { sourceMap: true, config: { path: 'public/postcss.config.js'}}
+            options: { sourceMap: true, config: { path: 'public/postcss.config.js' } }
           },
           {
             loader: 'sass-loader',
@@ -64,7 +64,7 @@ module.exports = {
     new MiniCssExtractPlugin({
       filename: 'main.css',
     }),
-    new HtmlWebpackPlugin({inject: false, template: './public/index.html'}),
+    new HtmlWebpackPlugin({ inject: false, template: './public/index.html' }),
     new ServiceWorkerWebpackPlugin({
       entry: path.join(__dirname, 'public/sw.js'),
     }),
