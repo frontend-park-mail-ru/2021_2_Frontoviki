@@ -1,3 +1,4 @@
+@import "../../../css/variables"
 .button
     width: 230px
     height: 44px
@@ -6,9 +7,9 @@
 
     border: none
     border-radius: 9px
-    background-color: var(--button-background-color)
+    background-color: $button-background-color
 
-    color: var(--button-text-color)
+    color: $button-text-color
     font-weight: 400
     font-size: 18px
     text-align: center
@@ -20,7 +21,7 @@
         margin: 10px
 
 .button:hover
-    background-color: var(--button-background-color_hover)
+    background-color: $button-background-color_hover
     cursor: pointer
 
 .button:active
@@ -37,7 +38,7 @@
 
 
     &_active
-        color: var(--button-background-color)
+        color: $button-background-color
         background-color: transparent
         font-weight: 500
         text-align: left
@@ -47,12 +48,12 @@
 
 
     &:hover
-        color: var(--button-background-color)
+        color: $button-background-color
         background-color: transparent
 
 
     &_active:hover
-        color: var(--button-background-color)
+        color: $button-background-color
         background-color: transparent
 
 
@@ -68,11 +69,11 @@
 
 
     &_icon_active
-        fill: var(--button-background-color)
+        fill: $button-background-color
         margin-right: 7px
         height: 18px
         width: 18px
 
 
     &:hover .profile-content__button_icon
-        fill: var(--button-background-color)
+        fill: $button-background-color

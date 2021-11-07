@@ -1,6 +1,5 @@
-:root
-	--tileSize: 50px
-	--boardSize: 0px
+$tileSize: 50px
+$boardSize: 0px
 
 .endscreen
 	background: #FFF
@@ -39,13 +38,13 @@
 
 	& .tile
 		background: #e2e2e2
-		width: var(--tileSize)
-		height: var(--tileSize)
+		width: $tileSize
+		height: $tileSize
 		position: relative
 		display: flex
 		justify-content: center
 		align-items: center
-		font-size: calc(var(--tileSize) * .8)
+		font-size: calc($tileSize * .8)
 		cursor: pointer
 		user-select: none
 		transition: background .2s ease
@@ -66,10 +65,10 @@
 		cursor: default
 
 	& .tile--bomb
-		font-size: calc(var(--tileSize) * .5)
+		font-size: calc($tileSize * .5)
 
 	& .tile--flagged
-		font-size: calc(var(--tileSize) * .5)
+		font-size: calc($tileSize * .5)
 
 .minesweeper-btn
 	display: inline-block

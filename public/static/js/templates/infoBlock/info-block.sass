@@ -1,3 +1,4 @@
+@import "../../../css/variables"
 .root__info-block
     position: relative
 
@@ -16,13 +17,9 @@
     content: '/'
 
 
-    & > a
-        color: var(--color-unactive-input)
-
-
     &::after
         content: ''
 
 .info-block__capture
-    color: var(--info-block-capture-color)
-    font-size: var(--info-block-capture-size)
+    color: $info-block-capture-color
+    font-size: $info-block-capture-size

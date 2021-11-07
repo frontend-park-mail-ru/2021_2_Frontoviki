@@ -1,3 +1,4 @@
+@import "../../../css/variables"
 .root__product-grid
     display: grid
     grid-template-columns: 1fr repeat(16, minmax(auto, 60px)) 1fr
@@ -26,7 +27,7 @@
     grid-column-end: span 4
     display: flex
     flex-direction: column
-    background-color: var(--color-soft-white)
+    background-color: #fff
     box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.5)
     border-radius: 5px
     transition: all 0.3s ease
@@ -58,11 +59,11 @@
         bottom: 0
         background-color: rgba(0, 0, 0, 0.7)
         width: 100%
-        color: var(--color-soft-white)
+        color: #fff
         padding: 16px
 
     &__image-container__name
-        color: var(--search-background-color)
+        color: $search-background-color
 
     &__card-info
         padding: 20px

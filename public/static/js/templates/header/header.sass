@@ -1,6 +1,7 @@
+@import "../../../css/variables"
 header
     height: 60px
-    background-color: var(--header-background-color)
+    background-color: $header-background-color
 
     display: flex
     justify-content: space-between
@@ -34,14 +35,14 @@ header
         width: fit-content
         font-weight: 700
         text-transform: uppercase
-        color: var(--header-capture-color)
+        color: $header-capture-color
 
 .search
     margin-left: 2%
     margin-right: 2%
     width: 350px
     height: 32px
-    background-color: var(--search-background-color)
+    background-color: $search-background-color
     border-radius: 4px
 
     justify-content: space-around
@@ -52,7 +53,7 @@ header
         width: 12px
         height: 12px
         margin-right: 10px
-        fill: var(--search-text-default-color)
+        fill: $search-text-default-color
 
 
     &__input
@@ -61,14 +62,14 @@ header
         width: 100%
         background-color: inherit
 
-        color: var(--header-background-color)
+        color: $header-background-color
         font-family: "Roboto", 'Open Sans', sans-serif
         font-size: 14px
         font-weight: 400
 
 
     &__input::-webkit-input-placeholder
-        color: var(--search-text-default-color)
+        color: $search-text-default-color
 
 
     &__input::-webkit-search-cancel-button
@@ -93,7 +94,7 @@ header
     font-style: normal
     font-size: 16px
     line-height: 24px
-    color: var(--header-capture-color)
+    color: $header-capture-color
 
     margin-right: 10px
 
@@ -114,4 +115,4 @@ header
 
 
     &__icon
-        fill: var(--header-capture-color)
+        fill: $header-capture-color

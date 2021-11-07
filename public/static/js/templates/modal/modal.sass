@@ -119,12 +119,12 @@
     font-weight: 400
     margin-bottom: 20px
 
-:root
-    /* z-index у модального окна больше чем у затемнения! */
-    --blackout-z-index: 20
-    --modal-window-z-index: 30
-    /* одинаковая анимация при появлении / закрытии модального окна */
-    --transition-params: 0.3s all
+
+/* z-index у модального окна больше чем у затемнения! */
+$blackout-z-index: 20
+$modal-window-z-index: 30
+/* одинаковая анимация при появлении / закрытии модального окна */
+$transition-params: 0.3s all
 
 .blackout
     opacity: 0
@@ -135,8 +135,8 @@
     width: 100%
     height: 100%
     background-color: rgba(0, 0, 0, 0.5)
-    z-index: var(--blackout-z-index)
-    transition: var(--transition-params)
+    z-index: $blackout-z-index
+    transition: $transition-params
 
 @media only screen and (max-device-width: 480px)
     .modal-window

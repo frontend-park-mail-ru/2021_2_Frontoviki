@@ -1,9 +1,6 @@
 @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500&display=swap')
 
-:root
-  --expand-menu-background-color: #373F47
-  --header-height: 60px
-  --background-expand-menu-content: #1e1e25
+$background-expand-menu-content: #1e1e25
 
 .expand-menu
   width: 100%
@@ -35,7 +32,7 @@
     transform: translateY(10px)
     width: 225px
 
-    background-color: var(--background-expand-menu-content)
+    background-color: $background-expand-menu-content
     border-radius: 6px
     z-index: 20
 
