@@ -1,7 +1,7 @@
 import {Ajax} from './ajax.js';
 import {secureDomainUrl, statusCodes} from '../constatns.js';
 import {clearInput} from './clearInput.js';
-import {createHeader} from '../templates/header/header.js';
+import {isLogged} from './isLogged.js';
 
 /**
  * фунцкия авторизации
@@ -32,10 +32,9 @@ export function autorisation(logEmail, logPassword, globalEventBus) {
     const {code} = parsedBody;
     if (code === statusCodes.OK) {
       // в случае если мы зашли убрать модальное и обновить хедер
-      createHeader(globalEventBus);
+      isLogged(globalEventBus);
       clearAllLogInputs(logEmail, logPassword);
       document.querySelector('.blackout').click();
-      createHeader(globalEventBus);
       globalEventBus.emit('loggedIn');
       return;
     }

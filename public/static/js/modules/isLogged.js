@@ -29,7 +29,7 @@ export async function isLogged(globalEventBus) {
     url: secureDomainUrl + 'users/profile',
     body: null,
   });
-  const {status, parsedBody} = res;
+  const {status, parsedBody} = await res;
   if (status != statusCodes.OK) {
     return;
   }
@@ -39,7 +39,7 @@ export async function isLogged(globalEventBus) {
     isAuthorized = true;
   }
   if (isAuthorized) {
-    let {name, surname, email, image, id, rating} = body.profile;
+    let {name, surname, email, image, id, rating, phone} = body.profile;
     if (image == null) {
       image = '/static/img/default_image.jpg';
     }
@@ -49,6 +49,7 @@ export async function isLogged(globalEventBus) {
     localStorage.setItem('email', email);
     localStorage.setItem('image', '/' + image);
     localStorage.setItem('rating', rating);
+    localStorage.setItem('phone', phone);
     header.innerHTML = headerT({userName: name, userAvatar: '/' + image});
     const authLink = document.getElementById('auth');
     authLink.style.display = 'none';
@@ -67,6 +68,7 @@ export async function isLogged(globalEventBus) {
     localStorage.removeItem('email');
     localStorage.removeItem('image');
     localStorage.removeItem('rating');
+    localStorage.removeItem('phone');
   }
   const title = document.querySelector('.logo__capture');
   title.dataset.section = 'menu';
@@ -80,6 +82,6 @@ export async function isLogged(globalEventBus) {
   logoutHref.addEventListener('click', (e) => {
     document.getElementById('mini-profile__toogle').checked = false;
     logout(globalEventBus);
-    createHeader(globalEventBus);
+    isLogged(globalEventBus);
   });
 }

@@ -100,18 +100,60 @@ export default class ProfilePageModel {
 
     const email =
     document.getElementById('settingEmail').childNodes[3].placeholder;
-
+    const phoneInput = document.getElementById('settingPhone').childNodes[3];
+    phoneInput.addEventListener('focus', () => {
+      if (phoneInput.value < 15) {
+        phoneInput.value = '+7(';
+      }
+    });
+    let old = 0;
+    phoneInput.addEventListener('keydown', (e)=> {
+      // backspace delete
+      if (!/\d/.test(e.key) && e.keyCode != 8 && e.keyCode != 46) {
+        e.preventDefault();
+        return;
+      }
+      const curLen = phoneInput.value.length;
+      if (curLen < old) {
+        old--;
+        return;
+      }
+      if (curLen == 6) {
+        phoneInput.value = phoneInput.value + ')';
+      }
+      if (curLen == 10) {
+        phoneInput.value = phoneInput.value + '-';
+      }
+      if (curLen == 13) {
+        phoneInput.value = phoneInput.value + '-';
+      }
+      if (curLen > 15) {
+        phoneInput.value = phoneInput.value.substring(0, phoneInput.value.length - 1);
+      }
+      old++;
+    });
     const changeInfoBtn = document.getElementById('settings__change-info');
-    changeInfoBtn.addEventListener('click', (e)=>{
+    changeInfoBtn.addEventListener('click', ()=>{
       const nameInput = document.getElementById('settingName').childNodes[3];
       let name = nameInput.value.trim();
       const surnInpt = document.getElementById('settingSurname').childNodes[3];
       let surname = surnInpt.value.trim();
-      if (name == '') {
+      let phone = phoneInput.value.trim();
+      // не отправляем запрос если ничего не меняли
+      if (name.length == 0 && surname.length == 0 && phone.length != 11) {
+        return;
+      }
+      if (name.length == 0) {
         name = nameInput.placeholder;
       }
-      if (surname == '') {
+      if (surname.length == 0) {
         surname = surnInpt.placeholder;
+      }
+      phone = phoneInput.value[1] + phoneInput.value.slice(3, 6) +
+        phoneInput.value.slice(7, 10) + phoneInput.value.slice(11, 13) +
+        phoneInput.value.slice(14, 16);
+      if (phone.length != 11) {
+        phone = localStorage.getItem('phone');
       }
       if (name.length < 2) {
         document.getElementById('settingName').classList.add('text-input_wrong');
@@ -122,9 +164,10 @@ export default class ProfilePageModel {
         document.getElementById('settingSurname').classList.add('text-input_wrong');
         return;
       }
+      console.log(email, name, surname, phone);
       const response = Ajax.postUsingFetch({
         url: secureDomainUrl + 'users/profile',
-        body: {email, name, surname},
+        body: {email, name, surname, phone},
       });
       response.then(({status, parsedBody}) => {
         if (status != statusCodes.OK) {
@@ -135,8 +178,9 @@ export default class ProfilePageModel {
         if (code === statusCodes.OK) {
           localStorage.setItem('name', name);
           localStorage.setItem('surname', surname);
-          nameInput.value = name;
-          surnInpt.value = surname;
+          localStorage.setItem('phone', phone);
+          nameInput.placeholder = name;
+          surnInpt.placeholder = surname;
           document.querySelector('.profile-content__username').innerHTML = name;
           document.querySelector('.mini-profile__capture').innerHTML = name;
         };
@@ -364,6 +408,14 @@ export default class ProfilePageModel {
       const modalAdvEmail = document.createElement('p');
       modalAdvEmail.innerHTML = `email продавца: ${salesman.email}`;
       modalText.appendChild(modalAdvEmail);
+      if (salesman.phone !== '') {
+        const resPhone = '+' + salesman.phone[0] + '(' +
+          salesman.phone.slice(1, 4) + ')' + salesman.phone.slice(4, 7) +
+          '-' + salesman.phone.slice(7, 9) + '-' + salesman.phone.slice(9, 11);
+        const modalAdvPh = document.createElement('p');
+        modalAdvPh.innerHTML = `Контактный телефон: ${resPhone}`;
+        modalText.appendChild(modalAdvPh);
+      }
       const modalAdvPrice = document.createElement('p');
       modalAdvPrice.innerHTML = `Цена: ${advert.price} ₽`;
       modalText.appendChild(modalAdvPrice);

@@ -5,9 +5,7 @@
   "main": "./public/static/js/index.js",
   "scripts": {
     "test": "eslint public/static/",
-    "build": "webpack --config webpack.config.js",
-    "buildTemplates": "./build.sh",
-    "cleanTemplates": "rm -r public/build"
+    "build": "webpack --config webpack.config.js"
   },
   "repository": {
     "type": "git",

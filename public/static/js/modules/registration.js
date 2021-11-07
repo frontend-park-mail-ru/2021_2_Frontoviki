@@ -1,8 +1,8 @@
 import {Ajax} from './ajax.js';
 import {secureDomainUrl, statusCodes} from '../constatns.js';
 import {clearInput} from './clearInput.js';
-import {createHeader} from '../templates/header/header.js';
 import {validateInfo} from './validation.js';
+import {isLogged} from './isLogged.js';
 /**
  * функция регистрация нового пользователя
  * @param {HTMLFormElement} regName имя пользователя
@@ -32,7 +32,7 @@ export function registration(regName, regSurname, regEmail,
     }
     const {code} = parsedBody;
     if (code === statusCodes.REGDONE) {
-      createHeader(globalEventBus);
+      isLogged(globalEventBus);
       clearAllRegInputs(regName, regSurname, regEmail, regPass, regPassRep);
       document.querySelector('.blackout').click();
       globalEventBus.emit('loggedIn');

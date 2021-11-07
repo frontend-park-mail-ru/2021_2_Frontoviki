@@ -1,6 +1,6 @@
 import {Ajax} from './ajax.js';
-import {createHeader} from '../templates/header/header.js';
 import {secureDomainUrl, statusCodes} from '../constatns.js';
+import {isLogged} from './isLogged.js';
 
 /**
  * Функция выхода из авторизации
@@ -15,6 +15,6 @@ export function logout(globalEventBus) {
     if (status != statusCodes.OK) {
       return;
     }
-    createHeader(globalEventBus);
+    isLogged(globalEventBus);
   });
 }

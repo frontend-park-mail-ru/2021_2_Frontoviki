@@ -34,19 +34,19 @@ module.exports = {
         exclude: /(node_modules)/,
       },
       {
-            test: /\.sass$/,
-            use: [
-                {
-                    loader: MiniCssExtractPlugin.loader,
-                    options: {
-                        hmr: false,
-                        reloadAll: false,
-                    },
-                },
-                'css-loader',
-                'sass-loader',
-            ],
-        }, 
+        test: /\.sass$/,
+        use: [
+          {
+            loader: MiniCssExtractPlugin.loader,
+            options: {
+              hmr: false,
+              reloadAll: false,
+            },
+          },
+          'css-loader',
+          'sass-loader',
+        ],
+      },
     ],
   },
 
