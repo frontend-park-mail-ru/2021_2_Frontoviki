@@ -50,7 +50,11 @@ export default class SalesmanPageView extends BaseView {
       document.querySelector('.profile-content_right').appendChild(
           createProductGrid(adverts, false, false));
     }
-    if (rating.is_rated == false && localStorage.getItem('id')) {
+    // ставим рейтинг если мы зашли, еще не ставили
+    // и не пытаемся самому себе поставить
+    if (rating.is_rated == false && localStorage.getItem('id') &&
+          Number(localStorage.getItem('id')) !=
+          Number(window.location.pathname.split('/')[2])) {
       const stars = document.querySelector('.profile-content__rating');
       stars.addEventListener('mouseover', (e)=> {
         let target = e.target;
