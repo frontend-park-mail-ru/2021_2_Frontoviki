@@ -31,11 +31,11 @@ export default class AdvertPageModel {
         this.eventBus.emit('NoAd');
         return;
       }
-      const {advert, salesman} = parsedBody.body;
+      const {advert, salesman, rating} = parsedBody.body;
       advert.images.forEach((elem, key) => {
         advert.images[key] = '/' + elem;
       });
-      this.eventBus.emit('gotAd', advert, salesman);
+      this.eventBus.emit('gotAd', advert, salesman, rating);
     });
   }
 
@@ -109,7 +109,6 @@ export default class AdvertPageModel {
     if (/ad/.test(window.location.pathname) === false) {
       return;
     }
-    console.log('wtf');
     if (advert === undefined) {
       const adId = window.location.pathname.split('/')[2];
       const res = await Ajax.getUsingFetch({
@@ -137,7 +136,6 @@ export default class AdvertPageModel {
       cart.forEach((elem) => {
         if (elem.advert_id === advert.id) {
           addBtn.innerHTML = 'В корзине';
-          console.log('cant add');
           addBtn.removeEventListener('click', ()=> addToCart(this));
           canAdd = false;
           addBtn.addEventListener('click', () => this.eventBus.emit('goToCart'));
@@ -145,7 +143,6 @@ export default class AdvertPageModel {
         }
       });
       if (canAdd) {
-        console.log('can add');
         addBtn.addEventListener('click', ()=> addToCart(this));
       }
     });

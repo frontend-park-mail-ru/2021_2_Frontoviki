@@ -40,6 +40,9 @@
           </svg>
         {{/each}}
       </div>
+      {{#if isRated}}
+      <p class="profile-content__rate">Вы оценили пользователя на {{rate}} &#9733;</p>
+      {{/if}}
     </div>
   </div>
   <div class="profile-content_right">

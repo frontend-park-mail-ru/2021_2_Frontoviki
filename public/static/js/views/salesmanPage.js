@@ -37,8 +37,10 @@ export default class SalesmanPageView extends BaseView {
     this.root.innerHTML = salesmanT(
         {userName: name,
           userAvatar: '/' + image,
-          star: stars.slice(0, rating),
-          emptyStar: stars.slice(rating, 6),
+          star: stars.slice(0, Math.round(rating.avg)),
+          emptyStar: stars.slice(Math.round(rating.avg), 6),
+          isRated: rating.is_rated,
+          rate: rating.rate,
         });
     if (adverts.length !== 0) {
       adverts.forEach((elem) => {
@@ -47,6 +49,42 @@ export default class SalesmanPageView extends BaseView {
       });
       document.querySelector('.profile-content_right').appendChild(
           createProductGrid(adverts, false, false));
+    }
+    if (rating.is_rated == false && localStorage.getItem('id')) {
+      const stars = document.querySelector('.profile-content__rating');
+      stars.addEventListener('mouseover', (e)=> {
+        let target = e.target;
+        if (e.target instanceof SVGPathElement) {
+          target = e.target.parentElement;
+        }
+        const pos = Array.from(stars.childNodes).indexOf(target);
+        stars.childNodes.forEach((el, n) => {
+          if (n <= pos && el instanceof SVGElement) {
+            el.classList.remove('star_unactive');
+            el.classList.add('star_active');
+          }
+          if (n > pos && el instanceof SVGElement && pos != -1) {
+            el.classList.remove('star_active');
+            el.classList.add('star_unactive');
+          }
+        });
+      });
+      stars.addEventListener('mouseleave', (e)=> {
+        stars.childNodes.forEach((elem) => {
+          if (elem instanceof SVGElement) {
+            elem.classList.remove('star_active');
+            elem.classList.add('star_unactive');
+          }
+        });
+      });
+      stars.addEventListener('click', (e)=>{
+        let target = e.target;
+        if (e.target instanceof SVGPathElement) {
+          target = e.target.parentElement;
+        }
+        const pos = Array.from(stars.childNodes).indexOf(target);
+        this.eventBus.emit('rated', pos);
+      });
     }
   }
 }

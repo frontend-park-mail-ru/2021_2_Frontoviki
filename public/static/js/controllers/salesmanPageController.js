@@ -24,6 +24,7 @@ export default class SalesmanPageController {
     this.view = new SalesmanPageView(this.eventBus);
     this.model = new SalesmanPageModel(this.eventBus);
     this.eventBus.on('noSuchSalesman', this.redirectToError.bind(this));
+    this.eventBus.on('ratedFinish', this.view.render);
   }
 
   /**

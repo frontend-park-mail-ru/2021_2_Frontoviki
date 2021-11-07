@@ -27,7 +27,7 @@ export default class AdvertPageView extends BaseView {
    * @param {JSON} advert информация об объявлении
    * @param {JSON} salesman информация о продавце
    */
-  renderAd(advert, salesman) {
+  renderAd(advert, salesman, rating) {
     const advertTemplate = advertPageTemplate();
     console.log(advert.images);
     this.root.innerHTML = advertTemplate({
@@ -44,7 +44,7 @@ export default class AdvertPageView extends BaseView {
       salesmanSurname: salesman.surname,
       salesmanAvatar: '/' + salesman.image,
       salesmanHref: '/salesman/' + salesman.id,
-      salesmanRating: salesman.rating,
+      salesmanRating: rating.avg,
       salesmanCreatedAt: salesman.created_at.slice(0, 10),
     });
     this.eventBus.emit('adDrawn', advert);

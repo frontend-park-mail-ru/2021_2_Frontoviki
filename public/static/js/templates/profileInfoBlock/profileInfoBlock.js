@@ -12,9 +12,10 @@ export function profileInfoBlock() {
   infoBlock.innerHTML = infoBlockT(
       {userName: localStorage.getItem('name'),
         userAvatar: localStorage.getItem('image'),
-        star: StarAlgorithym.slice(0, Number(localStorage.getItem('rating'))),
+        star: StarAlgorithym.
+            slice(0, Math.round(Number(localStorage.getItem('rating')))),
         emptyStar: StarAlgorithym.
-            slice(Number(localStorage.getItem('rating'), 6)),
+            slice(Math.round(Number(localStorage.getItem('rating')), 6)),
       });
   return infoBlock;
 }

@@ -39,7 +39,8 @@ export async function isLogged(globalEventBus) {
     isAuthorized = true;
   }
   if (isAuthorized) {
-    let {name, surname, email, image, id, rating, phone} = body.profile;
+    const rating = body.rating.avg;
+    let {name, surname, email, image, id, phone} = body.profile;
     if (image == null) {
       image = '/static/img/default_image.jpg';
     }
