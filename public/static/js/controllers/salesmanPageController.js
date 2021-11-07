@@ -25,6 +25,7 @@ export default class SalesmanPageController {
     this.model = new SalesmanPageModel(this.eventBus);
     this.eventBus.on('noSuchSalesman', this.redirectToError.bind(this));
     this.eventBus.on('ratedFinish', this.view.render);
+    this.globalEventBus.on('loggedForSalesman', this.refreshPage.bind(this));
   }
 
   /**
@@ -32,5 +33,15 @@ export default class SalesmanPageController {
    */
   redirectToError() {
     this.router.go('/noSuchSalesman');
+  }
+
+  /**
+   * Релоад страницы если зашли на странице продавца
+   */
+  refreshPage() {
+    const location = window.location.pathname.split('/');
+    if (location[1] === 'salesman') {
+      this.router.go('/salesman/' + location[2]);
+    }
   }
 }

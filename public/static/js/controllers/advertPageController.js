@@ -32,7 +32,7 @@ export default class AdvertPageController {
     this.eventBus.on('notLogged', this.openModal.bind(this));
     this.eventBus.on('goToCart', this.goToCart.bind(this));
     this.eventBus.on('onSalesmanClicked', this.goToSalesman.bind(this));
-    this.globalEventBus.on('loggedIn', this.refreshCart.bind(this));
+    this.globalEventBus.on('loggedForCart', this.refreshCart.bind(this));
   }
 
   /**

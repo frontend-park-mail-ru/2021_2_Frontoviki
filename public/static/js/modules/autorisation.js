@@ -35,7 +35,8 @@ export function autorisation(logEmail, logPassword, globalEventBus) {
       isLogged(globalEventBus);
       clearAllLogInputs(logEmail, logPassword);
       document.querySelector('.blackout').click();
-      globalEventBus.emit('loggedIn');
+      globalEventBus.emit('loggedForCart');
+      globalEventBus.emit('loggedForSalesman');
       return;
     }
     switch (code) {
