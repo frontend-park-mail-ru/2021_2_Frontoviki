@@ -6,7 +6,7 @@ const path = require('path');
 
 module.exports = {
   mode: 'production',
-  entry: [path.resolve(__dirname, '/public/static/js/index.js')],
+  entry: ['@babel/polyfill', path.resolve(__dirname, '/public/static/js/index.js')],
   output: {
     filename: 'bundle.js',
     path: path.resolve(__dirname, 'public/'),
@@ -43,8 +43,18 @@ module.exports = {
               reloadAll: false,
             },
           },
-          'css-loader',
-          'sass-loader',
+          {
+            loader: 'css-loader',
+            options: { sourceMap: true }
+          },
+          {
+            loader: 'postcss-loader',
+            options: { sourceMap: true, config: { path: 'public/postcss.config.js'}}
+          },
+          {
+            loader: 'sass-loader',
+            options: { sourceMap: true }
+          }
         ],
       },
     ],
