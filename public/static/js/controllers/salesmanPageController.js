@@ -41,7 +41,7 @@ export default class SalesmanPageController {
   refreshPage() {
     const location = window.location.pathname.split('/');
     if (location[1] === 'salesman') {
-      this.router.go('/salesman/' + location[2]);
+      this.router.go(`/salesman/${location[2]}`);
     }
   }
 }

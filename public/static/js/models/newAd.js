@@ -69,7 +69,7 @@ export default class NewAdPageModel {
    */
   getCategories() {
     const res = Ajax.getUsingFetch({
-      url: secureDomainUrl + 'category',
+      url: `${secureDomainUrl}category`,
     });
     res.then(({status, parsedBody}) => {
       if (status != statusCodes.OK) {
@@ -105,7 +105,6 @@ export default class NewAdPageModel {
     const condition = document.getElementById('radio-new').checked;
     priceDiv.classList.remove('text-input_wrong');
     const coords = this.#coords;
-    console.log(coords);
     if (coords === undefined) {
       document.querySelector('.new-advert__location').classList.add('text-input_wrong');
       return;
@@ -118,7 +117,7 @@ export default class NewAdPageModel {
       endpointUrl = secureDomainUrl + 'adverts';
     } else {
       const adId = window.location.pathname.split('/')[2];
-      endpointUrl = secureDomainUrl + 'adverts/' + adId;
+      endpointUrl = `${secureDomainUrl}adverts/${adId}`;
     }
     const response = Ajax.postUsingFetch({
       url: endpointUrl,
@@ -166,7 +165,7 @@ export default class NewAdPageModel {
       formData.append('images', elem);
     })
     const res = Ajax.postImageUsingFetch({
-      url: secureDomainUrl + 'adverts/' + id + '/upload',
+      url: `${secureDomainUrl}adverts/${id}/upload`,
       body: formData,
     });
     res.then(({status})=>{
@@ -190,7 +189,7 @@ export default class NewAdPageModel {
   getData() {
     const adId = window.location.pathname.split('/')[2];
     const res = Ajax.getUsingFetch({
-      url: secureDomainUrl + 'adverts/' + adId,
+      url: `${secureDomainUrl}adverts/${adId}`,
     });
     res.then(({parsedBody}) => {
       const {code} = parsedBody;
@@ -204,7 +203,7 @@ export default class NewAdPageModel {
         return;
       }
       advert.images.forEach((elem, key) => {
-        advert.images[key] = '/' + elem;
+        advert.images[key] = `/${elem}`;
       });
       document.querySelector('.new-advert__name').childNodes[3].value = advert.name;
       document.querySelector('.new-advert__category').childNodes[3].value = advert.category;
