@@ -15,8 +15,8 @@ export default class NewAdPageModel {
     this.eventBus = eventBus;
     this.eventBus.on('renderDone', this.initMap.bind(this));
     this.eventBus.on('checkLog', this.checkForLogging.bind(this));
-    this.eventBus.on('sendAd', this.sendAd.bind(this));
-    this.eventBus.on('successSend', this.sendPhoto.bind(this));
+    this.eventBus.on('sendAd', this.validateAd.bind(this));
+    this.eventBus.on('successSend', this.validatePhoto.bind(this));
     this.eventBus.on('getExistData', this.getData.bind(this));
     this.eventBus.on('getCategory', this.getCategories.bind(this));
   }
@@ -90,7 +90,7 @@ export default class NewAdPageModel {
    * отправка объявления на сервер
    * @param {bool} isNew новое объявление или редактирование старого
    */
-  sendAd(isNew) {
+  validateAd(isNew) {
     const nameDiv = document.querySelector('.new-advert__name');
     const title = nameDiv.childNodes[3].value.trim();
     if (!validate(nameDiv)) {
@@ -103,7 +103,8 @@ export default class NewAdPageModel {
       return;
     }
     const condition = document.getElementById('radio-new').checked;
-    priceDiv.classList.remove('text-input_wrong');
+    const priceDiv = document.querySelector('.new-advert__price');
+    const price = priceDiv.childNodes[3].value.trim();
     const coords = this.#coords;
     if (coords === undefined) {
       document.querySelector('.new-advert__location').classList.add('text-input_wrong');
@@ -119,39 +120,16 @@ export default class NewAdPageModel {
       const adId = window.location.pathname.split('/')[2];
       endpointUrl = `${secureDomainUrl}adverts/${adId}`;
     }
-    const response = Ajax.postUsingFetch({
-      url: endpointUrl,
-      body: {
-        name: title,
-        description: description,
-        category: category,
-        is_new: condition,
-        price: Number(price),
-        location: address,
-        latitude: coords[0],
-        longitude: coords[1],
-        amount: 100,
-        publisher_id: Number(localStorage.getItem('id')),
-      },
-    });
-    response.then(({status, parsedBody}) => {
-      if (status != statusCodes.OK) {
-        return;
-      }
-      const {code} = parsedBody;
-      console.log(code, parsedBody);
-      if (code == statusCodes.REGDONE) {
-        const id = parsedBody.body.advert.id;
-        this.eventBus.emit('successSend', id, isNew);
-      }
-    });
+    this.eventBus.emit('validateSuccessful', endpointUrl, title, description,
+        category, condition, price, address, coords, isNew);
   }
 
   /**
    * Отправляет фото
    * @param {number} id id объявления
+   * @param {boolean} isNew редакт или новое
    */
-  sendPhoto(id, isNew) {
+  validatePhoto(id, isNew) {
     const file = document.querySelector('.new-advert__images').files;
     if (file.length === 0) {
       if (!isNew) {
@@ -161,26 +139,10 @@ export default class NewAdPageModel {
       return;
     }
     const formData = new FormData();
-    file.forEach((elem)=>{
-      formData.append('images', elem);
-    })
-    const res = Ajax.postImageUsingFetch({
-      url: `${secureDomainUrl}adverts/${id}/upload`,
-      body: formData,
-    });
-    res.then(({status})=>{
-      if (status != statusCodes.OK) {
-        return;
-      }
-      // Переход на страницу профиля при новом
-      // или на странцу объявления при редактировании
-      if (isNew) {
-        this.eventBus.emit('photosSend');
-        return;
-      } else {
-        this.eventBus.emit('redirectToAd', id);
-      }
-    });
+    for (let i = 0; i < file.length; i++) {
+      formData.append('images', file[i]);
+    }
+    this.eventBus.emit('photoDataPacked', formData, id, isNew);
   }
 
   /**
