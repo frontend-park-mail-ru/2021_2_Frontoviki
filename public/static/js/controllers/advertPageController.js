@@ -89,9 +89,9 @@ export default class AdvertPageController {
 
   /**
    * Добавление в корзину
-   * @param {*} advertPage
+   * @param {*} id
    */
-  addToCart(advertPage, id) {
+  addToCart(id) {
     if (/ad/.test(window.location.pathname) === false) {
       return;
     }
@@ -124,9 +124,7 @@ export default class AdvertPageController {
       if (code === statusCodes.NOTEXIST) {
         return;
       }
-      const addToFav = document.getElementById('favBtn');
-      addToFav.style.color = '#8897f9';
-      addToFav.onclick = () => this.eventBus.emit('goToFav');
+      this.eventBus.emit('addedToFavorite');
     });
   }
 }

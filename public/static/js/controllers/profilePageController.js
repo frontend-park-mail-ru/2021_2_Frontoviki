@@ -1,6 +1,8 @@
 import EventBus from '../modules/EventBus.js';
 import ProfilePageModel from '../models/profilePage.js';
 import ProfilePageView from '../views/profilePage.js';
+import {Ajax} from '../modules/ajax.js';
+import {secureDomainUrl, statusCodes} from '../constatns.js';
 
 /**
  * Контроллер главной страницы
@@ -45,6 +47,12 @@ export default class ProfilePageController {
     this.eventBus.on('onCardClicked', this.goToCardPage.bind(this));
     this.eventBus.on('goToArchive', this.goToArchive.bind(this));
     this.eventBus.on('renderFavorite', this.redirectToFav.bind(this));
+
+    this.eventBus.on('uploadPhoto', this.uploadPhoto.bind(this));
+    this.eventBus.on('infoChecked', this.updateProfileInfo.bind(this));
+    this.eventBus.on('deleteFromFav', this.deleteFromFavorite.bind(this));
+    this.eventBus.on('deleteFromCart', this.deleteFromCart.bind(this));
+    this.eventBus.on('passwordChecked', this.updatePassword.bind(this));
   }
 
   /**
@@ -93,5 +101,112 @@ export default class ProfilePageController {
    */
   goToCardPage(id) {
     this.router.go('/ad/' + id);
+  }
+  /**
+ * Загружает аватарку на сервер
+ * @param {*} formData фото пользователя
+ */
+  uploadPhoto(formData) {
+    Ajax.postImageUsingFetch({
+      url: secureDomainUrl + 'users/profile/upload',
+      body: formData,
+    });
+  }
+
+  /**
+   *
+   * @param {*} email
+   * @param {*} name
+   * @param {*} surname
+   * @param {*} phone
+   */
+  updateProfileInfo(email, name, surname, phone) {
+    const response = Ajax.postUsingFetch({
+      url: secureDomainUrl + 'users/profile',
+      body: {email, name, surname, phone},
+    });
+    response.then(({status, parsedBody}) => {
+      if (status != statusCodes.OK) {
+        return;
+      }
+      const {code} = parsedBody;
+      console.log(parsedBody);
+      if (code === statusCodes.OK) {
+        localStorage.setItem('name', name);
+        localStorage.setItem('surname', surname);
+        localStorage.setItem('phone', phone);
+        this.eventBus.emit('profileUpdated', name, surname);
+      };
+    });
+  }
+
+  /**
+   * 
+   */
+  updatePassword(oldPassword, password) {
+    const response = Ajax.postUsingFetch({
+      url: secureDomainUrl + 'users/profile/password',
+      body: {
+        email: localStorage.getItem('email'),
+        password: oldPassword,
+        new_password: password,
+      },
+    });
+    response.then(({status, parsedBody}) => {
+      if (status != statusCodes.OK) {
+        return;
+      }
+      const {code} = parsedBody;
+      console.log(parsedBody);
+      if (code === statusCodes.OK) {
+        this.eventBus.emit('passwordChangeOk');
+        return;
+      };
+      this.eventBus.emit('passwordChangeNotOk');
+    });
+  }
+  /**
+ * удаляет из корзины
+ * @param {*} id объявления
+ * @param {Number} advertPos позиция удаляемой карточки в гриде
+ */
+  deleteFromCart(id, advertPos) {
+    const res = Ajax.postUsingFetch({
+      url: secureDomainUrl + 'cart/one',
+      body: {
+        advert_id: Number(id),
+        amount: 0,
+      },
+    });
+    res.then(({parsedBody}) => {
+      const {code} = parsedBody;
+      if (code === statusCodes.NOTEXIST) {
+        return;
+      }
+      if (advertPos != null) {
+        this.model.getCart();
+      }
+    });
+  }
+
+  /**
+   * удаляет из избранного
+   * @param {*} id объявления
+   * @param {Number} advertPos позиция удаляемой карточки в гриде
+   */
+  deleteFromFavorite(id, advertPos) {
+    console.log('kek');
+    const res = Ajax.deleteAdUsingFetch({
+      url: secureDomainUrl + 'adverts/favorite/' + id,
+    });
+    res.then(({parsedBody}) => {
+      const {code} = parsedBody;
+      if (code === statusCodes.NOTEXIST) {
+        return;
+      }
+      if (advertPos != null) {
+        this.model.getFavorite();
+      }
+    });
   }
 }

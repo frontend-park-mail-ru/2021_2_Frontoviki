@@ -1,8 +1,8 @@
-import {createProductGrid} from '../templates/productGrid/productGrid.js';
-import {profileInfoBlock} from
+import { createProductGrid } from '../templates/productGrid/productGrid.js';
+import { profileInfoBlock } from
   '../templates/profileInfoBlock/profileInfoBlock.js';
-import {emptyGrid} from '../templates/productGrid/emptyGrid.js';
-import {settings} from '../templates/settings/settings.js';
+import { emptyGrid } from '../templates/productGrid/emptyGrid.js';
+import { settings } from '../templates/settings/settings.js';
 import BaseView from './baseView.js';
 
 /**
@@ -46,13 +46,13 @@ export default class ProfilePageView extends BaseView {
     });
 
     const favoriteBtn =
-    document.querySelector('.profile-content__buttons').childNodes[3];
+      document.querySelector('.profile-content__buttons').childNodes[3];
     favoriteBtn.addEventListener('click', (e) => {
       this.eventBus.emit('renderFavorite');
     });
 
     const cartBtn =
-    document.querySelector('.profile-content__buttons').childNodes[5];
+      document.querySelector('.profile-content__buttons').childNodes[5];
     cartBtn.addEventListener('click', (e) => {
       this.eventBus.emit('renderCart');
     });
@@ -81,10 +81,10 @@ export default class ProfilePageView extends BaseView {
     active.classList.add('profile-content-right__ads-type');
     active.style.color = '#004ad7';
     const archive = document.createElement('span');
-    archive.innerHTML='Архив';
+    archive.innerHTML = 'Архив';
     archive.classList.add('profile-content-right__ads-type');
 
-    active.addEventListener('click', ()=>{
+    active.addEventListener('click', () => {
       // удаляем предыдущие обявления
       if (document.querySelector('.root__product-grid') !== null) {
         rightBlock.removeChild(document.querySelector('.root__product-grid'));
@@ -94,7 +94,7 @@ export default class ProfilePageView extends BaseView {
       archive.style.color = 'black';
     });
 
-    archive.addEventListener('click', ()=>{
+    archive.addEventListener('click', () => {
       // удаляем предыдущие обявления
       if (document.querySelector('.root__product-grid') !== null) {
         rightBlock.removeChild(document.querySelector('.root__product-grid'));
@@ -145,15 +145,15 @@ export default class ProfilePageView extends BaseView {
       if (archive) {
         rightBlock.appendChild(createProductGrid(adverts, false, false));
         const cards = document.querySelectorAll('.card');
-        cards.forEach((elem)=>{
-          elem.addEventListener('click', (e)=> e.preventDefault());
+        cards.forEach((elem) => {
+          elem.addEventListener('click', (e) => e.preventDefault());
         });
         return;
       }
       rightBlock.appendChild(createProductGrid(adverts, true, false));
       const cards = document.querySelectorAll('.card');
-      cards.forEach((elem, key)=>{
-        elem.addEventListener('click', (e)=> {
+      cards.forEach((elem, key) => {
+        elem.addEventListener('click', (e) => {
           e.preventDefault();
           e.stopPropagation();
           if (e.target.classList.contains('card__delete')) {
@@ -175,12 +175,13 @@ export default class ProfilePageView extends BaseView {
     emptyGridActive.id = 'empty';
     const gridT = emptyGrid();
     if (favorite) {
-      emptyGridActive.innerHTML = gridT({text: `В избранном ничего нет`});
+      emptyGridActive.innerHTML = gridT({ text: `В избранном ничего нет` });
     } else if (archive) {
-      emptyGridActive.innerHTML = gridT({text: `Архивные объявления будут
+      emptyGridActive.innerHTML = gridT({
+        text: `Архивные объявления будут
         отображаться на этой странице`});
     } else {
-      emptyGridActive.innerHTML = gridT({text: 'Активных объявлений нет'});
+      emptyGridActive.innerHTML = gridT({ text: 'Активных объявлений нет' });
     }
     rightBlock.appendChild(emptyGridActive);
   }
@@ -203,11 +204,11 @@ export default class ProfilePageView extends BaseView {
     active.classList.add('profile-content-right__ads-type');
     active.style.color = '#004ad7';
     const archive = document.createElement('span');
-    archive.innerHTML='Архив';
+    archive.innerHTML = 'Архив';
     archive.classList.add('profile-content-right__ads-type');
     active.style.color = 'black';
     archive.style.color = '#004ad7';
-    active.addEventListener('click', ()=>{
+    active.addEventListener('click', () => {
       // удаляем предыдущие обявления
       if (document.querySelector('.root__product-grid') !== null) {
         rightBlock.removeChild(document.querySelector('.root__product-grid'));
@@ -230,7 +231,70 @@ export default class ProfilePageView extends BaseView {
     rightBlock.innerHTML = '';
     const settingsDiv = settings();
     rightBlock.appendChild(settingsDiv);
-    this.eventBus.emit('settingsRendered');
+
+    const photoInput = document.getElementById('avatar_loader');
+    const img = document.getElementById('avatar_preview');
+    photoInput.onchange = () => {
+      const [file] = photoInput.files;
+      if (file) {
+        img.src = URL.createObjectURL(file);
+        document.querySelector('.profile-content__avatar__image').src =
+          URL.createObjectURL(file);
+        document.querySelector('.mini-profile__avatar').src =
+          URL.createObjectURL(file);
+        localStorage.setItem('image', URL.createObjectURL(file));
+        const formData = new FormData();
+        formData.append('avatar', file);
+        this.eventBus.emit('uploadPhoto', formData);
+      }
+    };
+    const phoneInput = document.getElementById('settingPhone').childNodes[3];
+    phoneInput.addEventListener('focus', () => {
+      if (phoneInput.value < 15) {
+        phoneInput.value = '+7(';
+      }
+    });
+    let old = 0;
+    phoneInput.addEventListener('keydown', (e) => {
+      // backspace delete
+      if (!/\d/.test(e.key) && e.keyCode != 8 && e.keyCode != 46) {
+        e.preventDefault();
+        return;
+      }
+      const curLen = phoneInput.value.length;
+      if (curLen < old) {
+        old--;
+        return;
+      }
+      if (curLen == 6) {
+        phoneInput.value = phoneInput.value + ')';
+      }
+      if (curLen == 10) {
+        phoneInput.value = phoneInput.value + '-';
+      }
+      if (curLen == 13) {
+        phoneInput.value = phoneInput.value + '-';
+      }
+      if (curLen > 15) {
+        phoneInput.value = phoneInput.value.substring(0, phoneInput.value.length - 1);
+      }
+      old++;
+    });
+    const changeInfoBtn = document.getElementById('settings__change-info');
+    changeInfoBtn.addEventListener('click',
+        () => this.eventBus.emit('validateProfileInfo'));
+
+    const changePasswrdBtn = document.
+        getElementById('settings__change-password');
+    changePasswrdBtn.addEventListener('click', (e) => {
+      const passwordDiv = document.getElementById('settingPassword');
+      const oldPasswordDiv = document.getElementById('settingOldPassword');
+      const password = passwordDiv.childNodes[3].value.trim();
+      const oldPassword = oldPasswordDiv.childNodes[3].value.trim();
+      passwordDiv.classList.remove('text-input_correct');
+      oldPasswordDiv.classList.remove('text-input_correct');
+      this.eventBus.emit('changePassword', oldPassword, password);
+    });
   }
 
   /**
@@ -239,7 +303,7 @@ export default class ProfilePageView extends BaseView {
   renderFavorite() {
     this.render();
     makeBlue(document.querySelector('.profile-content__buttons').
-        childNodes[3]);
+      childNodes[3]);
     const rightBlock = document.querySelector('.profile-content_right');
     rightBlock.innerHTML = '';
     const title = document.createElement('h3');
@@ -285,7 +349,7 @@ export default class ProfilePageView extends BaseView {
       const emptyGridActive = document.createElement('div');
       emptyGridActive.id = 'empty';
       const gridT = emptyGrid();
-      emptyGridActive.innerHTML = gridT({text: 'Корзина пуста'});
+      emptyGridActive.innerHTML = gridT({ text: 'Корзина пуста' });
       rightBlock.appendChild(emptyGridActive);
       return;
     }
@@ -295,8 +359,8 @@ export default class ProfilePageView extends BaseView {
     });
     rightBlock.appendChild(createProductGrid(adverts, true, true));
     const cards = document.querySelectorAll('.card');
-    cards.forEach((elem, key)=>{
-      elem.addEventListener('click', (e)=> {
+    cards.forEach((elem, key) => {
+      elem.addEventListener('click', (e) => {
         e.preventDefault();
         e.stopPropagation();
         // удаляем

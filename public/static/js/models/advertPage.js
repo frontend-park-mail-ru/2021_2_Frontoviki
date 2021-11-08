@@ -15,6 +15,7 @@ export default class AdvertPageModel {
     this.eventBus.on('refreshCart', this.cartLogic.bind(this));
     this.eventBus.on('checkCart', this.cartLogic.bind(this));
     this.eventBus.on('addedToCart', this.successAdd.bind(this));
+    this.eventBus.on('addedToFavorite', this.successFav.bind(this));
   }
 
   /**
@@ -77,7 +78,7 @@ export default class AdvertPageModel {
         }
       });
       if (canAdd) {
-        addBtn.onclick = ()=> this.eventBus.emit('addToCart', this, advert.id);
+        addBtn.onclick = ()=> this.eventBus.emit('addToCart', advert.id);
       }
     });
   }
@@ -88,5 +89,14 @@ export default class AdvertPageModel {
     const addBtn = document.getElementById('addToCartBtn');
     addBtn.innerHTML = 'В корзине';
     addBtn.onclick = () => this.eventBus.emit('goToCart');
+  }
+
+  /**
+   * Добавили в избранное
+   */
+  successFav() {
+    const addToFav = document.getElementById('favBtn');
+    addToFav.style.color = '#8897f9';
+    addToFav.onclick = () => this.eventBus.emit('goToFav');
   }
 }
