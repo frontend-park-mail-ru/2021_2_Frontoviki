@@ -60,7 +60,9 @@ export default class AdvertPageModel {
       addBtn.style.display = 'none';
       const editBtn = document.getElementById('editBtn');
       editBtn.style.display = 'inline-block';
-      editBtn.addEventListener('click', () => this.eventBus.emit('onEditClicked', advert.id));
+      editBtn.addEventListener('click', () => {
+        this.eventBus.emit('onEditClicked', advert.id);
+      });
     }
     const res = Ajax.getUsingFetch({
       url: secureDomainUrl + 'cart',
