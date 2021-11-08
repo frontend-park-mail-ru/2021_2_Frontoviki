@@ -57,7 +57,7 @@ export default class AdvertPageModel {
       carousel.plusSlides(1);
     });
     document.querySelectorAll('.dot').forEach((elem, key) =>{
-      elem.addEventListener('click', (e)=>{
+      elem.addEventListener('click', ()=>{
         carousel.currentSlide(key + 1);
       });
     });

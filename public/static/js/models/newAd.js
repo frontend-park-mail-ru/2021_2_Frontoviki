@@ -103,12 +103,6 @@ export default class NewAdPageModel {
       return;
     }
     const condition = document.getElementById('radio-new').checked;
-    const priceDiv = document.querySelector('.new-advert__price');
-    const price = priceDiv.childNodes[3].value.trim();
-    if (price.length === 0 || price < 0 || !price.match(/^\d+$/)) {
-      priceDiv.classList.add('text-input_wrong');
-      return;
-    }
     priceDiv.classList.remove('text-input_wrong');
     const coords = this.#coords;
     console.log(coords);
@@ -168,24 +162,22 @@ export default class NewAdPageModel {
       return;
     }
     const formData = new FormData();
-    for (let i = 0; i < file.length; i++) {
-      formData.append('images', file[i]);
-    }
+    file.forEach((elem)=>{
+      formData.append('images', elem);
+    })
     const res = Ajax.postImageUsingFetch({
       url: secureDomainUrl + 'adverts/' + id + '/upload',
       body: formData,
     });
-    res.then(({status, parsedBody})=>{
+    res.then(({status})=>{
       if (status != statusCodes.OK) {
         return;
       }
-      const {code} = parsedBody;
-      console.log(code, parsedBody);
-      console.log('hooray!');
       // Переход на страницу профиля при новом
-      // или на странциу объявления при редактировании
+      // или на странцу объявления при редактировании
       if (isNew) {
         this.eventBus.emit('photosSend');
+        return;
       } else {
         this.eventBus.emit('redirectToAd', id);
       }
