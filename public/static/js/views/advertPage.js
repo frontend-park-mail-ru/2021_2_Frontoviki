@@ -1,5 +1,6 @@
 import {advertPageTemplate} from '../templates/advertPage/advertPageT';
 import BaseView from './baseView.js';
+import {SliderLogic} from '../templates/advertPage/sliderLogic.js';
 
 /**
   *Класс для генерации страницы объявления
@@ -13,6 +14,7 @@ export default class AdvertPageView extends BaseView {
     super(eventBus);
     this.render = this.render.bind(this);
     this.eventBus.on('gotAd', this.renderAd.bind(this));
+    this.eventBus.on('adDrawn', this.adLogic.bind(this));
   }
 
   /**
@@ -56,5 +58,66 @@ export default class AdvertPageView extends BaseView {
       addToFav.style.color = '#333';
     });
     addToFav.onclick = () => this.eventBus.emit('addToFavourite');
+  }
+
+  /**
+   * Логика и интерактивные объекты
+   * @param {*} advert объявление
+   */
+   adLogic(advert) {
+    const carousel = new SliderLogic();
+    document.querySelector('.gallery__prev-button').addEventListener('click', (e) => {
+      e.preventDefault();
+      e.stopPropagation();
+      carousel.plusSlides(-1);
+    });
+    document.querySelector('.gallery__next-button').addEventListener('click', (e) => {
+      e.preventDefault();
+      e.stopPropagation();
+      carousel.plusSlides(1);
+    });
+    document.querySelectorAll('.dot').forEach((elem, key) =>{
+      elem.addEventListener('click', ()=>{
+        carousel.currentSlide(key + 1);
+      });
+    });
+    carousel.showSlides(1);
+    ymaps.ready(() => {
+      const myMap = new ymaps.Map('YMapsIDNewAd', {
+        center: [advert.latitude, advert.longitude],
+        zoom: 14,
+      });
+      const myGeoObject = new ymaps.GeoObject({
+        geometry: {
+          type: 'Point', // тип геометрии - точка
+          coordinates: [advert.latitude, advert.longitude], // координаты точки
+        },
+      });
+      myMap.geoObjects.add(myGeoObject);
+    });
+    document.querySelector('.advertisment-detail__main-info__shop__salesman__avatar').addEventListener('click', (e)=>{
+      e.stopPropagation();
+      e.preventDefault();
+      this.eventBus.emit('onSalesmanClicked', advert.publisher_id);
+    });
+    const addBtn = document.getElementById('addToCartBtn');
+    if (Number(localStorage.getItem('id')) === advert.publisher_id) {
+      document.getElementById('chatBtn').style.display = 'none';
+      addBtn.style.display = 'none';
+      const editBtn = document.getElementById('editBtn');
+      editBtn.style.display = 'inline-block';
+      editBtn.addEventListener('click', () => this.eventBus.emit('onEditClicked', advert.id));
+    }
+    addBtn.addEventListener('click', ()=> {
+      if (localStorage.getItem('id') === null) {
+        this.eventBus.emit('notLogged');
+        return;
+      }
+    });
+
+    if (localStorage.getItem('id') === null) {
+      return;
+    }
+    this.eventBus.emit('checkCart', advert);
   }
 }

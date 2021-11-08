@@ -448,11 +448,7 @@ export default class ProfilePageModel {
         modalText: 'Покупка',
         deleteModal: false,
       });
-      document.getElementsByTagName('body')[0].appendChild(modal);
-      const modal1 = document.getElementById('modal-1');
-      modal1.classList.add('modal_active');
-      const modalText = document.querySelector('.modal__content');
-
+      // error := http.ListenAndServe(":8080", r)
       const modalAdvName = document.createElement('p');
       modalAdvName.innerHTML = `Товар: ${advert.name}`;
       modalText.appendChild(modalAdvName);

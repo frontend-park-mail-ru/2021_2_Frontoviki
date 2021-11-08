@@ -1,6 +1,8 @@
 import EventBus from '../modules/EventBus.js';
 import AdvertPageModel from '../models/advertPage.js';
 import AdvertPageView from '../views/advertPage.js';
+import {Ajax} from '../modules/ajax.js';
+import {secureDomainUrl, statusCodes} from '../constatns.js';
 
 /**
  * Контроллер страницы объялвения
@@ -33,6 +35,8 @@ export default class AdvertPageController {
     this.eventBus.on('goToCart', this.goToCart.bind(this));
     this.eventBus.on('onSalesmanClicked', this.goToSalesman.bind(this));
     this.eventBus.on('goToFav', this.goToFav.bind(this));
+    this.eventBus.on('addToCart', this.addToCart.bind(this));
+    this.eventBus.on('addToFavourite', this.addToFav.bind(this));
     this.globalEventBus.on('loggedForCart', this.refreshCart.bind(this));
   }
 
@@ -81,5 +85,48 @@ export default class AdvertPageController {
    */
   goToFav() {
     this.router.go('/profile/favorite');
+  }
+
+  /**
+   * Добавление в корзину
+   * @param {*} advertPage
+   */
+  addToCart(advertPage, id) {
+    if (/ad/.test(window.location.pathname) === false) {
+      return;
+    }
+    const res = Ajax.postUsingFetch({
+      url: secureDomainUrl + 'cart/one',
+      body: {
+        advert_id: Number(id),
+        amount: 1,
+      },
+    });
+    res.then(({parsedBody}) => {
+      const {code} = parsedBody;
+      if (code === statusCodes.NOTEXIST) {
+        return;
+      }
+      this.eventBus.emit('addedToCart');
+    });
+  }
+  /**
+ * Добавление в избранное
+ */
+  addToFav() {
+    const adId = window.location.pathname.split('/')[2];
+    const res = Ajax.postUsingFetch({
+      url: secureDomainUrl + 'adverts/favorite/' + adId,
+    });
+    res.then(({parsedBody}) => {
+      console.log(parsedBody);
+      const {code} = parsedBody;
+      if (code === statusCodes.NOTEXIST) {
+        return;
+      }
+      const addToFav = document.getElementById('favBtn');
+      addToFav.style.color = '#8897f9';
+      addToFav.onclick = () => this.eventBus.emit('goToFav');
+    });
   }
 }
