@@ -1,6 +1,6 @@
-import { Ajax } from '../modules/ajax.js';
-import { secureDomainUrl, statusCodes } from '../constatns.js';
-import { createDeleteModal } from '../templates/deleteModal/deleteModal.js';
+import {Ajax} from '../modules/ajax.js';
+import {secureDomainUrl, statusCodes} from '../constatns.js';
+import {createDeleteModal} from '../templates/deleteModal/deleteModal.js';
 
 
 /**
@@ -21,10 +21,11 @@ export default class ProfilePageModel {
     this.eventBus.on('validateProfileInfo', this.validateProfile.bind(this));
     this.eventBus.on('changePassword', this.changePassword.bind(this));
     this.eventBus.on('onDeleteClick', this.handleDelete.bind(this));
-    this.eventBus.on('buyFromCart', this.buyFromCart.bind(this));
     this.eventBus.on('profileUpdated', this.updateInfo.bind(this));
     this.eventBus.on('passwordChangeOk', this.passwordChanged.bind(this));
     this.eventBus.on('passwordChangeNotOk', this.passwordNotChanged.bind(this));
+    this.eventBus.on('deletedSuccessful', this.adDeleted.bind(this));
+    this.eventBus.on('buySuccess', this.showSuccessBuy.bind(this));
   }
   /**
  * Получить все объявления пользователя
@@ -161,8 +162,10 @@ export default class ProfilePageModel {
       return;
     }
     if (surname.length < 2) {
-      document.getElementById('settingName').classList.remove('text-input_wrong');
-      document.getElementById('settingSurname').classList.add('text-input_wrong');
+      document.getElementById('settingName').
+          classList.remove('text-input_wrong');
+      document.getElementById('settingSurname').
+          classList.add('text-input_wrong');
       return;
     }
     this.eventBus.emit('infoChecked', email, name, surname, phone);
@@ -186,7 +189,6 @@ export default class ProfilePageModel {
 
   /**
    * Смена пароля
-   * @param {*} email
    * @param {*} oldPassword
    * @param {*} password
    */
@@ -232,11 +234,11 @@ export default class ProfilePageModel {
   /**
    * Обработка удаления
    * @param {number} id айдишник объявления
-   * @param {Number} advertPos позиция удаляемой карточки в гриде
    */
-  handleDelete(id, advertPos) {
+  handleDelete(id) {
     const modalT = createDeleteModal();
     const modal = document.createElement('div');
+    modal.id = 'modal';
     modal.innerHTML = modalT({
       modalText: 'По какой причине вы хотите удалить объявление?',
       deleteModal: true,
@@ -246,13 +248,13 @@ export default class ProfilePageModel {
     modal1.classList.add('modal_active');
     const closeButton = modal1.getElementsByClassName('modal__close-button')[0];
 
-    closeButton.onclick = function (e) {
+    closeButton.onclick = function(e) {
       e.preventDefault();
       modal1.classList.remove('modal_active');
       document.getElementsByTagName('body')[0].removeChild(modal);
     };
 
-    modal1.onmousedown = function (e) {
+    modal1.onmousedown = function(e) {
       const modalContent = modal1.getElementsByClassName('modal__content')[0];
       if (e.target.closest('.' + modalContent.className) === null) {
         this.classList.remove('modal_active');
@@ -260,111 +262,74 @@ export default class ProfilePageModel {
       }
     };
     const deleteBtn = document.getElementById('modal__button-delete');
-    deleteBtn.addEventListener('click', (e) => {
-      const res = Ajax.deleteAdUsingFetch({
-        url: secureDomainUrl + 'adverts/' + id,
-      });
-      // обновить страницу если успешно удалили
-      res.then(({ status, parsedBody }) => {
-        if (status != statusCodes.OK) {
-          return;
-        }
-        const { code } = parsedBody;
-        if (code === statusCodes.OK) {
-          // если удалили, то удаляем карточку и закрываем модальное окно
-          this.getAds();
-          document.querySelector('.modal__content').classList.remove('modal_active');
-          document.getElementsByTagName('body')[0].removeChild(modal);
-        };
-      });
+    deleteBtn.addEventListener('click', () => {
+      this.eventBus.emit('deleted', id);
     });
 
     const archiveBtn = document.getElementById('modal__button-to-archive');
     archiveBtn.addEventListener('click', (e) => {
-      const res = Ajax.postUsingFetch({
-        url: secureDomainUrl + 'adverts/' + id + '/close',
-      });
-      // обновить страницу если успешно закрыли
-      res.then(({ status, parsedBody }) => {
-        if (status != statusCodes.OK) {
-          return;
-        }
-        const { code } = parsedBody;
-        if (code === statusCodes.OK) {
-          // если заархивировали закрываем модальное окно и удаляем карточку
-          this.getAds();
-          document.querySelector('.modal__content').classList.remove('modal_active');
-          document.getElementsByTagName('body')[0].removeChild(modal);
-        };
-      });
+      this.eventBus.emit('archived', id);
     });
   }
 
   /**
-   * Оформление покупки
-   * @param {*} advert объект объявления
-   * @param {Number} advertPos позиция удаляем карточки в гриде
+   * Удалили из профиля или архивнули
+   * удаляем карточку и закрываем модальное окно
    */
-  buyFromCart(advert, advertPos) {
-    const res = Ajax.postUsingFetch({
-      url: secureDomainUrl + 'cart/' + advert.id + '/checkout',
-      body: {
-        advert_id: advert.id,
-      },
+  adDeleted() {
+    this.getAds();
+    const modal = document.getElementById('modal');
+    document.querySelector('.modal__content').classList.remove('modal_active');
+    document.getElementsByTagName('body')[0].removeChild(modal);
+  }
+
+  /**
+   * Оформление покупки
+   * @param {*} salesman объект продавца
+   * @param {*} advert объект объявления
+   */
+  showSuccessBuy(salesman, advert) {
+    const modalT = createDeleteModal();
+    const modal = document.createElement('div');
+    modal.innerHTML = modalT({
+      modalText: 'Покупка',
+      deleteModal: false,
     });
-    res.then(({ parsedBody }) => {
-      const { code } = parsedBody;
-      if (code === statusCodes.NOTEXIST) {
-        this.eventBus.emit('NoAd');
-        return;
-      }
-      console.log(parsedBody);
-      const { salesman } = parsedBody.body;
+    document.getElementsByTagName('body')[0].appendChild(modal);
+    const modal1 = document.getElementById('modal-1');
+    modal1.classList.add('modal_active');
+    const modalText = document.querySelector('.modal__content');
 
-      const modalT = createDeleteModal();
-      const modal = document.createElement('div');
-      modal.innerHTML = modalT({
-        modalText: 'Покупка',
-        deleteModal: false,
-      });
-      document.getElementsByTagName('body')[0].appendChild(modal);
-      const modal1 = document.getElementById('modal-1');
-      modal1.classList.add('modal_active');
-      const modalText = document.querySelector('.modal__content');
-
-      const modalAdvName = document.createElement('p');
-      modalAdvName.innerHTML = `Товар: ${advert.name}`;
-      modalText.appendChild(modalAdvName);
-      const modalAdvEmail = document.createElement('p');
-      modalAdvEmail.innerHTML = `email продавца: ${salesman.email}`;
-      modalText.appendChild(modalAdvEmail);
-      if (salesman.phone !== '') {
-        const resPhone = '+' + salesman.phone[0] + '(' +
+    const modalAdvName = document.createElement('p');
+    modalAdvName.innerHTML = `Товар: ${advert.name}`;
+    modalText.appendChild(modalAdvName);
+    const modalAdvEmail = document.createElement('p');
+    modalAdvEmail.innerHTML = `email продавца: ${salesman.email}`;
+    modalText.appendChild(modalAdvEmail);
+    if (salesman.phone !== '') {
+      const resPhone = '+' + salesman.phone[0] + '(' +
           salesman.phone.slice(1, 4) + ')' + salesman.phone.slice(4, 7) +
           '-' + salesman.phone.slice(7, 9) + '-' + salesman.phone.slice(9, 11);
-        const modalAdvPh = document.createElement('p');
-        modalAdvPh.innerHTML = `Контактный телефон: ${resPhone}`;
-        modalText.appendChild(modalAdvPh);
-      }
-      const modalAdvPrice = document.createElement('p');
-      modalAdvPrice.innerHTML = `Цена: ${advert.price} ₽`;
-      modalText.appendChild(modalAdvPrice);
+      const modalAdvPh = document.createElement('p');
+      modalAdvPh.innerHTML = `Контактный телефон: ${resPhone}`;
+      modalText.appendChild(modalAdvPh);
+    }
+    const modalAdvPrice = document.createElement('p');
+    modalAdvPrice.innerHTML = `Цена: ${advert.price} ₽`;
+    modalText.appendChild(modalAdvPrice);
 
-      const closeButton = modal1.getElementsByClassName('modal__close-button')[0];
-      closeButton.onclick = function(e) {
-        e.preventDefault();
-        modal1.classList.remove('modal_active');
-        document.getElementsByTagName('body')[0].removeChild(modal);
-        document.querySelectorAll('.card')[advertPos].remove();
-      };
-      modal1.onmousedown = function(e) {
-        const modalContent = modal1.getElementsByClassName('modal__content')[0];
-        if (e.target.closest('.' + modalContent.className) === null) {
-          this.classList.remove('modal_active');
-          document.getElementsByTagName('body')[0].removeChild(modal);
-          document.querySelectorAll('.card')[advertPos].remove();
-        }
-      };
-    });
+    const closeButton = modal1.getElementsByClassName('modal__close-button')[0];
+    closeButton.onclick = (e) => {
+      e.preventDefault();
+      modal1.classList.remove('modal_active');
+      this.getCart();
+    };
+    modal1.onmousedown = (e) => {
+      const modalContent = modal1.getElementsByClassName('modal__content')[0];
+      if (e.target.closest('.' + modalContent.className) === null) {
+        this.classList.remove('modal_active');
+        this.getCart();
+      }
+    };
   }
 }

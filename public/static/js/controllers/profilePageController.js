@@ -53,6 +53,9 @@ export default class ProfilePageController {
     this.eventBus.on('deleteFromFav', this.deleteFromFavorite.bind(this));
     this.eventBus.on('deleteFromCart', this.deleteFromCart.bind(this));
     this.eventBus.on('passwordChecked', this.updatePassword.bind(this));
+    this.eventBus.on('deleted', this.deleteAd.bind(this));
+    this.eventBus.on('archived', this.archiveAd.bind(this));
+    this.eventBus.on('buyFromCart', this.buyFromCart.bind(this));
   }
 
   /**
@@ -141,7 +144,9 @@ export default class ProfilePageController {
   }
 
   /**
-   * 
+   * Обновление пароля
+   * @param {*} oldPassword
+   * @param {*} password
    */
   updatePassword(oldPassword, password) {
     const response = Ajax.postUsingFetch({
@@ -195,7 +200,6 @@ export default class ProfilePageController {
    * @param {Number} advertPos позиция удаляемой карточки в гриде
    */
   deleteFromFavorite(id, advertPos) {
-    console.log('kek');
     const res = Ajax.deleteAdUsingFetch({
       url: secureDomainUrl + 'adverts/favorite/' + id,
     });
@@ -207,6 +211,65 @@ export default class ProfilePageController {
       if (advertPos != null) {
         this.model.getFavorite();
       }
+    });
+  }
+
+  /**
+   * Удаление объявления
+   * @param {*} id
+   */
+  deleteAd(id) {
+    const res = Ajax.deleteAdUsingFetch({
+      url: `${secureDomainUrl}adverts/${id}`,
+    });
+    res.then(({status, parsedBody}) => {
+      if (status != statusCodes.OK) {
+        return;
+      }
+      const {code} = parsedBody;
+      if (code === statusCodes.OK) {
+        this.eventBus.emit('deletedSuccessful');
+      };
+    });
+  }
+
+  /**
+   * Архив
+   * @param {*} id
+   */
+  archiveAd(id) {
+    const res = Ajax.postUsingFetch({
+      url: `${secureDomainUrl}adverts/${id}/close`,
+    });
+    res.then(({status, parsedBody}) => {
+      if (status != statusCodes.OK) {
+        return;
+      }
+      const {code} = parsedBody;
+      if (code === statusCodes.OK) {
+        this.eventBus.emit('deletedSuccessful');
+      };
+    });
+  }
+
+  /**
+   * Оформление покупки
+   * @param {*} advert объект объявления
+   */
+  buyFromCart(advert) {
+    const res = Ajax.postUsingFetch({
+      url: secureDomainUrl + 'cart/' + advert.id + '/checkout',
+      body: {
+        advert_id: advert.id,
+      },
+    });
+    res.then(({parsedBody}) => {
+      const {code} = parsedBody;
+      if (code === statusCodes.NOTEXIST) {
+        return;
+      }
+      console.log(parsedBody);
+      this.eventBus.emit('buySuccess', parsedBody.body.salesman, advert);
     });
   }
 }
