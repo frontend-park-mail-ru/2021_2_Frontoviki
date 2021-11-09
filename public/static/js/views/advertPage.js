@@ -58,6 +58,19 @@ export default class AdvertPageView extends BaseView {
       addToFav.style.color = '#333';
     });
     addToFav.onclick = () => this.eventBus.emit('addToFavourite');
+    const label = document.querySelector('.advertisment-detail__add-info__location__name-block__maps-label')
+    label.addEventListener('click', ()=>{
+      const toogle = document.getElementById('toogle_maps');
+      if (!toogle.checked) {
+        label.classList.remove('advertisment-detail__add-info__location__name-block__maps-label_close');
+        label.innerHTML = 'Скрыть карту';
+        label.classList.add('advertisment-detail__add-info__location__name-block__maps-label_open');
+      } else {
+        label.classList.add('advertisment-detail__add-info__location__name-block__maps-label_close');
+        label.innerHTML = 'Раскрыть карту';
+        label.classList.remove('advertisment-detail__add-info__location__name-block__maps-label_open');
+      }
+    })
   }
 
   /**

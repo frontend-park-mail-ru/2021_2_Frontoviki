@@ -17,7 +17,6 @@ export default class ProfilePageModel {
     this.eventBus.on('getCart', this.getCart.bind(this));
     this.eventBus.on('getFavorite', this.getFavorite.bind(this));
     this.eventBus.on('getArchive', this.getArchive.bind(this));
-    this.eventBus.on('checkLog', this.checkForLogging.bind(this));
     this.eventBus.on('validateProfileInfo', this.validateProfile.bind(this));
     this.eventBus.on('changePassword', this.changePassword.bind(this));
     this.eventBus.on('onDeleteClick', this.handleDelete.bind(this));
@@ -120,14 +119,7 @@ export default class ProfilePageModel {
       };
     });
   }
-  /**
- * Проверяет авторизован ли пользователь
- */
-  checkForLogging() {
-    if (localStorage.getItem('name') === null) {
-      this.eventBus.emit('notLogged');
-    }
-  }
+
 
   /**
    * Логика работы настроек

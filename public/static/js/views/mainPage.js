@@ -42,7 +42,6 @@ export default class MainPageView extends BaseView {
     const cards = document.querySelectorAll('.card');
     cards.forEach((elem, num)=>{
       elem.addEventListener('click', (e)=>{
-        console.log('click', elem, adverts[num].id);
         e.preventDefault();
         e.stopPropagation();
         this.eventBus.emit('onCardClicked', adverts[num].id);

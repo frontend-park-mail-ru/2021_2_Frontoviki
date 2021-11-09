@@ -56,6 +56,7 @@ export default class ProfilePageController {
     this.eventBus.on('deleted', this.deleteAd.bind(this));
     this.eventBus.on('archived', this.archiveAd.bind(this));
     this.eventBus.on('buyFromCart', this.buyFromCart.bind(this));
+    this.eventBus.on('checkLog', this.checkForLogging.bind(this));
   }
 
   /**
@@ -271,5 +272,14 @@ export default class ProfilePageController {
       console.log(parsedBody);
       this.eventBus.emit('buySuccess', parsedBody.body.salesman, advert);
     });
+  }
+
+  /**
+ * Проверяет авторизован ли пользователь
+ */
+  checkForLogging() {
+    if (localStorage.getItem('name') === null) {
+      this.eventBus.emit('notLogged');
+    }
   }
 }

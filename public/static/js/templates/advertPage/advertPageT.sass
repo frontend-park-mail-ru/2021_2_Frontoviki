@@ -1,10 +1,22 @@
 @import "../../../css/variables"
+.root__info-block
+    position: relative
+    margin-bottom: 30px
+
 .advertisment-detail
+    flex-direction: column
     width: 100%
     height: 100%
     display: flex
-    flex-direction: column
     align-items: flex-start
+    max-width: 1200px
+    box-shadow: rgba(0, 0, 0, 0.1) 0px 0px 5px 0px, rgba(0, 0, 0, 0.1) 0px 0px 1px 0px
+    border-radius: 5px
+
+    &-block
+        display: flex
+        flex-direction: column
+        align-items: center
 
     &__main-info
         width: 100%
@@ -19,7 +31,7 @@
             height: 100%
             display: flex
             flex-direction: column
-            align-items: flex-start
+            align-items: center
 
             &__text
                 width: 100%
@@ -34,26 +46,14 @@
                     margin-left: 10px
 
                 &__favourite
-                    padding: 10px
-                    text-align: right
-                    color: rgb(51, 51, 51)
-                    font-weight: normal
-                    font-style: normal
-                    font-stretch: normal
-                    letter-spacing: normal
-                    font-size: 20px
-                    line-height: 1.71
-                    flex-shrink: 0
-                    cursor: pointer
-                    background-color: rgb(255, 255, 255)
-                    max-height: 32px
-                    border: none
-                    font-family: inherit
+                    width: auto
 
                     &__icon
                         margin-right: 5px
 
             &__gallery
+                width: -webkit-fit-content
+                width: -moz-fit-content
                 width: fit-content
                 height: 100%
                 display: flex
@@ -64,21 +64,19 @@
 
                 &__image-block
                     width: 100%
-                    height: 100%
+                    height: 400px
+                    position: relative
                     display: flex
-                    justify-self: center
+                    justify-content: center
                     flex-direction: column
                     align-items: center
-
-                    background-color: $header-background-color
-
+                    background-color: #373f47
                     margin: 10px
 
                     &__image
-                        max-height: 600px
-                        max-width: 800px
-                        width: inherit
-                        height: auto
+                        object-fit: cover
+                        width: 100%
+                        height: 100%
 
                 &__roundabout
                     height: 100px
@@ -98,8 +96,7 @@
             display: flex
             flex-direction: column
             align-items: flex-start
-            padding: 10px
-            padding-top: 54px
+            padding: 54px 10px 10px
             margin: 0 auto
 
             &__price
@@ -114,6 +111,7 @@
                 align-items: center
                 justify-content: flex-start
                 &__avatar
+                    -o-object-fit: cover
                     object-fit: cover
                     width: 30px
                     height: 30px
@@ -162,15 +160,51 @@
         display: flex
         flex-direction: row
         justify-content: space-between
+        &__text
+            display: flex
+            flex-direction: row
+            justify-content: flex-start
+        &__icon
+            fill: #000
+            width: 20px
+            height: 20px
+            margin-right: 10px
+
 
     &__add-info__location__map
         width: 100%
         height: 300px
         display: none
+.advertisment-detail__add-info__condition-block::after, .advertisment-detail__add-info__published-date-block::after
+    content: ""
+    position: absolute
+    left: 0px
+    right: 0px
+    bottom: 0px
+    height: 1px
+    background-color: rgb(220, 220, 220)
 
 #YMapsIDNewAd
     width: inherit
     height: inherit
+.advertisment-detail__add-info__location__toogle
+    display: none
+
+    &:checked+.advertisment-detail__add-info__location__map
+        display: block
+        margin-top: 30px
+
+.advertisment-detail__add-info__location__name-block__maps-label
+    color: #54a5f3
+
+    &:hover
+        cursor: pointer
+
+    &_close::after
+        content: "\2193"
+
+    &_open::after
+        content: "\2191"
 
 .advertisment-detail__add-info__location__toogle
     display: none
@@ -181,18 +215,20 @@
 .advertisment-detail__add-info__published-date-block
     width: 100%
     padding: 20px
+    position: relative
+    margin: 0
 
 .advertisment-detail__add-info__condition-block
     width: 100%
     padding: 20px
+    position: relative
+    margin: 0
 
 .advertisment-detail__add-info__description-block
     width: 100%
     padding: 20px
-    border: solid
-    border-color: $button-background-color
-    border-radius: 5px
-    border-width: 1px
+    position: relative
+    margin: 0
 
 .advertisment-detail__capture
     font-size: 16px
@@ -214,6 +250,11 @@
 
     .advertisment-detail__add-info
         width: 100%
+
+@media screen and (max-width: 600px)
+    .advertisment-detail__main-info__main__text
+        flex-direction: column
+        align-iems: center
 
 .slideshow-container
     max-width: 1000px
@@ -241,11 +282,12 @@
 
 .gallery__prev-button
     left: 0%
+    background-color: rgba(0,0,0,0.4)
 
 .gallery__next-button
     right: 0
+    background-color: rgba(0,0,0,0.4)
     border-radius: 3px 0 0 3px
-
 
 .gallery__prev-button:hover, .gallery__next-button:hover
     background-color: rgba(0,0,0,0.8)

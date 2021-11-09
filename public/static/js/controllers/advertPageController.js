@@ -37,6 +37,8 @@ export default class AdvertPageController {
     this.eventBus.on('goToFav', this.goToFav.bind(this));
     this.eventBus.on('addToCart', this.addToCart.bind(this));
     this.eventBus.on('addToFavourite', this.addToFav.bind(this));
+    this.eventBus.on('refreshCart', this.cartLogic.bind(this));
+    this.eventBus.on('checkCart', this.cartLogic.bind(this));
     this.globalEventBus.on('loggedForCart', this.refreshCart.bind(this));
   }
 
@@ -125,6 +127,51 @@ export default class AdvertPageController {
         return;
       }
       this.eventBus.emit('addedToFavorite');
+    });
+  }
+
+   /**
+   * Проверка корзины
+   */
+  async cartLogic(advert) {
+    if (/ad/.test(window.location.pathname) === false) {
+      return;
+    }
+    if (advert === undefined) {
+      const adId = window.location.pathname.split('/')[2];
+      const res = await Ajax.getUsingFetch({
+        url: secureDomainUrl + 'adverts/' + adId,
+      });
+      advert = res.parsedBody.body.advert;
+    }
+    const addBtn = document.getElementById('addToCartBtn');
+    if (Number(localStorage.getItem('id')) === advert.publisher_id) {
+      document.getElementById('chatBtn').style.display = 'none';
+      addBtn.style.display = 'none';
+      const editBtn = document.getElementById('editBtn');
+      editBtn.style.display = 'inline-block';
+      editBtn.addEventListener('click', () => {
+        this.eventBus.emit('onEditClicked', advert.id);
+      });
+    }
+    const res = Ajax.getUsingFetch({
+      url: secureDomainUrl + 'cart',
+    });
+    res.then(({parsedBody}) => {
+      console.log(parsedBody);
+      const {cart} = parsedBody.body;
+      let canAdd = true;
+      cart.forEach((elem) => {
+        if (elem.advert_id === advert.id) {
+          addBtn.innerHTML = 'В корзине';
+          canAdd = false;
+          addBtn.onclick = () => this.eventBus.emit('goToCart');
+          return;
+        }
+      });
+      if (canAdd) {
+        addBtn.onclick = ()=> this.eventBus.emit('addToCart', advert.id);
+      }
     });
   }
 }
