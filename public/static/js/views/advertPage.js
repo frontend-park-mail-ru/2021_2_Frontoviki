@@ -15,6 +15,9 @@ export default class AdvertPageView extends BaseView {
     this.render = this.render.bind(this);
     this.eventBus.on('gotAd', this.renderAd.bind(this));
     this.eventBus.on('adDrawn', this.adLogic.bind(this));
+    this.eventBus.on('inCart', this.inCart.bind(this));
+    this.eventBus.on('notInCart', this.notInCart.bind(this));
+    this.eventBus.on('isOwner', this.isOwner.bind(this));
   }
 
   /**
@@ -138,5 +141,38 @@ export default class AdvertPageView extends BaseView {
       return;
     }
     this.eventBus.emit('checkCart', advert);
+  }
+
+  /**
+   * Товар в корзине
+   */
+  inCart() {
+    const addBtn = document.getElementById('addToCartBtn');
+    addBtn.innerHTML = 'В корзине';
+    addBtn.onclick = () => this.eventBus.emit('goToCart');
+  }
+
+  /**
+   * Не в корзине - можем добавить
+   * @param {int} id айди объявления
+   */
+  notInCart(id) {
+    const addBtn = document.getElementById('addToCartBtn');
+    addBtn.onclick = ()=> this.eventBus.emit('addToCart', id);
+  }
+
+  /**
+   * мы владелец
+     @param {int} id айди объявления
+   */
+  isOwner(id) {
+    const addBtn = document.getElementById('addToCartBtn');
+    document.getElementById('chatBtn').style.display = 'none';
+    addBtn.style.display = 'none';
+    const editBtn = document.getElementById('editBtn');
+    editBtn.style.display = 'inline-block';
+    editBtn.addEventListener('click', () => {
+      this.eventBus.emit('onEditClicked', id);
+    });
   }
 }

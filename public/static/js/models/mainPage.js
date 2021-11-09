@@ -19,7 +19,7 @@ export default class MainPageModel {
    */
   getAds() {
     const res = Ajax.getUsingFetch({
-      url: secureDomainUrl + 'adverts', body: null,
+      url: `${secureDomainUrl}adverts`, body: null,
     });
     res.then(({status, parsedBody})=> {
       if (status != statusCodes.OK) {
