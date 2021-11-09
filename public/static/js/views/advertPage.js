@@ -77,23 +77,29 @@ export default class AdvertPageView extends BaseView {
    * Логика и интерактивные объекты
    * @param {*} advert объявление
    */
-   adLogic(advert) {
+  adLogic(advert) {
     const carousel = new SliderLogic();
-    document.querySelector('.gallery__prev-button').addEventListener('click', (e) => {
-      e.preventDefault();
-      e.stopPropagation();
-      carousel.plusSlides(-1);
-    });
-    document.querySelector('.gallery__next-button').addEventListener('click', (e) => {
-      e.preventDefault();
-      e.stopPropagation();
-      carousel.plusSlides(1);
-    });
-    document.querySelectorAll('.dot').forEach((elem, key) =>{
-      elem.addEventListener('click', ()=>{
-        carousel.currentSlide(key + 1);
+    if (advert.images.length > 1) {
+      document.querySelector('.gallery__prev-button').addEventListener('click', (e) => {
+        e.preventDefault();
+        e.stopPropagation();
+        carousel.plusSlides(-1);
       });
-    });
+      document.querySelector('.gallery__next-button').addEventListener('click', (e) => {
+        e.preventDefault();
+        e.stopPropagation();
+        carousel.plusSlides(1);
+      });
+      document.querySelectorAll('.dot').forEach((elem, key) =>{
+        elem.addEventListener('click', ()=>{
+          carousel.currentSlide(key + 1);
+        });
+      });
+    } else {
+      document.querySelector('.gallery__prev-button').style.display = 'none';
+      document.querySelector('.gallery__next-button').style.display = 'none';
+      document.querySelector('.advertisment-detail__main-info__main__dot-container').style.display = 'none';
+    }
     carousel.showSlides(1);
     ymaps.ready(() => {
       const myMap = new ymaps.Map('YMapsIDNewAd', {
