@@ -19,10 +19,8 @@ export default class ProfilePageModel {
     this.eventBus.on('getArchive', this.getArchive.bind(this));
     this.eventBus.on('validateProfileInfo', this.validateProfile.bind(this));
     this.eventBus.on('changePassword', this.changePassword.bind(this));
-    this.eventBus.on('onDeleteClick', this.handleDelete.bind(this));
+    this.eventBus.on('onDeleteClick', this.handleDeleteModal.bind(this));
     this.eventBus.on('profileUpdated', this.updateInfo.bind(this));
-    this.eventBus.on('passwordChangeOk', this.passwordChanged.bind(this));
-    this.eventBus.on('passwordChangeNotOk', this.passwordNotChanged.bind(this));
     this.eventBus.on('deletedSuccessful', this.adDeleted.bind(this));
     this.eventBus.on('buySuccess', this.showSuccessBuy.bind(this));
   }
@@ -200,34 +198,12 @@ export default class ProfilePageModel {
     this.eventBus.emit('passwordChecked', oldPassword, password);
   }
 
-  /**
-   * Показываем, что пароль успешно изменен
-   */
-  passwordChanged() {
-    const passwordDiv = document.getElementById('settingPassword');
-    document.getElementById('settingOldPassword').
-        classList.remove('text-input_wrong');
-    document.getElementById('settingOldPassword').
-        classList.add('text-input_correct');
-    passwordDiv.classList.add('text-input_correct');
-    document.getElementById('settings__change-password').innerHTML=
-     'Пароль изменен';
-  }
-
-  /**
-   * Старый пароль не совпал с новым
-   */
-  passwordNotChanged() {
-    document.getElementById('settingOldPassword').
-        classList.add('text-input_wrong');
-  }
-
 
   /**
    * Обработка удаления
    * @param {number} id айдишник объявления
    */
-  handleDelete(id) {
+  handleDeleteModal(id) {
     const modalT = createDeleteModal();
     const modal = document.createElement('div');
     modal.id = 'modal';

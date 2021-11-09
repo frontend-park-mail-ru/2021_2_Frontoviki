@@ -29,7 +29,7 @@ export default class Bus {
     if (!this.listeners.has(event)) {
       return;
     }
-    return this.listeners.get(event)(...data);
+    this.listeners.get(event)(...data);
   }
 }
 

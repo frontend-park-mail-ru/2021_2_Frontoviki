@@ -12,8 +12,6 @@ export default class AdvertPageModel {
   constructor(eventBus) {
     this.eventBus = eventBus;
     this.eventBus.on('GetAdData', this.getAdData.bind(this));
-    this.eventBus.on('addedToCart', this.successAdd.bind(this));
-    this.eventBus.on('addedToFavorite', this.successFav.bind(this));
   }
 
   /**
@@ -36,23 +34,5 @@ export default class AdvertPageModel {
       });
       this.eventBus.emit('gotAd', advert, salesman, rating);
     });
-  }
-
-  /**
-   * Успешное добавленое в корзину
-   */
-  successAdd() {
-    const addBtn = document.getElementById('addToCartBtn');
-    addBtn.innerHTML = 'В корзине';
-    addBtn.onclick = () => this.eventBus.emit('goToCart');
-  }
-
-  /**
-   * Добавили в избранное
-   */
-  successFav() {
-    const addToFav = document.getElementById('favBtn');
-    addToFav.style.color = '#8897f9';
-    addToFav.onclick = () => this.eventBus.emit('goToFav');
   }
 }

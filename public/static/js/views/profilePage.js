@@ -25,6 +25,8 @@ export default class ProfilePageView extends BaseView {
     this.renderFavorite = this.renderFavorite.bind(this);
     eventBus.on('gotAds', this.renderGrid.bind(this));
     eventBus.on('gotCart', this.renderCartGrid.bind(this));
+    this.eventBus.on('passwordChangeOk', this.passwordChanged.bind(this));
+    this.eventBus.on('passwordChangeNotOk', this.passwordNotChanged.bind(this));
   }
   /**
     * функция отрисовки страницы профиля
@@ -380,6 +382,27 @@ export default class ProfilePageView extends BaseView {
         this.eventBus.emit('onCardClicked', adverts[key].id);
       });
     });
+  }
+
+  /**
+   * Показываем, что пароль успешно изменен
+   */
+  passwordChanged() {
+    const passwordDiv = document.getElementById('settingPassword');
+    document.getElementById('settingOldPassword').
+        classList.remove('text-input_wrong');
+    document.getElementById('settingOldPassword').
+        classList.add('text-input_correct');
+    passwordDiv.classList.add('text-input_correct');
+    document.getElementById('settings__change-password').innerHTML=
+      'Пароль изменен';
+  }
+  /**
+    * Старый пароль не совпал с новым
+    */
+  passwordNotChanged() {
+    document.getElementById('settingOldPassword').
+        classList.add('text-input_wrong');
   }
 };
 

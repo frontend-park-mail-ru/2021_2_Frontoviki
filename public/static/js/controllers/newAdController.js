@@ -35,6 +35,7 @@ export default class NewAdPageController {
     this.eventBus.on('redirectToAd', this.redirectToAd.bind(this));
     this.eventBus.on('validateSuccessful', this.sendAd.bind(this));
     this.eventBus.on('photoDataPacked', this.sendPhotos.bind(this));
+    this.eventBus.on('checkLog', this.checkForLogging.bind(this));
   }
 
   /**
@@ -124,5 +125,14 @@ export default class NewAdPageController {
         this.eventBus.emit('redirectToAd', id);
       }
     });
+  }
+
+  /**
+   * Проверка на то, зарегистрирован ли пользователь
+   */
+  checkForLogging() {
+    if (localStorage.getItem('name') === null) {
+      this.eventBus.emit('notLogged');
+    }
   }
 }

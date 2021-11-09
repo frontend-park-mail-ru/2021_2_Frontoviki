@@ -18,6 +18,8 @@ export default class AdvertPageView extends BaseView {
     this.eventBus.on('inCart', this.inCart.bind(this));
     this.eventBus.on('notInCart', this.notInCart.bind(this));
     this.eventBus.on('isOwner', this.isOwner.bind(this));
+    this.eventBus.on('addedToCart', this.successAdd.bind(this));
+    this.eventBus.on('addedToFavorite', this.successFav.bind(this));
   }
 
   /**
@@ -73,7 +75,7 @@ export default class AdvertPageView extends BaseView {
         label.innerHTML = 'Раскрыть карту';
         label.classList.remove('advertisment-detail__add-info__location__name-block__maps-label_open');
       }
-    })
+    });
   }
 
   /**
@@ -174,5 +176,22 @@ export default class AdvertPageView extends BaseView {
     editBtn.addEventListener('click', () => {
       this.eventBus.emit('onEditClicked', id);
     });
+  }
+
+  /**
+   * Успешное добавленое в корзину
+   */
+  successAdd() {
+    const addBtn = document.getElementById('addToCartBtn');
+    addBtn.innerHTML = 'В корзине';
+    addBtn.onclick = () => this.eventBus.emit('goToCart');
+  }
+  /**
+    * Добавили в избранное
+    */
+  successFav() {
+    const addToFav = document.getElementById('favBtn');
+    addToFav.style.color = '#8897f9';
+    addToFav.onclick = () => this.eventBus.emit('goToFav');
   }
 }
