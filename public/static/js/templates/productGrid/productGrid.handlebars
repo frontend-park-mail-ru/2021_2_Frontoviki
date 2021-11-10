@@ -1,0 +1,28 @@
+<section class="product-grid__cards">
+  {{#each adsArray}}
+    <div class="card">
+      <a href="{{href}}">
+        {{#if canDelete}}
+        <img class="card__delete" src="https://volchock.ru/static/img/remove.webp" width="35" height="35">
+        {{/if}}
+        <div class="card__image-container">
+          <figure>
+            <img src="{{image}}" alt="Картинка объявления" />
+            <figcaption>
+              <h3 class="card__image-container__name">{{name}}</h3>
+            </figcaption>
+          </figure>
+        </div>
+        <div class="card__card-info">
+          <p class="card-info__card_location">{{location}}</p>
+          <div class="card-info__price-and-buy-block">
+          <p class="card-info__card_price">{{price}} ₽</p>
+          {{#if canBuy}}
+          <p class="card-info__card_buy">Купить</p>
+          {{/if}}
+          </div>
+        </div>
+      </a>
+    </div>
+  {{/each}}
+</section>

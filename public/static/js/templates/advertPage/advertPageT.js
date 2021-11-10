@@ -1,0 +1,10 @@
+import advertPageT from './advertPageT.handlebars';
+import './advertPageT.sass';
+
+/**
+ *  пробрасывает шаблон объявления
+ * @return {string} шаблон страницы объявления
+ */
+export function advertPageTemplate() {
+  return advertPageT;
+}

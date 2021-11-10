@@ -1,0 +1,79 @@
+@import "../../../css/variables"
+.button
+    width: 230px
+    height: 44px
+    /* margin: 6px 0; */
+    padding: 9px 0
+
+    border: none
+    border-radius: 9px
+    background-color: $button-background-color
+
+    color: $button-text-color
+    font-weight: 400
+    font-size: 18px
+    text-align: center
+
+    transition: all 0.2s cubic-bezier(0.34, 1.56, 0.64, 1)
+
+@media only screen and (max-device-width: 480px)
+    .button
+        margin: 10px
+
+.button:hover
+    background-color: $button-background-color_hover
+    cursor: pointer
+
+.button:active
+    transform: scale(0.98)
+
+.profile-content__button
+    color: black
+    background-color: transparent
+    font-weight: 500
+    text-align: left
+
+    display: flex
+    align-items: center
+
+
+    &_active
+        color: $button-background-color
+        background-color: transparent
+        font-weight: 500
+        text-align: left
+
+        display: flex
+        align-items: center
+
+
+    &:hover
+        color: $button-background-color
+        background-color: transparent
+
+
+    &_active:hover
+        color: $button-background-color
+        background-color: transparent
+
+
+    & > *
+        display: inline-block
+
+
+    &_icon
+        fill: black
+        margin-right: 7px
+        height: 18px
+        width: 18px
+
+
+    &_icon_active
+        fill: $button-background-color
+        margin-right: 7px
+        height: 18px
+        width: 18px
+
+
+    &:hover .profile-content__button_icon
+        fill: $button-background-color

@@ -1,0 +1,109 @@
+@import "../../../css/variables"
+.profile-content
+    display: flex
+    justify-content: space-between
+    width: 100%
+    height: 100%
+
+    &_left
+        display: flex
+        justify-content: center
+        flex-direction: column
+
+        width: 30%
+        height: 100%
+
+    &_right
+        width: 70%
+
+    &__title
+        font-weight: 700
+        font-size: 36px
+        margin-bottom: 10px
+
+    &__title_center
+        text-align: center
+
+    &__personal
+        display: flex
+        justify-content: center
+        align-items: center
+        flex-direction: column
+
+        width: 100%
+        height: 100%
+
+        padding: 20px 0
+        padding-bottom: 20px
+
+    &__avatar__image
+        width: 200px
+        height: 200px
+        border-radius: 50%
+        object-fit: cover
+
+    &__username
+        color: #373f47
+        text-align: center
+        font-weight: 500
+        font-size: 20px
+
+        margin-top: 10px
+        margin-bottom: 8px
+
+    &__rate
+        color: #373f47
+        text-align: center
+        font-weight: 500
+        font-size: 20px
+
+        margin-top: 10px
+        margin-bottom: 8px
+
+    &__rating
+        width: 100%
+        display: flex
+        justify-content: center
+
+.stars__star
+    margin: 0 1px
+
+    &.star_active
+        fill: $star-gold-color
+
+    &.star_unactive
+        fill: transparent
+        stroke: $star-gold-color
+        stroke-width: 2
+
+.profile-content__buttons
+    display: flex
+    justify-content: center
+    align-items: center
+    flex-direction: column
+    padding-left: 30px
+
+    height: 100%
+    width: 100%
+
+    & .button
+        margin: 6px 0
+
+.profile-content-right__ads-type
+    font-size: 20px
+    font-weight: 400
+    margin: 0px 40px
+
+    &:hover
+        cursor: pointer
+
+@media screen and (max-width: 700px)
+    .profile-content
+        display: block
+
+        &_left
+            width: 100%
+            margin-bottom: 20px
+
+        &_right
+            width: 100%

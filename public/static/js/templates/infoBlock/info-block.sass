@@ -1,0 +1,25 @@
+@import "../../../css/variables"
+.root__info-block
+    position: relative
+
+.info-block__left
+    margin-left: 3%
+
+.category__list > *
+    display: inline
+
+.category__list a
+    font-family: "Montserrat", Verdana, sans-serif
+    text-decoration: none
+
+.category__list__main::after,
+.category__list__sub
+    content: '/'
+
+
+    &::after
+        content: ''
+
+.info-block__capture
+    color: $info-block-capture-color
+    font-size: $info-block-capture-size

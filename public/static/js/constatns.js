@@ -1,33 +1,3 @@
-export const navigation = {
-  category: 'Искуcство',
-  subCategory: 'Картины',
-  categoryHref: '',
-  subCategoryHref: '',
-};
-
-export const categories = [
-  {
-    title: 'Кек',
-    href: '',
-  },
-  {
-    title: 'кошка',
-    href: '',
-  },
-  {
-    title: 'Найс',
-    href: '',
-  },
-];
-
-Handlebars.registerHelper('times', function(n, block) {
-  let accum = '';
-  for (let i = 0; i < n; ++i) {
-    accum += block.fn(i);
-  }
-  return accum;
-});
-
 export const validationErrors = {
   passwordMissmatch: 'Неверный пароль',
   noSuchUser: 'Пользователя не существует',
@@ -48,5 +18,6 @@ export const statusCodes = {
   UNATHORISED: 401,
   FORBIDEN: 403,
   NOTEXIST: 404,
+  DELETED: 409,
   INTERNALERROR: 500,
 };

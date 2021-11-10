@@ -1,0 +1,119 @@
+@import "../../../css/variables"
+header
+    z-index: 20
+    height: 60px
+    background-color: $header-background-color
+
+    display: flex
+    justify-content: space-between
+    align-items: center
+
+.header__left-block,
+.header__right-block
+    width: max-content
+    display: flex
+    justify-content: space-between
+    align-items: center
+
+.header__left-block
+    margin-left: 3%
+
+.header__right-block
+    margin-right: 3%
+
+.logo
+    height: 24px
+    margin-right: 10px
+
+
+    &__icon
+        height: 24px
+        width: 24px
+
+
+    &__capture
+        cursor: pointer
+        width: fit-content
+        font-weight: 700
+        text-transform: uppercase
+        color: $header-capture-color
+
+.search
+    margin-left: 2%
+    margin-right: 2%
+    width: 350px
+    height: 32px
+    background-color: $search-background-color
+    border-radius: 4px
+
+    justify-content: space-around
+    padding: 10px
+
+
+    &__icon
+        width: 12px
+        height: 12px
+        margin-right: 10px
+        fill: $search-text-default-color
+
+
+    &__input
+        border: none
+        outline: none
+        width: 100%
+        background-color: inherit
+
+        color: $header-background-color
+        font-family: "Roboto", 'Open Sans', sans-serif
+        font-size: 14px
+        font-weight: 400
+
+
+    &__input::-webkit-input-placeholder
+        color: $search-text-default-color
+
+
+    &__input::-webkit-search-cancel-button
+        display: none
+
+
+    &__input:focus-visible
+        border: none
+        background-color: inherit
+
+/* скрытие имени пользователя на мобилке */
+@media only screen and (max-device-width: 480px)
+    .mini-profile__capture
+        display: none
+
+    .search
+        width: fit-content
+
+.mini-profile__capture
+    cursor: default
+    font-weight: 500
+    font-style: normal
+    font-size: 16px
+    line-height: 24px
+    color: $header-capture-color
+
+    margin-right: 10px
+
+.mini-profile__avatar
+    object-fit: cover
+    margin-right: 10px
+    width: 37px
+    height: 37px
+    border-radius: 50%
+
+.mini-profile__options
+    width: 24px
+    height: 24px
+
+    display: flex
+    justify-content: center
+    align-items: center
+
+
+    &__icon
+        fill: $header-capture-color
