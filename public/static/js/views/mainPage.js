@@ -19,13 +19,14 @@ export default class MainPageView extends BaseView {
     this.populate = this.populate.bind(this);
     this.eventBus.on('getAds', this.renderAds.bind(this));
     this.eventBus.on('clickModal', this.modal.bind(this));
-    window.addEventListener('scroll', this.populate);
   }
 
   /**
    * Рендер делает запрос на получение информации о товарах
    */
   render() {
+    this.#page = 1;
+    window.addEventListener('scroll', this.populate);
     this.eventBus.emit('getData', this.#page, true);
     this.#page++;
   }

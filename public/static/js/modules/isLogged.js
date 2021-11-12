@@ -55,6 +55,12 @@ export async function isLogged(globalEventBus) {
     const authLink = document.getElementById('auth');
     authLink.style.display = 'none';
     document.querySelector('.expand-menu__label').style.display = 'flex';
+    const links = document.querySelector('.expand-menu__content').childNodes;
+    links.forEach((elem) => {
+      elem.addEventListener('click', ()=>{
+        globalEventBus.emit('profileLinksClick');
+      });
+    });
   } else {
     header.innerHTML = headerT({
       userName: undefined,

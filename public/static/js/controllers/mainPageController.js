@@ -25,6 +25,7 @@ export default class MainPageController {
     globalEventBus.on('clickModal', this.callModal.bind(this));
     this.eventBus.on('onCardClicked', this.goToCardPage.bind(this));
     this.eventBus.on('stopScroll', this.stopScroll.bind(this));
+    globalEventBus.on('profileLinksClick', this.stopScroll.bind(this));
   }
 
   /**
