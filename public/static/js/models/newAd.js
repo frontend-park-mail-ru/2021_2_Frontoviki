@@ -24,6 +24,7 @@ export default class NewAdPageModel {
    * Функция иниализация яндекс карт
    */
   initMap() {
+    this.#coords = null;
     ymaps.ready(() => {
       this.#myMap = new ymaps.Map('YMapsID', {
         center: [55.766062, 37.684488],
@@ -88,15 +89,15 @@ export default class NewAdPageModel {
     }
     const category = document.getElementById('selCategory').value;
     const descriptionDiv = document.querySelector('.new-advert__description');
-    const description = descriptionDiv.childNodes[3].value.trim();
+    let description = descriptionDiv.childNodes[3].value.trim();
     if (!validate(descriptionDiv)) {
-      return;
+      description = 'Нет описания';
     }
     const condition = document.getElementById('radio-new').checked;
     const priceDiv = document.querySelector('.new-advert__price');
     const price = priceDiv.childNodes[3].value.trim();
     const coords = this.#coords;
-    if (coords === undefined) {
+    if (coords === null) {
       document.querySelector('.new-advert__location').classList.add('text-input_wrong');
       return;
     }

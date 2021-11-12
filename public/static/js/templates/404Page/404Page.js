@@ -25,7 +25,7 @@ export default class ErrorPage {
       const imgDiv = document.createElement('div');
       imgDiv.classList.add('image404');
       const img = document.createElement('img');
-      img.src = '../../static/img/404.png';
+      img.src = '../../static/img/404.webp';
       imgDiv.appendChild(img);
       innerContent.appendChild(imgDiv);
 

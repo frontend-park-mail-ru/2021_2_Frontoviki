@@ -18,7 +18,7 @@ export default class ProfilePageModel {
     this.eventBus.on('getFavorite', this.getFavorite.bind(this));
     this.eventBus.on('getArchive', this.getArchive.bind(this));
     this.eventBus.on('validateProfileInfo', this.validateProfile.bind(this));
-    this.eventBus.on('changePassword', this.changePassword.bind(this));
+    this.eventBus.on('changePassword', this.validatePassword.bind(this));
     this.eventBus.on('onDeleteClick', this.handleDeleteModal.bind(this));
     this.eventBus.on('profileUpdated', this.updateInfo.bind(this));
     this.eventBus.on('deletedSuccessful', this.adDeleted.bind(this));
@@ -182,7 +182,7 @@ export default class ProfilePageModel {
    * @param {*} oldPassword
    * @param {*} password
    */
-  changePassword(oldPassword, password) {
+  validatePassword(oldPassword, password) {
     const passwordDiv = document.getElementById('settingPassword');
     if (password.length < 5) {
       passwordDiv.classList.add('text-input_wrong');
