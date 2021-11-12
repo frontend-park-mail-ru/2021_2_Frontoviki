@@ -24,6 +24,7 @@ export default class MainPageController {
     this.model = new MainPageModel(this.eventBus);
     globalEventBus.on('clickModal', this.callModal.bind(this));
     this.eventBus.on('onCardClicked', this.goToCardPage.bind(this));
+    this.eventBus.on('stopScroll', this.stopScroll.bind(this));
   }
 
   /**
@@ -39,5 +40,11 @@ export default class MainPageController {
    */
   goToCardPage(id) {
     this.router.go('/ad/' + id);
+  }
+  /**
+   * Если закончились объявления остановим ленту
+   */
+  stopScroll() {
+    window.removeEventListener('scroll', this.view.populate);
   }
 }

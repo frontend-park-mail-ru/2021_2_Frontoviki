@@ -351,7 +351,7 @@ export default class ProfilePageView extends BaseView {
       const emptyGridActive = document.createElement('div');
       emptyGridActive.id = 'empty';
       const gridT = emptyGrid();
-      emptyGridActive.innerHTML = gridT({ text: 'Корзина пуста' });
+      emptyGridActive.innerHTML = gridT({text: 'Корзина пуста'});
       rightBlock.appendChild(emptyGridActive);
       return;
     }

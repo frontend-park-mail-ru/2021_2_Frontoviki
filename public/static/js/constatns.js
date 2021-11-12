@@ -21,3 +21,13 @@ export const statusCodes = {
   DELETED: 409,
   INTERNALERROR: 500,
 };
+
+export const baseCount = 20;
+export const inputNum = 3;
+
+export const profileBtnNum = {
+  adBtn: 1,
+  favBtn: 3,
+  cartBtn: 5,
+  setBtn: 11,
+};

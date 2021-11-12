@@ -1,5 +1,5 @@
 import {Ajax} from '../modules/ajax.js';
-import {secureDomainUrl, statusCodes} from '../constatns.js';
+import {secureDomainUrl, statusCodes, baseCount} from '../constatns.js';
 
 /**
  * Класс главной страницы с последними объявлениями
@@ -16,10 +16,13 @@ export default class MainPageModel {
 
   /**
    * Функция которая будет отправлять запрос на сервер
+   * @param {Number} page номер страницы для пагинации
+   * @param {Boolean} clearPage новое рендер или бесконечная лента
    */
-  getAds() {
+  getAds(page, clearPage) {
     const res = Ajax.getUsingFetch({
-      url: `${secureDomainUrl}adverts`, body: null,
+      url: `${secureDomainUrl}adverts?page=${page}&count=${baseCount}`,
+      body: null,
     });
     res.then(({status, parsedBody})=> {
       if (status != statusCodes.OK) {
@@ -30,7 +33,11 @@ export default class MainPageModel {
       if (code === statusCodes.OK) {
         const {body} = parsedBody;
         const {adverts} = body;
-        this.eventBus.emit('getAds', undefined, undefined, adverts);
+        if (adverts.length == 0) {
+          this.eventBus.emit('stopScroll');
+          return;
+        }
+        this.eventBus.emit('getAds', undefined, undefined, adverts, clearPage);
       }
     });
   }
