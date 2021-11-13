@@ -2,7 +2,7 @@ import EventBus from '../modules/EventBus.js';
 import AdvertPageModel from '../models/advertPage.js';
 import AdvertPageView from '../views/advertPage.js';
 import {Ajax} from '../modules/ajax.js';
-import {secureDomainUrl, statusCodes} from '../constatns.js';
+import {idNum, secureDomainUrl, statusCodes} from '../constatns.js';
 
 /**
  * Контроллер страницы объялвения
@@ -116,7 +116,7 @@ export default class AdvertPageController {
  * Добавление в избранное
  */
   addToFav() {
-    const adId = window.location.pathname.split('/')[2];
+    const adId = window.location.pathname.split('/')[idNum];
     const res = Ajax.postUsingFetch({
       url: secureDomainUrl + 'adverts/favorite/' + adId,
     });
@@ -130,15 +130,16 @@ export default class AdvertPageController {
     });
   }
 
-   /**
+  /**
    * Проверка корзины
+   * @param {*} advert объявление
    */
   async cartLogic(advert) {
     if (/ad/.test(window.location.pathname) === false) {
       return;
     }
     if (advert === undefined) {
-      const adId = window.location.pathname.split('/')[2];
+      const adId = window.location.pathname.split('/')[idNum];
       const res = await Ajax.getUsingFetch({
         url: secureDomainUrl + 'adverts/' + adId,
       });

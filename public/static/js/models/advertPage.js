@@ -1,5 +1,5 @@
 import {Ajax} from '../modules/ajax.js';
-import {secureDomainUrl, statusCodes} from '../constatns.js';
+import {idNum, secureDomainUrl, statusCodes} from '../constatns.js';
 
 /**
  * Класс главной страницы с последними объявлениями
@@ -18,7 +18,7 @@ export default class AdvertPageModel {
    * Получение информации об объявлении
    */
   getAdData() {
-    const adId = window.location.pathname.split('/')[2];
+    const adId = window.location.pathname.split('/')[idNum];
     const res = Ajax.getUsingFetch({
       url: secureDomainUrl + 'adverts/' + adId,
     });

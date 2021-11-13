@@ -1,3 +1,4 @@
+import {inputNum} from '../constatns.js';
 
 /**
  * небольшая вспомогательная функция для очисти инпута
@@ -6,5 +7,5 @@
 export function clearInput(input) {
   input.classList.remove('text-input_correct');
   input.classList.remove('text-input_wrong');
-  input.childNodes[3].value = '';
+  input.childNodes[inputNum].value = '';
 }

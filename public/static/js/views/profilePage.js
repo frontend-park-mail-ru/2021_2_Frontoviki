@@ -4,6 +4,7 @@ import { profileInfoBlock } from
 import { emptyGrid } from '../templates/productGrid/emptyGrid.js';
 import { settings } from '../templates/settings/settings.js';
 import BaseView from './baseView.js';
+import { inputNum, profileBtnNum } from '../constatns.js';
 
 /**
   * Экспортируемый класс для генерации страницы профиля с сеткой
@@ -41,26 +42,26 @@ export default class ProfilePageView extends BaseView {
     rightBlock.classList.add('profile-content_right');
     profileContent.appendChild(rightBlock);
 
-    const myAdsBtn =
-      document.querySelector('.profile-content__buttons').childNodes[1];
+    const myAdsBtn = document.querySelector('.profile-content__buttons').
+        childNodes[profileBtnNum.adBtn];
     myAdsBtn.addEventListener('click', (e) => {
       this.eventBus.emit('getAds');
     });
 
-    const favoriteBtn =
-      document.querySelector('.profile-content__buttons').childNodes[3];
+    const favoriteBtn = document.querySelector('.profile-content__buttons').
+        childNodes[profileBtnNum.favBtn];
     favoriteBtn.addEventListener('click', (e) => {
       this.eventBus.emit('renderFavorite');
     });
 
-    const cartBtn =
-      document.querySelector('.profile-content__buttons').childNodes[5];
+    const cartBtn = document.querySelector('.profile-content__buttons').
+        childNodes[profileBtnNum.cartBtn];
     cartBtn.addEventListener('click', (e) => {
       this.eventBus.emit('renderCart');
     });
 
-    const settingBtn =
-      document.querySelector('.profile-content__buttons').childNodes[11];
+    const settingBtn = document.querySelector('.profile-content__buttons').
+        childNodes[profileBtnNum.setBtn];
     settingBtn.addEventListener('click', (e) => {
       this.eventBus.emit('getSettings');
     });
@@ -71,7 +72,8 @@ export default class ProfilePageView extends BaseView {
   renderAds() {
     this.render();
     // красим кнопочку
-    makeBlue(document.querySelector('.profile-content__buttons').childNodes[1]);
+    makeBlue(document.querySelector('.profile-content__buttons').
+        childNodes[profileBtnNum.adBtn]);
 
     const rightBlock = document.querySelector('.profile-content_right');
     rightBlock.innerHTML = '';
@@ -194,7 +196,8 @@ export default class ProfilePageView extends BaseView {
   renderArchive() {
     this.render();
     // красим кнопочку
-    makeBlue(document.querySelector('.profile-content__buttons').childNodes[1]);
+    makeBlue(document.querySelector('.profile-content__buttons').
+        childNodes[profileBtnNum.adBtn]);
 
     const rightBlock = document.querySelector('.profile-content_right');
     rightBlock.innerHTML = '';
@@ -228,7 +231,7 @@ export default class ProfilePageView extends BaseView {
   renderSettings() {
     this.render();
     makeBlue(document.querySelector('.profile-content__buttons').
-        childNodes[11]);
+        childNodes[profileBtnNum.setBtn]);
     const rightBlock = document.querySelector('.profile-content_right');
     rightBlock.innerHTML = '';
     const settingsDiv = settings();
@@ -291,8 +294,8 @@ export default class ProfilePageView extends BaseView {
     changePasswrdBtn.addEventListener('click', (e) => {
       const passwordDiv = document.getElementById('settingPassword');
       const oldPasswordDiv = document.getElementById('settingOldPassword');
-      const password = passwordDiv.childNodes[3].value.trim();
-      const oldPassword = oldPasswordDiv.childNodes[3].value.trim();
+      const password = passwordDiv.childNodes[inputNum].value.trim();
+      const oldPassword = oldPasswordDiv.childNodes[inputNum].value.trim();
       passwordDiv.classList.remove('text-input_correct');
       oldPasswordDiv.classList.remove('text-input_correct');
       this.eventBus.emit('changePassword', oldPassword, password);
@@ -305,7 +308,7 @@ export default class ProfilePageView extends BaseView {
   renderFavorite() {
     this.render();
     makeBlue(document.querySelector('.profile-content__buttons').
-      childNodes[3]);
+        childNodes[profileBtnNum.favBtn]);
     const rightBlock = document.querySelector('.profile-content_right');
     rightBlock.innerHTML = '';
     const title = document.createElement('h3');
@@ -320,7 +323,8 @@ export default class ProfilePageView extends BaseView {
    */
   renderCart() {
     this.render();
-    makeBlue(document.querySelector('.profile-content__buttons').childNodes[5]);
+    makeBlue(document.querySelector('.profile-content__buttons').
+        childNodes[profileBtnNum.cartBtn]);
     const rightBlock = document.querySelector('.profile-content_right');
     rightBlock.innerHTML = '';
     const title = document.createElement('h3');

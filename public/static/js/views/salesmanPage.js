@@ -1,6 +1,7 @@
 import BaseView from './baseView.js';
 import {createSalesman} from '../templates/salesmanBlock/salesmanBlock.js';
 import {createProductGrid} from '../templates/productGrid/productGrid.js';
+import {idNum} from '../constatns.js';
 
 /**
   * Экспортируемый класс для генерации страницы профиля с сеткой
@@ -54,7 +55,7 @@ export default class SalesmanPageView extends BaseView {
     // и не пытаемся самому себе поставить
     if (rating.is_rated == false && localStorage.getItem('id') &&
           Number(localStorage.getItem('id')) !=
-          Number(window.location.pathname.split('/')[2])) {
+          Number(window.location.pathname.split('/')[idNum])) {
       const stars = document.querySelector('.profile-content__rating');
       stars.addEventListener('mouseover', (e)=> {
         let target = e.target;

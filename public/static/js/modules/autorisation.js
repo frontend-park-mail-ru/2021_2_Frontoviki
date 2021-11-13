@@ -1,5 +1,5 @@
 import {Ajax} from './ajax.js';
-import {secureDomainUrl, statusCodes} from '../constatns.js';
+import {secureDomainUrl, statusCodes, regExPatterns} from '../constatns.js';
 import {clearInput} from './clearInput.js';
 import {isLogged} from './isLogged.js';
 
@@ -13,8 +13,8 @@ export function autorisation(logEmail, logPassword, globalEventBus) {
   const email = logEmail.childNodes[3].value.trim();
   const password = logPassword.childNodes[3].value.trim();
 
-  const valid = validate(logEmail.childNodes[3], patterns['email']) &&
-      validate(logPassword.childNodes[3], patterns['password']);
+  const valid = validate(logEmail.childNodes[3], regExPatterns['email']) &&
+      validate(logPassword.childNodes[3], regExPatterns['password']);
 
   if (!valid) {
     return;
@@ -79,10 +79,6 @@ function clearAllLogInputs(logEmail, logPassword) {
   clearInput(logPassword);
 }
 
-const patterns = {
-  email: /^[a-zA-Z0-9]+@[a-zA-Z0-9]+\.[a-zA-Z0-9]+$/,
-  password: /^[\w]{4,}$/,
-};
 
 const validate = (field, regex) => {
   const valid = regex.test(field.value);

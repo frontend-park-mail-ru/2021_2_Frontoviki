@@ -1,4 +1,4 @@
-import {secureDomainUrl} from '../constatns';
+import {secureDomainUrl} from '../constatns.js';
 
 let CSRFToken;
 /**

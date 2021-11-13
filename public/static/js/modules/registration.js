@@ -1,5 +1,5 @@
 import {Ajax} from './ajax.js';
-import {secureDomainUrl, statusCodes} from '../constatns.js';
+import {oldPassNum, secureDomainUrl, statusCodes} from '../constatns.js';
 import {clearInput} from './clearInput.js';
 import {validateInfo} from './validation.js';
 import {isLogged} from './isLogged.js';
@@ -39,7 +39,8 @@ export function registration(regName, regSurname, regEmail,
       globalEventBus.emit('loggedForSalesman');
       return;
     }
-    regEmail.childNodes[5].innerHTML = 'Такой пользователь уже существует';
+    regEmail.childNodes[oldPassNum].
+        innerHTML = 'Такой пользователь уже существует';
     regEmail.classList.remove('text-input_correct');
     regEmail.classList.add('text-input_wrong');
   });

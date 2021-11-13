@@ -1,4 +1,4 @@
-const inputNum = 3;
+import {inputNum, regExPatterns, oldPassNum} from '../constatns.js';
 /**
  * функция регистрация нового пользователя
  * @param {HTMLFormElement} regName имя пользователя
@@ -19,11 +19,11 @@ export function validateInfo(regName, regSurname, regEmail,
     passwordRep = regPassRep.childNodes[inputNum].value.trim();
   }
 
-  const valid = validate(regEmail.childNodes[inputNum], patterns['email']) &&
-    validate(regPass.childNodes[inputNum], patterns['password']);
+  const valid = validate(regEmail.childNodes[inputNum], regExPatterns['email']) &&
+      validate(regPass.childNodes[inputNum], regExPatterns['password']);
 
   if (!valid) {
-    regEmail.childNodes[5].innerHtml = 'Введите валидный email';
+    regEmail.childNodes[oldPassNum].innerHtml = 'Введите валидный email';
     return;
   }
   if (passwordRep !== null) {
@@ -34,14 +34,14 @@ export function validateInfo(regName, regSurname, regEmail,
     regPassRep.classList.remove('text-input_wrong');
     regPassRep.classList.add('text-input_correct');
   }
-  if (!name.match(/^[а-яА-яa-zA-Z]{2,}$/)) {
+  if (!name.match(regExPatterns.name)) {
     regName.classList.add('text-input_wrong');
     return;
   }
   regName.classList.remove('text-input_wrong');
   regName.classList.add('text-input_correct');
 
-  if (!surname.match(/^[а-яА-яa-zA-Z]{2,}$/)) {
+  if (!surname.match(regExPatterns.name)) {
     regSurname.classList.add('text-input_wrong');
     return;
   }
@@ -50,10 +50,6 @@ export function validateInfo(regName, regSurname, regEmail,
   return {name, surname, email, password};
 }
 
-const patterns = {
-  email: /^[a-zA-Z0-9]+@[a-zA-Z0-9]+\.[a-zA-Z0-9]+$/,
-  password: /^[\w\D]{4,}$/,
-};
 
 const validate = (field, regex) => {
   const valid = regex.test(field.value);

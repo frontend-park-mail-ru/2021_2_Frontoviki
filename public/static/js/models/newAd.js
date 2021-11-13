@@ -1,5 +1,6 @@
 import {Ajax} from '../modules/ajax.js';
-import {secureDomainUrl, statusCodes, categories} from '../constatns.js';
+import {idNum, inputNum, minValidationLen,
+  secureDomainUrl, statusCodes} from '../constatns.js';
 
 /**
  * Класс модели нового объявления
@@ -45,12 +46,14 @@ export default class NewAdPageModel {
         const response =
           await fetch(`https://geocode-maps.yandex.ru/1.x/?apikey=a4627984-d4ae-4e59-a89b-7c1c4d5cf56d&format=json&geocode=${coords[1].toFixed(6)},${coords[0].toFixed(6)}`);
         const json = await response.json();
-        let data = json.response.GeoObjectCollection.featureMember[0].GeoObject.metaDataProperty.GeocoderMetaData.Address.formatted;
+        let data = json.response.GeoObjectCollection.featureMember[0].GeoObject.
+            metaDataProperty.GeocoderMetaData.Address.formatted;
         console.log(data);
         data = data.split(' ');
         data = data.slice(1);
         data = data.join(' ');
-        document.querySelector('.new-advert__location').childNodes[3].value = data;
+        document.querySelector('.new-advert__location').
+            childNodes[inputNum].value = data;
       });
     });
   }
@@ -83,13 +86,13 @@ export default class NewAdPageModel {
    */
   validateAd(isNew) {
     const nameDiv = document.querySelector('.new-advert__name');
-    const title = nameDiv.childNodes[3].value.trim();
+    const title = nameDiv.childNodes[inputNum].value.trim();
     if (!validate(nameDiv)) {
       return;
     }
     const category = document.getElementById('selCategory').value;
     const descriptionDiv = document.querySelector('.new-advert__description');
-    let description = descriptionDiv.childNodes[3].value.trim();
+    let description = descriptionDiv.childNodes[inputNum].value.trim();
     if (!validate(descriptionDiv)) {
       description = 'Нет описания';
     }
@@ -98,17 +101,20 @@ export default class NewAdPageModel {
     const price = priceDiv.childNodes[3].value.trim();
     const coords = this.#coords;
     if (coords === null) {
-      document.querySelector('.new-advert__location').classList.add('text-input_wrong');
+      document.querySelector('.new-advert__location').
+          classList.add('text-input_wrong');
       return;
     }
-    document.querySelector('.new-advert__location').classList.remove('text-input_wrong');
-    const address = document.querySelector('.new-advert__location').childNodes[3].value.trim();
+    document.querySelector('.new-advert__location').
+        classList.remove('text-input_wrong');
+    const address = document.querySelector('.new-advert__location').
+        childNodes[inputNum].value.trim();
     // отправка на разные endpoint
     let endpointUrl;
     if (isNew) {
       endpointUrl = secureDomainUrl + 'adverts';
     } else {
-      const adId = window.location.pathname.split('/')[2];
+      const adId = window.location.pathname.split('/')[idNum];
       endpointUrl = `${secureDomainUrl}adverts/${adId}`;
     }
     this.eventBus.emit('validateSuccessful', endpointUrl, title, description,
@@ -140,7 +146,7 @@ export default class NewAdPageModel {
    * Функция получения и автозаполнения информации
    */
   getData() {
-    const adId = window.location.pathname.split('/')[2];
+    const adId = window.location.pathname.split('/')[idNum];
     const res = Ajax.getUsingFetch({
       url: `${secureDomainUrl}adverts/${adId}`,
     });
@@ -158,18 +164,23 @@ export default class NewAdPageModel {
       advert.images.forEach((elem, key) => {
         advert.images[key] = `/${elem}`;
       });
-      document.querySelector('.new-advert__name').childNodes[3].value = advert.name;
-      document.querySelector('.new-advert__category').childNodes[3].value = advert.category;
-      document.querySelector('.new-advert__description').childNodes[3].value = advert.description;
+      document.querySelector('.new-advert__name').
+          childNodes[inputNum].value = advert.name;
+      document.querySelector('.new-advert__category').
+          childNodes[inputNum].value = advert.category;
+      document.querySelector('.new-advert__description').
+          childNodes[inputNum].value = advert.description;
       document.getElementById('radio-new').checked = advert.is_new;
-      document.querySelector('.new-advert__price').childNodes[3].value = advert.price;
-      document.querySelector('.new-advert__location').childNodes[3].value = advert.location;
+      document.querySelector('.new-advert__price').
+          childNodes[inputNum].value = advert.price;
+      document.querySelector('.new-advert__location').
+          childNodes[inputNum].value = advert.location;
 
       ymaps.ready(()=> {
         const myGeoObject = new ymaps.GeoObject({
           geometry: {
             type: 'Point', // тип геометрии - точка
-            coordinates: [advert.latitude, advert.longitude], // координаты точки
+            coordinates: [advert.latitude, advert.longitude], // координаты точк
           },
         });
         this.#coords = [advert.latitude, advert.longitude];
@@ -189,8 +200,8 @@ export default class NewAdPageModel {
  * @return {Boolean} тру если валидна
  */
 function validate(div) {
-  const text = div.childNodes[3].value.trim();
-  if (text.length < 2) {
+  const text = div.childNodes[inputNum].value.trim();
+  if (text.length < minValidationLen) {
     div.classList.add('text-input_wrong');
     return false;
   }

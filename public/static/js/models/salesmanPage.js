@@ -1,5 +1,5 @@
 import {Ajax} from '../modules/ajax.js';
-import {secureDomainUrl, statusCodes} from '../constatns.js';
+import {idNum, secureDomainUrl, statusCodes} from '../constatns.js';
 
 
 /**
@@ -19,7 +19,7 @@ export default class SalesmanPageModel {
    * Достаем продавца по id из url
    */
   getSalesman() {
-    const salesmanID = window.location.pathname.split('/')[2];
+    const salesmanID = window.location.pathname.split('/')[idNum];
     const res = Ajax.getUsingFetch({
       url: secureDomainUrl + 'adverts/salesman/' + salesmanID,
       body: null,

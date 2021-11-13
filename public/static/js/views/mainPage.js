@@ -1,6 +1,6 @@
 import {createProductGrid} from '../templates/productGrid/productGrid.js';
 import {createInfoBlock} from '../templates/infoBlock/infoBlock.js';
-import { baseCount } from '../constatns.js';
+import {baseCount} from '../constatns.js';
 import BaseView from './baseView.js';
 
 /**

@@ -2,7 +2,7 @@ import SalesmanPageModel from '../models/salesmanPage.js';
 import EventBus from '../modules/EventBus.js';
 import SalesmanPageView from '../views/salesmanPage.js';
 import {Ajax} from '../modules/ajax.js';
-import {secureDomainUrl, statusCodes} from '../constatns.js';
+import {idNum, secureDomainUrl, statusCodes} from '../constatns.js';
 
 /**
  * Контроллер главной страницы
@@ -44,7 +44,7 @@ export default class SalesmanPageController {
   refreshPage() {
     const location = window.location.pathname.split('/');
     if (location[1] === 'salesman') {
-      this.router.go(`/salesman/${location[2]}`);
+      this.router.go(`/salesman/${location[idNum]}`);
     }
   }
 
@@ -54,7 +54,7 @@ export default class SalesmanPageController {
  */
   rate(pos) {
     console.log(pos);
-    const salesmanId = window.location.pathname.split('/')[2];
+    const salesmanId = window.location.pathname.split('/')[idNum];
     const rating = Math.round(pos / 2 + 0.5);
     console.log(Number(localStorage.getItem('id')), Number(salesmanId), rating);
     const res = Ajax.postUsingFetch({
