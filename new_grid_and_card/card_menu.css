@@ -1,0 +1,68 @@
+.card-menu__toogle {
+    display: none;
+}
+
+.card-menu__options {
+    opacity: 0;
+    visibility: hidden;
+    position: absolute;
+    display: flex;
+    justify-content: end;
+    right: 2px;
+    top: 2px;
+    transition: all 0.5s ease;
+}
+
+.card-menu__options__icon-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 22px;
+    height: 22px;
+    padding: 5px;
+    border-radius: 50%;
+    box-shadow: rgba(0, 0, 0, 0.02) 0px 1px 3px 0px, rgba(27, 31, 35, 0.15) 0px 0px 0px 1px;
+    cursor: pointer;
+}
+
+.card-menu__options__button {
+    object-fit: contain;
+    fill: black;
+    width: 16px;
+    height: 16px;
+}
+
+.card-menu__toogle:checked~.card-menu__options {
+    opacity: 1;
+    visibility: visible;
+}
+
+.card-menu__toogle__label {
+    position: absolute;
+    z-index: 10;
+    right: 2px;
+    top: 2px;
+}
+
+div.card-menu__options__icon-container {
+    position: absolute;
+    transition: transform 0.5s ease;
+    z-index: 1;
+}
+
+div.card-menu__options__icon-container:hover .card-menu__options__button {
+    fill: royalblue;
+}
+
+.card-menu__toogle:checked~div.card-menu__options div.card-menu__options__icon-container {
+    position: absolute;
+    transform: translate(120%, -26px) rotate(360deg);
+}
+
+.card-menu__toogle:checked~div.card-menu__options div.card-menu__options__icon-container:first-child {
+    transform: translate(0, -26px) rotate(360deg);
+}
+
+.card-menu__toogle:checked~div.card-menu__options div.card-menu__options__icon-container:last-child {
+    transform: translate(120%, 0) rotate(360deg);
+}
