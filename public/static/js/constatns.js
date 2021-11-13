@@ -22,7 +22,7 @@ export const statusCodes = {
   INTERNALERROR: 500,
 };
 
-export const baseCount = 20;
+export const baseCount = 12;
 export const inputNum = 3;
 
 export const profileBtnNum = {

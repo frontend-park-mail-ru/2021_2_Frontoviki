@@ -1,5 +1,6 @@
 import {createProductGrid} from '../templates/productGrid/productGrid.js';
 import {createInfoBlock} from '../templates/infoBlock/infoBlock.js';
+import { baseCount } from '../constatns.js';
 import BaseView from './baseView.js';
 
 /**
@@ -45,7 +46,7 @@ export default class MainPageView extends BaseView {
      * @param {JSON} adverts массив объявлений
      * @param {Boolean} clearPage новое рендер или бесконечная лента
     */
-  renderAds(search, categories, adverts, clearPage) {
+  renderAds(search, categories, adverts, clearPage, page) {
     adverts.forEach((elem) => {
       elem.href = '/ad/' + elem.id;
       elem.image = '/' + elem.images[0];
@@ -57,12 +58,17 @@ export default class MainPageView extends BaseView {
     this.root.appendChild(createProductGrid(adverts, false, false));
     const cards = document.querySelectorAll('.card');
     cards.forEach((elem, num)=>{
+      if (baseCount * (page-1) > num) {
+        return;
+      }
       elem.addEventListener('click', (e)=>{
+        console.log(elem, num);
         e.preventDefault();
         e.stopPropagation();
-        this.eventBus.emit('onCardClicked', adverts[num].id);
+        this.eventBus.emit('onCardClicked', adverts[num - (baseCount* (page-1))].id);
       });
     });
+    window.addEventListener('scroll', this.populate);
   }
 
   /**
@@ -87,6 +93,7 @@ export default class MainPageView extends BaseView {
     if (windowRelativeBottom < document.documentElement.clientHeight + 100) {
       // добавим больше данных
       this.addAds();
+      window.removeEventListener('scroll', this.populate);
     }
   };
 }

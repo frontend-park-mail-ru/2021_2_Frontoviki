@@ -37,7 +37,7 @@ export default class MainPageModel {
           this.eventBus.emit('stopScroll');
           return;
         }
-        this.eventBus.emit('getAds', undefined, undefined, adverts, clearPage);
+        this.eventBus.emit('getAds', undefined, undefined, adverts, clearPage, page);
       }
     });
   }

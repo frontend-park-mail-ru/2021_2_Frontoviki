@@ -177,13 +177,13 @@ export default class ProfilePageView extends BaseView {
     emptyGridActive.id = 'empty';
     const gridT = emptyGrid();
     if (favorite) {
-      emptyGridActive.innerHTML = gridT({ text: `В избранном ничего нет` });
+      emptyGridActive.innerHTML = gridT({text: `В избранном ничего нет`});
     } else if (archive) {
       emptyGridActive.innerHTML = gridT({
         text: `Архивные объявления будут
         отображаться на этой странице`});
     } else {
-      emptyGridActive.innerHTML = gridT({ text: 'Активных объявлений нет' });
+      emptyGridActive.innerHTML = gridT({text: 'Активных объявлений нет'});
     }
     rightBlock.appendChild(emptyGridActive);
   }

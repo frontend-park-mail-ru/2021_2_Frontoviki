@@ -15,6 +15,7 @@ export default class NewAdPageView extends BaseView {
     this.edit = this.edit.bind(this);
     this.sendAd = this.sendAd.bind(this);
     this.editAd = this.editAd.bind(this);
+    this.eventBus.on('displayPhotos', this.displayPhotos.bind(this));
   }
 
   /**
@@ -28,6 +29,11 @@ export default class NewAdPageView extends BaseView {
     this.eventBus.emit('getCategory');
     this.eventBus.emit('renderDone');
     document.getElementById('newAdForm').addEventListener('click', this.sendAd);
+    const photoInput = document.querySelector('.new-advert__images');
+    photoInput.addEventListener('change', ()=>{
+      this.eventBus.emit('photosAdd', photoInput.files);
+      this.eventBus.emit('displayPhotos', photoInput.files);
+    });
   }
 
   /**
@@ -54,5 +60,12 @@ export default class NewAdPageView extends BaseView {
    */
   editAd() {
     this.eventBus.emit('sendAd', false);
+  }
+
+  /**
+   * Функция отрисовки файлов
+   * @param {*} files
+   */
+  displayPhotos(files) {
   }
 }

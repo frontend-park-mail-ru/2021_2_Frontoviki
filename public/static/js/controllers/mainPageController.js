@@ -40,6 +40,7 @@ export default class MainPageController {
    * @param {*} id
    */
   goToCardPage(id) {
+    this.stopScroll();
     this.router.go('/ad/' + id);
   }
   /**
