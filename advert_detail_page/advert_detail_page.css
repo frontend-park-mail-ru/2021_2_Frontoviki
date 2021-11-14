@@ -534,7 +534,7 @@ header {
     margin-right: auto
 }
 
-@media only screen and (max-width: 1300px) {
+@media only screen and (max-width: 1500px) {
     .root__product-grid {
         grid-template-columns: 1fr repeat(12, minmax(auto, 60px)) 1fr
     }
