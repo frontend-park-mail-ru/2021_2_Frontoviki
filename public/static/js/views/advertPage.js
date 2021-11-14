@@ -7,6 +7,7 @@ import {inputNum} from '../constatns.js';
   *Класс для генерации страницы объявления
 */
 export default class AdvertPageView extends BaseView {
+  #ownerCount
   /**
     * конструктор
     * @param {*} eventBus eventBus модели
@@ -29,6 +30,7 @@ export default class AdvertPageView extends BaseView {
    * Запрашиваем информацию об объявлении
    */
   render() {
+    this.#ownerCount = 0;
     this.eventBus.emit('GetAdData');
   }
 
@@ -121,11 +123,7 @@ export default class AdvertPageView extends BaseView {
     });
     const addBtn = document.getElementById('addToCartBtn');
     if (Number(localStorage.getItem('id')) === advert.publisher_id) {
-      document.getElementById('chatBtn').style.display = 'none';
-      addBtn.style.display = 'none';
-      const editBtn = document.getElementById('editBtn');
-      editBtn.style.display = 'inline-block';
-      editBtn.addEventListener('click', () => this.eventBus.emit('onEditClicked', advert.id));
+      this.isOwner(advert.id);
     }
     addBtn.addEventListener('click', ()=> {
       if (localStorage.getItem('id') === null) {
@@ -171,6 +169,10 @@ export default class AdvertPageView extends BaseView {
      @param {int} id айди объявления
    */
   isOwner(id) {
+    this.#ownerCount++;
+    if (this.#ownerCount > 1) {
+      return;
+    }
     const addBtn = document.getElementById('addToCartBtn');
     document.getElementById('chatBtn').style.display = 'none';
     addBtn.style.display = 'none';

@@ -57,7 +57,7 @@ export default class AdvertPageController {
    * @param {Number} id объявления
    */
   redirectToEdit(id) {
-    this.router.go('/ad/' + id + '/edit');
+    this.router.go(`/ad/${id}/edit`);
   }
   /**
    * Открывает модальное окно, если пользователь пытается

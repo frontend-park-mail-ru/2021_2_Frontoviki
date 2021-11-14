@@ -70,9 +70,10 @@ export default class NewAdPageController {
    * @param {*} address
    * @param {*} coords
    * @param {*} isNew
+   * @param {Array} fileList массив фотографий
    */
   sendAd(endpointUrl, title, description, category, condition,
-      price, address, coords, isNew) {
+      price, address, coords, isNew, fileList) {
     const response = Ajax.postUsingFetch({
       url: endpointUrl,
       body: {
@@ -96,7 +97,7 @@ export default class NewAdPageController {
       console.log(code, parsedBody);
       if (code == statusCodes.REGDONE) {
         const id = parsedBody.body.advert.id;
-        this.eventBus.emit('successSend', id, isNew);
+        this.eventBus.emit('successSend', id, isNew, fileList);
       }
     });
   }

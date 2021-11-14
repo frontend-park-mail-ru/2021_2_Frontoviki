@@ -83,8 +83,9 @@ export default class NewAdPageModel {
   /**
    * отправка объявления на сервер
    * @param {bool} isNew новое объявление или редактирование старого
+   * @param {Array} fileList массив фотографий
    */
-  validateAd(isNew) {
+  validateAd(isNew, fileList) {
     const nameDiv = document.querySelector('.new-advert__name');
     const title = nameDiv.childNodes[inputNum].value.trim();
     if (!validate(nameDiv)) {
@@ -118,17 +119,17 @@ export default class NewAdPageModel {
       endpointUrl = `${secureDomainUrl}adverts/${adId}`;
     }
     this.eventBus.emit('validateSuccessful', endpointUrl, title, description,
-        category, condition, price, address, coords, isNew);
+        category, condition, price, address, coords, isNew, fileList);
   }
 
   /**
    * Отправляет фото
    * @param {number} id id объявления
    * @param {boolean} isNew редакт или новое
+   * @param {Array} fileList массив фотографий
    */
-  validatePhoto(id, isNew) {
-    const file = document.querySelector('.new-advert__images').files;
-    if (file.length === 0) {
+  validatePhoto(id, isNew, fileList) {
+    if (fileList.length === 0) {
       if (!isNew) {
         this.eventBus.emit('redirectToAd', id);
       }
@@ -136,8 +137,8 @@ export default class NewAdPageModel {
       return;
     }
     const formData = new FormData();
-    for (let i = 0; i < file.length; i++) {
-      formData.append('images', file[i]);
+    for (let i = 0; i < fileList.length; i++) {
+      formData.append('images', fileList[i]);
     }
     this.eventBus.emit('photoDataPacked', formData, id, isNew);
   }
@@ -157,6 +158,7 @@ export default class NewAdPageModel {
         return;
       }
       const {advert} = parsedBody.body;
+      console.log(advert);
       if (advert.publisher_id !== Number(localStorage.getItem('id'))) {
         this.eventBus.emit('notOwner');
         return;
@@ -175,6 +177,7 @@ export default class NewAdPageModel {
           childNodes[inputNum].value = advert.price;
       document.querySelector('.new-advert__location').
           childNodes[inputNum].value = advert.location;
+      this.eventBus.emit('handleImages', advert.images);
 
       ymaps.ready(()=> {
         const myGeoObject = new ymaps.GeoObject({

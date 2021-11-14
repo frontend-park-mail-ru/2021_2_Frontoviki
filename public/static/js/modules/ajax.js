@@ -74,7 +74,6 @@ export const Ajax = {
     }).then((data) => {
       return data;
     });
-    console.log(parsedBody);
     const {status: code} = response;
     return {
       status: code,
@@ -104,7 +103,6 @@ export const Ajax = {
     }).then((data) => {
       return data;
     });
-    console.log(parsedBody);
     const {status} = response;
     return {
       status,
@@ -134,7 +132,6 @@ export const Ajax = {
     }).then((data) => {
       return data;
     });
-    console.log(parsedBody);
     const {status} = response;
     return {
       status,
