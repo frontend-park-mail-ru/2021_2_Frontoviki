@@ -131,15 +131,6 @@ export default class NewAdPageModel {
    * @param {Array} fileList массив фотографий
    */
   validatePhoto(id, isNew, fileList) {
-    console.log(fileList);
-    if (fileList.length === 0) {
-      if (!isNew) {
-        this.eventBus.emit('redirectToAd', id);
-        return;
-      }
-      this.eventBus.emit('photosSend');
-      return;
-    }
     const formData = new FormData();
     Array.from(fileList).forEach((elem)=> {
       console.log(elem);
@@ -148,9 +139,13 @@ export default class NewAdPageModel {
       }
     });
     if (Array.from(formData).length == 0) {
+      if (!isNew) {
+        this.eventBus.emit('redirectToAd', id);
+        return;
+      }
+      this.eventBus.emit('photosSend');
       return;
     }
-    console.log(formData);
     this.eventBus.emit('photoDataPacked', formData, id, isNew);
   }
 
