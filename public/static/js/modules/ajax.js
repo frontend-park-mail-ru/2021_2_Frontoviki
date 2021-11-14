@@ -126,6 +126,7 @@ export const Ajax = {
         'X-Csrf-Token': CSRFToken,
         'Content-Type': 'application/json',
       },
+      body: JSON.stringify(args.body),
     });
     const parsedBody = await response.json().catch(() => {
       return {};

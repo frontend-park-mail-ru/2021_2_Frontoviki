@@ -84,8 +84,9 @@ export default class NewAdPageModel {
    * отправка объявления на сервер
    * @param {bool} isNew новое объявление или редактирование старого
    * @param {Array} fileList массив фотографий
+   * @param {Array} imagesToDelete фотографии которые удалим
    */
-  validateAd(isNew, fileList) {
+  validateAd(isNew, fileList, imagesToDelete) {
     const nameDiv = document.querySelector('.new-advert__name');
     const title = nameDiv.childNodes[inputNum].value.trim();
     if (!validate(nameDiv)) {
@@ -119,7 +120,8 @@ export default class NewAdPageModel {
       endpointUrl = `${secureDomainUrl}adverts/${adId}`;
     }
     this.eventBus.emit('validateSuccessful', endpointUrl, title, description,
-        category, condition, price, address, coords, isNew, fileList);
+        category, condition, price, address,
+        coords, isNew, fileList, imagesToDelete);
   }
 
   /**
@@ -129,17 +131,26 @@ export default class NewAdPageModel {
    * @param {Array} fileList массив фотографий
    */
   validatePhoto(id, isNew, fileList) {
+    console.log(fileList);
     if (fileList.length === 0) {
       if (!isNew) {
         this.eventBus.emit('redirectToAd', id);
+        return;
       }
       this.eventBus.emit('photosSend');
       return;
     }
     const formData = new FormData();
-    for (let i = 0; i < fileList.length; i++) {
-      formData.append('images', fileList[i]);
+    Array.from(fileList).forEach((elem)=> {
+      console.log(elem);
+      if (elem != undefined) {
+        formData.append('images', elem);
+      }
+    });
+    if (Array.from(formData).length == 0) {
+      return;
     }
+    console.log(formData);
     this.eventBus.emit('photoDataPacked', formData, id, isNew);
   }
 
@@ -158,7 +169,6 @@ export default class NewAdPageModel {
         return;
       }
       const {advert} = parsedBody.body;
-      console.log(advert);
       if (advert.publisher_id !== Number(localStorage.getItem('id'))) {
         this.eventBus.emit('notOwner');
         return;

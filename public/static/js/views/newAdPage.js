@@ -6,6 +6,8 @@ import {newImage} from '../templates/newAdForm/image.js';
  * Класс вьюхи страницы добавления нового объявления
  */
 export default class NewAdPageView extends BaseView {
+  #editDeletedImages = []
+  #editOffset
   #fileList = []
   #imageTemplate
   /**
@@ -32,7 +34,9 @@ export default class NewAdPageView extends BaseView {
     this.root.innerHTML = adFormT();
     this.eventBus.emit('getCategory');
     this.eventBus.emit('renderDone');
+    this.#editDeletedImages.length = 0;
     this.#fileList.length = 0;
+    this.#editOffset = 0;
     document.getElementById('newAdForm').addEventListener('click', this.sendAd);
     const input = document.querySelectorAll('.new-ad-form__input');
     [].forEach.call(input, (elem) => {
@@ -54,6 +58,7 @@ export default class NewAdPageView extends BaseView {
       Array.from(file).forEach((elem) => {
         this.insertImageIntoImageUploader(URL.createObjectURL(elem));
         this.#fileList.push(elem);
+        console.log(this.#fileList);
       });
     };
     document.getElementById('image-uploader').addEventListener('click', (e)=>{
@@ -96,7 +101,8 @@ export default class NewAdPageView extends BaseView {
    * Редактирование старого
    */
   editAd() {
-    this.eventBus.emit('sendAd', false, this.#fileList);
+    this.eventBus.emit('sendAd', false,
+        this.#fileList, this.#editDeletedImages);
   }
 
   /**
@@ -115,8 +121,15 @@ export default class NewAdPageView extends BaseView {
     const id = Array.from(crosses).indexOf(target);
     if (id > -1) {
       const images = document.querySelectorAll('.image-uploader__image');
+      // значит что собираемся удалять старую фотку
+      if (id < this.#editOffset) {
+        const path = images[id].childNodes[3].childNodes[1].src.split('/');
+        this.#editDeletedImages.
+            push(path.slice(3, 6).join('/'));
+      } else {
+        this.#fileList.splice(id, 1);
+      }
       images[id].remove();
-      this.#fileList.splice(id, 1);
     }
   }
 
@@ -126,8 +139,17 @@ export default class NewAdPageView extends BaseView {
    */
   pushExistingImages(images) {
     console.log(images);
+    let cursed = false;
     images.forEach((elem)=>{
+      if (elem == '/static/advertimages/default_image.png') {
+        cursed = true;
+        return;
+      }
       this.insertImageIntoImageUploader(elem);
     });
+    if (!cursed) {
+      this.#fileList.length = images.length;
+      this.#editOffset = images.length;
+    }
   }
 }

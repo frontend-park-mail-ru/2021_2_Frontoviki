@@ -36,6 +36,7 @@ export default class NewAdPageController {
     this.eventBus.on('validateSuccessful', this.sendAd.bind(this));
     this.eventBus.on('photoDataPacked', this.sendPhotos.bind(this));
     this.eventBus.on('checkLog', this.checkForLogging.bind(this));
+    this.eventBus.on('deleteImages', this.deleteImages.bind(this));
   }
 
   /**
@@ -71,9 +72,10 @@ export default class NewAdPageController {
    * @param {*} coords
    * @param {*} isNew
    * @param {Array} fileList массив фотографий
+   * @param {Array} imagesToDelete массив фотографий к удалению
    */
   sendAd(endpointUrl, title, description, category, condition,
-      price, address, coords, isNew, fileList) {
+      price, address, coords, isNew, fileList, imagesToDelete) {
     const response = Ajax.postUsingFetch({
       url: endpointUrl,
       body: {
@@ -97,6 +99,11 @@ export default class NewAdPageController {
       console.log(code, parsedBody);
       if (code == statusCodes.REGDONE) {
         const id = parsedBody.body.advert.id;
+        if (imagesToDelete != undefined) {
+          if (imagesToDelete.length != 0) {
+            this.eventBus.emit('deleteImages', id, imagesToDelete);
+          }
+        }
         this.eventBus.emit('successSend', id, isNew, fileList);
       }
     });
@@ -110,7 +117,7 @@ export default class NewAdPageController {
    */
   sendPhotos(formData, id, isNew) {
     const res = Ajax.postImageUsingFetch({
-      url: `${secureDomainUrl}adverts/${id}/upload`,
+      url: `${secureDomainUrl}adverts/${id}/images`,
       body: formData,
     });
     res.then(({status})=>{
@@ -136,4 +143,20 @@ export default class NewAdPageController {
       this.eventBus.emit('notLogged');
     }
   }
+
+  /**
+   * @param {*} id
+   * @param {*} images
+   */
+  deleteImages(id, images) {
+    Ajax.deleteAdUsingFetch({
+      url: `${secureDomainUrl}adverts/${id}/images`,
+      body: {images: images},
+    }).then(({status})=>{
+      if (status != statusCodes.OK) {
+        return;
+      }
+      this.eventBus.emit('redirectToAd', id);
+    });
+  };
 }
