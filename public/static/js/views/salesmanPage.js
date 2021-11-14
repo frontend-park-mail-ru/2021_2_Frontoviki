@@ -51,6 +51,13 @@ export default class SalesmanPageView extends BaseView {
       document.querySelector('.profile-content_right').appendChild(
           createProductGrid(adverts, false, false));
     }
+    const cards = document.querySelectorAll('.card');
+    cards.forEach((elem, key) => {
+      elem.addEventListener('click', (e) => {
+        e.preventDefault();
+        this.eventBus.emit('onCardClicked', adverts[key].id);
+      });
+    });
     // ставим рейтинг если мы зашли, еще не ставили
     // и не пытаемся самому себе поставить
     if (rating.is_rated == false && localStorage.getItem('id') &&

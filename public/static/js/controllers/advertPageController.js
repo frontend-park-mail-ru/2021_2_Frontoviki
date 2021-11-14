@@ -33,13 +33,16 @@ export default class AdvertPageController {
     this.eventBus.on('onEditClicked', this.redirectToEdit.bind(this));
     this.eventBus.on('notLogged', this.openModal.bind(this));
     this.eventBus.on('goToCart', this.goToCart.bind(this));
+    this.eventBus.on('goToProfile', this.goToProfile.bind(this));
     this.eventBus.on('onSalesmanClicked', this.goToSalesman.bind(this));
     this.eventBus.on('goToFav', this.goToFav.bind(this));
     this.eventBus.on('addToCart', this.addToCart.bind(this));
     this.eventBus.on('addToFavourite', this.addToFav.bind(this));
     this.eventBus.on('refreshCart', this.cartLogic.bind(this));
     this.eventBus.on('checkCart', this.cartLogic.bind(this));
+    this.eventBus.on('checkFav', this.favLogic.bind(this));
     this.globalEventBus.on('loggedForCart', this.refreshCart.bind(this));
+    this.globalEventBus.on('loggedForFav', this.favLogic.bind(this));
   }
 
   /**
@@ -74,6 +77,12 @@ export default class AdvertPageController {
    */
   refreshCart() {
     this.eventBus.emit('refreshCart');
+  }
+  /**
+   * Идем в профиль
+   */
+  goToProfile() {
+    this.router.go('/profile');
   }
   /**
    * Переход на страницу продавца
@@ -164,6 +173,45 @@ export default class AdvertPageController {
       });
       if (canAdd) {
         this.eventBus.emit('notInCart', advert.id);
+      }
+    });
+  }
+
+  /**
+   * Проверка что объявление в избранном
+   * @param {*} advert
+   */
+  async favLogic(advert) {
+    if (/ad/.test(window.location.pathname) === false) {
+      return;
+    }
+    if (advert === undefined) {
+      const adId = window.location.pathname.split('/')[idNum];
+      const res = await Ajax.getUsingFetch({
+        url: secureDomainUrl + 'adverts/' + adId,
+      });
+      advert = res.parsedBody.body.advert;
+    }
+    if (Number(localStorage.getItem('id')) === advert.publisher_id) {
+      return;
+    }
+    const res = Ajax.getUsingFetch({
+      url: secureDomainUrl + 'adverts/favorite',
+    });
+    res.then(({parsedBody}) => {
+      console.log(parsedBody);
+      const {adverts} = parsedBody.body;
+      console.log(adverts, advert.id);
+      let canAdd = true;
+      adverts.forEach((elem) => {
+        if (elem.id === advert.id) {
+          canAdd = false;
+          this.eventBus.emit('inFav');
+          return;
+        }
+      });
+      if (canAdd) {
+        this.eventBus.emit('notInFav', advert.id);
       }
     });
   }

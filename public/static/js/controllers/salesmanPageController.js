@@ -29,6 +29,7 @@ export default class SalesmanPageController {
     this.eventBus.on('ratedFinish', this.view.render);
     this.eventBus.on('rated', this.rate.bind(this));
     this.globalEventBus.on('loggedForSalesman', this.refreshPage.bind(this));
+    this.eventBus.on('onCardClicked', this.goToCardPage.bind(this));
   }
 
   /**
@@ -73,5 +74,12 @@ export default class SalesmanPageController {
       }
       this.eventBus.emit('ratedFinish');
     });
+  }
+  /**
+   * Переход на страницу объявления
+   * @param {*} id
+   */
+  goToCardPage(id) {
+    this.router.go(`/ad/${id}`);
   }
 }

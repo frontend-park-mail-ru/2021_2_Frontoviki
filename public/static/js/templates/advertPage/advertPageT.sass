@@ -111,6 +111,12 @@
                 flex-direction: row
                 align-items: center
                 justify-content: flex-start
+                
+                &__info
+                    &__name
+                        text-decoration: none
+                        color: $text-input-border-color
+
                 &__avatar
                     -o-object-fit: cover
                     object-fit: cover
@@ -237,6 +243,7 @@
 .advertisment-detail__capture
     font-size: 16px
     font-weight: 400
+
 
 @media screen and (max-width: 800px)
     .advertisment-detail__main-info

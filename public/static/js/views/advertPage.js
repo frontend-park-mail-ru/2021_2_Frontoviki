@@ -1,6 +1,7 @@
 import {advertPageTemplate} from '../templates/advertPage/advertPageT';
 import BaseView from './baseView.js';
 import {SliderLogic} from '../templates/advertPage/sliderLogic.js';
+import {inputNum} from '../constatns.js';
 
 /**
   *Класс для генерации страницы объявления
@@ -20,6 +21,8 @@ export default class AdvertPageView extends BaseView {
     this.eventBus.on('isOwner', this.isOwner.bind(this));
     this.eventBus.on('addedToCart', this.successAdd.bind(this));
     this.eventBus.on('addedToFavorite', this.successFav.bind(this));
+    this.eventBus.on('inFav', this.inFav.bind(this));
+    this.eventBus.on('notInFav', this.notInFav.bind(this));
   }
 
   /**
@@ -55,14 +58,6 @@ export default class AdvertPageView extends BaseView {
       salesmanCreatedAt: salesman.created_at.slice(0, 10),
     });
     this.eventBus.emit('adDrawn', advert);
-    const addToFav = document.getElementById('favBtn');
-    addToFav.addEventListener('mouseover', ()=>{
-      addToFav.style.color = '#8897f9';
-    });
-    addToFav.addEventListener('mouseout', ()=>{
-      addToFav.style.color = '#333';
-    });
-    addToFav.onclick = () => this.eventBus.emit('addToFavourite');
     const label = document.querySelector('.advertisment-detail__add-info__location__name-block__maps-label')
     label.addEventListener('click', ()=>{
       const toogle = document.getElementById('toogle_maps');
@@ -138,11 +133,19 @@ export default class AdvertPageView extends BaseView {
         return;
       }
     });
+    const addToFav = document.getElementById('favBtn');
+    addToFav.addEventListener('click', ()=> {
+      if (localStorage.getItem('id') === null) {
+        this.eventBus.emit('notLogged');
+        return;
+      }
+    });
 
     if (localStorage.getItem('id') === null) {
       return;
     }
     this.eventBus.emit('checkCart', advert);
+    this.eventBus.emit('checkFav', advert);
   }
 
   /**
@@ -176,6 +179,9 @@ export default class AdvertPageView extends BaseView {
     editBtn.addEventListener('click', () => {
       this.eventBus.emit('onEditClicked', id);
     });
+    const addToFav = document.getElementById('favBtn');
+    addToFav.childNodes[inputNum].innerHTML = 'Ваше объявление';
+    addToFav.onclick = () => this.eventBus.emit('goToProfile');
   }
 
   /**
@@ -192,6 +198,31 @@ export default class AdvertPageView extends BaseView {
   successFav() {
     const addToFav = document.getElementById('favBtn');
     addToFav.style.color = '#8897f9';
+    addToFav.childNodes[1].style.fill = '#8897f9';
+    addToFav.childNodes[inputNum].innerHTML = 'В избранном';
     addToFav.onclick = () => this.eventBus.emit('goToFav');
+  }
+  /**
+   * В избранном
+   */
+  inFav() {
+    const addToFav = document.getElementById('favBtn');
+    addToFav.style.color = '#8897f9';
+    addToFav.childNodes[1].style.fill = '#8897f9';
+    addToFav.childNodes[inputNum].innerHTML = 'В избранном';
+    addToFav.onclick = () => this.eventBus.emit('goToFav');
+  }
+  /**
+   * Можем добавить в избранное
+   */
+  notInFav() {
+    const addToFav = document.getElementById('favBtn');
+    addToFav.addEventListener('mouseover', ()=>{
+      addToFav.style.color = '#8897f9';
+    });
+    addToFav.addEventListener('mouseout', ()=>{
+      addToFav.style.color = '#333';
+    });
+    addToFav.onclick = () => this.eventBus.emit('addToFavourite');
   }
 }
