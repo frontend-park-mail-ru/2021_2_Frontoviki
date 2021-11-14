@@ -1,0 +1,116 @@
+.image-uploader {
+    max-width: 750px;
+    width: 100%;
+    height: auto;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    grid-gap: 10px;
+    grid-auto-rows: min-content;
+    padding: 20px 0;
+}
+
+.image-uploader__default {
+    grid-column: span / 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-color: rgb(245, 245, 245);
+    height: 180px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.image-uploader__default__file {
+    display: none;
+}
+
+.image-uploader__default__icon-container {
+    width: 40px;
+    height: 40px;
+}
+
+.image-uploader__default__icon {
+    fill: rgba(143, 143, 143, 0.7);
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+}
+
+.image-uploader__default__capture {
+    font-size: 18px;
+    font-weight: 500;
+    color: rgb(143, 143, 143);
+}
+
+.image-uploader__image {
+    grid-column: span / 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-color: rgb(245, 245, 245);
+    height: 180px;
+    border-radius: 5px;
+    overflow: hidden;
+    position: relative;
+}
+
+.image-uploader__image__img-container {
+    width: inherit;
+    height: inherit;
+    display: flex;
+}
+
+.image-uploader__image__img {
+    object-fit: cover;
+    height: 100%;
+    width: 100%;
+}
+
+.image-uploader__image__cross-container {
+    position: absolute;
+    right: 0;
+    top: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 30px;
+    height: 30px;
+    padding: 8px;
+    background-color: rgba(255, 255, 255, 0.3);
+    cursor: pointer;
+}
+
+.image-uploader__image__cross {
+    fill: black;
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    stroke: black;
+}
+
+@media screen and (max-width: 1000px) {
+    .image-uploader {
+        max-width: 430px;
+    }
+    .image-uploader__default {
+        height: 100px;
+    }
+    .image-uploader__image {
+        height: 100px;
+    }
+    .image-uploader__image__cross-container {
+        width: 20px;
+        height: 20px;
+        padding: 5px;
+    }
+}
+
+@media screen and (max-width: 600px) {
+    .image-uploader {
+        max-width: 220px;
+        grid-template-columns: 1fr 1fr;
+    }
+}
