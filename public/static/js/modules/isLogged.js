@@ -81,8 +81,6 @@ export async function isLogged(globalEventBus) {
     document.querySelector('.new-advert-capture-container').
         addEventListener('click', notLoggedNewAd);
   }
-  const title = document.querySelector('.logo__capture');
-  title.dataset.section = 'menu';
   const authLink = document.getElementById('auth');
   authLink.addEventListener('click', (e) => {
     e.preventDefault();
@@ -94,6 +92,10 @@ export async function isLogged(globalEventBus) {
     document.getElementById('mini-profile__toogle').checked = false;
     logout(globalEventBus);
     isLogged(globalEventBus);
+  });
+  const searchBtn = document.querySelector('.search__button');
+  searchBtn.addEventListener('click', () => {
+    globalEventBus.emit('onSearchClicked');
   });
 
   /**

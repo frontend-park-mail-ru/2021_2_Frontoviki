@@ -1,5 +1,5 @@
 import {Ajax} from '../modules/ajax.js';
-import {secureDomainUrl, statusCodes, baseCount} from '../constatns.js';
+import {secureDomainUrl, statusCodes, baseCount, idNum} from '../constatns.js';
 
 /**
  * Класс главной страницы с последними объявлениями
@@ -12,6 +12,7 @@ export default class MainPageModel {
   constructor(eventBus) {
     this.eventBus = eventBus;
     this.eventBus.on('getData', this.getAds.bind(this));
+    this.eventBus.on('getSearchedAds', this.getSearchedAds.bind(this));
   }
 
   /**
@@ -38,6 +39,33 @@ export default class MainPageModel {
           return;
         }
         this.eventBus.emit('getAds', undefined, undefined, adverts, clearPage, page);
+      }
+    });
+  }
+
+  /**
+   * Получение объявлений по запросу в поиске
+   */
+  getSearchedAds() {
+    const query = window.location.pathname.split('/')[idNum];
+    const res = Ajax.getUsingFetch({
+      url: `${secureDomainUrl}search?query=${query}`,
+      body: null,
+    });
+    res.then(({status, parsedBody})=> {
+      if (status != statusCodes.OK) {
+        return;
+      }
+      console.log(parsedBody);
+      const {code} = parsedBody;
+      if (code === statusCodes.OK) {
+        const {body} = parsedBody;
+        const {adverts} = body;
+        if (adverts.length == 0) {
+          this.eventBus.emit('stopScroll');
+          return;
+        }
+        this.eventBus.emit('gotSearchedAds', adverts);
       }
     });
   }

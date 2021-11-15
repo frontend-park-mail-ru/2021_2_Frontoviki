@@ -17,9 +17,11 @@ export default class MainPageView extends BaseView {
     super(eventBus);
     this.#page = 1;
     this.render = this.render.bind(this);
+    this.search = this.search.bind(this);
     this.populate = this.populate.bind(this);
     this.eventBus.on('getAds', this.renderAds.bind(this));
     this.eventBus.on('clickModal', this.modal.bind(this));
+    this.eventBus.on('gotSearchedAds', this.renderSearchedAds.bind(this));
   }
 
   /**
@@ -62,13 +64,46 @@ export default class MainPageView extends BaseView {
         return;
       }
       elem.addEventListener('click', (e)=>{
-        console.log(elem, num);
         e.preventDefault();
         e.stopPropagation();
         this.eventBus.emit('onCardClicked', adverts[num - (baseCount* (page-1))].id);
       });
     });
     window.addEventListener('scroll', this.populate);
+  }
+
+  /**
+   * Страница с результатами поиска
+   */
+  search() {
+    const query = document.querySelector('.search__input').value.trim();
+    if (query.length == 0) {
+      this.eventBus.emit('redirectToMain');
+    }
+    this.root.innerHTML = '';
+    this.eventBus.emit('getSearchedAds');
+  }
+
+  /**
+   * Результат поиска
+   * @param {*} adverts массив объявлений
+   */
+  renderSearchedAds(adverts) {
+    const query = document.querySelector('.search__input').value.trim();
+    this.root.appendChild(createInfoBlock(query));
+    adverts.forEach((elem) => {
+      elem.href = '/ad/' + elem.id;
+      elem.image = '/' + elem.images[0];
+    });
+    this.root.appendChild(createProductGrid(adverts, false, false));
+    const cards = document.querySelectorAll('.card');
+    cards.forEach((elem, num)=>{
+      elem.addEventListener('click', (e)=>{
+        e.preventDefault();
+        e.stopPropagation();
+        this.eventBus.emit('onCardClicked', adverts[num].id);
+      });
+    });
   }
 
   /**

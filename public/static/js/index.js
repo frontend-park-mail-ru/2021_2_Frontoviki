@@ -46,6 +46,7 @@ document.addEventListener('DOMContentLoaded', async () => {
   const AdvertPage = new AdvertPageController(router, globalEventBus);
 
   router.setRoute('^\/$', MainPage.view.render);
+  router.setRoute('^\/search/', MainPage.view.search);
   router.setRoute('^\/logout$', MainPage.view.render);
   router.setRoute('^\/profile$', ProfilePage.view.renderAds);
   router.setRoute('^\/profile\/archive$', ProfilePage.view.renderArchive);

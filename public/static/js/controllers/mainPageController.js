@@ -22,11 +22,13 @@ export default class MainPageController {
     ]);
     this.view = new MainPageView(this.eventBus);
     this.model = new MainPageModel(this.eventBus);
-    globalEventBus.on('clickModal', this.callModal.bind(this));
-    globalEventBus.on('goToNewAd', this.goToNewAd.bind(this));
     this.eventBus.on('onCardClicked', this.goToCardPage.bind(this));
     this.eventBus.on('stopScroll', this.stopScroll.bind(this));
+    this.eventBus.on('redirectToMain', this.redirectToMain.bind(this));
+    globalEventBus.on('clickModal', this.callModal.bind(this));
+    globalEventBus.on('goToNewAd', this.goToNewAd.bind(this));
     globalEventBus.on('profileLinksClick', this.stopScroll.bind(this));
+    globalEventBus.on('onSearchClicked', this.search.bind(this));
   }
 
   /**
@@ -46,6 +48,13 @@ export default class MainPageController {
   }
 
   /**
+   * В случае пустого запроса поиска возвращаемся на главную
+   */
+  redirectToMain() {
+    this.router.go('/');
+  }
+
+  /**
    * Переход на страницу нового объявления
    */
   goToNewAd() {
@@ -57,5 +66,16 @@ export default class MainPageController {
    */
   stopScroll() {
     window.removeEventListener('scroll', this.view.populate);
+  }
+
+  /**
+   * Поиск
+   */
+  search() {
+    const query = document.querySelector('.search__input').value.trim();
+    if (query.length > 0) {
+      this.stopScroll();
+      this.router.go(`/search/${query}`);
+    }
   }
 }
