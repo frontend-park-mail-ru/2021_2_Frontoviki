@@ -1,14 +1,12 @@
 header {
     height: 60px;
     background-color: var(--header-background-color);
-
     display: flex;
     justify-content: space-between;
     align-items: center;
 }
 
-.header__left-block,
-.header__right-block {
+.header__left-block, .header__right-block {
     width: max-content;
     display: flex;
     justify-content: space-between;
@@ -22,7 +20,6 @@ header {
 .header__right-block {
     margin-right: 3%;
 }
-
 
 .logo {
     height: 24px;
@@ -48,7 +45,6 @@ header {
     height: 32px;
     background-color: var(--search-background-color);
     border-radius: 5px;
-
     justify-content: space-around;
     overflow: hidden;
 }
@@ -66,20 +62,19 @@ header {
     outline: none;
     width: 100%;
     background-color: inherit;
-
     color: var(--header-background-color);
     font-family: "Roboto", 'Open Sans', sans-serif;
     font-size: 14px;
     font-weight: 400;
 }
 
-.search__input::-webkit-input-placeholder{
+.search__input::-webkit-input-placeholder {
     color: var(--search-text-default-color);
 }
 
 .search__input::-webkit-search-cancel-button {
     display: none;
-  }
+}
 
 .search__input:focus-visible {
     border: none;
@@ -88,7 +83,7 @@ header {
 
 .search__button {
     height: 100%;
-    width:fit-content;
+    width: fit-content;
     border: none;
     padding: 0 5px;
     border-radius: 0;
@@ -100,18 +95,19 @@ header {
 }
 
 /* скрытие имени пользователя на мобилке */
+
 @media only screen and (max-device-width: 480px) {
     .mini-profile__capture {
         display: none;
     }
 }
+
 .mini-profile__capture {
     font-weight: 500;
     font-style: normal;
     font-size: 16px;
     line-height: 24px;
     color: var(--header-capture-color);
-
     margin-right: 10px;
 }
 
@@ -124,7 +120,6 @@ header {
 .mini-profile__options {
     width: 24px;
     height: 24px;
-
     display: flex;
     justify-content: center;
     align-items: center;
@@ -135,19 +130,29 @@ header {
     margin-left: 5px;
 }
 
-.new-advert-icon-container {
-    height: 20px;
-    width: 20px;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    margin-right: 10px;
+.new-advert-capture-container {
+    height: 100%;
+    width: fit-content;
+    border: none;
+    padding:  6px;
+    border-radius: 0;
+    background-color: var(--button-background-color);
     cursor: pointer;
+    margin-right: 10px;
+    border-radius: 5px;
+    transition: all .2s cubic-bezier(.34, 1.56, .64, 1);
 }
 
-.new-advert-icon {
-    fill: var(--header-capture-color);
-    width: 100%;
-    height: 100%;
+.new-advert-capture-container:hover {
+    background-color: var(--button-background-color_hover);
+}
+
+.new-advert-capture-container:active {
+    transform: scale(0.98);
+}
+
+.new-advert-capture {
+    font-size: 14px;
+    font-weight: 400;
+    color: white;
 }
