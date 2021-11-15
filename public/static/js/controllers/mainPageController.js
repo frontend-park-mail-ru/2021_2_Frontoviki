@@ -23,6 +23,7 @@ export default class MainPageController {
     this.view = new MainPageView(this.eventBus);
     this.model = new MainPageModel(this.eventBus);
     globalEventBus.on('clickModal', this.callModal.bind(this));
+    globalEventBus.on('goToNewAd', this.goToNewAd.bind(this));
     this.eventBus.on('onCardClicked', this.goToCardPage.bind(this));
     this.eventBus.on('stopScroll', this.stopScroll.bind(this));
     globalEventBus.on('profileLinksClick', this.stopScroll.bind(this));
@@ -42,6 +43,14 @@ export default class MainPageController {
   goToCardPage(id) {
     this.stopScroll();
     this.router.go('/ad/' + id);
+  }
+
+  /**
+   * Переход на страницу нового объявления
+   */
+  goToNewAd() {
+    this.stopScroll();
+    this.router.go('/newAd');
   }
   /**
    * Если закончились объявления остановим ленту

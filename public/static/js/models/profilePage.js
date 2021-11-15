@@ -1,5 +1,5 @@
 import {Ajax} from '../modules/ajax.js';
-import {inputNum, minValidationLen, oldPassNum, phLength, secureDomainUrl, statusCodes} from '../constatns.js';
+import {inputNum, minValidationLen, oldPassNum, passwordLength, phLength, secureDomainUrl, statusCodes} from '../constatns.js';
 import {createDeleteModal} from '../templates/deleteModal/deleteModal.js';
 
 
@@ -189,16 +189,16 @@ export default class ProfilePageModel {
    */
   validatePassword(oldPassword, password) {
     const passwordDiv = document.getElementById('settingPassword');
-    if (password.length < phoneLength) {
+    if (password.length < passwordLength) {
       passwordDiv.classList.add('text-input_wrong');
       return;
     }
     if (password === oldPassword) {
-      passwordDiv.childNodes[oldPassNum].innerHTML = 'Пароли одинаковые';
+      passwordDiv.childNodes[inputNum].innerHTML = 'Пароли одинаковые';
       passwordDiv.classList.add('text-input_wrong');
       return;
     }
-    passwordDiv.childNodes[oldPassword].innerHTML = 'Пароль слишком простой';
+    passwordDiv.childNodes[inputNum].innerHTML = 'Пароль слишком простой';
     passwordDiv.classList.remove('text-input_wrong');
     this.eventBus.emit('passwordChecked', oldPassword, password);
   }

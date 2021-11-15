@@ -138,7 +138,6 @@ export default class NewAdPageView extends BaseView {
    * @param {*} images
    */
   pushExistingImages(images) {
-    console.log(images);
     let cursed = false;
     images.forEach((elem)=>{
       if (elem == '/static/advertimages/default_image.png') {

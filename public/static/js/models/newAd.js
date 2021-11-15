@@ -133,7 +133,6 @@ export default class NewAdPageModel {
   validatePhoto(id, isNew, fileList) {
     const formData = new FormData();
     Array.from(fileList).forEach((elem)=> {
-      console.log(elem);
       if (elem != undefined) {
         formData.append('images', elem);
       }

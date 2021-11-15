@@ -25,11 +25,9 @@ header
     height: 24px
     margin-right: 10px
 
-
     &__icon
         height: 24px
         width: 24px
-
 
     &__capture
         cursor: pointer
@@ -44,18 +42,29 @@ header
     width: 350px
     height: 32px
     background-color: $search-background-color
-    border-radius: 4px
+    border-radius: 5px
 
     justify-content: space-around
-    padding: 10px
+    overflow: hidden
 
+    &__button
+        height: 100%
+        width: fit-content
+        border: none
+        padding: 0 5px
+        border-radius: 0
+        font-size: 14px
+        font-weight: 400
+        background-color: $button-background-color
+        color: white
+        cursor: pointer
 
     &__icon
         width: 12px
         height: 12px
         margin-right: 10px
+        margin-left: 10px
         fill: $search-text-default-color
-
 
     &__input
         border: none
@@ -68,14 +77,11 @@ header
         font-size: 14px
         font-weight: 400
 
-
     &__input::-webkit-input-placeholder
         color: $search-text-default-color
 
-
     &__input::-webkit-search-cancel-button
         display: none
-
 
     &__input:focus-visible
         border: none
@@ -114,6 +120,29 @@ header
     justify-content: center
     align-items: center
 
-
     &__icon
         fill: $header-capture-color
+
+.new-advert-capture
+    font-size: 14px
+    font-weight: 450
+    color: white
+    white-space: nowrap
+
+    &-container
+        height: 100%
+        width: fit-content
+        border: none
+        padding: 6px
+        border-radius: 0
+        background-color: $button-background-color
+        cursor: pointer
+        margin-right: 20px
+        border-radius: 5px
+        transition: all .2s cubic-bezier(.34, 1.56, .64, 1)
+
+        &:hover
+            background-color: $button-background-color_hover
+
+        &:active
+            transform: scale(0.98)

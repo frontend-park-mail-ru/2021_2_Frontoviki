@@ -56,6 +56,8 @@ export async function isLogged(globalEventBus) {
     authLink.style.display = 'none';
     document.querySelector('.expand-menu__label').style.display = 'flex';
     const links = document.querySelector('.expand-menu__content').childNodes;
+    document.querySelector('.new-advert-capture-container').
+        addEventListener('click', LoggedNewAd);
     links.forEach((elem) => {
       elem.addEventListener('click', ()=>{
         globalEventBus.emit('profileLinksClick');
@@ -76,6 +78,8 @@ export async function isLogged(globalEventBus) {
     localStorage.removeItem('image');
     localStorage.removeItem('rating');
     localStorage.removeItem('phone');
+    document.querySelector('.new-advert-capture-container').
+        addEventListener('click', notLoggedNewAd);
   }
   const title = document.querySelector('.logo__capture');
   title.dataset.section = 'menu';
@@ -91,4 +95,18 @@ export async function isLogged(globalEventBus) {
     logout(globalEventBus);
     isLogged(globalEventBus);
   });
+
+  /**
+   * Хотим добавить объявления когда не зарегистрированы
+   */
+  function notLoggedNewAd() {
+    globalEventBus.emit('clickModal');
+  }
+
+  /**
+   * Хотим добавить объявления когда зарегистрированы
+   */
+  function LoggedNewAd() {
+    globalEventBus.emit('goToNewAd');
+  }
 }

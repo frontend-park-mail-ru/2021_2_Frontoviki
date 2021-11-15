@@ -101,7 +101,7 @@ export default class NewAdPageController {
         const id = parsedBody.body.advert.id;
         if (imagesToDelete != undefined) {
           if (imagesToDelete.length != 0) {
-            this.eventBus.emit('deleteImages', id, imagesToDelete);
+            this.eventBus.emit('deleteImages', id, imagesToDelete, fileList);
           }
         }
         this.eventBus.emit('successSend', id, isNew, fileList);
@@ -147,13 +147,25 @@ export default class NewAdPageController {
   /**
    * @param {*} id
    * @param {*} images
+   * @param {Array} fileList массив фотографий
    */
-  deleteImages(id, images) {
+  deleteImages(id, images, fileList) {
     Ajax.deleteAdUsingFetch({
       url: `${secureDomainUrl}adverts/${id}/images`,
       body: {images: images},
     }).then(({status})=>{
       if (status != statusCodes.OK) {
+        return;
+      }
+      const formData = new FormData();
+      Array.from(fileList).forEach((elem)=> {
+        if (elem != undefined) {
+          formData.append('images', elem);
+        }
+      });
+      // надо будет как то порефакторить,
+      // сейчас это нужно чтобы не было 2 редиректа
+      if (Array.from(formData).length != 0) {
         return;
       }
       this.eventBus.emit('redirectToAd', id);
