@@ -76,6 +76,7 @@ header {
     color: #e9e3e6
 }
 
+/*
 .search {
     margin-left: 2%;
     margin-right: 2%;
@@ -117,7 +118,7 @@ header {
     border: none;
     background-color: inherit
 }
-
+*/
 .mini-profile__capture {
     cursor: default;
     font-weight: 500;
