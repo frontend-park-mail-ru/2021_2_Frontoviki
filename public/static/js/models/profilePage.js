@@ -170,10 +170,16 @@ export default class ProfilePageModel {
    * @param {*} phone
    */
   updateInfo(name, surname) {
-    const nameInput = document.getElementById('settingName').
-        childNodes[inputNum];
-    const surnInpt = document.getElementById('settingSurname').
-        childNodes[inputNum];
+    const nameDiv = document.getElementById('settingName');
+    const surnameDiv = document.getElementById('settingSurname');
+    const nameInput = nameDiv.childNodes[inputNum];
+    const surnInpt = surnameDiv.childNodes[inputNum];
+    nameDiv.classList.add('text-input_correct');
+    surnameDiv.classList.add('text-input_correct');
+    document.getElementById('settingEmail').classList.add('text-input_correct');
+    document.getElementById('settingPhone').classList.add('text-input_correct');
+    document.getElementById('settings__change-info').
+        innerHTML = 'Информация сохранена';
     nameInput.placeholder = name;
     nameInput.value = '';
     surnInpt.placeholder = surname;

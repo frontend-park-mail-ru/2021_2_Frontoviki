@@ -259,14 +259,21 @@ export default class ProfilePageView extends BaseView {
     });
     let old = 0;
     phoneInput.addEventListener('keydown', (e) => {
+      const curLen = phoneInput.value.length;
       // backspace delete
       if (!/\d/.test(e.key) && e.keyCode != 8 && e.keyCode != 46) {
         e.preventDefault();
         return;
       }
-      const curLen = phoneInput.value.length;
+      if (curLen == 16 && /\d/.test(e.key)) {
+        e.preventDefault();
+        return;
+      }
       if (curLen < old) {
-        old--;
+        old = curLen;
+        return;
+      }
+      if (e.keyCode == 8 || e.keyCode == 46) {
         return;
       }
       if (curLen == 6) {
@@ -277,9 +284,6 @@ export default class ProfilePageView extends BaseView {
       }
       if (curLen == 13) {
         phoneInput.value = phoneInput.value + '-';
-      }
-      if (curLen > 15) {
-        phoneInput.value = phoneInput.value.substring(0, phoneInput.value.length - 1);
       }
       old++;
     });
