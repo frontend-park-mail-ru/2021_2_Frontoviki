@@ -238,11 +238,9 @@ export default class ProfilePageView extends BaseView {
     rightBlock.appendChild(settingsDiv);
 
     const photoInput = document.getElementById('avatar_loader');
-    const img = document.getElementById('avatar_preview');
     photoInput.onchange = () => {
       const [file] = photoInput.files;
       if (file) {
-        img.src = URL.createObjectURL(file);
         document.querySelector('.profile-content__avatar__image').src =
           URL.createObjectURL(file);
         document.querySelector('.mini-profile__avatar').src =
