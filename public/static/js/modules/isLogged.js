@@ -97,6 +97,12 @@ export async function isLogged(globalEventBus) {
   searchBtn.addEventListener('click', () => {
     globalEventBus.emit('onSearchClicked');
   });
+  const searchInput = document.querySelector('.search__input');
+  searchInput.addEventListener('keydown', (e)=>{
+    if (e.keyCode == 13) {
+      globalEventBus.emit('onSearchClicked');
+    }
+  });
 
   /**
    * Хотим добавить объявления когда не зарегистрированы

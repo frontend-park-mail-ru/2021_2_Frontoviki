@@ -27,11 +27,16 @@
         margin-bottom: 20px
 
         &__main
-            width: 70%
+            width: 90%
             height: 100%
             display: flex
             flex-direction: column
             align-items: center
+
+            &-container
+                width: 100%
+                height: 100%
+                position: relative
 
             &__text
                 width: 100%
@@ -246,6 +251,8 @@
 
 
 @media screen and (max-width: 800px)
+    .gallery__next-button
+        right: 0
     .advertisment-detail__main-info
         width: 100%
         height: 100%
@@ -267,9 +274,6 @@
         flex-direction: column
         align-iems: center
 
-@media only screen and (max-device-width: 480px)
-    .gallery__prev-button, .gallery__next-button
-        top: 55%
 
 .slideshow-container
     max-width: 1000px
@@ -285,20 +289,20 @@
 .gallery__prev-button, .gallery__next-button
     cursor: pointer
     position: absolute
-    top: 30%
+    top: 50%
     width: auto
     padding: 16px
     color: white
     font-weight: bold
     font-size: 18px
     border-radius: 0 3px 3px 0
-    background-color: rgba(0,0,0,0.4)
+    background-color: rgba(0,0,0,0.5)
 
 .gallery__prev-button
-    place-self: start
+    left: 0
 
 .gallery__next-button
-    place-self: end
+    right: 10%
     
 
 .gallery__prev-button:hover, .gallery__next-button:hover

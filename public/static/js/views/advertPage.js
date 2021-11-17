@@ -2,6 +2,7 @@ import {advertPageTemplate} from '../templates/advertPage/advertPageT';
 import BaseView from './baseView.js';
 import {SliderLogic} from '../templates/advertPage/sliderLogic.js';
 import {inputNum} from '../constatns.js';
+import {properDate} from '../modules/utilsFunctions.js';
 
 /**
   *Класс для генерации страницы объявления
@@ -40,8 +41,8 @@ export default class AdvertPageView extends BaseView {
    * @param {JSON} salesman информация о продавце
    */
   renderAd(advert, salesman, rating) {
+    const date = properDate(salesman.created_at.slice(0, 10));
     const advertTemplate = advertPageTemplate();
-    console.log(advert.images);
     this.root.innerHTML = advertTemplate({
       name: advert.name,
       price: advert.price,
@@ -56,8 +57,8 @@ export default class AdvertPageView extends BaseView {
       salesmanSurname: salesman.surname,
       salesmanAvatar: '/' + salesman.image,
       salesmanHref: '/salesman/' + salesman.id,
-      salesmanRating: rating.avg,
-      salesmanCreatedAt: salesman.created_at.slice(0, 10),
+      salesmanRating: rating.avg.toFixed(1),
+      salesmanCreatedAt: date,
     });
     this.eventBus.emit('adDrawn', advert);
     const label = document.querySelector('.advertisment-detail__add-info__location__name-block__maps-label')
