@@ -34,6 +34,7 @@ export default class ProfilePageView extends BaseView {
   */
   render() {
     this.eventBus.emit('checkLog');
+    document.querySelector('.root__new-advert-btn-wrapper')?.remove();
     document.getElementById('mini-profile__toogle').checked = false;
     this.root.innerHTML = '';
     const profileContent = profileInfoBlock();

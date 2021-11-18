@@ -29,6 +29,7 @@ export default class NewAdPageView extends BaseView {
     */
   render() {
     this.eventBus.emit('checkLog');
+    document.querySelector('.root__new-advert-btn-wrapper')?.remove();
     document.getElementById('mini-profile__toogle').checked = false;
     const adFormT = createNewAdForm();
     this.root.innerHTML = adFormT();

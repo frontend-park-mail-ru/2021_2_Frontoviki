@@ -22,6 +22,8 @@ export default class MainPageView extends BaseView {
     this.eventBus.on('getAds', this.renderAds.bind(this));
     this.eventBus.on('clickModal', this.modal.bind(this));
     this.eventBus.on('gotSearchedAds', this.renderSearchedAds.bind(this));
+    this.eventBus.on('deleteBtn', this.deleteBtn.bind(this));
+    this.eventBus.on('loggedForNewAd', this.newAdBtnCheck.bind(this));
   }
 
   /**
@@ -30,6 +32,7 @@ export default class MainPageView extends BaseView {
   render() {
     this.#page = 1;
     window.addEventListener('scroll', this.populate);
+    this.newAdvertBtn();
     this.eventBus.emit('getData', this.#page, true);
     this.#page++;
   }
@@ -131,4 +134,47 @@ export default class MainPageView extends BaseView {
       window.removeEventListener('scroll', this.populate);
     }
   };
+
+  /**
+   * Добавление кнопки на мобилке
+   */
+  newAdvertBtn() {
+    const btnWrapper = document.createElement('div');
+    const btn = document.createElement('button');
+    btnWrapper.classList.add('root__new-advert-btn-wrapper');
+    btn.classList.add('button');
+    btn.classList.add('root__new-advert-btn');
+    btn.innerHTML = 'Разместить объявление';
+    if (localStorage.getItem('name') != null) {
+      btn.onclick = ()=> this.eventBus.emit('loggedNewAdd');
+    } else {
+      btn.onclick = ()=> this.eventBus.emit('notLoggedNewAdd');
+    }
+    btnWrapper.appendChild(btn);
+    this.root.parentNode.appendChild(btnWrapper);
+    window.addEventListener('scroll', (e)=>{
+      const y = document.documentElement.getBoundingClientRect().y;
+      const width = document.documentElement.clientWidth;
+      if (y < -200 || width > 885) {
+        btnWrapper.style.display = 'none';
+      } else {
+        btnWrapper.style.display = 'flex';
+      }
+    });
+  };
+
+  /**
+   * Удаляет кнопку
+   */
+  deleteBtn() {
+    document.querySelector('.root__new-advert-btn-wrapper').remove();
+  }
+
+  /**
+   * Перерисуем кнопку
+   */
+  newAdBtnCheck() {
+    const btn = document.querySelector('.root__new-advert-btn');
+    btn.onclick = ()=> this.eventBus.emit('loggedNewAdd');
+  }
 }

@@ -38,6 +38,7 @@ export function autorisation(logEmail, logPassword, globalEventBus) {
       globalEventBus.emit('loggedForCart');
       globalEventBus.emit('loggedForSalesman');
       globalEventBus.emit('loggedForFav');
+      globalEventBus.emit('loggedForNewAd');
       return;
     }
     switch (code) {

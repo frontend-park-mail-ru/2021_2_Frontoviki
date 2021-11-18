@@ -38,6 +38,7 @@ export function registration(regName, regSurname, regEmail,
       globalEventBus.emit('loggedForCart');
       globalEventBus.emit('loggedForSalesman');
       globalEventBus.emit('loggedForFav');
+      globalEventBus.emit('loggedForNewAd');
       return;
     }
     regEmail.childNodes[oldPassNum].

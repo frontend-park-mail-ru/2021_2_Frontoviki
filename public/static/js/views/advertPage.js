@@ -31,6 +31,7 @@ export default class AdvertPageView extends BaseView {
    * Запрашиваем информацию об объявлении
    */
   render() {
+    document.querySelector('.root__new-advert-btn-wrapper')?.remove();
     this.#ownerCount = 0;
     this.eventBus.emit('GetAdData');
   }

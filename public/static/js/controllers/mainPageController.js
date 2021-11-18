@@ -25,10 +25,13 @@ export default class MainPageController {
     this.eventBus.on('onCardClicked', this.goToCardPage.bind(this));
     this.eventBus.on('stopScroll', this.stopScroll.bind(this));
     this.eventBus.on('redirectToMain', this.redirectToMain.bind(this));
+    this.eventBus.on('loggedNewAdd', this.loggedNewAdd.bind(this));
+    this.eventBus.on('notLoggedNewAdd', this.notLoggedNewAdd.bind(this));
     globalEventBus.on('clickModal', this.callModal.bind(this));
     globalEventBus.on('goToNewAd', this.goToNewAd.bind(this));
     globalEventBus.on('profileLinksClick', this.stopScroll.bind(this));
     globalEventBus.on('onSearchClicked', this.search.bind(this));
+    globalEventBus.on('loggedForNewAd', this.checkNewAdButton.bind(this));
   }
 
   /**
@@ -44,6 +47,7 @@ export default class MainPageController {
    */
   goToCardPage(id) {
     this.stopScroll();
+    this.eventBus.emit('deleteBtn');
     this.router.go('/ad/' + id);
   }
 
@@ -59,6 +63,7 @@ export default class MainPageController {
    */
   goToNewAd() {
     this.stopScroll();
+    this.eventBus.emit('deleteBtn');
     this.router.go('/newAd');
   }
   /**
@@ -74,8 +79,30 @@ export default class MainPageController {
   search() {
     const query = document.querySelector('.search__input').value.trim();
     if (query.length > 0) {
+      this.eventBus.emit('deleteBtn');
       this.stopScroll();
       this.router.go(`/search/${query}`);
     }
+  }
+
+  /**
+   * Переход на страницу нового объявления
+   */
+  loggedNewAdd() {
+    this.globalEventBus.emit('goToNewAd');
+  }
+
+  /**
+   * Модальное
+   */
+  notLoggedNewAdd() {
+    this.globalEventBus.emit('clickModal');
+  }
+
+  /**
+   * Меняем поведение кнопки после регистрации или логина
+   */
+  checkNewAdButton() {
+    this.eventBus.emit('loggedForNewAd');
   }
 }
