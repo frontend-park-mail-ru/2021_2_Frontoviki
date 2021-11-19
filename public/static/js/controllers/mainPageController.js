@@ -27,6 +27,7 @@ export default class MainPageController {
     this.eventBus.on('redirectToMain', this.redirectToMain.bind(this));
     this.eventBus.on('loggedNewAdd', this.loggedNewAdd.bind(this));
     this.eventBus.on('notLoggedNewAdd', this.notLoggedNewAdd.bind(this));
+    this.eventBus.on('onCategoryClicked', this.goToCategoryPage.bind(this));
     globalEventBus.on('clickModal', this.callModal.bind(this));
     globalEventBus.on('goToNewAd', this.goToNewAd.bind(this));
     globalEventBus.on('profileLinksClick', this.stopScroll.bind(this));
@@ -66,6 +67,16 @@ export default class MainPageController {
     this.stopScroll();
     this.eventBus.emit('deleteBtn');
     this.router.go('/newAd');
+  }
+
+  /**
+   * Переход на страницу категории
+   * @param {*} category
+   */
+  goToCategoryPage(category) {
+    this.stopScroll();
+    this.eventBus.emit('deleteBtn');
+    this.router.go(`/category/${category}`);
   }
   /**
    * Если закончились объявления остановим ленту

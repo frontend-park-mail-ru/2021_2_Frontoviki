@@ -194,6 +194,15 @@ export default class MainPageView extends BaseView {
   renderCategoryBlock(categories) {
     const category = categoriesBlock(categories);
     this.root.prepend(category);
+    const categoryHref = document.querySelector('.root__category__content-categories');
+    categoryHref.addEventListener('click', (e)=>{
+      if (e.target instanceof HTMLAnchorElement) {
+        e.preventDefault();
+        e.stopPropagation();
+        console.log('emitted');
+        this.eventBus.emit('onCategoryClicked', e.target.innerHTML);
+      }
+    });
   }
 
   /**
