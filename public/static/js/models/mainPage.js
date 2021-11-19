@@ -13,6 +13,7 @@ export default class MainPageModel {
     this.eventBus = eventBus;
     this.eventBus.on('getData', this.getAds.bind(this));
     this.eventBus.on('getSearchedAds', this.getSearchedAds.bind(this));
+    this.eventBus.on('getCategories', this.getCategories.bind(this));
   }
 
   /**
@@ -38,7 +39,7 @@ export default class MainPageModel {
           this.eventBus.emit('stopScroll');
           return;
         }
-        this.eventBus.emit('getAds', undefined, undefined, adverts, clearPage, page);
+        this.eventBus.emit('getAds', adverts, clearPage, page);
       }
     });
   }
@@ -47,7 +48,7 @@ export default class MainPageModel {
    * Получение объявлений по запросу в поиске
    */
   getSearchedAds() {
-    const query = window.location.pathname.split('/')[idNum];
+    const query = window.location.pathname.split('/')[2];
     const res = Ajax.getUsingFetch({
       url: `${secureDomainUrl}search?query=${query}`,
       body: null,
@@ -67,6 +68,22 @@ export default class MainPageModel {
         }
         this.eventBus.emit('gotSearchedAds', adverts);
       }
+    });
+  }
+
+  /**
+   * Получение списка категорий
+   */
+  getCategories() {
+    const res = Ajax.getUsingFetch({
+      url: `${secureDomainUrl}category`,
+    });
+    res.then(({status, parsedBody}) => {
+      if (status != statusCodes.OK) {
+        return;
+      }
+      const {categories} = parsedBody.body;
+      this.eventBus.emit('gotCategories', categories);
     });
   }
 }

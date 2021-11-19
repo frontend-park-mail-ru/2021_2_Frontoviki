@@ -1,5 +1,6 @@
 import {createProductGrid} from '../templates/productGrid/productGrid.js';
 import {createInfoBlock} from '../templates/infoBlock/infoBlock.js';
+import {categoriesBlock} from '../templates/mainPageCategories/categoriesBlock.js'
 import {baseCount} from '../constatns.js';
 import BaseView from './baseView.js';
 
@@ -20,6 +21,7 @@ export default class MainPageView extends BaseView {
     this.search = this.search.bind(this);
     this.populate = this.populate.bind(this);
     this.eventBus.on('getAds', this.renderAds.bind(this));
+    this.eventBus.on('gotCategories', this.renderCategoryBlock.bind(this));
     this.eventBus.on('clickModal', this.modal.bind(this));
     this.eventBus.on('gotSearchedAds', this.renderSearchedAds.bind(this));
     this.eventBus.on('deleteBtn', this.deleteBtn.bind(this));
@@ -34,6 +36,7 @@ export default class MainPageView extends BaseView {
     this.#page = 1;
     window.addEventListener('scroll', this.populate);
     this.newAdvertBtn();
+    this.eventBus.emit('getCategories');
     this.eventBus.emit('getData', this.#page, true);
     this.#page++;
   }
@@ -46,21 +49,30 @@ export default class MainPageView extends BaseView {
   }
   /**
      * Функция рендера генерерует весь контент страницы
-     * @param {string} search текст поиска страницы
-     * @param {string} categories основная категория сортировки страницы.
-     * Например 'Электротехника'.
      * @param {JSON} adverts массив объявлений
      * @param {Boolean} clearPage новое рендер или бесконечная лента
+     * @param {int} page номер страницы
     */
-  renderAds(search, categories, adverts, clearPage, page) {
+  renderAds(adverts, clearPage, page) {
     adverts.forEach((elem) => {
       elem.href = '/ad/' + elem.id;
       elem.image = '/' + elem.images[0];
     });
     if (clearPage) {
-      this.root.innerHTML = '';
+      document.querySelectorAll('.root__product-grid').forEach((elem)=>{
+        elem.remove();
+      });
+      const categoryBlock = document.querySelector('.root__category');
+      if (categoryBlock == null) {
+        this.root.innerHTML = '';
+      } else {
+        this.root.childNodes.forEach((elem) => {
+          if (elem !== categoryBlock) {
+            this.root.removeChild(elem);
+          }
+        });
+      };
     }
-    // this.root.appendChild(createInfoBlock(search, categories));
     this.root.appendChild(createProductGrid(adverts, false, false));
     const cards = document.querySelectorAll('.card');
     cards.forEach((elem, num)=>{
@@ -80,7 +92,10 @@ export default class MainPageView extends BaseView {
    * Страница с результатами поиска
    */
   search() {
-    const query = document.querySelector('.search__input').value.trim();
+    let query = document.querySelector('.search__input').value.trim();
+    if (query.length === 0) {
+      query = window.location.pathname.split('/')[2];
+    }
     if (query.length == 0) {
       this.eventBus.emit('redirectToMain');
     }
@@ -93,8 +108,9 @@ export default class MainPageView extends BaseView {
    * @param {*} adverts массив объявлений
    */
   renderSearchedAds(adverts) {
-    const query = document.querySelector('.search__input').value.trim();
-    this.root.appendChild(createInfoBlock(query));
+    const query = window.location.pathname.split('/')[2];
+    const decoded = decodeURI(query);
+    this.root.appendChild(createInfoBlock(decoded));
     adverts.forEach((elem) => {
       elem.href = '/ad/' + elem.id;
       elem.image = '/' + elem.images[0];
@@ -108,6 +124,15 @@ export default class MainPageView extends BaseView {
         this.eventBus.emit('onCardClicked', adverts[num].id);
       });
     });
+  }
+
+  /**
+   * Отрисовка блока категорий
+   * @param {*} categories
+   */
+  renderCategoryBlock(categories) {
+    const category = categoriesBlock(categories);
+    this.root.prepend(category);
   }
 
   /**

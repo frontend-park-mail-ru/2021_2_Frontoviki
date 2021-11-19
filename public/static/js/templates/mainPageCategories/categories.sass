@@ -1,0 +1,78 @@
+@import '../../../css/variables'
+.root__category
+    top: 0
+    margin-bottom: 2vh
+    width: 100%
+    background-position: 50% 45%
+    background-repeat: no-repeat
+    background-size: cover
+    -o-object-fit: cover
+    object-fit: cover
+    z-index: 0
+    background-image: url(https://www.ikea.com/ru/ru/images/products/bjoerksta-byorksta-kartina-s-ramoy-prikosnovenie-cvet-alyuminiya__0730103_pe737365_s5.jpg)
+
+    &-container
+        background: rgba(31,47,47,0.8)
+
+    &__content
+        margin: 0 20vw
+        z-index: 2
+        display: flex
+        flex-direction: column
+        justify-content: center
+        align-items: center
+        padding: 2vw 0
+
+        &-title
+            margin-bottom: 2vh
+            width: 100%
+            text-align: center
+            font-size: 5vh
+            color: #FFFFFF
+
+        &-categories
+            width: 100%
+            display: flex
+            flex-direction: row
+            flex-wrap: wrap
+            justify-content: space-evenly
+            text-align: center
+
+            &-card
+                width: 20vh
+                height: fit-content
+                margin-bottom: 1vw
+                color: #FFFFFF
+                font-size: 1.5vh
+                justify-content: space-between
+
+                &-title
+                    text-decoration: none
+                    color: $header-capture-color
+                    font-weight: 600
+                    text-align: center
+
+@media screen and (max-width: 576px)
+    .root__category
+        &__content
+            margin: 0 3vw
+            &-title
+                font-size: 2.5vh
+            &-categories-card
+                margin-bottom: 5vw
+                width: 18vh
+                height: 3.5vh
+                font-size: 1.8vh
+
+
+@media screen and (max-width: 768px)
+    .root__category
+        &__content
+            &-title
+                font-size: 3vh
+
+@media screen and (max-width: 1024px)
+    .root__category
+        &__content
+            &-title
+                font-size: 4vh
