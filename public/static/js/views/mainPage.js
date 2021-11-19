@@ -1,4 +1,5 @@
 import {createProductGrid} from '../templates/productGrid/productGrid.js';
+import {emptyGrid} from '../templates/productGrid/emptyGrid.js';
 import {createInfoBlock} from '../templates/infoBlock/infoBlock.js';
 import {categoriesBlock} from '../templates/mainPageCategories/categoriesBlock.js'
 import {baseCount} from '../constatns.js';
@@ -19,11 +20,13 @@ export default class MainPageView extends BaseView {
     this.#page = 1;
     this.render = this.render.bind(this);
     this.search = this.search.bind(this);
+    this.category = this.category.bind(this);
     this.populate = this.populate.bind(this);
     this.eventBus.on('getAds', this.renderAds.bind(this));
     this.eventBus.on('gotCategories', this.renderCategoryBlock.bind(this));
     this.eventBus.on('clickModal', this.modal.bind(this));
     this.eventBus.on('gotSearchedAds', this.renderSearchedAds.bind(this));
+    this.eventBus.on('gotCategoryAds', this.renderCategoryAds.bind(this));
     this.eventBus.on('deleteBtn', this.deleteBtn.bind(this));
     this.eventBus.on('loggedForNewAd', this.newAdBtnCheck.bind(this));
     this.eventBus.on('disableAdButton', this.disableAdButton.bind(this));
@@ -33,12 +36,38 @@ export default class MainPageView extends BaseView {
    * Рендер делает запрос на получение информации о товарах
    */
   render() {
+    this.root.innerHTML = '';
     this.#page = 1;
     window.addEventListener('scroll', this.populate);
     this.newAdvertBtn();
     this.eventBus.emit('getCategories');
     this.eventBus.emit('getData', this.#page, true);
     this.#page++;
+  }
+
+  /**
+   * Страница с результатами поиска
+   */
+  search() {
+    this.root.innerHTML = '';
+    let query = document.querySelector('.search__input').value.trim();
+    if (query.length === 0) {
+      query = window.location.pathname.split('/')[2];
+    }
+    if (query.length == 0) {
+      this.eventBus.emit('redirectToMain');
+    }
+    this.root.innerHTML = '';
+    this.eventBus.emit('getSearchedAds');
+  }
+
+  /**
+   * Рендер страницы категории
+   */
+  category() {
+    this.root.innerHTML = '';
+    const category = window.location.pathname.split('/')[2];
+    this.eventBus.emit('getAdsByCategory', category);
   }
   /**
    * Добавляет объявления
@@ -89,21 +118,6 @@ export default class MainPageView extends BaseView {
   }
 
   /**
-   * Страница с результатами поиска
-   */
-  search() {
-    let query = document.querySelector('.search__input').value.trim();
-    if (query.length === 0) {
-      query = window.location.pathname.split('/')[2];
-    }
-    if (query.length == 0) {
-      this.eventBus.emit('redirectToMain');
-    }
-    this.root.innerHTML = '';
-    this.eventBus.emit('getSearchedAds');
-  }
-
-  /**
    * Результат поиска
    * @param {*} adverts массив объявлений
    */
@@ -114,6 +128,50 @@ export default class MainPageView extends BaseView {
     document.getElementById('navigation-back').addEventListener('click', ()=>{
       this.eventBus.emit('redirectToMain');
     });
+    if (adverts.length == 0) {
+      // добавление уведомления об отсутсвии объявлений
+      const emptyGridActive = document.createElement('div');
+      emptyGridActive.id = 'empty';
+      const gridT = emptyGrid();
+      emptyGridActive.innerHTML = gridT({text: `Ничего не найдено`});
+      this.root.appendChild(emptyGridActive);
+      return;
+    }
+    adverts.forEach((elem) => {
+      elem.href = '/ad/' + elem.id;
+      elem.image = '/' + elem.images[0];
+    });
+    this.root.appendChild(createProductGrid(adverts, false, false));
+    const cards = document.querySelectorAll('.card');
+    cards.forEach((elem, num)=>{
+      elem.addEventListener('click', (e)=>{
+        e.preventDefault();
+        e.stopPropagation();
+        this.eventBus.emit('onCardClicked', adverts[num].id);
+      });
+    });
+  }
+
+  /**
+   * Рендер страницы конкретной категории
+   * @param {*} adverts
+   */
+  renderCategoryAds(adverts, category) {
+    this.root.appendChild(createInfoBlock(undefined, category));
+    document.getElementById('navigation-back').addEventListener('click', ()=>{
+      this.eventBus.emit('redirectToMain');
+    });
+    if (adverts.length == 0) {
+      // добавление уведомления об отсутсвии объявлений
+      const emptyGridActive = document.createElement('div');
+      emptyGridActive.id = 'empty';
+      const gridT = emptyGrid();
+      emptyGridActive.innerHTML = gridT({
+        text: `Объявлений в данной категории нет`,
+      });
+      this.root.appendChild(emptyGridActive);
+      return;
+    }
     adverts.forEach((elem) => {
       elem.href = '/ad/' + elem.id;
       elem.image = '/' + elem.images[0];

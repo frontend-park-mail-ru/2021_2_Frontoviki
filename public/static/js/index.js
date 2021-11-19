@@ -47,6 +47,7 @@ document.addEventListener('DOMContentLoaded', async () => {
 
   router.setRoute('^\/$', MainPage.view.render);
   router.setRoute('^\/search/', MainPage.view.search);
+  router.setRoute('^\/category/', MainPage.view.category);
   router.setRoute('^\/logout$', MainPage.view.render);
   router.setRoute('^\/profile$', ProfilePage.view.renderAds);
   router.setRoute('^\/profile\/archive$', ProfilePage.view.renderArchive);

@@ -14,6 +14,7 @@ export default class MainPageModel {
     this.eventBus.on('getData', this.getAds.bind(this));
     this.eventBus.on('getSearchedAds', this.getSearchedAds.bind(this));
     this.eventBus.on('getCategories', this.getCategories.bind(this));
+    this.eventBus.on('getAdsByCategory', this.getCategoryAds.bind(this));
   }
 
   /**
@@ -62,11 +63,32 @@ export default class MainPageModel {
       if (code === statusCodes.OK) {
         const {body} = parsedBody;
         const {adverts} = body;
-        if (adverts.length == 0) {
-          this.eventBus.emit('stopScroll');
-          return;
-        }
         this.eventBus.emit('gotSearchedAds', adverts);
+      }
+    });
+  }
+
+  /**
+   * Получение объявлений по конкретной категории
+   * @param {*} category
+   */
+  getCategoryAds(category) {
+    const res = Ajax.getUsingFetch({
+      url: `${secureDomainUrl}adverts/category/${category}
+            ?count=9999`,
+      body: null,
+    });
+    res.then(({status, parsedBody})=> {
+      if (status != statusCodes.OK) {
+        return;
+      }
+      console.log(parsedBody);
+      const {code} = parsedBody;
+      if (code === statusCodes.OK) {
+        const {body} = parsedBody;
+        const {adverts} = body;
+        const decoded = decodeURI(category);
+        this.eventBus.emit('gotCategoryAds', adverts, decoded);
       }
     });
   }

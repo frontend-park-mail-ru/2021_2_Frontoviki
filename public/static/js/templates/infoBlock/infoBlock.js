@@ -4,37 +4,32 @@ import navigateBackT from './navigation.handlebars';
 import './info-block.sass';
 /**
  * Функция создания меню 'пути продукта' вида category / subcategory
- * @param {JSON} productPath формата
- * category основная категория сортировки страницы.
- * Например 'Электротехника'.
- * categoryHref
- * subCategory более специализированная категория
- * сортировки страницы. Например 'смартфоны'.
- * subCategoryHref
+ * @param {string} searchText формата
+ * @param {string} category основная категория сортировки страницы.
  * @return {HTMLDivElement}
 */
-export function createInfoBlock(searchText = null, productPath = null) {
+export function createInfoBlock(searchText = null, category = null) {
   const infoBlock = document.createElement('div');
   infoBlock.classList.add('root__info-block');
   const navigateContainer = document.createElement('div');
   navigateContainer.innerHTML = navigateBackT();
-  if (searchText !== null || productPath !== null) {
+  if (searchText !== null || category !== null) {
     infoBlock.appendChild(navigateContainer);
     if (searchText !== null) {
       infoBlock.appendChild(createProductSearch(searchText));
     }
-    if (productPath !== null) {
-      infoBlock.appendChild(createProductPath(productPath));
+    if (category !== null) {
+      infoBlock.appendChild(createProductPath(category));
     }
   }
   return infoBlock;
 }
 
-function createProductPath(productPath) {
+function createProductPath(category) {
   const productClass = document.createElement('div');
   productClass.classList.add('info-block__left');
   productClass.classList.add('info-block__category');
-  productClass.innerHTML = productPathT(productPath);
+  productClass.innerHTML = productPathT({category: category});
   return productClass;
 };
 
