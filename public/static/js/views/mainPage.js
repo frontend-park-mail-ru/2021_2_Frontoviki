@@ -111,6 +111,9 @@ export default class MainPageView extends BaseView {
     const query = window.location.pathname.split('/')[2];
     const decoded = decodeURI(query);
     this.root.appendChild(createInfoBlock(decoded));
+    document.getElementById('navigation-back').addEventListener('click', ()=>{
+      this.eventBus.emit('redirectToMain');
+    });
     adverts.forEach((elem) => {
       elem.href = '/ad/' + elem.id;
       elem.image = '/' + elem.images[0];

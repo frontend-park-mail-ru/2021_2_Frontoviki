@@ -1,5 +1,6 @@
 import productPathT from './productPath.handlebars';
 import productSearchT from './productSearch.handlebars';
+import navigateBackT from './navigation.handlebars';
 import './info-block.sass';
 /**
  * Функция создания меню 'пути продукта' вида category / subcategory
@@ -15,11 +16,16 @@ import './info-block.sass';
 export function createInfoBlock(searchText = null, productPath = null) {
   const infoBlock = document.createElement('div');
   infoBlock.classList.add('root__info-block');
-  if (searchText !== null) {
-    infoBlock.appendChild(createProductSearch(searchText));
-  }
-  if (productPath !== null) {
-    infoBlock.appendChild(createProductPath(productPath));
+  const navigateContainer = document.createElement('div');
+  navigateContainer.innerHTML = navigateBackT();
+  if (searchText !== null || productPath !== null) {
+    infoBlock.appendChild(navigateContainer);
+    if (searchText !== null) {
+      infoBlock.appendChild(createProductSearch(searchText));
+    }
+    if (productPath !== null) {
+      infoBlock.appendChild(createProductPath(productPath));
+    }
   }
   return infoBlock;
 }
