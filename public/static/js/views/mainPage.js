@@ -235,6 +235,9 @@ export default class MainPageView extends BaseView {
    * Добавление кнопки на мобилке
    */
   newAdvertBtn() {
+    if (document.querySelector('.root__new-advert-btn-wrapper') != null) {
+      return;
+    }
     const btnWrapper = document.createElement('div');
     const btn = document.createElement('button');
     btnWrapper.classList.add('root__new-advert-btn-wrapper');
