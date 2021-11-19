@@ -32,6 +32,7 @@ export default class MainPageController {
     globalEventBus.on('profileLinksClick', this.stopScroll.bind(this));
     globalEventBus.on('onSearchClicked', this.search.bind(this));
     globalEventBus.on('loggedForNewAd', this.checkNewAdButton.bind(this));
+    globalEventBus.on('logout', this.disableAdButton.bind(this));
   }
 
   /**
@@ -104,5 +105,9 @@ export default class MainPageController {
    */
   checkNewAdButton() {
     this.eventBus.emit('loggedForNewAd');
+  }
+
+  disableAdButton() {
+    this.eventBus.emit('disableAdButton');
   }
 }

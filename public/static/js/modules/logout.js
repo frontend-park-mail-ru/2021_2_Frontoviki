@@ -15,6 +15,7 @@ export function logout(globalEventBus) {
     if (status != statusCodes.OK) {
       return;
     }
+    globalEventBus.emit('logout');
     isLogged(globalEventBus);
   });
 }

@@ -24,6 +24,7 @@ export default class MainPageView extends BaseView {
     this.eventBus.on('gotSearchedAds', this.renderSearchedAds.bind(this));
     this.eventBus.on('deleteBtn', this.deleteBtn.bind(this));
     this.eventBus.on('loggedForNewAd', this.newAdBtnCheck.bind(this));
+    this.eventBus.on('disableAdButton', this.disableAdButton.bind(this));
   }
 
   /**
@@ -167,7 +168,7 @@ export default class MainPageView extends BaseView {
    * Удаляет кнопку
    */
   deleteBtn() {
-    document.querySelector('.root__new-advert-btn-wrapper').remove();
+    document.querySelector('.root__new-advert-btn-wrapper')?.remove();
   }
 
   /**
@@ -175,6 +176,18 @@ export default class MainPageView extends BaseView {
    */
   newAdBtnCheck() {
     const btn = document.querySelector('.root__new-advert-btn');
-    btn.onclick = ()=> this.eventBus.emit('loggedNewAdd');
+    if (btn != null) {
+      btn.onclick = ()=> this.eventBus.emit('loggedNewAdd');
+    }
+  }
+
+  /**
+   * При логауте выключаем кнопку
+   */
+  disableAdButton() {
+    const btn = document.querySelector('.root__new-advert-btn');
+    if (btn != null) {
+      btn.onclick = ()=> this.eventBus.emit('notLoggedNewAdd');
+    }
   }
 }
