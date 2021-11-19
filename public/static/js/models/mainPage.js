@@ -74,8 +74,7 @@ export default class MainPageModel {
    */
   getCategoryAds(category) {
     const res = Ajax.getUsingFetch({
-      url: `${secureDomainUrl}adverts/category/${category}
-            ?count=9999`,
+      url: `${secureDomainUrl}adverts/category/${category}?count=9999`,
       body: null,
     });
     res.then(({status, parsedBody})=> {
