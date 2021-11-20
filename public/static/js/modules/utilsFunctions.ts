@@ -1,4 +1,4 @@
-import {monthMap} from '../constatns.js';
+import {monthMap} from '../constatns';
 /**
  * Меняет формат даты регистрации
  * @param {*} date дата в формате год-месяц-день

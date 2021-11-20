@@ -17,7 +17,7 @@ export default class Router {
   }
 
 
-  setRoute(route : RegExp, handler : Function) {
+  setRoute(route : string, handler : Function) {
     this.routes.push({
       regExp: new RegExp(route),
       handler: handler,

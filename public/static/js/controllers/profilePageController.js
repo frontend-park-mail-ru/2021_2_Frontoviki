@@ -2,7 +2,7 @@ import EventBus from '../modules/EventBus';
 import ProfilePageModel from '../models/profilePage.js';
 import ProfilePageView from '../views/profilePage.js';
 import {Ajax} from '../modules/ajax.ts';
-import {secureDomainUrl, statusCodes} from '../constatns.js';
+import {secureDomainUrl, statusCodes} from '../constatns.ts';
 
 /**
  * Контроллер главной страницы

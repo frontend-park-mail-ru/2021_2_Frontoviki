@@ -1,5 +1,5 @@
 import {Ajax} from './ajax';
-import {secureDomainUrl, statusCodes, regExPatterns} from '../constatns.js';
+import {secureDomainUrl, statusCodes, regExPatterns} from '../constatns';
 import {clearInput} from './clearInput';
 import {isLogged} from './isLogged';
 import {validate} from './utilsFunctions';

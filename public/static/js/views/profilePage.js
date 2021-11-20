@@ -3,8 +3,8 @@ import {profileInfoBlock} from
   '../templates/profileInfoBlock/profileInfoBlock.ts';
 import {emptyGrid} from '../templates/productGrid/emptyGrid.ts';
 import {settings} from '../templates/settings/settings.ts';
-import BaseView from './baseView.js';
-import {inputNum, profileBtnNum} from '../constatns.js';
+import BaseView from './baseView.ts';
+import {inputNum, profileBtnNum} from '../constatns.ts';
 
 /**
   * Экспортируемый класс для генерации страницы профиля с сеткой

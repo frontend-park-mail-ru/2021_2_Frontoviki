@@ -1,4 +1,4 @@
-import {secureDomainUrl, statusCodes} from '../constatns.js';
+import {secureDomainUrl, statusCodes} from '../constatns';
 import {Ajax} from './ajax';
 import {logout} from './logout';
 import {createHeader} from '../templates/header/header';

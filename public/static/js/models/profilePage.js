@@ -1,5 +1,5 @@
 import {Ajax} from '../modules/ajax.ts';
-import {inputNum, minValidationLen, passwordLength, phLength, secureDomainUrl, statusCodes} from '../constatns.js';
+import {inputNum, minValidationLen, passwordLength, phLength, secureDomainUrl, statusCodes} from '../constatns.ts';
 import {createDeleteModal} from '../templates/deleteModal/deleteModal.ts';
 
 

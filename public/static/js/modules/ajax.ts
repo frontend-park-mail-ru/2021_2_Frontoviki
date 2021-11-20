@@ -1,4 +1,4 @@
-import {secureDomainUrl} from '../constatns.js';
+import {secureDomainUrl} from '../constatns';
 import {args} from '../types'
 
 let CSRFToken: string | null;

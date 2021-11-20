@@ -4,7 +4,7 @@ import navigateBackT from './navigation.handlebars';
 import './info-block.sass';
 
 
-export function createInfoBlock(searchText = null, category = null) {
+export function createInfoBlock(searchText: string | null, category : string | null) {
   const infoBlock = document.createElement('div');
   infoBlock.classList.add('root__info-block');
   const navigateContainer = document.createElement('div');

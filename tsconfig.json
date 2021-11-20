@@ -4,12 +4,12 @@
         "strictNullChecks": true,
         "noImplicitAny": true,
         "alwaysStrict": true,
-        "strictPropertyInitialization": true,
         "strictFunctionTypes": true,
         "noImplicitThis": true,
         "strictBindCallApply": true,
         // Other
         "esModuleInterop": true,
+        "skipLibCheck": true,
         "target": "ES6",
         "allowJs": true,
         "module": "ES6",

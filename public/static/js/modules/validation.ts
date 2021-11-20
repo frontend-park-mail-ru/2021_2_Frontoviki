@@ -1,4 +1,4 @@
-import {inputNum, regExPatterns, oldPassNum} from '../constatns.js';
+import {inputNum, regExPatterns, oldPassNum} from '../constatns';
 import {validate} from './utilsFunctions';
 /**
  * функция регистрация нового пользователя

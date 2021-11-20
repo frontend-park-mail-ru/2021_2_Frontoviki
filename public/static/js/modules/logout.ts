@@ -1,5 +1,5 @@
 import {Ajax} from './ajax';
-import {secureDomainUrl, statusCodes} from '../constatns.js';
+import {secureDomainUrl, statusCodes} from '../constatns';
 import {isLogged} from './isLogged';
 import Bus from './EventBus';
 
