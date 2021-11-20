@@ -1,4 +1,5 @@
 const ServiceWorkerWebpackPlugin = require('serviceworker-webpack-plugin');
+const TsconfigPathsPlugin = require('tsconfig-paths-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const path = require('path');
@@ -18,6 +19,11 @@ module.exports = {
 
   module: {
     rules: [
+      {
+        test: /\.tsx?$/,
+        exclude: /node_modules/,
+        loader: 'ts-loader',
+      },
       {
         test: /\.js$/,
         exclude: /node_modules/,
@@ -69,4 +75,8 @@ module.exports = {
       entry: path.join(__dirname, 'public/sw.js'),
     }),
   ],
+  resolve: {
+    plugins: [new TsconfigPathsPlugin()],
+    extensions: ['.js', '.ts'],
+  },
 };

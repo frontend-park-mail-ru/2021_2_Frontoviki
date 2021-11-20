@@ -1,6 +1,6 @@
 import {Ajax} from '../modules/ajax.js';
 import {inputNum, minValidationLen, oldPassNum, passwordLength, phLength, secureDomainUrl, statusCodes} from '../constatns.js';
-import {createDeleteModal} from '../templates/deleteModal/deleteModal.js';
+import {createDeleteModal} from '../templates/deleteModal/deleteModal.ts';
 
 
 /**
@@ -233,10 +233,10 @@ export default class ProfilePageModel {
       document.getElementsByTagName('body')[0].removeChild(modal);
     };
 
-    modal1.onmousedown = function(e) {
+    modal1.onmousedown = (e) => {
       const modalContent = modal1.getElementsByClassName('modal__content')[0];
       if (e.target.closest('.' + modalContent.className) === null) {
-        this.classList.remove('modal_active');
+        modal1.classList.remove('modal_active');
         document.getElementsByTagName('body')[0].removeChild(modal);
       }
     };
@@ -301,12 +301,14 @@ export default class ProfilePageModel {
     closeButton.onclick = (e) => {
       e.preventDefault();
       modal1.classList.remove('modal_active');
+      modal.remove();
       this.getCart();
     };
     modal1.onmousedown = (e) => {
       const modalContent = modal1.getElementsByClassName('modal__content')[0];
       if (e.target.closest('.' + modalContent.className) === null) {
-        this.classList.remove('modal_active');
+        modal1.classList.remove('modal_active');
+        modal.remove();
         this.getCart();
       }
     };

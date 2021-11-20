@@ -1,6 +1,6 @@
-import {advertPageTemplate} from '../templates/advertPage/advertPageT';
+import {advertPageTemplate} from '../templates/advertPage/advertPageT.ts';
 import BaseView from './baseView.js';
-import {SliderLogic} from '../templates/advertPage/sliderLogic.js';
+import {SliderLogic} from '../templates/advertPage/sliderLogic.ts';
 import {inputNum} from '../constatns.js';
 import {properDate} from '../modules/utilsFunctions.js';
 

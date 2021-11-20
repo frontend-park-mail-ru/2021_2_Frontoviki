@@ -113,7 +113,6 @@ export async function isLogged(globalEventBus) {
   });
   document.addEventListener('click', (e)=> {
     e.stopPropagation();
-    console.log(e.target);
     const mobileSearchInput =
     document.querySelector('.header__left-block__mobile-search-bar__input');
     if (e.target == mobileSearchInput) {
