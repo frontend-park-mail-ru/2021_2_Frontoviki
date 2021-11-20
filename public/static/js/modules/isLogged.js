@@ -103,21 +103,20 @@ export async function isLogged(globalEventBus) {
       globalEventBus.emit('onSearchClicked');
     }
   });
-  const mobileSearchInput =
+  const mobileSearch =
     document.querySelector('.header__left-block__mobile-search-bar');
-  mobileSearchInput.addEventListener('submit', (e)=>{
+  mobileSearch.addEventListener('submit', (e)=>{
     e.preventDefault();
     e.stopPropagation();
+    mobileSearch.style.zIndex = '3';
     globalEventBus.emit('onMobileSeachClicked');
   });
   document.addEventListener('click', (e)=> {
-    const mobileSearch =
-    document.querySelector('.header__left-block__mobile-search-bar');
+    e.stopPropagation();
+    console.log(e.target);
     const mobileSearchInput =
     document.querySelector('.header__left-block__mobile-search-bar__input');
-    const mobileSearchBtn =
-    document.querySelector('.header__left-block__mobile-search-bar__button');
-    if (e.target == mobileSearchInput) {
+    if (e.target == mobileSearchInput || e.target == mobileSearch) {
       mobileSearch.style.zIndex = '3';
     } else {
       mobileSearch.style.zIndex = '1';
