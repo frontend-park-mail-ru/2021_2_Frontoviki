@@ -1,4 +1,4 @@
-import ErrorPage from '../templates/404Page/404Page.js';
+import ErrorPage from '../templates/404Page/404Page.ts';
 
 /**
  * Класс роутера для навигации в спа
