@@ -103,6 +103,13 @@ export async function isLogged(globalEventBus) {
       globalEventBus.emit('onSearchClicked');
     }
   });
+  const mobileSearchInput =
+    document.querySelector('.header__left-block__mobile-search-bar');
+  mobileSearchInput.addEventListener('submit', (e)=>{
+    e.preventDefault();
+    e.stopPropagation();
+    globalEventBus.emit('onMobileSeachClicked');
+  });
 
   /**
    * Хотим добавить объявления когда не зарегистрированы

@@ -32,6 +32,7 @@ export default class MainPageController {
     globalEventBus.on('goToNewAd', this.goToNewAd.bind(this));
     globalEventBus.on('profileLinksClick', this.stopScroll.bind(this));
     globalEventBus.on('onSearchClicked', this.search.bind(this));
+    globalEventBus.on('onMobileSeachClicked', this.mobSearch.bind(this));
     globalEventBus.on('loggedForNewAd', this.checkNewAdButton.bind(this));
     globalEventBus.on('logout', this.disableAdButton.bind(this));
   }
@@ -90,6 +91,18 @@ export default class MainPageController {
    */
   search() {
     const query = document.querySelector('.search__input').value.trim();
+    if (query.length > 0) {
+      this.eventBus.emit('deleteBtn');
+      this.stopScroll();
+      this.router.go(`/search/${query}`);
+    }
+  }
+
+  /**
+   * Поиск на мобилке - другой инпут
+   */
+  mobSearch() {
+    const query = document.querySelector('.header__left-block__mobile-search-bar__input').value.trim();
     if (query.length > 0) {
       this.eventBus.emit('deleteBtn');
       this.stopScroll();
