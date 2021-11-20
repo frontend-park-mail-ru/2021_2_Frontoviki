@@ -1,7 +1,7 @@
 import SalesmanPageModel from '../models/salesmanPage.js';
-import EventBus from '../modules/EventBus.js';
+import EventBus from '../modules/EventBus';
 import SalesmanPageView from '../views/salesmanPage.js';
-import {Ajax} from '../modules/ajax.js';
+import {Ajax} from '../modules/ajax.ts';
 import {idNum, secureDomainUrl, statusCodes} from '../constatns.js';
 
 /**

@@ -1,6 +1,7 @@
 import {secureDomainUrl} from '../constatns.js';
+import {args} from '../types'
 
-let CSRFToken;
+let CSRFToken: string | null;
 /**
  * Класс для отправки сообщений на сервер
  * используется fetch
@@ -11,14 +12,14 @@ export const Ajax = {
    */
   async csrf() {
     if (CSRFToken === null) {
+      const requestHeaders : HeadersInit = new Headers();
+      requestHeaders.set('Content-Type', 'application/json');
       const response = await fetch(secureDomainUrl + 'csrf', {
         method: 'GET',
         mode: 'cors',
         cache: 'no-store',
         credentials: 'include',
-        headers: {
-          'Content-Type': 'application/json',
-        },
+        headers: requestHeaders,
       });
       CSRFToken = response.headers.get('X-Csrf-Token');
     }
@@ -28,17 +29,19 @@ export const Ajax = {
   * @param {any} args аргументы для запроса
   * @return {Promise}
   */
-  async postUsingFetch(args = {}) {
+  async postUsingFetch(args: args) {
     await Ajax.csrf();
+    const requestHeaders : HeadersInit = new Headers();
+    if (CSRFToken != null) {
+      requestHeaders.set('X-Csrf-Token', CSRFToken);
+    }
+    requestHeaders.set('Content-Type', 'application/json');
     const response = await fetch(args.url, {
       method: AJAX_METHODS.POST,
       mode: 'cors',
       cache: 'no-store',
       credentials: 'include',
-      headers: {
-        'X-Csrf-Token': CSRFToken,
-        'Content-Type': 'application/json',
-      },
+      headers: requestHeaders,
       body: JSON.stringify(args.body),
     });
     const parsedBody = await response.json().catch(() => {
@@ -57,15 +60,15 @@ export const Ajax = {
    * @param {any} args args параметры для генерации запроса
    * @return {Promise}
    */
-  async getUsingFetch(args = {}) {
+  async getUsingFetch(args: args) {
+    const requestHeaders : HeadersInit = new Headers();
+    requestHeaders.set('Content-Type', 'application/json');
     const response = await fetch(args.url, {
       method: AJAX_METHODS.GET,
       mode: 'cors',
       cache: 'no-store',
       credentials: 'include',
-      headers: {
-        'Content-Type': 'application/json',
-      },
+      headers: requestHeaders,
     });
     // ошибка пустого json ловится и не ломает все
     CSRFToken = response.headers.get('X-Csrf-Token');
@@ -86,17 +89,19 @@ export const Ajax = {
   * @param {any} args аргументы для запроса
   * @return {Promise}
   */
-  async postImageUsingFetch(args = {}) {
+  async postImageUsingFetch(args: args) {
     await Ajax.csrf();
+    const requestHeaders : HeadersInit = new Headers();
+    if (CSRFToken != null) {
+      requestHeaders.set('X-Csrf-Token', CSRFToken);
+    }
     const response = await fetch(args.url, {
       method: AJAX_METHODS.POST,
       mode: 'cors',
       cache: 'no-store',
       credentials: 'include',
-      headers: {
-        'X-Csrf-Token': CSRFToken,
-      },
-      body: args.body,
+      headers: requestHeaders,
+      body: <BodyInit> args.body,
     });
     const parsedBody = await response.json().catch(() => {
       return {};
@@ -115,17 +120,19 @@ export const Ajax = {
   * @param {any} args аргументы для запроса
   * @return {Promise}
   */
-  async deleteAdUsingFetch(args = {}) {
+  async deleteAdUsingFetch(args: args) {
     await Ajax.csrf();
+    const requestHeaders : HeadersInit = new Headers();
+    if (CSRFToken != null) {
+      requestHeaders.set('X-Csrf-Token', CSRFToken);
+    }
+    requestHeaders.set('Content-Type', 'application/json');
     const response = await fetch(args.url, {
       method: AJAX_METHODS.DELETE,
       mode: 'cors',
       cache: 'no-store',
       credentials: 'include',
-      headers: {
-        'X-Csrf-Token': CSRFToken,
-        'Content-Type': 'application/json',
-      },
+      headers: requestHeaders,
       body: JSON.stringify(args.body),
     });
     const parsedBody = await response.json().catch(() => {

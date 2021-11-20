@@ -1,6 +1,6 @@
-import {autorisation} from '../../modules/autorisation.js';
+import {autorisation} from '../../modules/autorisation';
 import Bus from '../../modules/EventBus.js';
-import {registration} from '../../modules/registration.js';
+import {registration} from '../../modules/registration';
 import modalT from './modal.handlebars';
 import './modal.sass';
 
@@ -44,19 +44,19 @@ export function createModal(globalEventBus: Bus) {
     modal.addEventListener('webkitTransitionEnd', listener, false);
   });
 
-  const regEmail = document.querySelector('#regEmail') as HTMLFormElement;
-  const regName = document.querySelector('#regName') as HTMLFormElement;
-  const regSurname = document.querySelector('#regSurname') as HTMLFormElement ;
-  const regPassword = document.querySelector('#regPassword')as HTMLFormElement ;
-  const regRepPassword = document.querySelector('#regRepPassword')as HTMLFormElement ;
+  const regEmail = document.querySelector('#regEmail') as HTMLDivElement;
+  const regName = document.querySelector('#regName') as HTMLDivElement;
+  const regSurname = document.querySelector('#regSurname') as HTMLDivElement ;
+  const regPassword = document.querySelector('#regPassword')as HTMLDivElement ;
+  const regRepPassword = document.querySelector('#regRepPassword')as HTMLDivElement ;
   document.querySelector('#regButton')?.addEventListener('click', (e) => {
     e.preventDefault();
     registration(regName, regSurname, regEmail, regPassword,
         regRepPassword, globalEventBus);
   });
 
-  const logEmail = document.querySelector('#logEmail') as HTMLFormElement;
-  const logPassword = document.querySelector('#logPassword') as HTMLFormElement;
+  const logEmail = document.querySelector('#logEmail') as HTMLDivElement;
+  const logPassword = document.querySelector('#logPassword') as HTMLDivElement;
   document.querySelector('#logButton')?.addEventListener('click', (e) => {
     e.preventDefault();
     autorisation(logEmail, logPassword, globalEventBus);

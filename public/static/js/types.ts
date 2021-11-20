@@ -10,3 +10,13 @@ export type card = {
     canDelete: boolean;
     canBuy: boolean;
 }
+
+export type args = {
+    url: string;
+    body: Object | null;
+}
+
+export type route = {
+    regExp: RegExp;
+    handler: Function;
+}

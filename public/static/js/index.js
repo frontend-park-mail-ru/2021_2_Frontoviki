@@ -1,9 +1,9 @@
 'use strict';
 import {createFooter} from './templates/footer/footer.ts';
-import {isLogged} from './modules/isLogged.js';
+import {isLogged} from './modules/isLogged.ts';
 import {createModal} from './templates/modal/modal.ts';
-import Router from './modules/Router.js';
-import EventBus from './modules/EventBus.js';
+import Router from './modules/Router.ts';
+import EventBus from './modules/EventBus';
 import MainPageController from './controllers/mainPageController.js';
 import ProfilePageController from './controllers/profilePageController.js';
 import SalesmanPageController from './controllers/salesmanPageController.js';

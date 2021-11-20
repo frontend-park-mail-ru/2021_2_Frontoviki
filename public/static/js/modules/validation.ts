@@ -1,4 +1,5 @@
 import {inputNum, regExPatterns, oldPassNum} from '../constatns.js';
+import {validate} from './utilsFunctions';
 /**
  * функция регистрация нового пользователя
  * @param {HTMLFormElement} regName имя пользователя
@@ -8,22 +9,31 @@ import {inputNum, regExPatterns, oldPassNum} from '../constatns.js';
  * @param {HTMLFormElement} regPassRep форма повторного ввода пароля
  * @return {*} значения инпутов
  */
-export function validateInfo(regName, regSurname, regEmail,
-    regPass, regPassRep) {
-  const name = regName.childNodes[inputNum].value.trim();
-  const surname = regSurname.childNodes[inputNum].value.trim();
-  const email = regEmail.childNodes[inputNum].value.trim();
-  const password = regPass.childNodes[inputNum].value.trim();
-  let passwordRep;
-  if (regPassRep !== null) {
-    passwordRep = regPassRep.childNodes[inputNum].value.trim();
-  }
+export function validateInfo(regName : HTMLDivElement, 
+  regSurname: HTMLDivElement, regEmail : HTMLDivElement,
+    regPass: HTMLDivElement, regPassRep : HTMLDivElement) {
+  const nameInput = regName.childNodes[inputNum] as HTMLInputElement;
+  const name = nameInput.value.trim();
 
-  const valid = validate(regEmail.childNodes[inputNum], regExPatterns['email']) &&
-      validate(regPass.childNodes[inputNum], regExPatterns['password']);
+  const surnameInput = regSurname.childNodes[inputNum] as HTMLInputElement;
+  const surname = surnameInput.value.trim();
+
+  const emailInput = regEmail.childNodes[inputNum] as HTMLInputElement;
+  const email = emailInput.value.trim();
+
+  const passwordInput = regPass.childNodes[inputNum] as HTMLInputElement;
+  const password = passwordInput.value.trim();
+
+  const passwordRepInput = regPassRep.childNodes[inputNum] as HTMLInputElement;
+  const passwordRep = passwordRepInput.value.trim();
+
+
+  const valid = validate(emailInput, regExPatterns['email']) &&
+      validate(passwordInput, regExPatterns['password']);
 
   if (!valid) {
-    regEmail.childNodes[oldPassNum].innerHtml = 'Введите валидный email';
+    const emailLabel = regEmail.childNodes[oldPassNum] as HTMLElement;
+    emailLabel.innerHTML = 'Введите валидный email';
     return;
   }
   if (passwordRep !== null) {
@@ -49,15 +59,3 @@ export function validateInfo(regName, regSurname, regEmail,
   regSurname.classList.add('text-input_correct');
   return {name, surname, email, password};
 }
-
-
-const validate = (field, regex) => {
-  const valid = regex.test(field.value);
-  if (valid) {
-    field.parentNode.classList.remove('text-input_wrong');
-    field.parentNode.classList.add('text-input_correct');
-  } else {
-    field.parentNode.classList.add('text-input_wrong');
-  }
-  return valid;
-};

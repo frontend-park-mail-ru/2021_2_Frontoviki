@@ -1,20 +1,19 @@
-import {Ajax} from './ajax.js';
+import {Ajax} from './ajax';
 import {secureDomainUrl, statusCodes, regExPatterns} from '../constatns.js';
-import {clearInput} from './clearInput.js';
-import {isLogged} from './isLogged.js';
+import {clearInput} from './clearInput';
+import {isLogged} from './isLogged';
+import {validate} from './utilsFunctions';
+import Bus from './EventBus';
 
-/**
- * фунцкия авторизации
- * @param {HTMLFormElement} logEmail инпут логина
- * @param {HTMLFormElement} logPassword инпут пароля
- * @param {*} globalEventBus глобальный эмиттер событий
- */
-export function autorisation(logEmail, logPassword, globalEventBus) {
-  const email = logEmail.childNodes[3].value.trim();
-  const password = logPassword.childNodes[3].value.trim();
 
-  const valid = validate(logEmail.childNodes[3], regExPatterns['email']) &&
-      validate(logPassword.childNodes[3], regExPatterns['password']);
+export function autorisation(logEmail : HTMLDivElement, logPassword : HTMLDivElement, globalEventBus:Bus) : void {
+  const emailInput = logEmail.children[1] as HTMLInputElement;
+  const passwordInput = logPassword.children[1] as HTMLInputElement;
+  const email = emailInput.value.trim();
+  const password = passwordInput.value.trim();
+
+  const valid = validate(emailInput, regExPatterns['email']) &&
+      validate(passwordInput, regExPatterns['password']);
 
   if (!valid) {
     return;
@@ -34,7 +33,8 @@ export function autorisation(logEmail, logPassword, globalEventBus) {
       // в случае если мы зашли убрать модальное и обновить хедер
       isLogged(globalEventBus);
       clearAllLogInputs(logEmail, logPassword);
-      document.querySelector('.blackout').click();
+      const black = document.querySelector('.blackout') as HTMLDivElement;
+      black.click();
       globalEventBus.emit('loggedForCart');
       globalEventBus.emit('loggedForSalesman');
       globalEventBus.emit('loggedForFav');
@@ -73,22 +73,9 @@ export function autorisation(logEmail, logPassword, globalEventBus) {
 
 /**
  * очищает инпуты формы логина
- * @param {HTMLDivElement} logEmail
- * @param {HTMLDivElement} logPassword
  */
-function clearAllLogInputs(logEmail, logPassword) {
+function clearAllLogInputs(logEmail : HTMLDivElement, logPassword : HTMLDivElement) {
   clearInput(logEmail);
   clearInput(logPassword);
 }
 
-
-const validate = (field, regex) => {
-  const valid = regex.test(field.value);
-  if (valid) {
-    field.parentNode.classList.remove('text-input_wrong');
-    field.parentNode.classList.add('text-input_correct');
-  } else {
-    field.parentNode.classList.add('text-input_wrong');
-  }
-  return valid;
-};

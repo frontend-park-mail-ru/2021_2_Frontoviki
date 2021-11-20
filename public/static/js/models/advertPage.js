@@ -1,4 +1,4 @@
-import {Ajax} from '../modules/ajax.js';
+import {Ajax} from '../modules/ajax.ts';
 import {idNum, secureDomainUrl, statusCodes} from '../constatns.js';
 
 /**

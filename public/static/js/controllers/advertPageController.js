@@ -1,7 +1,7 @@
-import EventBus from '../modules/EventBus.js';
+import EventBus from '../modules/EventBus';
 import AdvertPageModel from '../models/advertPage.js';
 import AdvertPageView from '../views/advertPage.js';
-import {Ajax} from '../modules/ajax.js';
+import {Ajax} from '../modules/ajax.ts';
 import {idNum, secureDomainUrl, statusCodes} from '../constatns.js';
 
 /**

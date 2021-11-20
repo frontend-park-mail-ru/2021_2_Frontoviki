@@ -1,8 +1,9 @@
-import {Ajax} from './ajax.js';
+import {Ajax} from './ajax';
 import {oldPassNum, secureDomainUrl, statusCodes} from '../constatns.js';
-import {clearInput} from './clearInput.js';
-import {validateInfo} from './validation.js';
-import {isLogged} from './isLogged.js';
+import {clearInput} from './clearInput';
+import {validateInfo} from './validation';
+import {isLogged} from './isLogged';
+import Bus from './EventBus';
 /**
  * функция регистрация нового пользователя
  * @param {HTMLFormElement} regName имя пользователя
@@ -13,8 +14,9 @@ import {isLogged} from './isLogged.js';
  * @param {*} globalEventBus глобальный эмитер событий
  * действие submit
  */
-export function registration(regName, regSurname, regEmail,
-    regPass, regPassRep, globalEventBus) {
+export function registration(regName : HTMLDivElement, 
+  regSurname: HTMLDivElement, regEmail : HTMLDivElement,
+    regPass: HTMLDivElement, regPassRep : HTMLDivElement, globalEventBus : Bus) {
   const trimmedData =
     validateInfo(regName, regSurname, regEmail, regPass, regPassRep);
   if (trimmedData === undefined) {
@@ -34,15 +36,16 @@ export function registration(regName, regSurname, regEmail,
     if (code === statusCodes.REGDONE) {
       isLogged(globalEventBus);
       clearAllRegInputs(regName, regSurname, regEmail, regPass, regPassRep);
-      document.querySelector('.blackout').click();
+      const black = document.querySelector('.blackout') as HTMLDivElement;
+      black.click();
       globalEventBus.emit('loggedForCart');
       globalEventBus.emit('loggedForSalesman');
       globalEventBus.emit('loggedForFav');
       globalEventBus.emit('loggedForNewAd');
       return;
     }
-    regEmail.childNodes[oldPassNum].
-        innerHTML = 'Такой пользователь уже существует';
+    const passInput = regEmail.childNodes[oldPassNum] as HTMLInputElement;
+    passInput.innerHTML = 'Такой пользователь уже существует';
     regEmail.classList.remove('text-input_correct');
     regEmail.classList.add('text-input_wrong');
   });
@@ -56,7 +59,9 @@ export function registration(regName, regSurname, regEmail,
  * @param {HTMLDivElement} regPass
  * @param {HTMLDivElement} regPassRep
  */
-function clearAllRegInputs(regName, regSurname, regEmail, regPass, regPassRep) {
+function clearAllRegInputs(regName : HTMLDivElement, 
+  regSurname: HTMLDivElement, regEmail : HTMLDivElement,
+    regPass: HTMLDivElement, regPassRep : HTMLDivElement) {
   clearInput(regName);
   clearInput(regEmail);
   clearInput(regSurname);

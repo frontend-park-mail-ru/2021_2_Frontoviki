@@ -1,10 +1,13 @@
-import ErrorPage from '../templates/404Page/404Page.ts';
+import ErrorPage from '../templates/404Page/404Page';
+import {route} from '../types';
 
 /**
  * Класс роутера для навигации в спа
  */
 export default class Router {
-  constructor(root, globalBus) {
+  routes : route[]
+
+  constructor(root: HTMLDivElement) {
     this.routes = [];
     root.addEventListener('click', this.handleMouseClick.bind(this));
     window.addEventListener('popstate', (event) => {
@@ -14,7 +17,7 @@ export default class Router {
   }
 
 
-  setRoute(route, handler) {
+  setRoute(route : RegExp, handler : Function) {
     this.routes.push({
       regExp: new RegExp(route),
       handler: handler,
@@ -28,7 +31,7 @@ export default class Router {
    * @param {boolean?} pushState - Need to push state or not.
    * No pushState is necessary when user go back in history. Default set to true.
    */
-  go(URL, pushState = true) {
+  go(URL : string, pushState = true) {
     const oldURL = window.history.state?.url;
     if (pushState && URL !== oldURL) {
       window.history.pushState({url: URL}, '', URL);
@@ -39,13 +42,13 @@ export default class Router {
       if (route.regExp.test(URL)) {
         const parsedURL = route.regExp.exec(URL);
         window.scrollTo(0, 0);
-        route.handler(parsedURL.group);
+        route.handler(parsedURL?.groups);
         routeNotFound = false;
         break;
       }
     }
     if (routeNotFound) {
-      const root = document.getElementById('root');
+      const root = document.getElementById('root') as HTMLDivElement;
       const error = new ErrorPage(root);
       error.render();
     }
@@ -55,10 +58,12 @@ export default class Router {
    * Click handler
    * @param {Object} event - mouse event
    */
-  handleMouseClick(event) {
-    if (event.target.tagName === 'A') {
+  handleMouseClick(event: MouseEvent) {
+    const target = event.target as HTMLElement
+    if (target.tagName === 'A') {
       event.preventDefault();
-      this.go(event.target.pathname);
+      const anchor = target as HTMLAnchorElement;
+      this.go(anchor.pathname);
     }
   }
 

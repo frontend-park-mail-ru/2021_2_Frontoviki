@@ -1,7 +1,7 @@
-import EventBus from '../modules/EventBus.js';
+import EventBus from '../modules/EventBus';
 import ProfilePageModel from '../models/profilePage.js';
 import ProfilePageView from '../views/profilePage.js';
-import {Ajax} from '../modules/ajax.js';
+import {Ajax} from '../modules/ajax.ts';
 import {secureDomainUrl, statusCodes} from '../constatns.js';
 
 /**

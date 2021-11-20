@@ -1,12 +1,13 @@
-import {Ajax} from './ajax.js';
+import {Ajax} from './ajax';
 import {secureDomainUrl, statusCodes} from '../constatns.js';
-import {isLogged} from './isLogged.js';
+import {isLogged} from './isLogged';
+import Bus from './EventBus';
 
 /**
  * Функция выхода из авторизации
  * @param {*} globalEventBus глобальный эммитер событий
 */
-export function logout(globalEventBus) {
+export function logout(globalEventBus: Bus) {
   const res = Ajax.postUsingFetch({
     url: secureDomainUrl + 'logout',
     body: null,

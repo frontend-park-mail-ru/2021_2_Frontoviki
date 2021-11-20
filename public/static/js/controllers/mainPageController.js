@@ -1,4 +1,4 @@
-import EventBus from '../modules/EventBus.js';
+import EventBus from '../modules/EventBus';
 import MainPageModel from '../models/mainPage.js';
 import MainPageView from '../views/mainPage.js';
 
