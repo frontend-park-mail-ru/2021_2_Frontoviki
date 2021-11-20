@@ -116,7 +116,7 @@ export async function isLogged(globalEventBus) {
     console.log(e.target);
     const mobileSearchInput =
     document.querySelector('.header__left-block__mobile-search-bar__input');
-    if (e.target == mobileSearchInput || e.target == mobileSearch) {
+    if (e.target == mobileSearchInput) {
       mobileSearch.style.zIndex = '3';
     } else {
       mobileSearch.style.zIndex = '1';
