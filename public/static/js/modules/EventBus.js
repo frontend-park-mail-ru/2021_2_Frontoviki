@@ -33,19 +33,3 @@ export default class Bus {
   }
 }
 
-/**
- *
-* @param {*} event
-* @param {*} callback
-*/
-// off(event, callback) { // отписываемся от события
-//     if (!this.listeners[event]) {
-//         return;
-//     }
-//     console.log('OFF ' + event + '    ' + this.listeners[event]);
-//     this.listeners[event] = this.listeners[event]
-//         .filter(function (listener) {
-//             return listener.place !== place;
-//         });
-//     console.log('OFF end ' + this.listeners[event]);
-// }

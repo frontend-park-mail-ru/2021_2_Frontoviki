@@ -1,7 +1,7 @@
 import {secureDomainUrl, statusCodes} from '../constatns.js';
 import {Ajax} from './ajax.js';
 import {logout} from './logout.js';
-import {createHeader} from '../templates/header/header.js';
+import {createHeader} from '../templates/header/header.ts';
 
 /**
  * функция отправки запроса на сервер, чтобы проверить

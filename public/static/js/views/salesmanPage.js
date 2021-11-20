@@ -1,6 +1,6 @@
 import BaseView from './baseView.js';
-import {createSalesman} from '../templates/salesmanBlock/salesmanBlock.js';
-import {createProductGrid} from '../templates/productGrid/productGrid.js';
+import {createSalesman} from '../templates/salesmanBlock/salesmanBlock.ts';
+import {createProductGrid} from '../templates/productGrid/productGrid.ts';
 import {idNum} from '../constatns.js';
 
 /**

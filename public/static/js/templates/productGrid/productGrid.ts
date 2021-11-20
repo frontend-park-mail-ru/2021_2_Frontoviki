@@ -1,3 +1,4 @@
+import { card } from '../../types';
 import productGridT from './productGrid.handlebars';
 import './productGrid.sass';
 /**
@@ -7,7 +8,7 @@ import './productGrid.sass';
   * @param {bool} canBuy добавляет кнопку купить
   * @return {HTMLDivElemnt} div элемент сетки
 */
-export function createProductGrid(jsonElements, canDelete, canBuy) {
+export function createProductGrid(jsonElements: card[], canDelete : boolean, canBuy : boolean) : HTMLDivElement {
   const productGrid = document.createElement('div');
   productGrid.classList.add('root__product-grid');
   jsonElements.forEach((element) => {

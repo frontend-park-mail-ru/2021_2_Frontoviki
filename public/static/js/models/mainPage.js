@@ -1,5 +1,5 @@
 import {Ajax} from '../modules/ajax.js';
-import {secureDomainUrl, statusCodes, baseCount, idNum} from '../constatns.js';
+import {secureDomainUrl, statusCodes, baseCount} from '../constatns.js';
 
 /**
  * Класс главной страницы с последними объявлениями

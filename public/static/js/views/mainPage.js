@@ -1,7 +1,7 @@
-import {createProductGrid} from '../templates/productGrid/productGrid.js';
-import {emptyGrid} from '../templates/productGrid/emptyGrid.js';
-import {createInfoBlock} from '../templates/infoBlock/infoBlock.js';
-import {categoriesBlock} from '../templates/mainPageCategories/categoriesBlock.js'
+import {createProductGrid} from '../templates/productGrid/productGrid.ts';
+import {emptyGrid} from '../templates/productGrid/emptyGrid.ts';
+import {createInfoBlock} from '../templates/infoBlock/infoBlock.ts';
+import {categoriesBlock} from '../templates/mainPageCategories/categoriesBlock.ts'
 import {baseCount} from '../constatns.js';
 import BaseView from './baseView.js';
 

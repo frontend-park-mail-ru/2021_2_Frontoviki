@@ -1,6 +1,6 @@
 import BaseView from './baseView.js';
-import {createNewAdForm} from '../templates/newAdForm/newAdFormT.js';
-import {newImage} from '../templates/newAdForm/image.js';
+import {createNewAdForm} from '../templates/newAdForm/newAdFormT.ts';
+import {newImage} from '../templates/newAdForm/image.ts';
 
 /**
  * Класс вьюхи страницы добавления нового объявления

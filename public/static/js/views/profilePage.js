@@ -1,10 +1,10 @@
-import { createProductGrid } from '../templates/productGrid/productGrid.js';
-import { profileInfoBlock } from
-  '../templates/profileInfoBlock/profileInfoBlock.js';
-import { emptyGrid } from '../templates/productGrid/emptyGrid.js';
-import { settings } from '../templates/settings/settings.js';
+import {createProductGrid} from '../templates/productGrid/productGrid.ts';
+import {profileInfoBlock} from
+  '../templates/profileInfoBlock/profileInfoBlock.ts';
+import {emptyGrid} from '../templates/productGrid/emptyGrid.ts';
+import {settings} from '../templates/settings/settings.ts';
 import BaseView from './baseView.js';
-import { inputNum, profileBtnNum } from '../constatns.js';
+import {inputNum, profileBtnNum} from '../constatns.js';
 
 /**
   * Экспортируемый класс для генерации страницы профиля с сеткой

@@ -2,12 +2,8 @@ import productPathT from './productPath.handlebars';
 import productSearchT from './productSearch.handlebars';
 import navigateBackT from './navigation.handlebars';
 import './info-block.sass';
-/**
- * Функция создания меню 'пути продукта' вида category / subcategory
- * @param {string} searchText формата
- * @param {string} category основная категория сортировки страницы.
- * @return {HTMLDivElement}
-*/
+
+
 export function createInfoBlock(searchText = null, category = null) {
   const infoBlock = document.createElement('div');
   infoBlock.classList.add('root__info-block');
@@ -25,7 +21,7 @@ export function createInfoBlock(searchText = null, category = null) {
   return infoBlock;
 }
 
-function createProductPath(category) {
+function createProductPath(category : string): HTMLDivElement {
   const productClass = document.createElement('div');
   productClass.classList.add('info-block__left');
   productClass.classList.add('info-block__category');
@@ -33,7 +29,7 @@ function createProductPath(category) {
   return productClass;
 };
 
-function createProductSearch(searchText) {
+function createProductSearch(searchText : string): HTMLDivElement {
   const search = document.createElement('div');
   search.classList.add('info-block__left');
   search.classList.add('info-block__search');
