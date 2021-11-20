@@ -9,7 +9,7 @@ import ProfilePageController from './controllers/profilePageController.js';
 import SalesmanPageController from './controllers/salesmanPageController.js';
 import NewAdPageController from './controllers/newAdController.js';
 import AdvertPageController from './controllers/advertPageController.js';
-import {egg, eggTemplate} from './templates/easterEgg/easterEgg.js';
+import {egg, eggTemplate} from './templates/easterEgg/easterEgg.ts';
 
 document.addEventListener('DOMContentLoaded', async () => {
   if ('serviceWorker' in navigator) {

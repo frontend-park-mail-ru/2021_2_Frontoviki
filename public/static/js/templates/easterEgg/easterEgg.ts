@@ -8,18 +8,18 @@ export function egg() {
   let bombFrequency = 0.2;
   let tileSize = 50;
 
-  const board = document.querySelectorAll('.board')[0];
-  let tiles;
-  let boardSize;
+  const board = document.querySelectorAll('.board')[0] as HTMLElement;
+  let tiles : NodeListOf<HTMLDivElement>;
+  let boardSize : any;
 
   const restartBtn = document.querySelectorAll('.minesweeper-btn')[0];
   const endscreen = document.querySelectorAll('.endscreen')[0];
 
-  const boardSizeBtn = document.getElementById('boardSize');
-  const difficultyBtns = document.querySelectorAll('.difficulty');
+  const boardSizeBtn = document.getElementById('boardSize') as HTMLInputElement;
+  const difficultyBtns = document.querySelectorAll('.difficulty') as NodeListOf<HTMLInputElement>;
 
-  let bombs = [];
-  let numbers = [];
+  let bombs : any = [];
+  let numbers: any = [];
   const numberColors = ['#3498db', '#2ecc71', '#e74c3c', '#9b59b6',
     '#f1c40f', '#1abc9c', '#34495e', '#7f8c8d'];
   const endscreenContent = {win: '<span>Вы выиграли!</span>',
@@ -29,7 +29,7 @@ export function egg() {
 
   const clear = () => {
     gameOver = false;
-    bombs = [];
+    bombs  = [];
     numbers = [];
     endscreen.innerHTML = '';
     endscreen.classList.remove('show');
@@ -86,17 +86,20 @@ export function egg() {
       });
     });
 
-    numbers.forEach((num) => {
+    numbers.forEach((num : string) => {
       const coords = num.split(',');
       const tile = document.querySelectorAll(`[data-tile="${parseInt(coords[0])},${parseInt(coords[1])}"]`)[0];
-      let dataNum = parseInt(tile.getAttribute('data-num'));
-      if (!dataNum) dataNum = 0;
-      tile.setAttribute('data-num', dataNum + 1);
+      const res = tile.getAttribute('data-num');
+      let dataNum : number = 0;
+      if (res != null) {
+        dataNum = parseInt(res);
+      }
+      tile.setAttribute('data-num', (dataNum + 1).toString());
     });
   };
 
 
-  const flag = (tile) => {
+  const flag = (tile : HTMLDivElement) => {
     if (gameOver) return;
     if (!tile.classList.contains('tile--checked')) {
       if (!tile.classList.contains('tile--flagged')) {
@@ -108,18 +111,18 @@ export function egg() {
       }
     }
   };
-  const clickTile = (tile) => {
+  const clickTile = (tile: HTMLDivElement) => {
     if (gameOver) return;
     if (tile.classList.contains('tile--checked') || tile.classList.contains('tile--flagged')) return;
     const coordinate = tile.getAttribute('data-tile');
     if (bombs.includes(coordinate)) {
-      endGame(tile);
+      endGame();
     } else {
       const num = tile.getAttribute('data-num');
       if (num != null) {
         tile.classList.add('tile--checked');
         tile.innerHTML = num;
-        tile.style.color = numberColors[num - 1];
+        tile.style.color = numberColors[Number(num) - 1];
         setTimeout(() => {
           checkVictory();
         }, 100);
@@ -130,50 +133,53 @@ export function egg() {
     }
     tile.classList.add('tile--checked');
   };
-  const checkTile = (tile, coordinate) => {
-    const coords = coordinate.split(',');
+  const checkTile = (tile : any, coordinate : string | null) => {
+    const coords = coordinate?.split(',');
+    if (coords == undefined) {
+      return;
+    }
     const x = parseInt(coords[0]);
     const y = parseInt(coords[1]);
 
     setTimeout(() => {
       if (x > 0) {
-        const targetW = document.querySelectorAll(`[data-tile="${x - 1},${y}"`)[0];
-        clickTile(targetW, `${x - 1},${y}`);
+        const targetW = document.querySelectorAll(`[data-tile="${x - 1},${y}"`)[0] as HTMLDivElement;
+        clickTile(targetW);
       }
       if (x < boardSize - 1) {
-        const targetE = document.querySelectorAll(`[data-tile="${x + 1},${y}"`)[0];
-        clickTile(targetE, `${x + 1},${y}`);
+        const targetE = document.querySelectorAll(`[data-tile="${x + 1},${y}"`)[0] as HTMLDivElement;
+        clickTile(targetE);
       }
       if (y > 0) {
-        const targetN = document.querySelectorAll(`[data-tile="${x},${y - 1}"]`)[0];
-        clickTile(targetN, `${x},${y - 1}`);
+        const targetN = document.querySelectorAll(`[data-tile="${x},${y - 1}"]`)[0] as HTMLDivElement;
+        clickTile(targetN);
       }
       if (y < boardSize - 1) {
-        const targetS = document.querySelectorAll(`[data-tile="${x},${y + 1}"]`)[0];
-        clickTile(targetS, `${x},${y + 1}`);
+        const targetS = document.querySelectorAll(`[data-tile="${x},${y + 1}"]`)[0] as HTMLDivElement;
+        clickTile(targetS);
       }
 
       if (x > 0 && y > 0) {
-        const targetNW = document.querySelectorAll(`[data-tile="${x - 1},${y - 1}"`)[0];
-        clickTile(targetNW, `${x - 1},${y - 1}`);
+        const targetNW = document.querySelectorAll(`[data-tile="${x - 1},${y - 1}"`)[0] as HTMLDivElement;
+        clickTile(targetNW);
       }
       if (x < boardSize - 1 && y < boardSize - 1) {
-        const targetSE = document.querySelectorAll(`[data-tile="${x + 1},${y + 1}"`)[0];
-        clickTile(targetSE, `${x + 1},${y + 1}`);
+        const targetSE = document.querySelectorAll(`[data-tile="${x + 1},${y + 1}"`)[0] as HTMLDivElement;
+        clickTile(targetSE);
       }
 
       if (y > 0 && x < boardSize - 1) {
-        const targetNE = document.querySelectorAll(`[data-tile="${x + 1},${y - 1}"]`)[0];
-        clickTile(targetNE, `${x + 1},${y - 1}`);
+        const targetNE = document.querySelectorAll(`[data-tile="${x + 1},${y - 1}"]`)[0] as HTMLDivElement;
+        clickTile(targetNE);
       }
       if (x > 0 && y < boardSize - 1) {
-        const targetSW = document.querySelectorAll(`[data-tile="${x - 1},${y + 1}"`)[0];
-        clickTile(targetSW, `${x - 1},${y + 1}`);
+        const targetSW = document.querySelectorAll(`[data-tile="${x - 1},${y + 1}"`)[0] as HTMLDivElement;
+        clickTile(targetSW);
       }
     }, 10);
   };
 
-  const endGame = (tile) => {
+  const endGame = () => {
     endscreen.innerHTML = endscreenContent.loose;
     endscreen.classList.add('show');
     gameOver = true;
@@ -200,22 +206,20 @@ export function egg() {
   };
   setup();
 
-  restartBtn.addEventListener('click', function(e) {
+  restartBtn?.addEventListener('click', function(e) {
     e.stopPropagation();
     e.preventDefault();
     clear();
   });
 
-  boardSizeBtn.addEventListener('change', function(e) {
+  boardSizeBtn?.addEventListener('change', function(e) {
     e.stopPropagation();
-    size = value;
-    tileSize = 70 - (size * 2);
+    tileSize = 70 - (Number(boardSizeBtn.value) * 2);
     clear();
   });
-  difficultyBtns.forEach((btn) => {
+  difficultyBtns?.forEach((btn: HTMLInputElement) => {
     btn.addEventListener('click', function() {
-      e.stopPropagation();
-      bombFrequency = value;
+      bombFrequency = Number(btn.value);
       clear();
     });
   });
