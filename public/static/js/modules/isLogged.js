@@ -110,6 +110,19 @@ export async function isLogged(globalEventBus) {
     e.stopPropagation();
     globalEventBus.emit('onMobileSeachClicked');
   });
+  document.addEventListener('click', (e)=> {
+    const mobileSearch =
+    document.querySelector('.header__left-block__mobile-search-bar');
+    const mobileSearchInput =
+    document.querySelector('.header__left-block__mobile-search-bar__input');
+    const mobileSearchBtn =
+    document.querySelector('.header__left-block__mobile-search-bar__button');
+    if (e.target == mobileSearchInput) {
+      mobileSearch.style.zIndex = '3';
+    } else {
+      mobileSearch.style.zIndex = '1';
+    }
+  });
 
   /**
    * Хотим добавить объявления когда не зарегистрированы
