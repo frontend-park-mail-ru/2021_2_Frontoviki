@@ -1,10 +1,12 @@
-import {createProductGrid} from '../templates/productGrid/productGrid.ts';
+import {createProductGrid} from '../templates/productGrid/productGrid';
 import {profileInfoBlock} from
-  '../templates/profileInfoBlock/profileInfoBlock.ts';
-import {emptyGrid} from '../templates/productGrid/emptyGrid.ts';
-import {settings} from '../templates/settings/settings.ts';
-import BaseView from './baseView.ts';
-import {inputNum, profileBtnNum} from '../constatns.ts';
+  '../templates/profileInfoBlock/profileInfoBlock';
+import {emptyGrid} from '../templates/productGrid/emptyGrid';
+import {settings} from '../templates/settings/settings';
+import BaseView from './baseView';
+import {inputNum, profileBtnNum} from '../constatns';
+import Bus from '../modules/EventBus';
+import { advert, card } from '../types';
 
 /**
   * Экспортируемый класс для генерации страницы профиля с сеткой
@@ -16,7 +18,7 @@ export default class ProfilePageView extends BaseView {
     * @param {*} eventBus - родительский элемент страницы,
     *  в который записывается весь контент, чаще всего root
   */
-  constructor(eventBus) {
+  constructor(eventBus : Bus) {
     super(eventBus);
     this.render = this.render.bind(this);
     this.renderAds = this.renderAds.bind(this);
@@ -35,7 +37,7 @@ export default class ProfilePageView extends BaseView {
   render() {
     this.eventBus.emit('checkLog');
     document.querySelector('.root__new-advert-btn-wrapper')?.remove();
-    document.getElementById('mini-profile__toogle').checked = false;
+    (<HTMLInputElement>document.getElementById('mini-profile__toogle')).checked = false;
     this.root.innerHTML = '';
     const profileContent = profileInfoBlock();
     this.root.appendChild(profileContent);
@@ -43,27 +45,27 @@ export default class ProfilePageView extends BaseView {
     rightBlock.classList.add('profile-content_right');
     profileContent.appendChild(rightBlock);
 
-    const myAdsBtn = document.querySelector('.profile-content__buttons').
+    const myAdsBtn = document.querySelector('.profile-content__buttons')?.
         childNodes[profileBtnNum.adBtn];
-    myAdsBtn.addEventListener('click', (e) => {
+    myAdsBtn?.addEventListener('click', (e) => {
       this.eventBus.emit('getAds');
     });
 
-    const favoriteBtn = document.querySelector('.profile-content__buttons').
+    const favoriteBtn = document.querySelector('.profile-content__buttons')?.
         childNodes[profileBtnNum.favBtn];
-    favoriteBtn.addEventListener('click', (e) => {
+    favoriteBtn?.addEventListener('click', (e) => {
       this.eventBus.emit('renderFavorite');
     });
 
-    const cartBtn = document.querySelector('.profile-content__buttons').
+    const cartBtn = document.querySelector('.profile-content__buttons')?.
         childNodes[profileBtnNum.cartBtn];
-    cartBtn.addEventListener('click', (e) => {
+    cartBtn?.addEventListener('click', (e) => {
       this.eventBus.emit('renderCart');
     });
 
-    const settingBtn = document.querySelector('.profile-content__buttons').
+    const settingBtn = document.querySelector('.profile-content__buttons')?.
         childNodes[profileBtnNum.setBtn];
-    settingBtn.addEventListener('click', (e) => {
+    settingBtn?.addEventListener('click', (e) => {
       this.eventBus.emit('getSettings');
     });
   }
@@ -73,11 +75,13 @@ export default class ProfilePageView extends BaseView {
   renderAds() {
     this.render();
     // красим кнопочку
-    makeBlue(document.querySelector('.profile-content__buttons').
+    makeBlue(<HTMLButtonElement>document.querySelector('.profile-content__buttons')?.
         childNodes[profileBtnNum.adBtn]);
 
     const rightBlock = document.querySelector('.profile-content_right');
-    rightBlock.innerHTML = '';
+    if (rightBlock != null) {
+      rightBlock.innerHTML = '';
+    }
     const title = document.createElement('h3');
     title.classList.add('profile-content__title');
     title.innerHTML = ' Ваши объявления ';
@@ -92,7 +96,7 @@ export default class ProfilePageView extends BaseView {
     active.addEventListener('click', () => {
       // удаляем предыдущие обявления
       if (document.querySelector('.root__product-grid') !== null) {
-        rightBlock.removeChild(document.querySelector('.root__product-grid'));
+        rightBlock?.removeChild(<HTMLDivElement>document.querySelector('.root__product-grid'));
       }
       this.eventBus.emit('getGrid');
       active.style.color = '#004ad7';
@@ -102,13 +106,13 @@ export default class ProfilePageView extends BaseView {
     archive.addEventListener('click', () => {
       // удаляем предыдущие обявления
       if (document.querySelector('.root__product-grid') !== null) {
-        rightBlock.removeChild(document.querySelector('.root__product-grid'));
+        rightBlock?.removeChild(<HTMLDivElement>document.querySelector('.root__product-grid'));
       }
       this.eventBus.emit('goToArchive');
     });
-    rightBlock.appendChild(title);
-    rightBlock.appendChild(active);
-    rightBlock.appendChild(archive);
+    rightBlock?.appendChild(title);
+    rightBlock?.appendChild(active);
+    rightBlock?.appendChild(archive);
     this.eventBus.emit('getGrid');
   }
 
@@ -117,7 +121,7 @@ export default class ProfilePageView extends BaseView {
    * @param {*} adverts массив объявлений
    * @param {bool} archive если объявления в архиве, то не отображаем удаление
    */
-  renderGrid(adverts, archive, favorite) {
+  renderGrid(adverts: card[], archive: boolean, favorite: boolean) {
     console.log(adverts);
     // поправляем ошибки бэка
     if (adverts === null) {
@@ -139,29 +143,29 @@ export default class ProfilePageView extends BaseView {
     // смотрим осталось ли у нас уведомление о пустой сетке
     const empty = document.getElementById('empty');
     if (empty !== null) {
-      rightBlock.removeChild(empty);
+      rightBlock?.removeChild(empty);
     }
     const oldAdverts = document.querySelector('.root__product-grid');
     if (oldAdverts !== null) {
-      rightBlock.removeChild(oldAdverts);
+      rightBlock?.removeChild(oldAdverts);
     }
 
     if (adverts.length !== 0) {
       if (archive) {
-        rightBlock.appendChild(createProductGrid(adverts, false, false));
+        rightBlock?.appendChild(createProductGrid(adverts, false, false));
         const cards = document.querySelectorAll('.card');
         cards.forEach((elem) => {
           elem.addEventListener('click', (e) => e.preventDefault());
         });
         return;
       }
-      rightBlock.appendChild(createProductGrid(adverts, true, false));
+      rightBlock?.appendChild(createProductGrid(adverts, true, false));
       const cards = document.querySelectorAll('.card');
       cards.forEach((elem, key) => {
         elem.addEventListener('click', (e) => {
           e.preventDefault();
           e.stopPropagation();
-          if (e.target.classList.contains('card__delete')) {
+          if ((<HTMLElement>e.target)?.classList.contains('card__delete')) {
             console.log('delete', adverts[key].id);
             if (favorite) {
               this.eventBus.emit('deleteFromFav', adverts[key].id, key);
@@ -188,7 +192,7 @@ export default class ProfilePageView extends BaseView {
     } else {
       emptyGridActive.innerHTML = gridT({text: 'Активных объявлений нет'});
     }
-    rightBlock.appendChild(emptyGridActive);
+    rightBlock?.appendChild(emptyGridActive);
   }
 
   /**
@@ -197,11 +201,13 @@ export default class ProfilePageView extends BaseView {
   renderArchive() {
     this.render();
     // красим кнопочку
-    makeBlue(document.querySelector('.profile-content__buttons').
+    makeBlue(<HTMLButtonElement>document.querySelector('.profile-content__buttons')?.
         childNodes[profileBtnNum.adBtn]);
 
     const rightBlock = document.querySelector('.profile-content_right');
-    rightBlock.innerHTML = '';
+    if (rightBlock != null) {
+      rightBlock.innerHTML = '';
+    }
     const title = document.createElement('h3');
     title.classList.add('profile-content__title');
     title.innerHTML = ' Ваши объявления ';
@@ -217,13 +223,13 @@ export default class ProfilePageView extends BaseView {
     active.addEventListener('click', () => {
       // удаляем предыдущие обявления
       if (document.querySelector('.root__product-grid') !== null) {
-        rightBlock.removeChild(document.querySelector('.root__product-grid'));
+        rightBlock?.removeChild(<HTMLDivElement>document.querySelector('.root__product-grid'));
       }
       this.eventBus.emit('goToActive');
     });
-    rightBlock.appendChild(title);
-    rightBlock.appendChild(active);
-    rightBlock.appendChild(archive);
+    rightBlock?.appendChild(title);
+    rightBlock?.appendChild(active);
+    rightBlock?.appendChild(archive);
     this.eventBus.emit('getArchive');
   }
   /**
@@ -231,30 +237,32 @@ export default class ProfilePageView extends BaseView {
    */
   renderSettings() {
     this.render();
-    makeBlue(document.querySelector('.profile-content__buttons').
+    makeBlue(<HTMLButtonElement>document.querySelector('.profile-content__buttons')?.
         childNodes[profileBtnNum.setBtn]);
     const rightBlock = document.querySelector('.profile-content_right');
-    rightBlock.innerHTML = '';
+    if (rightBlock != null) {
+      rightBlock.innerHTML = '';
+    }
     const settingsDiv = settings();
-    rightBlock.appendChild(settingsDiv);
+    rightBlock?.appendChild(settingsDiv);
 
-    const photoInput = document.getElementById('avatar_loader');
+    const photoInput = document.getElementById('avatar_loader') as HTMLInputElement;
     photoInput.onchange = () => {
-      const [file] = photoInput.files;
+      const file = photoInput.files;
       if (file) {
-        document.querySelector('.profile-content__avatar__image').src =
-          URL.createObjectURL(file);
-        document.querySelector('.mini-profile__avatar').src =
-          URL.createObjectURL(file);
-        localStorage.setItem('image', URL.createObjectURL(file));
+        (<HTMLImageElement>document.querySelector('.profile-content__avatar__image'))
+            .src = URL.createObjectURL(file[0]);
+        (<HTMLImageElement>document.querySelector('.mini-profile__avatar'))
+            .src = URL.createObjectURL(file[0]);
+        localStorage.setItem('image', URL.createObjectURL(file[0]));
         const formData = new FormData();
-        formData.append('avatar', file);
+        formData.append('avatar', file[0]);
         this.eventBus.emit('uploadPhoto', formData);
       }
     };
-    const phoneInput = document.getElementById('settingPhone').childNodes[3];
-    phoneInput.addEventListener('focus', () => {
-      if (phoneInput.value < 15) {
+    const phoneInput = document.getElementById('settingPhone')?.childNodes[3] as HTMLInputElement;
+    phoneInput?.addEventListener('focus', () => {
+      if (phoneInput.value.length < 15) {
         phoneInput.value = '+7(';
       }
     });
@@ -262,7 +270,7 @@ export default class ProfilePageView extends BaseView {
     phoneInput.addEventListener('keydown', (e) => {
       const curLen = phoneInput.value.length;
       // backspace delete
-      if (!/\d/.test(e.key) && e.keyCode != 8 && e.keyCode != 46) {
+      if (!/\d/.test(e.key) && e.key != 'Enter' && e.key != 'Delete') {
         e.preventDefault();
         return;
       }
@@ -274,7 +282,7 @@ export default class ProfilePageView extends BaseView {
         old = curLen;
         return;
       }
-      if (e.keyCode == 8 || e.keyCode == 46) {
+      if (e.key == 'Enter' || e.key == 'Delete') {
         return;
       }
       if (curLen == 6) {
@@ -289,18 +297,18 @@ export default class ProfilePageView extends BaseView {
       old++;
     });
     const changeInfoBtn = document.getElementById('settings__change-info');
-    changeInfoBtn.addEventListener('click',
+    changeInfoBtn?.addEventListener('click',
         () => this.eventBus.emit('validateProfileInfo'));
 
     const changePasswrdBtn = document.
         getElementById('settings__change-password');
-    changePasswrdBtn.addEventListener('click', (e) => {
+    changePasswrdBtn?.addEventListener('click', (e) => {
       const passwordDiv = document.getElementById('settingPassword');
       const oldPasswordDiv = document.getElementById('settingOldPassword');
-      const password = passwordDiv.childNodes[inputNum].value.trim();
-      const oldPassword = oldPasswordDiv.childNodes[inputNum].value.trim();
-      passwordDiv.classList.remove('text-input_correct');
-      oldPasswordDiv.classList.remove('text-input_correct');
+      const password = (<HTMLInputElement>passwordDiv?.childNodes[inputNum]).value.trim();
+      const oldPassword = (<HTMLInputElement>oldPasswordDiv?.childNodes[inputNum]).value.trim();
+      passwordDiv?.classList.remove('text-input_correct');
+      oldPasswordDiv?.classList.remove('text-input_correct');
       this.eventBus.emit('changePassword', oldPassword, password);
     });
   }
@@ -310,14 +318,16 @@ export default class ProfilePageView extends BaseView {
    */
   renderFavorite() {
     this.render();
-    makeBlue(document.querySelector('.profile-content__buttons').
+    makeBlue(<HTMLButtonElement>document.querySelector('.profile-content__buttons')?.
         childNodes[profileBtnNum.favBtn]);
     const rightBlock = document.querySelector('.profile-content_right');
-    rightBlock.innerHTML = '';
+    if (rightBlock != null) {
+      rightBlock.innerHTML = '';
+    }
     const title = document.createElement('h3');
     title.classList.add('profile-content__title');
     title.innerHTML = ' Избранное ';
-    rightBlock.appendChild(title);
+    rightBlock?.appendChild(title);
     this.eventBus.emit('getFavorite');
   }
 
@@ -326,14 +336,16 @@ export default class ProfilePageView extends BaseView {
    */
   renderCart() {
     this.render();
-    makeBlue(document.querySelector('.profile-content__buttons').
+    makeBlue(<HTMLButtonElement>document.querySelector('.profile-content__buttons')?.
         childNodes[profileBtnNum.cartBtn]);
     const rightBlock = document.querySelector('.profile-content_right');
-    rightBlock.innerHTML = '';
+    if (rightBlock != null) {
+      rightBlock.innerHTML = '';
+    }
     const title = document.createElement('h3');
     title.classList.add('profile-content__title');
     title.innerHTML = ' Корзина ';
-    rightBlock.appendChild(title);
+    rightBlock?.appendChild(title);
     this.eventBus.emit('getCart');
   }
 
@@ -341,45 +353,45 @@ export default class ProfilePageView extends BaseView {
    * Отрисовка объявлений в корзине
    * @param {*} adverts
    */
-  renderCartGrid(adverts) {
+  renderCartGrid(adverts : card[]) {
     const rightBlock = document.querySelector('.profile-content_right');
     const oldAdverts = document.querySelector('.root__product-grid');
     if (oldAdverts !== null) {
-      rightBlock.removeChild(oldAdverts);
+      rightBlock?.removeChild(oldAdverts);
     }
     if (adverts.length === 0) {
       const rightBlock = document.querySelector('.profile-content_right');
       // смотрим осталось ли у нас уведомление о пустой сетке
       const empty = document.getElementById('empty');
       if (empty !== null) {
-        rightBlock.removeChild(empty);
+        rightBlock?.removeChild(empty);
       }
       // добавление уведомления об отсутсвии объявлений
       const emptyGridActive = document.createElement('div');
       emptyGridActive.id = 'empty';
       const gridT = emptyGrid();
       emptyGridActive.innerHTML = gridT({text: 'Корзина пуста'});
-      rightBlock.appendChild(emptyGridActive);
+      rightBlock?.appendChild(emptyGridActive);
       return;
     }
     adverts.forEach((elem) => {
       elem.href = '/ad/' + elem.id;
       elem.image = '/' + elem.images[0];
     });
-    rightBlock.appendChild(createProductGrid(adverts, true, true));
+    rightBlock?.appendChild(createProductGrid(adverts, true, true));
     const cards = document.querySelectorAll('.card');
     cards.forEach((elem, key) => {
       elem.addEventListener('click', (e) => {
         e.preventDefault();
         e.stopPropagation();
         // удаляем
-        if (e.target.classList.contains('card__delete')) {
+        if ((<HTMLElement>e.target)?.classList.contains('card__delete')) {
           e.preventDefault();
           this.eventBus.emit('deleteFromCart', adverts[key].id, key);
           return;
         }
         // покупаем
-        if (e.target.classList.contains('card-info__card_buy')) {
+        if ((<HTMLElement>e.target)?.classList.contains('card-info__card_buy')) {
           e.preventDefault();
           console.log('buy');
           this.eventBus.emit('buyFromCart', adverts[key], key);
@@ -396,19 +408,21 @@ export default class ProfilePageView extends BaseView {
    */
   passwordChanged() {
     const passwordDiv = document.getElementById('settingPassword');
-    document.getElementById('settingOldPassword').
+    document.getElementById('settingOldPassword')?.
         classList.remove('text-input_wrong');
-    document.getElementById('settingOldPassword').
+    document.getElementById('settingOldPassword')?.
         classList.add('text-input_correct');
-    passwordDiv.classList.add('text-input_correct');
-    document.getElementById('settings__change-password').innerHTML=
-      'Пароль изменен';
+    passwordDiv?.classList.add('text-input_correct');
+    const passwordBtn = document.getElementById('settings__change-password');
+    if (passwordBtn != null) {
+      passwordBtn.innerHTML = 'Пароль изменен';
+    }
   }
   /**
     * Старый пароль не совпал с новым
     */
   passwordNotChanged() {
-    document.getElementById('settingOldPassword').
+    document.getElementById('settingOldPassword')?.
         classList.add('text-input_wrong');
   }
 };
@@ -417,9 +431,9 @@ export default class ProfilePageView extends BaseView {
  * Делает кнопку активной
  * @param {HTMLButtonElement} Btn кнопка которую надо покрасить
  */
-function makeBlue(Btn) {
+function makeBlue(Btn : HTMLButtonElement) {
   Btn.classList.add('profile-content__button_active');
   Btn.classList.remove('profile-content__button');
-  Btn.childNodes[1].classList.add('profile-content__button_icon_active');
-  Btn.childNodes[1].classList.remove('profile-content__button_icon');
+  (<HTMLParagraphElement>Btn.childNodes[1]).classList.add('profile-content__button_icon_active');
+  (<HTMLParagraphElement>Btn.childNodes[1]).classList.remove('profile-content__button_icon');
 }

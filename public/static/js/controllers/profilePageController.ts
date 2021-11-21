@@ -1,19 +1,27 @@
 import EventBus from '../modules/EventBus';
-import ProfilePageModel from '../models/profilePage.js';
-import ProfilePageView from '../views/profilePage.js';
-import {Ajax} from '../modules/ajax.ts';
-import {secureDomainUrl, statusCodes} from '../constatns.ts';
+import ProfilePageModel from '../models/profilePage';
+import ProfilePageView from '../views/profilePage';
+import {Ajax} from '../modules/ajax';
+import {secureDomainUrl, statusCodes} from '../constatns';
+import Router from '../modules/Router';
+import Bus from '../modules/EventBus';
+import { advert } from '../types';
 
 /**
  * Контроллер главной страницы
  */
 export default class ProfilePageController {
+  router: Router
+  globalEventBus: Bus
+  eventBus: Bus
+  view: ProfilePageView
+  model: ProfilePageModel
   /**
      * Controller constructor
      * @param {Object} router - for model to redirect on success login
      * @param {Object} globalEventBus - for trigger login global event
      */
-  constructor(router, globalEventBus) {
+  constructor(router : Router, globalEventBus : Bus) {
     this.globalEventBus = globalEventBus;
     this.router = router;
     this.eventBus = new EventBus([
@@ -103,14 +111,14 @@ export default class ProfilePageController {
    * Переход на страницу объявления
    * @param {*} id
    */
-  goToCardPage(id) {
+  goToCardPage(id: number) {
     this.router.go('/ad/' + id);
   }
   /**
  * Загружает аватарку на сервер
  * @param {*} formData фото пользователя
  */
-  uploadPhoto(formData) {
+  uploadPhoto(formData : FormData) {
     Ajax.postImageUsingFetch({
       url: secureDomainUrl + 'users/profile/upload',
       body: formData,
@@ -124,7 +132,7 @@ export default class ProfilePageController {
    * @param {*} surname
    * @param {*} phone
    */
-  updateProfileInfo(email, name, surname, phone) {
+  updateProfileInfo(email: string, name: string, surname: string, phone: string) {
     const response = Ajax.postUsingFetch({
       url: secureDomainUrl + 'users/profile',
       body: {email, name, surname, phone},
@@ -149,7 +157,7 @@ export default class ProfilePageController {
    * @param {*} oldPassword
    * @param {*} password
    */
-  updatePassword(oldPassword, password) {
+  updatePassword(oldPassword : string, password: string) {
     const response = Ajax.postUsingFetch({
       url: secureDomainUrl + 'users/profile/password',
       body: {
@@ -176,7 +184,7 @@ export default class ProfilePageController {
  * @param {*} id объявления
  * @param {Number} advertPos позиция удаляемой карточки в гриде
  */
-  deleteFromCart(id, advertPos) {
+  deleteFromCart(id : number, advertPos : number | null) {
     const res = Ajax.postUsingFetch({
       url: secureDomainUrl + 'cart/one',
       body: {
@@ -200,9 +208,10 @@ export default class ProfilePageController {
    * @param {*} id объявления
    * @param {Number} advertPos позиция удаляемой карточки в гриде
    */
-  deleteFromFavorite(id, advertPos) {
+  deleteFromFavorite(id : number, advertPos : number | null) {
     const res = Ajax.deleteAdUsingFetch({
       url: secureDomainUrl + 'adverts/favorite/' + id,
+      body: null,
     });
     res.then(({parsedBody}) => {
       const {code} = parsedBody;
@@ -219,9 +228,10 @@ export default class ProfilePageController {
    * Удаление объявления
    * @param {*} id
    */
-  deleteAd(id) {
+  deleteAd(id: number) {
     const res = Ajax.deleteAdUsingFetch({
       url: `${secureDomainUrl}adverts/${id}`,
+      body: null,
     });
     res.then(({status, parsedBody}) => {
       if (status != statusCodes.OK) {
@@ -238,9 +248,10 @@ export default class ProfilePageController {
    * Архив
    * @param {*} id
    */
-  archiveAd(id) {
+  archiveAd(id: number) {
     const res = Ajax.postUsingFetch({
       url: `${secureDomainUrl}adverts/${id}/close`,
+      body: null,
     });
     res.then(({status, parsedBody}) => {
       if (status != statusCodes.OK) {
@@ -257,7 +268,7 @@ export default class ProfilePageController {
    * Оформление покупки
    * @param {*} advert объект объявления
    */
-  buyFromCart(advert) {
+  buyFromCart(advert: advert) {
     const res = Ajax.postUsingFetch({
       url: secureDomainUrl + 'cart/' + advert.id + '/checkout',
       body: {

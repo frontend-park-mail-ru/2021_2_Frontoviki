@@ -1,17 +1,21 @@
-import {Ajax} from '../modules/ajax.ts';
-import {inputNum, minValidationLen, passwordLength, phLength, secureDomainUrl, statusCodes} from '../constatns.ts';
-import {createDeleteModal} from '../templates/deleteModal/deleteModal.ts';
+import {Ajax} from '../modules/ajax';
+import {inputNum, minValidationLen, passwordLength,
+      phLength, secureDomainUrl, statusCodes} from '../constatns';
+import {createDeleteModal} from '../templates/deleteModal/deleteModal';
+import Bus from '../modules/EventBus';
+import { advert, salesman } from '../types';
 
 
 /**
  * Класс модели пользователя
  */
 export default class ProfilePageModel {
+  eventBus: Bus
   /**
   * @description Constructor
   * @param {Object} eventBus to call and subscribe for signals
   */
-  constructor(eventBus) {
+  constructor(eventBus: Bus) {
     this.eventBus = eventBus;
     this.eventBus.on('getGrid', this.getAds.bind(this));
     this.eventBus.on('getCart', this.getCart.bind(this));
@@ -64,6 +68,7 @@ export default class ProfilePageModel {
   getCart() {
     const res = Ajax.getUsingFetch({
       url: secureDomainUrl + 'cart',
+      body: null,
     });
     res.then(async ({status, parsedBody}) => {
       if (status != statusCodes.OK) {
@@ -72,7 +77,7 @@ export default class ProfilePageModel {
       const {code} = parsedBody;
       console.log(parsedBody);
       if (code === statusCodes.OK) {
-        parsedBody.body.adverts.forEach((elem, pos) => {
+        parsedBody.body.adverts.forEach((elem : advert, pos: number) => {
           if (elem.is_active === false) {
             parsedBody.body.adverts.splice(pos, 1);
             Ajax.postUsingFetch({
@@ -96,6 +101,7 @@ export default class ProfilePageModel {
   getFavorite() {
     const res = Ajax.getUsingFetch({
       url: secureDomainUrl + 'adverts/favorite',
+      body: null,
     });
     res.then(async ({status, parsedBody}) => {
       if (status != statusCodes.OK) {
@@ -104,11 +110,12 @@ export default class ProfilePageModel {
       const {code} = parsedBody;
       console.log(parsedBody);
       if (code === statusCodes.OK) {
-        parsedBody.body.adverts.forEach((elem, pos) => {
+        parsedBody.body.adverts.forEach((elem: advert, pos: number) => {
           if (elem.is_active === false) {
             parsedBody.body.adverts.splice(pos, 1);
             Ajax.deleteAdUsingFetch({
               url: secureDomainUrl + 'adverts/favourite/' + elem.id,
+              body: null,
             });
           }
         });
@@ -124,16 +131,16 @@ export default class ProfilePageModel {
    */
   validateProfile() {
     const email =
-      document.getElementById('settingEmail').childNodes[inputNum].placeholder;
-    const phoneInput = document.getElementById('settingPhone').
-        childNodes[inputNum];
-    const nameInput = document.getElementById('settingName').
-        childNodes[inputNum];
+      (<HTMLInputElement>document.getElementById('settingEmail')?.childNodes[inputNum]).placeholder;
+    const phoneInput = document.getElementById('settingPhone')?.
+        childNodes[inputNum] as HTMLInputElement;
+    const nameInput = document.getElementById('settingName')?.
+        childNodes[inputNum] as HTMLInputElement;
+    const surnInpt = document.getElementById('settingSurname')?.
+        childNodes[inputNum] as HTMLInputElement;
     let name = nameInput.value.trim();
-    const surnInpt = document.getElementById('settingSurname').
-        childNodes[inputNum];
     let surname = surnInpt.value.trim();
-    let phone = phoneInput.value.trim();
+    let phone : string | null = phoneInput.value.trim();
     // не отправляем запрос если ничего не меняли
     if (name.length == 0 && surname.length == 0 && phone.length != phLength) {
       return;
@@ -148,16 +155,16 @@ export default class ProfilePageModel {
       phoneInput.value.slice(7, 10) + phoneInput.value.slice(11, 13) +
       phoneInput.value.slice(14, 16);
     if (phone.length != phLength) {
-      phone = localStorage.getItem('phone');
+      phone = localStorage.getItem('phone')
     }
     if (name.length < minValidationLen) {
-      document.getElementById('settingName').classList.add('text-input_wrong');
+      document.getElementById('settingName')?.classList.add('text-input_wrong');
       return;
     }
     if (surname.length < minValidationLen) {
-      document.getElementById('settingName').
+      document.getElementById('settingName')?.
           classList.remove('text-input_wrong');
-      document.getElementById('settingSurname').
+      document.getElementById('settingSurname')?.
           classList.add('text-input_wrong');
       return;
     }
@@ -169,23 +176,31 @@ export default class ProfilePageModel {
    * @param {*} surname
    * @param {*} phone
    */
-  updateInfo(name, surname) {
+  updateInfo(name: string, surname: string) {
     const nameDiv = document.getElementById('settingName');
     const surnameDiv = document.getElementById('settingSurname');
-    const nameInput = nameDiv.childNodes[inputNum];
-    const surnInpt = surnameDiv.childNodes[inputNum];
-    nameDiv.classList.add('text-input_correct');
-    surnameDiv.classList.add('text-input_correct');
-    document.getElementById('settingEmail').classList.add('text-input_correct');
-    document.getElementById('settingPhone').classList.add('text-input_correct');
-    document.getElementById('settings__change-info').
-        innerHTML = 'Информация сохранена';
+    const nameInput = nameDiv?.childNodes[inputNum] as HTMLInputElement;
+    const surnInpt = surnameDiv?.childNodes[inputNum] as HTMLInputElement;
+    nameDiv?.classList.add('text-input_correct');
+    surnameDiv?.classList.add('text-input_correct');
+    document.getElementById('settingEmail')?.classList.add('text-input_correct');
+    document.getElementById('settingPhone')?.classList.add('text-input_correct');
+    const changeBtn = document.getElementById('settings__change-info');
+    if (changeBtn != null) {
+      changeBtn.innerHTML = 'Информация сохранена';
+    }
     nameInput.placeholder = name;
     nameInput.value = '';
     surnInpt.placeholder = surname;
     surnInpt.value = '';
-    document.querySelector('.profile-content__username').innerHTML = name;
-    document.querySelector('.mini-profile__capture').innerHTML = name;
+    const profileUsername = document.querySelector('.profile-content__username');
+    if (profileUsername != null) {
+      profileUsername.innerHTML = name;
+    }
+    const headerUsername = document.querySelector('.mini-profile__capture');
+    if (headerUsername != null) {
+      headerUsername.innerHTML = name;
+    }
   }
 
   /**
@@ -193,19 +208,20 @@ export default class ProfilePageModel {
    * @param {*} oldPassword
    * @param {*} password
    */
-  validatePassword(oldPassword, password) {
+  validatePassword(oldPassword : string, password: string) {
     const passwordDiv = document.getElementById('settingPassword');
+    const passwordInput = passwordDiv?.childNodes[inputNum] as HTMLInputElement;
     if (password.length < passwordLength) {
-      passwordDiv.classList.add('text-input_wrong');
+      passwordDiv?.classList.add('text-input_wrong');
       return;
     }
     if (password === oldPassword) {
-      passwordDiv.childNodes[inputNum].innerHTML = 'Пароли одинаковые';
-      passwordDiv.classList.add('text-input_wrong');
+      passwordInput.innerHTML = 'Пароли одинаковые';
+      passwordDiv?.classList.add('text-input_wrong');
       return;
     }
-    passwordDiv.childNodes[inputNum].innerHTML = 'Пароль слишком простой';
-    passwordDiv.classList.remove('text-input_wrong');
+    passwordInput.innerHTML = 'Пароль слишком простой';
+    passwordDiv?.classList.remove('text-input_wrong');
     this.eventBus.emit('passwordChecked', oldPassword, password);
   }
 
@@ -214,7 +230,7 @@ export default class ProfilePageModel {
    * Обработка удаления
    * @param {number} id айдишник объявления
    */
-  handleDeleteModal(id) {
+  handleDeleteModal(id: number) {
     const modalT = createDeleteModal();
     const modal = document.createElement('div');
     modal.id = 'modal';
@@ -223,30 +239,30 @@ export default class ProfilePageModel {
       deleteModal: true,
     });
     document.getElementsByTagName('body')[0].appendChild(modal);
-    const modal1 = document.getElementById('modal-1');
-    modal1.classList.add('modal_active');
-    const closeButton = modal1.getElementsByClassName('modal__close-button')[0];
+    const modal1 = document.getElementById('modal-1') as HTMLDivElement;
+    modal1?.classList.add('modal_active');
+    const closeButton = modal1?.getElementsByClassName('modal__close-button')[0] as HTMLButtonElement;
 
     closeButton.onclick = function(e) {
       e.preventDefault();
-      modal1.classList.remove('modal_active');
+      modal1?.classList.remove('modal_active');
       document.getElementsByTagName('body')[0].removeChild(modal);
     };
 
     modal1.onmousedown = (e) => {
       const modalContent = modal1.getElementsByClassName('modal__content')[0];
-      if (e.target.closest('.' + modalContent.className) === null) {
+      if ((<HTMLElement>e.target)?.closest('.' + modalContent.className) === null) {
         modal1.classList.remove('modal_active');
         document.getElementsByTagName('body')[0].removeChild(modal);
       }
     };
     const deleteBtn = document.getElementById('modal__button-delete');
-    deleteBtn.addEventListener('click', () => {
+    deleteBtn?.addEventListener('click', () => {
       this.eventBus.emit('deleted', id);
     });
 
     const archiveBtn = document.getElementById('modal__button-to-archive');
-    archiveBtn.addEventListener('click', (e) => {
+    archiveBtn?.addEventListener('click', (e) => {
       this.eventBus.emit('archived', id);
     });
   }
@@ -257,8 +273,8 @@ export default class ProfilePageModel {
    */
   adDeleted() {
     this.getAds();
-    const modal = document.getElementById('modal');
-    document.querySelector('.modal__content').classList.remove('modal_active');
+    const modal = document.getElementById('modal') as HTMLDivElement;
+    document.querySelector('.modal__content')?.classList.remove('modal_active');
     document.getElementsByTagName('body')[0].removeChild(modal);
   }
 
@@ -267,7 +283,7 @@ export default class ProfilePageModel {
    * @param {*} salesman объект продавца
    * @param {*} advert объект объявления
    */
-  showSuccessBuy(salesman, advert) {
+  showSuccessBuy(salesman: salesman, advert: advert) {
     const modalT = createDeleteModal();
     const modal = document.createElement('div');
     modal.innerHTML = modalT({
@@ -275,38 +291,38 @@ export default class ProfilePageModel {
       deleteModal: false,
     });
     document.getElementsByTagName('body')[0].appendChild(modal);
-    const modal1 = document.getElementById('modal-1');
-    modal1.classList.add('modal_active');
+    const modal1 = document.getElementById('modal-1') as HTMLDivElement;
+    modal1?.classList.add('modal_active');
     const modalText = document.querySelector('.modal__content');
 
     const modalAdvName = document.createElement('p');
     modalAdvName.innerHTML = `Товар: ${advert.name}`;
-    modalText.appendChild(modalAdvName);
+    modalText?.appendChild(modalAdvName);
     const modalAdvEmail = document.createElement('p');
     modalAdvEmail.innerHTML = `email продавца: ${salesman.email}`;
-    modalText.appendChild(modalAdvEmail);
+    modalText?.appendChild(modalAdvEmail);
     if (salesman.phone !== '') {
       const resPhone = '+' + salesman.phone[0] + '(' +
           salesman.phone.slice(1, 4) + ')' + salesman.phone.slice(4, 7) +
           '-' + salesman.phone.slice(7, 9) + '-' + salesman.phone.slice(9, 11);
       const modalAdvPh = document.createElement('p');
       modalAdvPh.innerHTML = `Контактный телефон: ${resPhone}`;
-      modalText.appendChild(modalAdvPh);
+      modalText?.appendChild(modalAdvPh);
     }
     const modalAdvPrice = document.createElement('p');
     modalAdvPrice.innerHTML = `Цена: ${advert.price} ₽`;
-    modalText.appendChild(modalAdvPrice);
+    modalText?.appendChild(modalAdvPrice);
 
-    const closeButton = modal1.getElementsByClassName('modal__close-button')[0];
+    const closeButton = modal1?.getElementsByClassName('modal__close-button')[0] as HTMLButtonElement;
     closeButton.onclick = (e) => {
       e.preventDefault();
-      modal1.classList.remove('modal_active');
+      modal1?.classList.remove('modal_active');
       modal.remove();
       this.getCart();
     };
     modal1.onmousedown = (e) => {
       const modalContent = modal1.getElementsByClassName('modal__content')[0];
-      if (e.target.closest('.' + modalContent.className) === null) {
+      if ((<HTMLElement>e.target)?.closest('.' + modalContent.className) === null) {
         modal1.classList.remove('modal_active');
         modal.remove();
         this.getCart();

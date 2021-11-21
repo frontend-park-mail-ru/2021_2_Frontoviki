@@ -38,20 +38,25 @@ export type advert = {
     description: string;
     id: number;
     images: string[];
+    image: string;
     is_new: boolean;
     category: string;
     publisher_id: number;
     latitude: number;
-    longitude: number
+    longitude: number;
+    is_active: boolean;
+    href: string;
 }
 
 export type salesman = {
+    email: string;
     name:string;
     surname: string;
     image: string;
     date: string;
     id: string;
     created_at: string;
+    phone: string;
 }
 
 export type cart = {
