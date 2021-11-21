@@ -33,6 +33,7 @@ export default class AdvertPageModel {
         return;
       }
       const {advert, salesman, rating} = parsedBody.body;
+      console.log(advert);
       advert.images.forEach((elem: advert, key: number) => {
         advert.images[key] = '/' + elem;
       });

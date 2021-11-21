@@ -46,6 +46,7 @@ export type advert = {
     longitude: number;
     is_active: boolean;
     href: string;
+    views: number;
 }
 
 export type salesman = {

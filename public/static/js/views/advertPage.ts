@@ -46,17 +46,19 @@ export default class AdvertPageView extends BaseView {
    */
   renderAd(advert: advert, salesman: salesman, rating: rating) {
     const date = properDate(salesman.created_at.slice(0, 10));
+    const advertDate = properDate(advert.published_at.slice(0,10));
     const advertTemplate = advertPageTemplate();
     this.root.innerHTML = advertTemplate({
       name: advert.name,
       price: advert.price,
       location: advert.location,
-      publishedAt: advert.published_at.slice(0, 10),
+      publishedAt: advertDate,
       description: advert.description,
       href: '/ad/' + advert.id,
       category: advert.category,
       images: advert.images,
       new: advert.is_new,
+      views: advert.views,
       salesmanName: salesman.name,
       salesmanSurname: salesman.surname,
       salesmanAvatar: '/' + salesman.image,
