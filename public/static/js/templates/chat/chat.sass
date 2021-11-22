@@ -1,5 +1,5 @@
 .chats
-    width: 100%
+    width: 80%
     height: 60vh
     border: 0
     border-radius: 1vh
@@ -25,14 +25,32 @@
     cursor: pointer
 
     &-inner
-        display: -webkit-box
-        display: -webkit-flex
-        display: -ms-flexbox
         display: flex
         flex-direction: column
         padding-left: 1.5vh
         padding-right: 1.5vh
         padding-top: 1.5vh
+
+    &-content
+        width: 100%
+        display: flex
+        flex-direction: row
+
+    &__separator
+        border-top: 1px solid #e3e3e3
+        margin-bottom: 1vh
+        margin-bottom: 0
+        width: 100%
+        margin-top: 1vh
+        margin-left: auto
+
+.chat-list
+    height: 60vh
+
+    &-inner
+        height: 100%
+        overflow: scroll
+        overflow-x: hidden
 
 .chats-message
     width: 70%
@@ -42,11 +60,65 @@
     width: 100%
     height: 60vh
 
-.chat-message-inner
+    &-inner
+        width: 100%
+        height: 100%
+        display: -webkit-box
+        display: -webkit-flex
+        display: -ms-flexbox
+        display: flex
+        flex-direction: column
+
+    &-body
+        display: flex
+        flex-direction: column
+        flex-grow: 1
+        height: 100%
+        overflow: scroll
+        overflow-x: hidden
+
+.chat-message-send
     width: 100%
-    height: 100%
-    display: -webkit-box
-    display: -webkit-flex
-    display: -ms-flexbox
+    height: 9vh
     display: flex
-    flex-direction: column
+    flex-direction: row
+    align-items: center
+    justify-content: center
+    &-form
+        display: flex
+        flex-direction: row
+        align-items: center
+        justify-content: center
+
+    &-inner
+        width: 100%
+
+
+    &-form
+        display: flex
+        flex-direction: row
+        align-items: center
+        justify-content: center
+
+        &__msg
+            height: 4vh
+            font-size: 2vh
+            border: 1px solid
+            box-sizing: border-box
+            border-radius: 0.5vh
+            padding-left: 10px
+            width: calc(100% - 18vh)
+            margin-right: 2vh
+
+        &__sbm
+            width: 10vh
+
+.chat-message-head
+    height: fit-content
+    border-bottom: 1px solid #e3e3e3
+
+    &-inner
+        display: flex
+        flex-direction: row
+        align-items: center
+        padding: 0.5vh 1.5vh
