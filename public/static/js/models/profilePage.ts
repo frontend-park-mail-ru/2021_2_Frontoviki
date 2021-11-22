@@ -154,7 +154,7 @@ export default class ProfilePageModel {
   connectToDialog() {
     const idTo = window.location.pathname.split('/')[4];
     const res = Ajax.getUsingFetch({
-      url: `${secureDomainUrl}chat/getHistory/${localStorage.getItem('id')}/${idTo}`,
+      url: `${secureDomainUrl}chat/getHistory/${localStorage.getItem('id')}/${idTo}?count=9999`,
       body: null,
     });
     res.then(async ({status, parsedBody}) => {

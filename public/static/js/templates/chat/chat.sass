@@ -1,3 +1,4 @@
+@import "../../../css/variables"
 .chats
     width: 80%
     height: 60vh
@@ -122,3 +123,37 @@
         flex-direction: row
         align-items: center
         padding: 0.5vh 1.5vh
+
+.user-message
+    width: 100%
+
+    &-inner
+        padding: 0.5vh
+
+    &-block
+        background-color: $button-background-color
+        width: fit-content
+        word-break: break-all
+        max-width: 60%
+        margin-left: auto
+        margin-bottom: 0.5vh
+        color: white
+        border-radius: 2vh
+
+        &-inner
+            padding: 1vh
+
+        &__text
+            font-size: 1.5vh
+            color: $button-text-color
+
+    &__date
+        margin-left: auto
+        width: fit-content
+        color: #7a7a7a
+
+
+/* скрытие имени пользователя на мобилке */
+@media only screen and (max-device-width: 480px)
+    .chats
+        width: 100%

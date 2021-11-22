@@ -9,6 +9,7 @@ import Bus from '../modules/EventBus';
 import { advert, card, dialog, message } from '../types';
 import { chatTemplateGenerator } from '../templates/chat/chat';
 import { chatMessagesBlock } from '../templates/chat/chatInner';
+import { createChatMessage } from '../templates/chat/chatMessage';
 
 /**
   * Экспортируемый класс для генерации страницы профиля с сеткой
@@ -55,31 +56,31 @@ export default class ProfilePageView extends BaseView {
 
     const myAdsBtn = document.querySelector('.profile-content__buttons')?.
         childNodes[profileBtnNum.adBtn];
-    myAdsBtn?.addEventListener('click', (e) => {
+    myAdsBtn?.addEventListener('click', () => {
       this.eventBus.emit('getAds');
     });
 
     const favoriteBtn = document.querySelector('.profile-content__buttons')?.
         childNodes[profileBtnNum.favBtn];
-    favoriteBtn?.addEventListener('click', (e) => {
+    favoriteBtn?.addEventListener('click', () => {
       this.eventBus.emit('renderFavorite');
     });
 
     const cartBtn = document.querySelector('.profile-content__buttons')?.
         childNodes[profileBtnNum.cartBtn];
-    cartBtn?.addEventListener('click', (e) => {
+    cartBtn?.addEventListener('click', () => {
       this.eventBus.emit('renderCart');
     });
 
     const settingBtn = document.querySelector('.profile-content__buttons')?.
         childNodes[profileBtnNum.setBtn];
-    settingBtn?.addEventListener('click', (e) => {
+    settingBtn?.addEventListener('click', () => {
       this.eventBus.emit('getSettings');
     });
 
     const chatBtn = document.querySelector('.profile-content__buttons')?.
         childNodes[profileBtnNum.chatBtn];
-    chatBtn?.addEventListener('click', (e) => {
+    chatBtn?.addEventListener('click', () => {
       this.eventBus.emit('renderChat');
     });
   }
@@ -316,7 +317,7 @@ export default class ProfilePageView extends BaseView {
 
     const changePasswrdBtn = document.
         getElementById('settings__change-password');
-    changePasswrdBtn?.addEventListener('click', (e) => {
+    changePasswrdBtn?.addEventListener('click', () => {
       const passwordDiv = document.getElementById('settingPassword');
       const oldPasswordDiv = document.getElementById('settingOldPassword');
       const password = (<HTMLInputElement>passwordDiv?.childNodes[inputNum]).value.trim();
@@ -475,7 +476,7 @@ export default class ProfilePageView extends BaseView {
 
       const chats = document.querySelectorAll('.one-chat') as NodeListOf<HTMLDivElement>;
       chats.forEach((elem: HTMLDivElement)=>{
-        elem.addEventListener('click', (e: Event)=> {
+        elem.addEventListener('click', ()=> {
           this.eventBus.emit('goToDialog', elem.getAttribute('dataset'));
         })
       }) 
@@ -499,14 +500,20 @@ export default class ProfilePageView extends BaseView {
 
   chatHistory(messages: message[]) {
     messages.forEach((elem)=>{
-      const message = document.createElement('div');
-      message.classList.add('user-message');
-      message.innerHTML = elem.message;
-      if (elem.from.toString() == localStorage.getItem('id')) {
-        message.style.color = 'red';
+      const message = createChatMessage(elem.message, elem.created_at.slice(11, 16));
+      if (elem.from.toString() != localStorage.getItem('id')) {
+        const messageBlock = (<HTMLDivElement>message.querySelector('.user-message-block'));
+        if (messageBlock != null) {
+          messageBlock.style.marginLeft = '0';
+        }
+        const timeBlock = (<HTMLDivElement>message.querySelector('.user-message__date'));
+        if (timeBlock != null) {
+          timeBlock.style.marginLeft = '0';
+        }
       }
       document.querySelector('.chat-message-body-inner')?.appendChild(message);
-    })
+    });
+    scrollChat();
   }
 
   chatHandleSend(websocket: WebSocket) {
@@ -516,21 +523,25 @@ export default class ProfilePageView extends BaseView {
       const input = document.querySelector('.chat-message-send-form__msg') as HTMLInputElement;
       websocket.send(input.value);
 
-      const message = document.createElement('div');
-      message.classList.add('user-message');
-      message.innerHTML = input.value;
-      message.style.color = 'red';
+      const date = new Date();
+      const message = createChatMessage(input.value, `${date.getHours()}:${date.getMinutes()}`);
+      input.value = '';
       document.querySelector('.chat-message-body-inner')?.appendChild(message);
+      scrollChat();
     })
   }
 
   chatHandleReceive(receivedMessage: string) {
-    const message = document.createElement('div');
-    message.classList.add('user-message');
-    message.innerHTML = receivedMessage;
+    const date = new Date();
+    const message = createChatMessage(receivedMessage, `${date.getHours()}:${date.getMinutes()}`);
+    const messageBlock = (<HTMLDivElement>message.querySelector('.user-message-block'));
+    messageBlock.style.marginLeft = '0';
+    const timeBlock = (<HTMLDivElement>message.querySelector('.user-message__date'));
+    timeBlock.style.marginLeft = '0';
     document.querySelector('.chat-message-body-inner')?.appendChild(message);
+    scrollChat();
   }
-};
+}
 
 /**
  * Делает кнопку активной
@@ -541,4 +552,10 @@ function makeBlue(Btn : HTMLButtonElement) {
   Btn.classList.remove('profile-content__button');
   (<HTMLParagraphElement>Btn.childNodes[1]).classList.add('profile-content__button_icon_active');
   (<HTMLParagraphElement>Btn.childNodes[1]).classList.remove('profile-content__button_icon');
+}
+
+function scrollChat(): void {
+  const container = document.querySelector('.chat-message-body-inner');
+  const visible = document.querySelector('.chat-message-body');
+  visible?.scroll(0, (<HTMLDivElement>container)?.offsetHeight);
 }
