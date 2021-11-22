@@ -1,0 +1,52 @@
+.chats
+    width: 100%
+    height: 60vh
+    border: 0
+    border-radius: 1vh
+    -webkit-box-shadow: 0 0 1vw rgb(0 0 0 / 20%)
+    box-shadow: 0 0 1vw rgb(0 0 0 / 20%)
+    overflow: hidden
+
+    &-inner
+        display: flex
+        flex-direction: row
+
+    &-list
+        width: 30%
+        height: 100%
+
+        &-inner
+            height: 100%
+            overflow: scroll
+            overflow-x: hidden
+
+.one-chat
+    width: 100%
+    cursor: pointer
+
+    &-inner
+        display: -webkit-box
+        display: -webkit-flex
+        display: -ms-flexbox
+        display: flex
+        flex-direction: column
+        padding-left: 1.5vh
+        padding-right: 1.5vh
+        padding-top: 1.5vh
+
+.chats-message
+    width: 70%
+    height: 100%
+
+.chat-message
+    width: 100%
+    height: 60vh
+
+.chat-message-inner
+    width: 100%
+    height: 100%
+    display: -webkit-box
+    display: -webkit-flex
+    display: -ms-flexbox
+    display: flex
+    flex-direction: column
