@@ -116,6 +116,7 @@ export default class ProfilePageController {
     if (this.websocket != null && this.websocket.readyState == this.websocket.OPEN) {
       this.websocket.close();
     }
+    console.log('preconnect');
     this.websocket = new WebSocket(`wss://volchock.ru/api/wschat/connect/${localStorage.getItem('id')}/${idTo}`);
     this.websocket.addEventListener('open', (e)=>{
       console.log('open');

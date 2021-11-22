@@ -468,6 +468,7 @@ export default class ProfilePageView extends BaseView {
       chatContainer.innerHTML = chatT({dialog: dialogs});
       rightBlock.appendChild(chatContainer);
       if (isDetailed) {
+        console.log(isDetailed);
         document.querySelector('.chats-inner')?.appendChild(chatMessagesBlock());
         this.eventBus.emit('connectToDialog');
       }

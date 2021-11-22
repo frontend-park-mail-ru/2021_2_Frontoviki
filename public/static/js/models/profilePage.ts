@@ -162,12 +162,18 @@ export default class ProfilePageModel {
         return;
       }
       const {code} = parsedBody;
+      console.log(parsedBody);
       if (code === statusCodes.OK) {
         console.log(parsedBody.body);
         this.eventBus.emit('historyFound', parsedBody.body.messages);
         this.eventBus.emit('connectToChat', idTo);
         return;
-      };
+      }
+      // если новый чатик
+      if (code === statusCodes.NOTEXIST) {
+        this.eventBus.emit('connectToChat', idTo);
+        return;
+      }
     });
   }
 

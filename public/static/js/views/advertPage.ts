@@ -149,6 +149,14 @@ export default class AdvertPageView extends BaseView {
         return;
       }
     });
+    const chatBtn = document.getElementById('chatBtn');
+    chatBtn?.addEventListener('click', ()=>{
+      if (localStorage.getItem('id') === null) {
+        this.eventBus.emit('notLogged');
+      } else {
+        this.eventBus.emit('goToChat', advert.publisher_id);
+      }
+    })
 
     if (localStorage.getItem('id') === null) {
       return;

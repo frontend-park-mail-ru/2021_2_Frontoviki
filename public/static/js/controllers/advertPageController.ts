@@ -50,6 +50,7 @@ export default class AdvertPageController {
     this.eventBus.on('refreshCart', this.cartLogic.bind(this));
     this.eventBus.on('checkCart', this.cartLogic.bind(this));
     this.eventBus.on('checkFav', this.favLogic.bind(this));
+    this.eventBus.on('goToChat', this.goToChat.bind(this));
     this.globalEventBus.on('loggedForCart', this.refreshCart.bind(this));
     this.globalEventBus.on('loggedForFav', this.favLogic.bind(this));
   }
@@ -92,6 +93,10 @@ export default class AdvertPageController {
    */
   goToProfile() {
     this.router.go('/profile');
+  }
+
+  goToChat(salesmanid: number) {
+    this.router.go(`/profile/chat/${localStorage.getItem('id')}/${salesmanid}`);
   }
   /**
    * Переход на страницу продавца
