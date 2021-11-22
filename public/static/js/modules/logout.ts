@@ -17,6 +17,7 @@ export function logout(globalEventBus: Bus) {
       return;
     }
     globalEventBus.emit('logout');
+    globalEventBus.emit('disconnectSocket');
     isLogged(globalEventBus);
   });
 }

@@ -6,7 +6,9 @@ import {settings} from '../templates/settings/settings';
 import BaseView from './baseView';
 import {inputNum, profileBtnNum} from '../constatns';
 import Bus from '../modules/EventBus';
-import { advert, card } from '../types';
+import { advert, card, dialog, message } from '../types';
+import { chatTemplateGenerator } from '../templates/chat/chat';
+import { chatMessagesBlock } from '../templates/chat/chatInner';
 
 /**
   * Экспортируемый класс для генерации страницы профиля с сеткой
@@ -26,10 +28,16 @@ export default class ProfilePageView extends BaseView {
     this.renderSettings = this.renderSettings.bind(this);
     this.renderArchive = this.renderArchive.bind(this);
     this.renderFavorite = this.renderFavorite.bind(this);
-    eventBus.on('gotAds', this.renderGrid.bind(this));
-    eventBus.on('gotCart', this.renderCartGrid.bind(this));
+    this.renderChat = this.renderChat.bind(this);
+    this.renderChatMessage = this.renderChatMessage.bind(this);
+    this.eventBus.on('gotAds', this.renderGrid.bind(this));
+    this.eventBus.on('gotCart', this.renderCartGrid.bind(this));
     this.eventBus.on('passwordChangeOk', this.passwordChanged.bind(this));
     this.eventBus.on('passwordChangeNotOk', this.passwordNotChanged.bind(this));
+    this.eventBus.on('foundDialogs', this.renderChatView.bind(this));
+    this.eventBus.on('historyFound', this.chatHistory.bind(this));
+    this.eventBus.on('connectionOpened', this.chatHandleSend.bind(this));
+    this.eventBus.on('messageReceived', this.chatHandleReceive.bind(this));
   }
   /**
     * функция отрисовки страницы профиля
@@ -67,6 +75,12 @@ export default class ProfilePageView extends BaseView {
         childNodes[profileBtnNum.setBtn];
     settingBtn?.addEventListener('click', (e) => {
       this.eventBus.emit('getSettings');
+    });
+
+    const chatBtn = document.querySelector('.profile-content__buttons')?.
+        childNodes[profileBtnNum.chatBtn];
+    chatBtn?.addEventListener('click', (e) => {
+      this.eventBus.emit('renderChat');
     });
   }
   /**
@@ -313,6 +327,21 @@ export default class ProfilePageView extends BaseView {
     });
   }
 
+  renderChat() {
+    this.render();
+    makeBlue(<HTMLButtonElement>document.querySelector('.profile-content__buttons')?.
+        childNodes[profileBtnNum.chatBtn]);
+    const rightBlock = document.querySelector('.profile-content_right');
+    if (rightBlock != null) {
+      rightBlock.innerHTML = '';
+    }
+    const title = document.createElement('h3');
+    title.classList.add('profile-content__title');
+    title.innerHTML = ' Чат (v0.01) ';
+    rightBlock?.appendChild(title);
+    this.eventBus.emit('getMessages', false);
+  }
+
   /**
    * Отрисовывает избранное
    */
@@ -424,6 +453,81 @@ export default class ProfilePageView extends BaseView {
   passwordNotChanged() {
     document.getElementById('settingOldPassword')?.
         classList.add('text-input_wrong');
+  }
+
+  /**
+   * Рисуем чатик
+   */
+  renderChatView(dialogs: dialog[], isDetailed: boolean) {
+    const rightBlock = document.querySelector('.profile-content_right');
+    if (rightBlock != null) {
+      const chatT = chatTemplateGenerator();
+      const chatContainer = document.createElement('div');
+      chatContainer.id = 'chat';
+      chatContainer.classList.add('chats');
+      chatContainer.innerHTML = chatT({dialog: dialogs});
+      rightBlock.appendChild(chatContainer);
+      if (isDetailed) {
+        document.querySelector('.chats-inner')?.appendChild(chatMessagesBlock());
+        this.eventBus.emit('connectToDialog');
+      }
+
+      const chats = document.querySelectorAll('.one-chat') as NodeListOf<HTMLDivElement>;
+      chats.forEach((elem: HTMLDivElement)=>{
+        elem.addEventListener('click', (e: Event)=> {
+          this.eventBus.emit('goToDialog', elem.getAttribute('dataset'));
+        })
+      }) 
+    }
+  }
+
+  renderChatMessage() {
+    this.render();
+    makeBlue(<HTMLButtonElement>document.querySelector('.profile-content__buttons')?.
+        childNodes[profileBtnNum.chatBtn]);
+    const rightBlock = document.querySelector('.profile-content_right');
+    if (rightBlock != null) {
+      rightBlock.innerHTML = '';
+    }
+    const title = document.createElement('h3');
+    title.classList.add('profile-content__title');
+    title.innerHTML = ' Чат (v0.01) ';
+    rightBlock?.appendChild(title);
+    this.eventBus.emit('getMessages', true);
+  }
+
+  chatHistory(messages: message[]) {
+    messages.forEach((elem)=>{
+      const message = document.createElement('div');
+      message.classList.add('user-message');
+      message.innerHTML = elem.message;
+      if (elem.from.toString() == localStorage.getItem('id')) {
+        message.style.color = 'red';
+      }
+      document.querySelector('.chat-message-body-inner')?.appendChild(message);
+    })
+  }
+
+  chatHandleSend(websocket: WebSocket) {
+    const submitBtn = document.querySelector('.chat-message-send-form__sbm');
+    submitBtn?.addEventListener('click', (e)=>{
+      e.preventDefault();
+      const input = document.querySelector('.chat-message-send-form__msg') as HTMLInputElement;
+      websocket.send(input.value);
+
+      const message = document.createElement('div');
+      message.classList.add('user-message');
+      message.innerHTML = input.value;
+      message.style.color = 'red';
+      document.querySelector('.chat-message-body-inner')?.appendChild(message);
+    })
+  }
+
+  chatHandleReceive(receivedMessage: string) {
+    const message = document.createElement('div');
+    message.classList.add('user-message');
+    message.innerHTML = receivedMessage;
+    document.querySelector('.chat-message-body-inner')?.appendChild(message);
   }
 };
 

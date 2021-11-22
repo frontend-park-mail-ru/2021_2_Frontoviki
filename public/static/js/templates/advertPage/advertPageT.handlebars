@@ -103,8 +103,7 @@
             <p
               class="advertisment-detail__main-info__shop__salesman__info__started advertisment-detail__capture"
             >
-              На сайте с
-              {{salesmanCreatedAt}}</p>
+              На сайте с {{salesmanCreatedAt}}</p>
             <div
               class="advertisment-detail__main-info__shop__salesman__info__rate"
             >
@@ -115,7 +114,7 @@
             </div>
           </div>
         </div>
-          <div class="advertisment-detail__main-info__shop__statistic">
+          {{!-- <div class="advertisment-detail__main-info__shop__statistic">
             <div class="advertisment-detail__main-info__shop__statistic__views">
               <svg class="advertisment-detail__main-info__shop__statistic__views__svg" width="3vh" height="3vh" viewBox="0 0 25 27" fill="none" xmlns="http://www.w3.org/2000/svg">
                     <g opacity="0.5">
@@ -124,7 +123,7 @@
                 </svg>
                 <span class="advertisment-detail__main-info__shop__statistic__views__text">{{views}}</span>
             </div>
-          </div>
+          </div> --}}
       </div>
     </div>
     <div class="advertisment-detail__add-info">
@@ -165,14 +164,6 @@
           <div id="YMapsIDNewAd"></div>
         </div>
       </div>
-      <div class="advertisment-detail__add-info__published-date-block">
-        <p
-          class="advertisment-detail__add-info__published-date advertisment-detail__capture"
-        >
-          Дата публикации:
-          {{publishedAt}}
-        </p>
-      </div>
       <div class="advertisment-detail__add-info__condition-block">
         {{#if new}}
           <p
@@ -195,6 +186,20 @@
         <p
           class="advertisment-detail__add-info__description advertisment-detail__capture"
         > {{description}}</p>
+      </div>
+            <div class="advertisment-detail__add-info__published-date-block">
+        <p
+          class="advertisment-detail__add-info__published-date advertisment-detail__capture"
+        >
+          Дата публикации:
+          {{publishedAt}}
+        </p>
+        <p
+          class="advertisment-detail__add-info__views advertisment-detail__capture"
+        >
+          Просмотры:
+          {{views}}
+        </p>
       </div>
     </div>
     <div class="advertisment-detail__similar_advertisments"></div>

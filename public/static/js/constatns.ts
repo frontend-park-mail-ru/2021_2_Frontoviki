@@ -8,8 +8,9 @@ export const validationErrors = {
 };
 
 export const domainUrl = 'http://www.volchock.ru/';
-export const secureDomainUrl = 'https://www.volchock.ru/v1/api';
+export const secureDomainUrl = 'https://www.volchock.ru/api/v1';
 export const pureIp = 'http://89.19.190.83/';
+export const websocketUrl = 'wss://volchock.ru/api/wschat'
 
 export const statusCodes = {
   OK: 200,
@@ -34,6 +35,7 @@ export const profileBtnNum = {
   adBtn: 1,
   favBtn: 3,
   cartBtn: 5,
+  chatBtn: 7,
   setBtn: 11,
 };
 

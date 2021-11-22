@@ -27,6 +27,8 @@ export default class ProfilePageModel {
     this.eventBus.on('profileUpdated', this.updateInfo.bind(this));
     this.eventBus.on('deletedSuccessful', this.adDeleted.bind(this));
     this.eventBus.on('buySuccess', this.showSuccessBuy.bind(this));
+    this.eventBus.on('getMessages', this.getMessages.bind(this));
+    this.eventBus.on('connectToDialog', this.connectToDialog.bind(this));
   }
   /**
  * Получить все объявления пользователя
@@ -120,6 +122,50 @@ export default class ProfilePageModel {
           }
         });
         this.eventBus.emit('gotAds', parsedBody.body.adverts, false, true);
+        return;
+      };
+    });
+  }
+
+  /**
+   * Получение активных диалогов
+   */
+  getMessages(isDetailed: boolean) {
+    const res = Ajax.getUsingFetch({
+      url: `${secureDomainUrl}chat/getDialogs/${localStorage.getItem('id')}`,
+      body: null,
+    });
+    res.then(async ({status, parsedBody}) => {
+      if (status != statusCodes.OK) {
+        return;
+      }
+      const {code} = parsedBody;
+      if (code === statusCodes.OK) {
+        console.log(parsedBody.body.dialogs);
+        this.eventBus.emit('foundDialogs', parsedBody.body.dialogs, isDetailed);
+        return;
+      };
+    });
+  }
+
+  /**
+   * 
+   */
+  connectToDialog() {
+    const idTo = window.location.pathname.split('/')[4];
+    const res = Ajax.getUsingFetch({
+      url: `${secureDomainUrl}chat/getHistory/${localStorage.getItem('id')}/${idTo}`,
+      body: null,
+    });
+    res.then(async ({status, parsedBody}) => {
+      if (status != statusCodes.OK) {
+        return;
+      }
+      const {code} = parsedBody;
+      if (code === statusCodes.OK) {
+        console.log(parsedBody.body);
+        this.eventBus.emit('historyFound', parsedBody.body.messages);
+        this.eventBus.emit('connectToChat', idTo);
         return;
       };
     });

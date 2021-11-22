@@ -63,3 +63,16 @@ export type salesman = {
 export type cart = {
     advert_id: number;
 }
+
+export type dialog = {
+    user1: number;
+    user2: number;
+    created_at: string;
+}
+
+export type message = {
+    from: number;
+    to: number;
+    message: string;
+    created_at: string;
+}

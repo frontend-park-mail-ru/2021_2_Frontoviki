@@ -11,6 +11,7 @@ import { advert } from '../types';
  * Контроллер главной страницы
  */
 export default class ProfilePageController {
+  websocket: WebSocket
   router: Router
   globalEventBus: Bus
   eventBus: Bus
@@ -52,6 +53,7 @@ export default class ProfilePageController {
     this.eventBus.on('goToActive', this.redirectToProfile.bind(this));
     this.eventBus.on('getSettings', this.redirectToSettings.bind(this));
     this.eventBus.on('renderCart', this.redirectToCart.bind(this));
+    this.eventBus.on('renderChat', this.redirectToChat.bind(this));
     this.eventBus.on('onCardClicked', this.goToCardPage.bind(this));
     this.eventBus.on('goToArchive', this.goToArchive.bind(this));
     this.eventBus.on('renderFavorite', this.redirectToFav.bind(this));
@@ -65,6 +67,10 @@ export default class ProfilePageController {
     this.eventBus.on('archived', this.archiveAd.bind(this));
     this.eventBus.on('buyFromCart', this.buyFromCart.bind(this));
     this.eventBus.on('checkLog', this.checkForLogging.bind(this));
+    this.eventBus.on('goToDialog', this.goToDialog.bind(this));
+    this.eventBus.on('connectToChat', this.connectToChat.bind(this));
+
+    this.globalEventBus.on('disconnectSocket', this.closeConnection.bind(this));
   }
 
   /**
@@ -94,6 +100,37 @@ export default class ProfilePageController {
    */
   redirectToSettings() {
     this.router.go('/profile/settings');
+  }
+
+  redirectToChat() {
+    this.router.go('/profile/chat');
+  }
+
+  goToDialog(id: string | null) {
+    if (id != null) {
+      this.router.go(`/profile/chat/${localStorage.getItem('id')}/${id}`);
+    }
+  }
+
+  connectToChat(idTo: string) {
+    if (this.websocket != null && this.websocket.readyState == this.websocket.OPEN) {
+      this.websocket.close();
+    }
+    this.websocket = new WebSocket(`wss://volchock.ru/api/wschat/connect/${localStorage.getItem('id')}/${idTo}`);
+    this.websocket.addEventListener('open', (e)=>{
+      console.log('open');
+      this.eventBus.emit('connectionOpened', this.websocket);
+    });
+    this.websocket.addEventListener('message', (e)=>{
+      this.eventBus.emit('messageReceived', e.data);
+    })
+    this.websocket.addEventListener('close', (e)=>{
+      console.log('closed');
+    })
+  }
+
+  closeConnection() {
+    this.websocket.close();
   }
   /**
    * Меняют урл когда идем в корзину
