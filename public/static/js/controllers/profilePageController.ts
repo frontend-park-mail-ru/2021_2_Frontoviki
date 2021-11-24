@@ -108,7 +108,7 @@ export default class ProfilePageController {
 
   goToDialog(id: string | null, advertId: string | null) {
     if (id != null) {
-      this.router.go(`/profile/chat/${id}/${advertId}`);
+      this.router.go(`/profile/chat/${id}/${<string>advertId}`);
     }
   }
 
@@ -117,15 +117,15 @@ export default class ProfilePageController {
       this.websocket.close();
     }
     console.log('preconnect');
-    this.websocket = new WebSocket(`wss://volchock.ru/api/wschat/connect/${userInfo.get('id')}/${idTo}/${advertId}`);
-    this.websocket.addEventListener('open', (e)=>{
+    this.websocket = new WebSocket(`wss://volchock.ru/api/wschat/connect/${<string>userInfo.get('id')}/${idTo}/${advertId}`);
+    this.websocket.addEventListener('open', ()=>{
       console.log('open');
       this.eventBus.emit('connectionOpened', this.websocket);
     });
     this.websocket.addEventListener('message', (e)=>{
       this.eventBus.emit('messageReceived', e.data);
     })
-    this.websocket.addEventListener('close', (e)=>{
+    this.websocket.addEventListener('close', ()=>{
       console.log('closed');
     })
   }

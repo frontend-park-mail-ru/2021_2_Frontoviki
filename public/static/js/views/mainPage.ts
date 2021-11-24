@@ -40,7 +40,7 @@ export default class MainPageView extends BaseView {
   render() {
     this.root.innerHTML = '';
     this.#page = 1;
-    window.addEventListener('scroll', this.populate.bind(this));
+    window.addEventListener('scroll', this.populate);
     this.newAdvertBtn();
     this.eventBus.emit('getCategories');
     this.eventBus.emit('getData', this.#page, true);
@@ -103,7 +103,7 @@ export default class MainPageView extends BaseView {
             this.root.removeChild(elem);
           }
         });
-      }
+      };
     }
     this.root.appendChild(createProductGrid(adverts, false, false));
     const cards = document.querySelectorAll('.card');
@@ -117,7 +117,7 @@ export default class MainPageView extends BaseView {
         this.eventBus.emit('onCardClicked', adverts[num - (baseCount* (page-1))].id);
       });
     });
-    window.addEventListener('scroll', this.populate.bind(this));
+    window.addEventListener('scroll', this.populate);
   }
 
   /**
@@ -230,7 +230,7 @@ export default class MainPageView extends BaseView {
     if (windowRelativeBottom < document.documentElement.clientHeight + 100) {
       // добавим больше данных
       this.addAds();
-      window.removeEventListener('scroll', this.populate.bind(this));
+      window.removeEventListener('scroll', this.populate);
     }
   }
 
@@ -247,14 +247,14 @@ export default class MainPageView extends BaseView {
     btn.classList.add('button');
     btn.classList.add('root__new-advert-btn');
     btn.innerHTML = 'Разместить объявление';
-    if (userInfo.get('name') != null) {
+    if (userInfo.has('name')) {
       btn.onclick = ()=> this.eventBus.emit('loggedNewAdd');
     } else {
       btn.onclick = ()=> this.eventBus.emit('notLoggedNewAdd');
     }
     btnWrapper.appendChild(btn);
     this.root.parentNode?.appendChild(btnWrapper);
-    window.addEventListener('scroll', ()=>{
+    window.addEventListener('scroll', (e)=>{
       const y = document.documentElement.getBoundingClientRect().y;
       const width = document.documentElement.clientWidth;
       if (y < -200 || width > 885) {
