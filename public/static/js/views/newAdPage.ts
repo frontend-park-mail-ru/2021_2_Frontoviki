@@ -2,6 +2,7 @@ import BaseView from './baseView';
 import {createNewAdForm} from '../templates/newAdForm/newAdFormT';
 import {newImage} from '../templates/newAdForm/image';
 import Bus from '../modules/EventBus';
+import { templateFunc } from '../types';
 
 /**
  * Класс вьюхи страницы добавления нового объявления
@@ -10,7 +11,7 @@ export default class NewAdPageView extends BaseView {
   #editDeletedImages : string[] = []
   #editOffset : number
   #fileList : Blob[] = []
-  #imageTemplate : any
+  #imageTemplate : templateFunc
   /**
     * Конструктор страницы нового объявления
     * @param {*} eventBus локальный событие автобус
@@ -40,23 +41,23 @@ export default class NewAdPageView extends BaseView {
     this.#editDeletedImages.length = 0;
     this.#fileList.length = 0;
     this.#editOffset = 0;
-    document.getElementById('newAdForm')?.addEventListener('click', this.sendAd);
+    document.getElementById('newAdForm')?.addEventListener('click', this.sendAd.bind(this));
     const input = document.querySelectorAll('.new-ad-form__input');
-    [].forEach.call(input, (elem : any) => {
+    [].forEach.call(input, (elem : HTMLElement) => {
       elem.addEventListener('focusin', () => {
-        elem.parentElement.childNodes[1].classList.add('active');
+        (<HTMLElement>elem.parentElement?.childNodes[1]).classList.add('active');
       });
     });
-    input.forEach((elem: any) => {
+    (<NodeListOf<HTMLInputElement>>input).forEach((elem: HTMLInputElement) => {
       elem.addEventListener('focusout', () => {
         if (!elem.value) {
-          elem.parentElement.childNodes[1].classList.remove('active');
+          (<HTMLElement>elem.parentElement?.childNodes[1]).classList.remove('active');
         }
       });
     });
 
     const fileInput = document.getElementById('image_upload') as HTMLInputElement;
-    fileInput.onchange = e => {
+    fileInput.onchange = () => {
       const file = fileInput.files;
       if (file != null) {
         Array.from(file).forEach((elem : Blob) => {
@@ -77,8 +78,8 @@ export default class NewAdPageView extends BaseView {
     this.render();
     this.eventBus.emit('getExistData');
     const submitButton = document.getElementById('newAdForm') as HTMLButtonElement;
-    submitButton?.removeEventListener('click', this.sendAd);
-    submitButton?.addEventListener('click', this.editAd);
+    submitButton?.removeEventListener('click', this.sendAd.bind(this));
+    submitButton?.addEventListener('click', this.editAd.bind(this));
     submitButton.innerHTML = 'Редактировать';
   }
 

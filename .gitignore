@@ -6,3 +6,4 @@ public/swBackup.js
 *.txt
 public/bundle.js
 public/main.css
+.eslintcache

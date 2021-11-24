@@ -7,7 +7,7 @@ import {monthMap} from '../constatns';
 export function properDate(date: string):string {
   const regDate = date;
   const regArr = regDate.split('-');
-  regArr[1] = monthMap.get(regArr[1]);
+  regArr[1] = <string>monthMap.get(regArr[1]);
   regArr.reverse();
   const properDate = regArr.join(' ');
   return properDate;

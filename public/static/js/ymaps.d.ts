@@ -7,8 +7,9 @@ declare namespace ymaps {
   
     export class Map {
       constructor(element: string | any, state: MapState);
-      geoObjects: any;
+      geoObjects: GeoObjects;
       events: any;
+      add(geObject: GeoObject);
     }
   
     export class MapState {
@@ -18,5 +19,10 @@ declare namespace ymaps {
 
     export class GeoObject {
         constructor(type : any)
+    }
+
+    export class GeoObjects {
+      add(geoObject: GeoObject);
+      removeAll();
     }
   }

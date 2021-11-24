@@ -3,6 +3,7 @@ import {Ajax} from './ajax';
 import {logout} from './logout';
 import {createHeader} from '../templates/header/header';
 import Bus from './EventBus';
+import { rating } from '../types';
 
 /**
  * функция отправки запроса на сервер, чтобы проверить
@@ -30,7 +31,7 @@ export async function isLogged(globalEventBus: Bus) {
     url: secureDomainUrl + 'users/profile',
     body: null,
   });
-  const {status, parsedBody} = await res;
+  const {status, parsedBody} = res;
   if (status != statusCodes.OK) {
     return;
   }
@@ -40,7 +41,7 @@ export async function isLogged(globalEventBus: Bus) {
     isAuthorized = true;
   }
   if (isAuthorized) {
-    const rating = body.rating.avg;
+    const rating = <rating>body.rating.avg;
     let {name, surname, email, image, id, phone} = body.profile;
     if (image == null) {
       image = '/static/img/default_image.jpg';
@@ -49,10 +50,10 @@ export async function isLogged(globalEventBus: Bus) {
     userInfo.set('name', name);
     userInfo.set('surname', surname);
     userInfo.set('email', email);
-    userInfo.set('image', `/${image}`);
+    userInfo.set('image', `/${<string>image}`);
     userInfo.set('rating', rating);
     userInfo.set('phone', phone);
-    header.innerHTML = headerT({userName: name, userAvatar: '/' + image});
+    header.innerHTML = headerT({userName: <string>name, userAvatar: `/${<string>image}`});
     const authLink = document.getElementById('auth');
     if (authLink != null) {
       authLink.style.display = 'none';

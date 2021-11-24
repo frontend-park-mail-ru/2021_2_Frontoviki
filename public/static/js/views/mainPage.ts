@@ -40,7 +40,7 @@ export default class MainPageView extends BaseView {
   render() {
     this.root.innerHTML = '';
     this.#page = 1;
-    window.addEventListener('scroll', this.populate);
+    window.addEventListener('scroll', this.populate.bind(this));
     this.newAdvertBtn();
     this.eventBus.emit('getCategories');
     this.eventBus.emit('getData', this.#page, true);
@@ -117,7 +117,7 @@ export default class MainPageView extends BaseView {
         this.eventBus.emit('onCardClicked', adverts[num - (baseCount* (page-1))].id);
       });
     });
-    window.addEventListener('scroll', this.populate);
+    window.addEventListener('scroll', this.populate.bind(this));
   }
 
   /**
@@ -230,7 +230,7 @@ export default class MainPageView extends BaseView {
     if (windowRelativeBottom < document.documentElement.clientHeight + 100) {
       // добавим больше данных
       this.addAds();
-      window.removeEventListener('scroll', this.populate);
+      window.removeEventListener('scroll', this.populate.bind(this));
     }
   }
 
@@ -254,7 +254,7 @@ export default class MainPageView extends BaseView {
     }
     btnWrapper.appendChild(btn);
     this.root.parentNode?.appendChild(btnWrapper);
-    window.addEventListener('scroll', (e)=>{
+    window.addEventListener('scroll', ()=>{
       const y = document.documentElement.getBoundingClientRect().y;
       const width = document.documentElement.clientWidth;
       if (y < -200 || width > 885) {

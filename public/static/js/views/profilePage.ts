@@ -6,7 +6,7 @@ import {settings} from '../templates/settings/settings';
 import BaseView from './baseView';
 import {inputNum, profileBtnNum, userInfo} from '../constatns';
 import Bus from '../modules/EventBus';
-import { advert, card, dialog, message } from '../types';
+import { card, dialog, message } from '../types';
 import { chatTemplateGenerator } from '../templates/chat/chat';
 import { chatMessagesBlock } from '../templates/chat/chatInner';
 import { createChatMessage } from '../templates/chat/chatMessage';

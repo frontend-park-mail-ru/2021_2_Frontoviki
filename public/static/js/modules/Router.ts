@@ -10,7 +10,7 @@ export default class Router {
   constructor(root: HTMLDivElement) {
     this.routes = [];
     root.addEventListener('click', this.handleMouseClick.bind(this));
-    window.addEventListener('popstate', (event) => {
+    window.addEventListener('popstate', () => {
       const currentPath = window.location.pathname;
       this.go(currentPath, false);
     });

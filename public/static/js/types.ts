@@ -16,7 +16,7 @@ export type card = {
 
 export type args = {
     url: string;
-    body: Object | null;
+    body: unknown | null;
 }
 
 export type route = {
@@ -78,4 +78,4 @@ export type message = {
     created_at: string;
 }
 
-export type templateFunc = (params?: any | null) => string;
+export type templateFunc = (params?: unknown | null) => string;

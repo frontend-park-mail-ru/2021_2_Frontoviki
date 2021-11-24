@@ -83,7 +83,7 @@ export default class SalesmanPageView extends BaseView {
           }
         });
       });
-      stars?.addEventListener('mouseleave', (e)=> {
+      stars?.addEventListener('mouseleave', ()=> {
         stars?.childNodes.forEach((elem) => {
           if (elem instanceof SVGElement) {
             elem.classList.remove('star_active');
