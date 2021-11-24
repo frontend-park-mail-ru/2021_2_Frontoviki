@@ -178,5 +178,5 @@ export default class NewAdPageController {
       }
       this.eventBus.emit('redirectToAd', id);
     });
-  };
+  }
 }

@@ -473,8 +473,8 @@ export default class ProfilePageView extends BaseView {
         this.eventBus.emit('connectToDialog');
       }
 
-      const chats = document.querySelectorAll('.one-chat') as NodeListOf<HTMLDivElement>;
-      chats.forEach((elem: HTMLDivElement)=>{
+      const chats = document.querySelectorAll('.one-chat');
+      (<NodeListOf<HTMLDivElement>>chats).forEach((elem: HTMLDivElement)=>{
         elem.addEventListener('click', ()=> {
           this.eventBus.emit('goToDialog', elem.getAttribute('dataset'), elem.getAttribute('advertId'));
         })

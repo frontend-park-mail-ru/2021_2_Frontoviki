@@ -77,3 +77,5 @@ export type message = {
     message: string;
     created_at: string;
 }
+
+export type templateFunc = (params?: any | null) => string;

@@ -1,4 +1,5 @@
 import { userInfo } from '../../constatns';
+import { templateFunc } from '../../types';
 import settingsT from './settings.handlebars';
 import './settings.sass';
 /**
@@ -7,7 +8,7 @@ import './settings.sass';
  */
 export function settings() : HTMLDivElement {
   const settings = document.createElement('div');
-  let phone = userInfo.get('phone');
+  let phone = <string> userInfo.get('phone');
   if (phone == '') {
     phone = '+7';
   } else {
@@ -16,10 +17,10 @@ export function settings() : HTMLDivElement {
       '-' + phone.slice(7, 9) + '-' + phone.slice(9, 11);
     }
   }
-  settings.innerHTML = settingsT({
-    userName: userInfo.get('name'),
-    userSurname: userInfo.get('surname'),
-    userEmail: userInfo.get('email'),
+  settings.innerHTML = (<templateFunc>settingsT)({
+    userName: <string>userInfo.get('name'),
+    userSurname: <string>userInfo.get('surname'),
+    userEmail: <string>userInfo.get('email'),
     userPhone: phone,
   });
   return settings;

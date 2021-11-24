@@ -63,7 +63,7 @@ export default class NewAdPageView extends BaseView {
           this.insertImageIntoImageUploader(URL.createObjectURL(elem));
           this.#fileList.push(elem);
         });
-      };
+      }
       }
     document.getElementById('image-uploader')?.addEventListener('click', (e)=>{
       this.deleteImage(e);
@@ -99,7 +99,7 @@ export default class NewAdPageView extends BaseView {
     imageContainer.classList.add('image-uploader__image');
     imageContainer.innerHTML = this.#imageTemplate({imageUrl: url});
     document.querySelector('.image-uploader__default')?.before(imageContainer);
-  };
+  }
 
   /**
    * Редактирование старого

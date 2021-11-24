@@ -1,25 +1,26 @@
+import { templateFunc } from '../../types';
 import eggT from './easterEgg.handlebars';
 import './easterEgg.sass';
 /**
  * Пасхалочка
  */
 export function egg() {
-  let size = 10;
+  const size = 10;
   let bombFrequency = 0.2;
   let tileSize = 50;
 
   const board = document.querySelectorAll('.board')[0] as HTMLElement;
   let tiles : NodeListOf<HTMLDivElement>;
-  let boardSize : any;
+  let boardSize : number;
 
   const restartBtn = document.querySelectorAll('.minesweeper-btn')[0];
   const endscreen = document.querySelectorAll('.endscreen')[0];
 
   const boardSizeBtn = document.getElementById('boardSize') as HTMLInputElement;
-  const difficultyBtns = document.querySelectorAll('.difficulty') as NodeListOf<HTMLInputElement>;
+  const difficultyBtns = document.querySelectorAll('.difficulty');
 
-  let bombs : any = [];
-  let numbers: any = [];
+  let bombs : string[] = [];
+  let numbers: string[] = [];
   const numberColors = ['#3498db', '#2ecc71', '#e74c3c', '#9b59b6',
     '#f1c40f', '#1abc9c', '#34495e', '#7f8c8d'];
   const endscreenContent = {win: '<span>Вы выиграли!</span>',
@@ -46,14 +47,14 @@ export function egg() {
     }
     tiles = document.querySelectorAll('.tile');
     boardSize = Math.sqrt(tiles.length);
-    board.style.width = boardSize * tileSize + 'px';
+    board.style.width = `${boardSize * tileSize}px`;
 
     document.documentElement.style.setProperty('--tileSize', `${tileSize}px`);
     document.documentElement.style.setProperty('--boardSize', `${boardSize * tileSize}px`);
 
     let x = 0;
     let y = 0;
-    tiles.forEach((tile, i) => {
+    tiles.forEach((tile) => {
       tile.setAttribute('data-tile', `${x},${y}`);
 
       const randomBool = Math.random() < bombFrequency;
@@ -81,7 +82,7 @@ export function egg() {
         e.preventDefault();
         flag(tile);
       };
-      tile.addEventListener('click', function(e) {
+      tile.addEventListener('click', function() {
         clickTile(tile);
       });
     });
@@ -90,7 +91,7 @@ export function egg() {
       const coords = num.split(',');
       const tile = document.querySelectorAll(`[data-tile="${parseInt(coords[0])},${parseInt(coords[1])}"]`)[0];
       const res = tile.getAttribute('data-num');
-      let dataNum : number = 0;
+      let dataNum  = 0;
       if (res != null) {
         dataNum = parseInt(res);
       }
@@ -115,7 +116,7 @@ export function egg() {
     if (gameOver) return;
     if (tile.classList.contains('tile--checked') || tile.classList.contains('tile--flagged')) return;
     const coordinate = tile.getAttribute('data-tile');
-    if (bombs.includes(coordinate)) {
+    if (bombs.includes(<string>coordinate)) {
       endGame();
     } else {
       const num = tile.getAttribute('data-num');
@@ -129,11 +130,11 @@ export function egg() {
         return;
       }
 
-      checkTile(tile, coordinate);
+      checkTile(coordinate);
     }
     tile.classList.add('tile--checked');
   };
-  const checkTile = (tile : any, coordinate : string | null) => {
+  const checkTile = (coordinate : string | null) => {
     const coords = coordinate?.split(',');
     if (coords == undefined) {
       return;
@@ -185,7 +186,7 @@ export function egg() {
     gameOver = true;
     tiles.forEach((tile) => {
       const coordinate = tile.getAttribute('data-tile');
-      if (bombs.includes(coordinate)) {
+      if (bombs.includes(<string>coordinate)) {
         tile.classList.remove('tile--flagged');
         tile.classList.add('tile--checked', 'tile--bomb');
         tile.innerHTML = '&#128163;';
@@ -196,7 +197,7 @@ export function egg() {
     let win = true;
     tiles.forEach((tile) => {
       const coordinate = tile.getAttribute('data-tile');
-      if (!tile.classList.contains('tile--checked') && !bombs.includes(coordinate)) win = false;
+      if (!tile.classList.contains('tile--checked') && !bombs.includes(<string>coordinate)) win = false;
     });
     if (win) {
       endscreen.innerHTML = endscreenContent.win;
@@ -217,7 +218,7 @@ export function egg() {
     tileSize = 70 - (Number(boardSizeBtn.value) * 2);
     clear();
   });
-  difficultyBtns?.forEach((btn: HTMLInputElement) => {
+  (<NodeListOf<HTMLInputElement>>difficultyBtns)?.forEach((btn) => {
     btn.addEventListener('click', function() {
       bombFrequency = Number(btn.value);
       clear();
@@ -225,6 +226,6 @@ export function egg() {
   });
 }
 
-export function eggTemplate() {
-  return eggT();
+export function eggTemplate():string {
+  return (<templateFunc>eggT)();
 }

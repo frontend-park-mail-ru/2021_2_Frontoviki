@@ -103,7 +103,7 @@ export default class AdvertPageController {
    * @param {*} id айди продавца
    */
   goToSalesman(id: number) {
-    this.router.go('/salesman/' + id);
+    this.router.go(`/salesman/${id}`);
   }
   /**
    * Переход в избранное

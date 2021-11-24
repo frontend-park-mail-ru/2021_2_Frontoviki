@@ -66,7 +66,7 @@ export function autorisation(logEmail : HTMLDivElement, logPassword : HTMLDivEle
       default: {
         logPassword.classList.add('text-input_wrong');
         break;
-      };
+      }
     }
   });
 }

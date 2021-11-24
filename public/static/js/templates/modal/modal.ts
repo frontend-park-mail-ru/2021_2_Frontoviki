@@ -1,6 +1,7 @@
 import {autorisation} from '../../modules/autorisation';
 import Bus from '../../modules/EventBus.js';
 import {registration} from '../../modules/registration';
+import { templateFunc } from '../../types';
 import modalT from './modal.handlebars';
 import './modal.sass';
 
@@ -14,7 +15,7 @@ export function createModal(globalEventBus: Bus) {
   const modal = document.createElement('div');
   modal.classList.add('modal-window');
   modal.id = 'modal-window';
-  modal.innerHTML = modalT();
+  modal.innerHTML = (<templateFunc>modalT)();
   const wrapper = document.querySelector('.wrapper');
   wrapper?.appendChild(modal);
 

@@ -186,7 +186,7 @@ export default class ProfilePageController {
         userInfo.set('surname', surname);
         userInfo.set('phone', phone);
         this.eventBus.emit('profileUpdated', name, surname);
-      };
+      }
     });
   }
 
@@ -213,7 +213,7 @@ export default class ProfilePageController {
       if (code === statusCodes.OK) {
         this.eventBus.emit('passwordChangeOk');
         return;
-      };
+      }
       this.eventBus.emit('passwordChangeNotOk');
     });
   }
@@ -278,7 +278,7 @@ export default class ProfilePageController {
       const {code} = parsedBody;
       if (code === statusCodes.OK) {
         this.eventBus.emit('deletedSuccessful');
-      };
+      }
     });
   }
 
@@ -298,7 +298,7 @@ export default class ProfilePageController {
       const {code} = parsedBody;
       if (code === statusCodes.OK) {
         this.eventBus.emit('deletedSuccessful');
-      };
+      }
     });
   }
 

@@ -93,7 +93,7 @@ export default class ProfilePageModel {
         });
         this.eventBus.emit('gotCart', parsedBody.body.adverts);
         return;
-      };
+      }
     });
   }
 
@@ -123,7 +123,7 @@ export default class ProfilePageModel {
         });
         this.eventBus.emit('gotAds', parsedBody.body.adverts, false, true);
         return;
-      };
+      }
     });
   }
 
@@ -144,7 +144,7 @@ export default class ProfilePageModel {
         console.log(parsedBody.body.dialogs);
         this.eventBus.emit('foundDialogs', parsedBody.body.dialogs, isDetailed);
         return;
-      };
+      }
     });
   }
 

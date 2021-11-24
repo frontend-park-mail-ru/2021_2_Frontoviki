@@ -1,3 +1,4 @@
+import { templateFunc } from '../../types';
 import footerT from './footer.handlebars';
 import './footer.sass';
 /**
@@ -7,7 +8,7 @@ import './footer.sass';
 */
 export function createFooter(): void {
   const footer = document.createElement('footer');
-  footer.innerHTML = footerT({footerText: '© 2021. Volchock team'});
+  footer.innerHTML = (<templateFunc>footerT)({footerText: '© 2021. Volchock team'});
   document.querySelector('.wrapper')?.appendChild(footer);
 }
 

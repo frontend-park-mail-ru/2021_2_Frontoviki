@@ -1,4 +1,4 @@
-import { card } from '../../types';
+import { card, templateFunc } from '../../types';
 import productGridT from './productGrid.handlebars';
 import './productGrid.sass';
 /**
@@ -15,6 +15,6 @@ export function createProductGrid(jsonElements: card[], canDelete : boolean, can
     element.canDelete = canDelete;
     element.canBuy = canBuy;
   });
-  productGrid.innerHTML = productGridT({adsArray: jsonElements});
+  productGrid.innerHTML = (<templateFunc> productGridT)({adsArray: jsonElements});
   return productGrid;
-};
+}

@@ -20,7 +20,7 @@ document.addEventListener('DOMContentLoaded', async () => {
         .catch((err) => {
           console.error(err);
         });
-  };
+  }
 
   const wrapper = document.querySelector('.wrapper') as HTMLDivElement;
   const root = document.createElement('div');

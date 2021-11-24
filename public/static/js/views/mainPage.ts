@@ -103,7 +103,7 @@ export default class MainPageView extends BaseView {
             this.root.removeChild(elem);
           }
         });
-      };
+      }
     }
     this.root.appendChild(createProductGrid(adverts, false, false));
     const cards = document.querySelectorAll('.card');
@@ -216,7 +216,7 @@ export default class MainPageView extends BaseView {
     const blackout = document.querySelector('.blackout');
     modal?.classList.add('active');
     blackout?.classList.add('active');
-  };
+  }
 
   /**
  * Обработчик события для бесконечной ленты
@@ -232,7 +232,7 @@ export default class MainPageView extends BaseView {
       this.addAds();
       window.removeEventListener('scroll', this.populate);
     }
-  };
+  }
 
   /**
    * Добавление кнопки на мобилке
@@ -263,7 +263,7 @@ export default class MainPageView extends BaseView {
         btnWrapper.style.display = 'flex';
       }
     });
-  };
+  }
 
   /**
    * Удаляет кнопку
