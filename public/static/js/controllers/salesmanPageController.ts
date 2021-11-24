@@ -2,7 +2,7 @@ import SalesmanPageModel from '../models/salesmanPage';
 import EventBus from '../modules/EventBus';
 import SalesmanPageView from '../views/salesmanPage';
 import {Ajax} from '../modules/ajax';
-import {idNum, secureDomainUrl, statusCodes} from '../constatns';
+import {idNum, secureDomainUrl, statusCodes, userInfo} from '../constatns';
 import Router from '../modules/Router';
 import Bus from '../modules/EventBus';
 
@@ -63,11 +63,11 @@ export default class SalesmanPageController {
   rate(pos : number) {
     const salesmanId = window.location.pathname.split('/')[idNum];
     const rating = Math.round(pos / 2 + 0.5);
-    console.log(Number(localStorage.getItem('id')), Number(salesmanId), rating);
+    console.log(Number(userInfo.get('id')), Number(salesmanId), rating);
     const res = Ajax.postUsingFetch({
       url: secureDomainUrl + 'users/profile/rating',
       body: {
-        from: Number(localStorage.getItem('id')),
+        from: Number(userInfo.get('id')),
         to: Number(salesmanId),
         rating: rating,
       },

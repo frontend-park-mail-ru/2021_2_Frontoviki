@@ -4,7 +4,7 @@ import {profileInfoBlock} from
 import {emptyGrid} from '../templates/productGrid/emptyGrid';
 import {settings} from '../templates/settings/settings';
 import BaseView from './baseView';
-import {inputNum, profileBtnNum} from '../constatns';
+import {inputNum, profileBtnNum, userInfo} from '../constatns';
 import Bus from '../modules/EventBus';
 import { advert, card, dialog, message } from '../types';
 import { chatTemplateGenerator } from '../templates/chat/chat';
@@ -269,7 +269,7 @@ export default class ProfilePageView extends BaseView {
             .src = URL.createObjectURL(file[0]);
         (<HTMLImageElement>document.querySelector('.mini-profile__avatar'))
             .src = URL.createObjectURL(file[0]);
-        localStorage.setItem('image', URL.createObjectURL(file[0]));
+        userInfo.set('image', URL.createObjectURL(file[0]));
         const formData = new FormData();
         formData.append('avatar', file[0]);
         this.eventBus.emit('uploadPhoto', formData);
@@ -469,7 +469,6 @@ export default class ProfilePageView extends BaseView {
       chatContainer.innerHTML = chatT({dialog: dialogs});
       rightBlock.appendChild(chatContainer);
       if (isDetailed) {
-        console.log(isDetailed);
         document.querySelector('.chats-inner')?.appendChild(chatMessagesBlock());
         this.eventBus.emit('connectToDialog');
       }
@@ -477,7 +476,7 @@ export default class ProfilePageView extends BaseView {
       const chats = document.querySelectorAll('.one-chat') as NodeListOf<HTMLDivElement>;
       chats.forEach((elem: HTMLDivElement)=>{
         elem.addEventListener('click', ()=> {
-          this.eventBus.emit('goToDialog', elem.getAttribute('dataset'));
+          this.eventBus.emit('goToDialog', elem.getAttribute('dataset'), elem.getAttribute('advertId'));
         })
       }) 
     }
@@ -501,7 +500,7 @@ export default class ProfilePageView extends BaseView {
   chatHistory(messages: message[]) {
     messages.forEach((elem)=>{
       const message = createChatMessage(elem.message, elem.created_at.slice(11, 16));
-      if (elem.from.toString() != localStorage.getItem('id')) {
+      if (elem.from.toString() != userInfo.get('id')) {
         const messageBlock = (<HTMLDivElement>message.querySelector('.user-message-block'));
         if (messageBlock != null) {
           messageBlock.style.marginLeft = '0';

@@ -55,7 +55,7 @@ document.addEventListener('DOMContentLoaded', async () => {
   router.setRoute('^\/profile\/settings$', ProfilePage.view.renderSettings);
   router.setRoute('^\/profile\/cart$', ProfilePage.view.renderCart);
   router.setRoute('^\/profile\/chat$', ProfilePage.view.renderChat);
-  router.setRoute('^\/profile\/chat\/(?<fromID>\\d+)\/(?<toID>\\d+)', ProfilePage.view.renderChatMessage);
+  router.setRoute('^\/profile\/chat\/(?<toID>\\d+)\/(?<advertID>\\d+)', ProfilePage.view.renderChatMessage);
   router.setRoute('^\/newAd$', NewAdPage.view.render);
   router.setRoute('^\/ad\/(?<advertID>\\d+)$', AdvertPage.view.render);
   router.setRoute('^\/ad\/(?<advertID>\\d+)\/edit$', NewAdPage.view.edit);

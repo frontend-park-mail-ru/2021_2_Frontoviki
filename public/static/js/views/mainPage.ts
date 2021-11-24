@@ -2,7 +2,7 @@ import {createProductGrid} from '../templates/productGrid/productGrid';
 import {emptyGrid} from '../templates/productGrid/emptyGrid';
 import {createInfoBlock} from '../templates/infoBlock/infoBlock';
 import {categoriesBlock} from '../templates/mainPageCategories/categoriesBlock'
-import {baseCount} from '../constatns';
+import {baseCount, userInfo} from '../constatns';
 import BaseView from './baseView';
 import Bus from '../modules/EventBus';
 import { card, categoryList } from '../types';
@@ -247,7 +247,7 @@ export default class MainPageView extends BaseView {
     btn.classList.add('button');
     btn.classList.add('root__new-advert-btn');
     btn.innerHTML = 'Разместить объявление';
-    if (localStorage.getItem('name') != null) {
+    if (userInfo.get('name') != null) {
       btn.onclick = ()=> this.eventBus.emit('loggedNewAdd');
     } else {
       btn.onclick = ()=> this.eventBus.emit('notLoggedNewAdd');

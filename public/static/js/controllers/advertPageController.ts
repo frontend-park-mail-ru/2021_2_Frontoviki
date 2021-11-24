@@ -2,7 +2,7 @@ import EventBus from '../modules/EventBus';
 import AdvertPageModel from '../models/advertPage';
 import AdvertPageView from '../views/advertPage';
 import {Ajax} from '../modules/ajax';
-import {idNum, secureDomainUrl, statusCodes} from '../constatns';
+import {idNum, secureDomainUrl, statusCodes, userInfo} from '../constatns';
 import Router from '../modules/Router';
 import Bus from '../modules/EventBus';
 import { advert, cart } from '../types';
@@ -95,8 +95,8 @@ export default class AdvertPageController {
     this.router.go('/profile');
   }
 
-  goToChat(salesmanid: number) {
-    this.router.go(`/profile/chat/${localStorage.getItem('id')}/${salesmanid}`);
+  goToChat(salesmanid: number, advertId: number) {
+    this.router.go(`/profile/chat/${salesmanid}/${advertId}`);
   }
   /**
    * Переход на страницу продавца
@@ -170,7 +170,7 @@ export default class AdvertPageController {
       });
       advert = res.parsedBody.body.advert;
     }
-    if (Number(localStorage.getItem('id')) === advert.publisher_id) {
+    if (Number(userInfo?.get('id')) === advert.publisher_id) {
       this.eventBus.emit('isOwner', advert.id);
     }
     const res = Ajax.getUsingFetch({
@@ -210,7 +210,7 @@ export default class AdvertPageController {
       });
       advert = res.parsedBody.body.advert;
     }
-    if (Number(localStorage.getItem('id')) === advert.publisher_id) {
+    if (Number(userInfo?.get('id')) === advert.publisher_id) {
       return;
     }
     const res = Ajax.getUsingFetch({

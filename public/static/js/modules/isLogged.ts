@@ -1,4 +1,4 @@
-import {secureDomainUrl, statusCodes} from '../constatns';
+import {secureDomainUrl, statusCodes, userInfo} from '../constatns';
 import {Ajax} from './ajax';
 import {logout} from './logout';
 import {createHeader} from '../templates/header/header';
@@ -45,13 +45,13 @@ export async function isLogged(globalEventBus: Bus) {
     if (image == null) {
       image = '/static/img/default_image.jpg';
     }
-    localStorage.setItem('id', id);
-    localStorage.setItem('name', name);
-    localStorage.setItem('surname', surname);
-    localStorage.setItem('email', email);
-    localStorage.setItem('image', '/' + image);
-    localStorage.setItem('rating', rating);
-    localStorage.setItem('phone', phone);
+    userInfo.set('id', id);
+    userInfo.set('name', name);
+    userInfo.set('surname', surname);
+    userInfo.set('email', email);
+    userInfo.set('image', `/${image}`);
+    userInfo.set('rating', rating);
+    userInfo.set('phone', phone);
     header.innerHTML = headerT({userName: name, userAvatar: '/' + image});
     const authLink = document.getElementById('auth');
     if (authLink != null) {
@@ -82,13 +82,13 @@ export async function isLogged(globalEventBus: Bus) {
     if (auth != null) {
       auth.style.display = 'flex';
     }
-    localStorage.removeItem('id');
-    localStorage.removeItem('name');
-    localStorage.removeItem('surname');
-    localStorage.removeItem('email');
-    localStorage.removeItem('image');
-    localStorage.removeItem('rating');
-    localStorage.removeItem('phone');
+    userInfo.delete('id');
+    userInfo.delete('name');
+    userInfo.delete('surname');
+    userInfo.delete('email');
+    userInfo.delete('image');
+    userInfo.delete('rating');
+    userInfo.delete('phone');
     document.querySelector('.new-advert-capture-container')?.
         addEventListener('click', notLoggedNewAd);
   }

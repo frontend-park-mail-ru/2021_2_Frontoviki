@@ -1,3 +1,4 @@
+import { userInfo } from '../../constatns';
 import settingsT from './settings.handlebars';
 import './settings.sass';
 /**
@@ -6,7 +7,7 @@ import './settings.sass';
  */
 export function settings() : HTMLDivElement {
   const settings = document.createElement('div');
-  let phone = localStorage.getItem('phone');
+  let phone = userInfo.get('phone');
   if (phone == '') {
     phone = '+7';
   } else {
@@ -16,9 +17,9 @@ export function settings() : HTMLDivElement {
     }
   }
   settings.innerHTML = settingsT({
-    userName: localStorage.getItem('name'),
-    userSurname: localStorage.getItem('surname'),
-    userEmail: localStorage.getItem('email'),
+    userName: userInfo.get('name'),
+    userSurname: userInfo.get('surname'),
+    userEmail: userInfo.get('email'),
     userPhone: phone,
   });
   return settings;

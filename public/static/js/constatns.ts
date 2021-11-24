@@ -45,6 +45,8 @@ export const regExPatterns = {
   name: /^[а-яА-яa-zA-Z]{2,}$/,
 };
 
+export const userInfo = new Map();
+
 export const monthMap = new Map();
 monthMap.set('1', 'янв');
 monthMap.set('2', 'февр');

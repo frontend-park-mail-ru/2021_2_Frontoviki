@@ -1,6 +1,6 @@
 import {Ajax} from '../modules/ajax';
 import {idNum, inputNum, minValidationLen,
-  secureDomainUrl, statusCodes} from '../constatns';
+  secureDomainUrl, statusCodes, userInfo} from '../constatns';
 import Bus from '../modules/EventBus';
 import { categoryList } from '../types';
 
@@ -172,7 +172,7 @@ export default class NewAdPageModel {
         return;
       }
       const {advert} = parsedBody.body;
-      if (advert.publisher_id !== Number(localStorage.getItem('id'))) {
+      if (advert.publisher_id !== Number(userInfo.get('id'))) {
         this.eventBus.emit('notOwner');
         return;
       }

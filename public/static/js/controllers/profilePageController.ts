@@ -2,7 +2,7 @@ import EventBus from '../modules/EventBus';
 import ProfilePageModel from '../models/profilePage';
 import ProfilePageView from '../views/profilePage';
 import {Ajax} from '../modules/ajax';
-import {secureDomainUrl, statusCodes} from '../constatns';
+import {secureDomainUrl, statusCodes, userInfo} from '../constatns';
 import Router from '../modules/Router';
 import Bus from '../modules/EventBus';
 import { advert } from '../types';
@@ -106,18 +106,18 @@ export default class ProfilePageController {
     this.router.go('/profile/chat');
   }
 
-  goToDialog(id: string | null) {
+  goToDialog(id: string | null, advertId: string | null) {
     if (id != null) {
-      this.router.go(`/profile/chat/${localStorage.getItem('id')}/${id}`);
+      this.router.go(`/profile/chat/${id}/${advertId}`);
     }
   }
 
-  connectToChat(idTo: string) {
+  connectToChat(idTo: string, advertId: string) {
     if (this.websocket != null && this.websocket.readyState == this.websocket.OPEN) {
       this.websocket.close();
     }
     console.log('preconnect');
-    this.websocket = new WebSocket(`wss://volchock.ru/api/wschat/connect/${localStorage.getItem('id')}/${idTo}`);
+    this.websocket = new WebSocket(`wss://volchock.ru/api/wschat/connect/${userInfo.get('id')}/${idTo}/${advertId}`);
     this.websocket.addEventListener('open', (e)=>{
       console.log('open');
       this.eventBus.emit('connectionOpened', this.websocket);
@@ -182,9 +182,9 @@ export default class ProfilePageController {
       const {code} = parsedBody;
       console.log(parsedBody);
       if (code === statusCodes.OK) {
-        localStorage.setItem('name', name);
-        localStorage.setItem('surname', surname);
-        localStorage.setItem('phone', phone);
+        userInfo.set('name', name);
+        userInfo.set('surname', surname);
+        userInfo.set('phone', phone);
         this.eventBus.emit('profileUpdated', name, surname);
       };
     });
@@ -199,7 +199,7 @@ export default class ProfilePageController {
     const response = Ajax.postUsingFetch({
       url: secureDomainUrl + 'users/profile/password',
       body: {
-        email: localStorage.getItem('email'),
+        email: userInfo.get('email'),
         password: oldPassword,
         new_password: password,
       },
@@ -327,7 +327,7 @@ export default class ProfilePageController {
  * Проверяет авторизован ли пользователь
  */
   checkForLogging() {
-    if (localStorage.getItem('name') === null) {
+    if (!userInfo.get('name')) {
       this.eventBus.emit('notLogged');
     }
   }

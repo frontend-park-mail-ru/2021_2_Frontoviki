@@ -1,7 +1,7 @@
 import BaseView from './baseView';
 import {createSalesman} from '../templates/salesmanBlock/salesmanBlock';
 import {createProductGrid} from '../templates/productGrid/productGrid';
-import {idNum} from '../constatns';
+import {idNum, userInfo} from '../constatns';
 import Bus from '../modules/EventBus.js';
 import { card, rating } from '../types';
 
@@ -62,8 +62,8 @@ export default class SalesmanPageView extends BaseView {
     });
     // ставим рейтинг если мы зашли, еще не ставили
     // и не пытаемся самому себе поставить
-    if (rating.is_rated == false && localStorage.getItem('id') &&
-          Number(localStorage.getItem('id')) !=
+    if (rating.is_rated == false && userInfo.get('id') &&
+          Number(userInfo.get('id')) !=
           Number(window.location.pathname.split('/')[idNum])) {
       const stars = document.querySelector('.profile-content__rating');
       stars?.addEventListener('mouseover', (e)=> {

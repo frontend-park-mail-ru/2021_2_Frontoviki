@@ -2,7 +2,7 @@ import EventBus from '../modules/EventBus';
 import NewAdPageModel from '../models/newAd';
 import NewAdPageView from '../views/newAdPage';
 import {Ajax} from '../modules/ajax';
-import {secureDomainUrl, statusCodes} from '../constatns';
+import {secureDomainUrl, statusCodes, userInfo} from '../constatns';
 import Bus from '../modules/EventBus';
 import Router from '../modules/Router';
 
@@ -96,7 +96,7 @@ export default class NewAdPageController {
         latitude: coords[0],
         longitude: coords[1],
         amount: 100,
-        publisher_id: Number(localStorage.getItem('id')),
+        publisher_id: Number(userInfo.get('id')),
       },
     });
     response.then(({status, parsedBody}) => {
@@ -147,7 +147,7 @@ export default class NewAdPageController {
    * Проверка на то, зарегистрирован ли пользователь
    */
   checkForLogging() {
-    if (localStorage.getItem('name') === null) {
+    if (!userInfo.has('name')) {
       this.eventBus.emit('notLogged');
     }
   }

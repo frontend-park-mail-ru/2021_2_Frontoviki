@@ -67,6 +67,7 @@ export type cart = {
 export type dialog = {
     user1: number;
     user2: number;
+    adv: number;
     created_at: string;
 }
 

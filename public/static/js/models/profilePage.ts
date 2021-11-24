@@ -1,6 +1,6 @@
 import {Ajax} from '../modules/ajax';
 import {inputNum, minValidationLen, passwordLength,
-      phLength, secureDomainUrl, statusCodes} from '../constatns';
+      phLength, secureDomainUrl, statusCodes, userInfo} from '../constatns';
 import {createDeleteModal} from '../templates/deleteModal/deleteModal';
 import Bus from '../modules/EventBus';
 import { advert, salesman } from '../types';
@@ -35,7 +35,7 @@ export default class ProfilePageModel {
  */
   getAds() {
     const res = Ajax.getUsingFetch({
-      url: secureDomainUrl + 'adverts/salesman/' + localStorage.getItem('id'),
+      url: `${secureDomainUrl}adverts/salesman/${<string>userInfo.get('id')}`,
       body: null,
     });
     res.then(({parsedBody}) => {
@@ -132,7 +132,7 @@ export default class ProfilePageModel {
    */
   getMessages(isDetailed: boolean) {
     const res = Ajax.getUsingFetch({
-      url: `${secureDomainUrl}chat/getDialogs/${localStorage.getItem('id')}`,
+      url: `${secureDomainUrl}chat/getDialogs/${userInfo.get('id')}`,
       body: null,
     });
     res.then(async ({status, parsedBody}) => {
@@ -152,9 +152,10 @@ export default class ProfilePageModel {
    * 
    */
   connectToDialog() {
-    const idTo = window.location.pathname.split('/')[4];
+    const idTo = window.location.pathname.split('/')[3];
+    const advertId = window.location.pathname.split('/')[4];
     const res = Ajax.getUsingFetch({
-      url: `${secureDomainUrl}chat/getHistory/${localStorage.getItem('id')}/${idTo}?count=9999`,
+      url: `${secureDomainUrl}chat/getHistory/${userInfo.get('id')}/${idTo}/${advertId}?count=9999`,
       body: null,
     });
     res.then(async ({status, parsedBody}) => {
@@ -166,12 +167,12 @@ export default class ProfilePageModel {
       if (code === statusCodes.OK) {
         console.log(parsedBody.body);
         this.eventBus.emit('historyFound', parsedBody.body.messages);
-        this.eventBus.emit('connectToChat', idTo);
+        this.eventBus.emit('connectToChat', idTo, advertId);
         return;
       }
       // если новый чатик
       if (code === statusCodes.NOTEXIST) {
-        this.eventBus.emit('connectToChat', idTo);
+        this.eventBus.emit('connectToChat', idTo, advertId);
         return;
       }
     });
@@ -207,7 +208,7 @@ export default class ProfilePageModel {
       phoneInput.value.slice(7, 10) + phoneInput.value.slice(11, 13) +
       phoneInput.value.slice(14, 16);
     if (phone.length != phLength) {
-      phone = localStorage.getItem('phone')
+      phone = <string>userInfo?.get('phone')
     }
     if (name.length < minValidationLen) {
       document.getElementById('settingName')?.classList.add('text-input_wrong');

@@ -2,7 +2,7 @@
 import {advertPageTemplate} from '../templates/advertPage/advertPageT';
 import BaseView from './baseView';
 import {SliderLogic} from '../templates/advertPage/sliderLogic';
-import {inputNum} from '../constatns';
+import {inputNum, userInfo} from '../constatns';
 import {properDate} from '../modules/utilsFunctions';
 import Bus from '../modules/EventBus';
 import { advert, rating, salesman } from '../types';
@@ -133,32 +133,32 @@ export default class AdvertPageView extends BaseView {
       this.eventBus.emit('onSalesmanClicked', advert.publisher_id);
     });
     const addBtn = document.getElementById('addToCartBtn');
-    if (Number(localStorage.getItem('id')) === advert.publisher_id) {
+    if (Number(userInfo?.get('id')) === advert.publisher_id) {
       this.isOwner(advert.id);
     }
     addBtn?.addEventListener('click', ()=> {
-      if (localStorage.getItem('id') === null) {
+      if (!userInfo.has('id')) {
         this.eventBus.emit('notLogged');
         return;
       }
     });
     const addToFav = document.getElementById('favBtn');
     addToFav?.addEventListener('click', ()=> {
-      if (localStorage.getItem('id') === null) {
+      if (!userInfo.has('id')) {
         this.eventBus.emit('notLogged');
         return;
       }
     });
     const chatBtn = document.getElementById('chatBtn');
     chatBtn?.addEventListener('click', ()=>{
-      if (localStorage.getItem('id') === null) {
+      if (!userInfo.has('id')) {
         this.eventBus.emit('notLogged');
       } else {
-        this.eventBus.emit('goToChat', advert.publisher_id);
+        this.eventBus.emit('goToChat', advert.publisher_id, advert.id);
       }
     })
 
-    if (localStorage.getItem('id') === null) {
+    if (!userInfo.has('id')) {
       return;
     }
     this.eventBus.emit('checkCart', advert);

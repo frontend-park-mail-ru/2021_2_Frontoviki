@@ -1,5 +1,6 @@
 import infoBlockT from './profileInfoBlock.handlebars';
 import './profile.sass';
+import { userInfo } from '../../constatns';
 /**
  * Создает левую часть страницы профиля из шаблона
  * @return {HTMLDivElement}
@@ -10,12 +11,12 @@ export function profileInfoBlock() : HTMLDivElement {
   infoBlock.classList.add('profile-content');
   const StarAlgorithym = [true, true, true, true, true];
   infoBlock.innerHTML = infoBlockT(
-      {userName: localStorage.getItem('name'),
-        userAvatar: localStorage.getItem('image'),
+      {userName: userInfo.get('name'),
+        userAvatar: userInfo.get('image'),
         star: StarAlgorithym.
-            slice(0, Math.round(Number(localStorage.getItem('rating')))),
+            slice(0, Math.round(Number(userInfo.get('rating')))),
         emptyStar: StarAlgorithym.
-            slice(Math.round(Number(localStorage.getItem('rating'))), 6),
+            slice(Math.round(Number(userInfo.get('rating'))), 6),
       });
   return infoBlock;
 }
