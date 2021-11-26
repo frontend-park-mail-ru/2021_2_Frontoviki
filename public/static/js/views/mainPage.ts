@@ -91,7 +91,7 @@ export default class MainPageView extends BaseView {
       elem.image = '/' + elem.images[0];
     });
     if (clearPage) {
-      document.querySelectorAll('.root__product-grid').forEach((elem)=>{
+      document.querySelectorAll('.grid-container').forEach((elem)=>{
         elem.remove();
       });
       const categoryBlock = document.querySelector('.root__category');

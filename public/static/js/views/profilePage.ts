@@ -110,8 +110,8 @@ export default class ProfilePageView extends BaseView {
 
     active.addEventListener('click', () => {
       // удаляем предыдущие обявления
-      if (document.querySelector('.root__product-grid') !== null) {
-        rightBlock?.removeChild(<HTMLDivElement>document.querySelector('.root__product-grid'));
+      if (document.querySelector('.grid-container') !== null) {
+        rightBlock?.removeChild(<HTMLDivElement>document.querySelector('.grid-container'));
       }
       this.eventBus.emit('getGrid');
       active.style.color = '#004ad7';
@@ -120,8 +120,8 @@ export default class ProfilePageView extends BaseView {
 
     archive.addEventListener('click', () => {
       // удаляем предыдущие обявления
-      if (document.querySelector('.root__product-grid') !== null) {
-        rightBlock?.removeChild(<HTMLDivElement>document.querySelector('.root__product-grid'));
+      if (document.querySelector('.grid-container') !== null) {
+        rightBlock?.removeChild(<HTMLDivElement>document.querySelector('.grid-container'));
       }
       this.eventBus.emit('goToArchive');
     });
@@ -160,7 +160,7 @@ export default class ProfilePageView extends BaseView {
     if (empty !== null) {
       rightBlock?.removeChild(empty);
     }
-    const oldAdverts = document.querySelector('.root__product-grid');
+    const oldAdverts = document.querySelector('.grid-container');
     if (oldAdverts !== null) {
       rightBlock?.removeChild(oldAdverts);
     }
@@ -237,8 +237,8 @@ export default class ProfilePageView extends BaseView {
     archive.style.color = '#004ad7';
     active.addEventListener('click', () => {
       // удаляем предыдущие обявления
-      if (document.querySelector('.root__product-grid') !== null) {
-        rightBlock?.removeChild(<HTMLDivElement>document.querySelector('.root__product-grid'));
+      if (document.querySelector('.grid-container') !== null) {
+        rightBlock?.removeChild(<HTMLDivElement>document.querySelector('.grid-container'));
       }
       this.eventBus.emit('goToActive');
     });
@@ -385,7 +385,7 @@ export default class ProfilePageView extends BaseView {
    */
   renderCartGrid(adverts : card[]) {
     const rightBlock = document.querySelector('.profile-content_right');
-    const oldAdverts = document.querySelector('.root__product-grid');
+    const oldAdverts = document.querySelector('.grid-container');
     if (oldAdverts !== null) {
       rightBlock?.removeChild(oldAdverts);
     }

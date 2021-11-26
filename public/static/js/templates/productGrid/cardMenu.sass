@@ -1,0 +1,64 @@
+.card-menu__toogle
+    display: none
+
+.card-menu__options
+    position: absolute
+    display: flex
+    justify-content: flex-end
+    right: 2px
+    top: 2px
+    transition: all 0.5s ease
+    z-index: -1
+
+
+    &__icon-container
+        display: flex
+        justify-content: center
+        align-items: center
+        width: 32px
+        height: 32px
+        padding: 6px
+        border-radius: 50%
+        box-shadow: inset 0 0 2px rgb(0 0 0 / 50%)
+        cursor: pointer
+
+
+    &__button
+        object-fit: contain
+        fill: black
+        width: 100%
+        height: 100%
+
+
+    .card-menu__toogle:checked~&
+        z-index: 1
+
+.card-menu__toogle__label
+    position: absolute
+    z-index: 10
+    right: 2px
+    top: 2px
+
+div.card-menu__options__icon-container
+    position: absolute
+    transition: all 0.5s ease
+    z-index: 10
+    background-color: white
+
+div.card-menu__options__icon-container:hover .card-menu__options__button
+    fill: royalblue
+
+.card-menu__toogle:checked~div.card-menu__options div.card-menu__options__icon-container
+    position: absolute
+    transform: translate(120%, -120%) rotate(360deg)
+
+.card-menu__toogle:checked~div.card-menu__options div.card-menu__options__icon-container:first-child
+    transform: translate(0, -120%) rotate(360deg)
+
+.card-menu__toogle:checked~div.card-menu__options div.card-menu__options__icon-container:last-child
+    transform: translate(120%, 0) rotate(360deg)
+
+@media screen and (max-width: 1000px)
+    .card-menu__options__icon-container
+        width: 28px
+        height: 28px
