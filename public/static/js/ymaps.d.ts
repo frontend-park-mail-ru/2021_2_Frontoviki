@@ -1,5 +1,6 @@
 declare namespace ymaps {
     export function ready(): Promise;
+    export function suggest(query: string): Promise;
   
     class Promise {
       then(onFulfilled?: Function, onRejected?: Function, onProgress?: Function, ctx?: any): Promise;

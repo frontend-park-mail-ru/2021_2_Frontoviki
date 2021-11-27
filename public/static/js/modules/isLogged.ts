@@ -100,11 +100,11 @@ export async function isLogged(globalEventBus: Bus) {
     globalEventBus.emit('clickModal');
   });
   const logoutHref = document.getElementById('logout');
-  logoutHref?.addEventListener('click', (e) => {
+  logoutHref?.addEventListener('click', () => {
     const togle = document.getElementById('mini-profile__toogle') as HTMLInputElement;
     togle.checked = false;
     logout(globalEventBus);
-    isLogged(globalEventBus);
+    isLogged(globalEventBus).catch(()=> console.log('Logged Error'));
   });
   const searchBtn = document.querySelector('.search__button');
   searchBtn?.addEventListener('click', () => {
@@ -118,21 +118,25 @@ export async function isLogged(globalEventBus: Bus) {
     }
   });
   const mobileSearch =
-    document.querySelector('.header__left-block__mobile-search-bar') as HTMLElement;
+    header.querySelector('.header__left-block__mobile-search-bar') as HTMLElement;
   mobileSearch.addEventListener('submit', (e)=>{
     e.preventDefault();
     e.stopPropagation();
-    mobileSearch.style.zIndex = '3';
+    mobileSearch.classList.add('mobile-search__active');
     globalEventBus.emit('onMobileSeachClicked');
   });
   document.addEventListener('click', (e)=> {
-    e.stopPropagation();
     const mobileSearchInput =
-    document.querySelector('.header__left-block__mobile-search-bar__input');
-    if (e.target == mobileSearchInput) {
-      mobileSearch.style.zIndex = '3';
+    document.querySelector('.header__left-block__mobile-search-bar__input') as HTMLInputElement;
+
+    const mobileSearchBtn = document.querySelector('.header__left-block__mobile-search-bar__button');
+    if (e.target == mobileSearchInput || e.target == mobileSearchBtn) {
+      mobileSearch.classList.add('mobile-search__active');
+      mobileSearch.classList.remove('mobile-search__inactive');
     } else {
-      mobileSearch.style.zIndex = '1';
+      mobileSearch.classList.remove('mobile-search__active');
+      mobileSearch.classList.add('mobile-search__inactive');
+      mobileSearchInput.value = '';
     }
   });
 

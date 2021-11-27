@@ -103,7 +103,7 @@ export default class MainPageView extends BaseView {
             this.root.removeChild(elem);
           }
         });
-      };
+      }
     }
     this.root.appendChild(createProductGrid(adverts, false, false));
     const cards = document.querySelectorAll('.card');
@@ -111,9 +111,7 @@ export default class MainPageView extends BaseView {
       if (baseCount * (page-1) > num) {
         return;
       }
-      elem.addEventListener('click', (e)=>{
-        e.preventDefault();
-        e.stopPropagation();
+      elem.addEventListener('click', ()=>{
         this.eventBus.emit('onCardClicked', adverts[num - (baseCount* (page-1))].id);
       });
     });

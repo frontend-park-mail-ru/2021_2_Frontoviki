@@ -58,7 +58,7 @@ export default class MainPageController {
   goToCardPage(id: number) {
     this.stopScroll();
     this.eventBus.emit('deleteBtn');
-    this.router.go('/ad/' + id);
+    this.router.go(`/ad/${id}`);
   }
 
   /**

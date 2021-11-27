@@ -29,6 +29,7 @@ export default class NewAdPageModel {
    */
   initMap() {
     this.#coords = null;
+    const location = document.querySelector('.new-advert__location');
     ymaps.ready().then(() => {
       this.#myMap = new ymaps.Map('YMapsID', {
         center: [55.766062, 37.684488],
@@ -55,13 +56,16 @@ export default class NewAdPageModel {
         data = data.split(' ');
         data = data.slice(1);
         data = data.join(' ');
-        const location = document.querySelector('.new-advert__location');
-        if (location != null) {
-          const input = location.childNodes[inputNum] as HTMLInputElement;
-          input.value = data;
-        }
-            
+        const input = location?.childNodes[inputNum] as HTMLInputElement;
+        input.value = <string>data;
       });
+      const input = location?.childNodes[inputNum] as HTMLInputElement;
+      input.addEventListener('input', ()=>{
+        console.log('kek')
+        ymaps.suggest(input.value).then(function (items: any) {
+          console.log(items);
+      });
+      })
     });
   }
 

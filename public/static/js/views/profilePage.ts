@@ -171,6 +171,10 @@ export default class ProfilePageView extends BaseView {
         const cards = document.querySelectorAll('.card');
         cards.forEach((elem) => {
           elem.addEventListener('click', (e) => e.preventDefault());
+          const cardMenu = elem.querySelector('.card-menu');
+          if (cardMenu != null) {
+            elem.removeChild(cardMenu);
+          }
         });
         return;
       }
@@ -178,8 +182,6 @@ export default class ProfilePageView extends BaseView {
       const cards = document.querySelectorAll('.card');
       cards.forEach((elem, key) => {
         elem.addEventListener('click', (e) => {
-          e.preventDefault();
-          e.stopPropagation();
           if ((<HTMLElement>e.target)?.classList.contains('card__delete')) {
             console.log('delete', adverts[key].id);
             if (favorite) {
@@ -412,8 +414,6 @@ export default class ProfilePageView extends BaseView {
     const cards = document.querySelectorAll('.card');
     cards.forEach((elem, key) => {
       elem.addEventListener('click', (e) => {
-        e.preventDefault();
-        e.stopPropagation();
         // удаляем
         if ((<HTMLElement>e.target)?.classList.contains('card__delete')) {
           e.preventDefault();
