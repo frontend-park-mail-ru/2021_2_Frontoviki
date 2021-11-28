@@ -489,6 +489,18 @@ export default class ProfilePageView extends BaseView {
         messageBlock.classList.add('chat_history');
         document.querySelector('.chat')?.appendChild(messageBlock);
         document.querySelector('.chat')?.appendChild(createChatInput());
+        const chats = document.querySelectorAll('.chat_chats_panel');
+
+        (<NodeListOf<HTMLDivElement>>chats).forEach((elem: HTMLDivElement)=>{
+          if (elem.getAttribute('advertId') != window.location.pathname.split('/')[4] ||
+           elem.getAttribute('dataset') != window.location.pathname.split('/')[3]) {
+            elem.classList.remove('chat_chats_panel__active');
+          } else {
+            elem.classList.add('chat_chats_panel__active');
+          }
+        });
+        // пока вызывает эпилепсию :(
+        // window.scrollTo(0,document.body.scrollHeight);
         this.eventBus.emit('connectToDialog');
       }
 
@@ -497,7 +509,7 @@ export default class ProfilePageView extends BaseView {
         elem.addEventListener('click', ()=> {
           this.eventBus.emit('goToDialog', elem.getAttribute('dataset'), elem.getAttribute('advertId'));
         })
-      }) 
+      })
     }
   }
 
@@ -585,7 +597,6 @@ function makeBlue(Btn : HTMLButtonElement) {
 }
 
 function scrollChat(): void {
-  const container = document.querySelector('.chat-message-body-inner');
-  const visible = document.querySelector('.chat-message-body');
-  visible?.scroll(0, (<HTMLDivElement>container)?.offsetHeight);
+  const visible = document.querySelector('.chat_history') as HTMLElement;
+  visible?.scroll(0, visible?.offsetHeight);
 }
