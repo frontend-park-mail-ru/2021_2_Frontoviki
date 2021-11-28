@@ -3076,6 +3076,7 @@ input[type=number], input[type=number]:focus, input[type=number]:hover {
 }
 
 .chat_input_input {
+    grid-column: 1 / 2;
     padding: 6px;
     padding-left: 20px;
     font-size: 18px;
@@ -3085,9 +3086,11 @@ input[type=number], input[type=number]:focus, input[type=number]:hover {
     resize: none;
     background-color: #f8f9fa;
     color: rgba(0, 0, 0, .9);
+    width: inherit;
 }
 
 .chat_input_button {
+    grid-column: 2 / 3;
     display: flex;
     flex-direction: column;
     justify-content: center;
