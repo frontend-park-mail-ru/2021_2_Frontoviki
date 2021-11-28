@@ -135,6 +135,10 @@ export default class MainPageView extends BaseView {
       emptyGridActive.id = 'empty';
       const gridT = emptyGrid();
       emptyGridActive.innerHTML = gridT({text: `Ничего не найдено`});
+      const empty = emptyGridActive.querySelector('.profile-content-right__empty-ads') as HTMLDivElement;
+      if (empty != null) {
+        empty.style.width = 'auto';
+      }
       this.root.appendChild(emptyGridActive);
       return;
     }
@@ -170,6 +174,10 @@ export default class MainPageView extends BaseView {
       emptyGridActive.innerHTML = gridT({
         text: `Объявлений в данной категории нет`,
       });
+      const empty = emptyGridActive.querySelector('.profile-content-right__empty-ads') as HTMLDivElement;
+      if (empty != null) {
+        empty.style.width = 'auto';
+      }
       this.root.appendChild(emptyGridActive);
       return;
     }
