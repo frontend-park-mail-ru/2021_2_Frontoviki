@@ -87,7 +87,7 @@ export default class MainPageView extends BaseView {
     */
   renderAds(adverts : card[], clearPage : boolean, page : number) {
     adverts.forEach((elem) => {
-      elem.href = '/ad/' + elem.id;
+      elem.href = `/ad/${elem.id}`;
       elem.image = '/' + elem.images[0];
     });
     if (clearPage) {
@@ -139,7 +139,7 @@ export default class MainPageView extends BaseView {
       return;
     }
     adverts.forEach((elem) => {
-      elem.href = '/ad/' + elem.id;
+      elem.href = `/ad/${elem.id}`;
       elem.image = '/' + elem.images[0];
     });
     this.root.appendChild(createProductGrid(adverts, false, false));
@@ -174,7 +174,7 @@ export default class MainPageView extends BaseView {
       return;
     }
     adverts.forEach((elem) => {
-      elem.href = '/ad/' + elem.id;
+      elem.href = `/ad/${elem.id}`;
       elem.image = '/' + elem.images[0];
     });
     this.root.appendChild(createProductGrid(adverts, false, false));
@@ -252,7 +252,7 @@ export default class MainPageView extends BaseView {
     }
     btnWrapper.appendChild(btn);
     this.root.parentNode?.appendChild(btnWrapper);
-    window.addEventListener('scroll', (e)=>{
+    window.addEventListener('scroll', ()=>{
       const y = document.documentElement.getBoundingClientRect().y;
       const width = document.documentElement.clientWidth;
       if (y < -200 || width > 885) {

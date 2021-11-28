@@ -7,9 +7,10 @@ import BaseView from './baseView';
 import {inputNum, profileBtnNum, userInfo} from '../constatns';
 import Bus from '../modules/EventBus';
 import { card, dialog, message } from '../types';
-import { chatTemplateGenerator } from '../templates/chat/chat';
-import { chatMessagesBlock } from '../templates/chat/chatInner';
+import { chatTemplateGenerator, chatToogleTemplateGenerator } from '../templates/chat/chat';
+import { createAdvBlock } from '../templates/chat/chatInner';
 import { createChatMessage } from '../templates/chat/chatMessage';
+import { createChatInput } from '../templates/chat/chatInput';
 
 /**
   * Экспортируемый класс для генерации страницы профиля с сеткой
@@ -144,12 +145,12 @@ export default class ProfilePageView extends BaseView {
     }
     if (archive || favorite) {
       adverts.forEach((elem) => {
-        elem.href = '/ad/' + elem.id;
+        elem.href = `/ad/${elem.id}`;
         elem.image = '/' + elem.images[0];
       });
     } else {
       adverts.forEach((elem) => {
-        elem.href = '/ad/' + elem.id;
+        elem.href = `/ad/${elem.id}`;
         elem.image = '/' + elem.image;
       });
     }
@@ -407,7 +408,7 @@ export default class ProfilePageView extends BaseView {
       return;
     }
     adverts.forEach((elem) => {
-      elem.href = '/ad/' + elem.id;
+      elem.href = `/ad/${elem.id}`;
       elem.image = '/' + elem.images[0];
     });
     rightBlock?.appendChild(createProductGrid(adverts, true, true));
@@ -462,18 +463,35 @@ export default class ProfilePageView extends BaseView {
   renderChatView(dialogs: dialog[], isDetailed: boolean) {
     const rightBlock = document.querySelector('.profile-content_right');
     if (rightBlock != null) {
+      const chatInputT = chatToogleTemplateGenerator();
+      const chatInput = document.createElement('input');
+      chatInput.type = 'checkbox';
+      chatInput.classList.add('chat_toogle');
+      chatInput.id = 'chat_toogle';
+      rightBlock.appendChild(chatInput);
+
+      const chatLabel = document.createElement('label');
+      chatLabel.classList.add('chat_icons');
+      chatLabel.htmlFor = 'chat_toogle';
+      chatLabel.innerHTML = chatInputT();
+      rightBlock.appendChild(chatLabel);
+
       const chatT = chatTemplateGenerator();
       const chatContainer = document.createElement('div');
       chatContainer.id = 'chat';
-      chatContainer.classList.add('chats');
+      chatContainer.classList.add('chat');
       chatContainer.innerHTML = chatT({dialog: dialogs});
       rightBlock.appendChild(chatContainer);
       if (isDetailed) {
-        document.querySelector('.chats-inner')?.appendChild(chatMessagesBlock());
+        document.querySelector('.chat')?.appendChild(createAdvBlock());
+        const messageBlock = document.createElement('div');
+        messageBlock.classList.add('chat_history');
+        document.querySelector('.chat')?.appendChild(messageBlock);
+        document.querySelector('.chat')?.appendChild(createChatInput());
         this.eventBus.emit('connectToDialog');
       }
 
-      const chats = document.querySelectorAll('.one-chat');
+      const chats = document.querySelectorAll('.chat_chats_panel');
       (<NodeListOf<HTMLDivElement>>chats).forEach((elem: HTMLDivElement)=>{
         elem.addEventListener('click', ()=> {
           this.eventBus.emit('goToDialog', elem.getAttribute('dataset'), elem.getAttribute('advertId'));
@@ -499,45 +517,37 @@ export default class ProfilePageView extends BaseView {
 
   chatHistory(messages: message[]) {
     messages.forEach((elem)=>{
-      const message = createChatMessage(elem.message, elem.created_at.slice(11, 16));
+      let message: HTMLDivElement;
+      console.log(elem.created_at);
       if (elem.from.toString() != userInfo.get('id')) {
-        const messageBlock = (<HTMLDivElement>message.querySelector('.user-message-block'));
-        if (messageBlock != null) {
-          messageBlock.style.marginLeft = '0';
-        }
-        const timeBlock = (<HTMLDivElement>message.querySelector('.user-message__date'));
-        if (timeBlock != null) {
-          timeBlock.style.marginLeft = '0';
-        }
+        message = createChatMessage(elem.message, elem.created_at.slice(11, 16), true);
+      } else {
+        message = createChatMessage(elem.message, elem.created_at.slice(11, 16), false);
       }
-      document.querySelector('.chat-message-body-inner')?.appendChild(message);
+      document.querySelector('.chat_history')?.appendChild(message);
     });
     scrollChat();
   }
 
   chatHandleSend(websocket: WebSocket) {
-    const submitBtn = document.querySelector('.chat-message-send-form__sbm');
-    submitBtn?.addEventListener('click', (e)=>{
-      e.preventDefault();
-      const input = document.querySelector('.chat-message-send-form__msg') as HTMLInputElement;
-      websocket.send(input.value);
-
-      const date = new Date();
-      const message = createChatMessage(input.value, `${date.getHours()}:${date.getMinutes()}`);
-      input.value = '';
-      document.querySelector('.chat-message-body-inner')?.appendChild(message);
-      scrollChat();
+    const submitBtn = document.querySelector('.chat_input_button');
+    submitBtn?.addEventListener('click', ()=> {
+      const input = document.querySelector('.chat_input_input') as HTMLInputElement;
+      if (input.value.length > 0) {
+        websocket.send(input.value);
+        const date = new Date();
+        const message = createChatMessage(input.value, `${date.getHours()}:${date.getMinutes()}`, false);
+        input.value = '';
+        document.querySelector('.chat_history')?.appendChild(message);
+        scrollChat();
+      }
     })
   }
 
   chatHandleReceive(receivedMessage: string) {
     const date = new Date();
-    const message = createChatMessage(receivedMessage, `${date.getHours()}:${date.getMinutes()}`);
-    const messageBlock = (<HTMLDivElement>message.querySelector('.user-message-block'));
-    messageBlock.style.marginLeft = '0';
-    const timeBlock = (<HTMLDivElement>message.querySelector('.user-message__date'));
-    timeBlock.style.marginLeft = '0';
-    document.querySelector('.chat-message-body-inner')?.appendChild(message);
+    const message = createChatMessage(receivedMessage, `${date.getHours()}:${date.getMinutes()}`, true);
+    document.querySelector('.chat_history')?.appendChild(message);
     scrollChat();
   }
 }

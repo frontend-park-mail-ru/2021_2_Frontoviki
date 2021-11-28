@@ -1,159 +1,339 @@
-@import "../../../css/variables"
-.chats
+.chat
     width: 80%
-    height: 60vh
-    border: 0
-    border-radius: 1vh
-    -webkit-box-shadow: 0 0 1vw rgb(0 0 0 / 20%)
-    box-shadow: 0 0 1vw rgb(0 0 0 / 20%)
-    overflow: hidden
+    height: 75vh
 
-    &-inner
-        display: flex
-        flex-direction: row
+    display: grid
+    grid-template-areas: "left top" "left main" "left bottom"
+    grid-template-columns: 300px 1fr
+    grid-template-rows: 100px 1fr 50px
+    position: relative
+    padding: 10px
+    padding-left: 25px
+    box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px
+    border-radius: 6px
 
-    &-list
-        width: 30%
+    &_chats
+        grid-area: left
+        display: grid
+        grid-template-columns: 1fr
+        grid-auto-rows: min-content
+        gap: 5px 5px
+
+        width: 100%
         height: 100%
 
-        &-inner
+        overflow: auto
+        max-height: inherit
+
+    &_chats::-webkit-scrollbar
+        display: none
+
+    &_order
+        grid-area: top
+
+        display: grid
+        grid-template-columns: 1fr 3fr
+        grid-template-rows: 1fr 1fr
+        gap: 0 20px
+
+        width: 100%
+        height: 100%
+        padding: 10px
+        border-top-left-radius: 8px
+        border-top-right-radius: 8px
+
+        background-color: #f8f9fa
+
+    &_history
+        grid-area: main
+        box-shadow: inset rgba(0, 0, 0, 0.16) 0px 1px 4px
+
+        display: grid
+        grid-template-columns: 1fr
+        grid-auto-rows: min-content
+        gap: 4px 4px
+
+        padding: 10px
+        width: 100%
+        height: 100%
+
+        overflow: auto
+
+    &_history::-webkit-scrollbar
+        display: none
+
+    &_input
+        grid-area: bottom
+        display: grid
+        grid-template-columns: 1fr 50px
+        gap: 0 10px
+
+        background-color: #f8f9fa
+        width: 100%
+        height: 100%
+
+        padding: 4px
+        border-bottom-left-radius: 8px
+        border-bottom-right-radius: 8px
+
+    &_chats_panel
+        width: calc(100% - 12px)
+        height: 100px
+        display: grid
+        grid-template-areas: "image name" "image advert"
+        grid-template-columns: 1fr 2fr
+        margin: 0 6px
+        padding: 10px
+
+        background-color: #f8f9fa
+        border-radius: 16px
+        transition: background-color 0.3s ease
+
+    &_chats_panel:hover
+        background-color: #dae0e5
+        cursor: pointer
+
+    &_chats_panel_image-container
+        grid-area: image
+        grid-column: 1 / 2
+        height: 100%
+        width: 80px
+
+    &_chats_panel_image
+        object-fit: cover
+        width: 100%
+        height: 100%
+        border-radius: 50%
+
+    &_chats_panel_capture
+        grid-area: name
+        grid-column: 2 / 4
+        padding: 10px
+
+        font-size: 18px
+        font-weight: 500
+        color: black
+
+    &_chats_panel_advert
+        grid-area: advert
+        grid-column: 2 / 4
+        padding: 10px
+
+        font-size: 16px
+        font-weight: 400
+        color: rgba(0, 0, 0, 0.7)
+
+        text-overflow: ellipsis
+        overflow: hidden
+        width: 100%
+        white-space: nowrap
+
+    &_toogle
+        display: none
+
+    &_icons
+        width: 20px
+        height: 20px
+        z-index: 3
+        position: absolute
+        margin-top: 10px
+        margin-left: 5px
+
+        &:hover
+            cursor: pointer
+
+        &_menu,
+
+        &_cross
+            position: absolute
+            width: 100%
             height: 100%
-            overflow: scroll
-            overflow-x: hidden
+            opacity: 1
+            visibility: visible
+            transition: transform 0.3s ease
 
-.one-chat
-    width: 100%
-    cursor: pointer
+        &_menu
+            opacity: 0
+            visibility: hidden
 
-    &-inner
+    &_toogle:checked~.chat_icons .chat_icons_cross
+        opacity: 0
+        visibility: hidden
+        transform: rotate(360deg)
+
+    &_toogle:checked~.chat_icons .chat_icons_menu
+        opacity: 1
+        visibility: visible
+        transform: rotate(360deg)
+
+    &_toogle:checked~.chat
+        grid-template-areas: "top" "main" "bottom"
+        grid-template-columns: 1fr
+
+    &_toogle:checked~.chat .chat_chats
+        display: none
+
+    &_toogle:checked~.chat .chat_order,
+
+    &_toogle:checked~.chat .chat_history,
+
+    &_toogle:checked~.chat .chat_input
+        position: relative
+
+    &_order_image-container
+        grid-column: 1 / 2
+        grid-row-start: 1
+        grid-row-end: span 3
+
         display: flex
         flex-direction: column
-        padding-left: 1.5vh
-        padding-right: 1.5vh
-        padding-top: 1.5vh
-
-    &-content
-        width: 100%
-        display: flex
-        flex-direction: row
-
-    &__separator
-        border-top: 1px solid #e3e3e3
-        margin-bottom: 1vh
-        margin-bottom: 0
-        width: 100%
-        margin-top: 1vh
-        margin-left: auto
-
-.chat-list
-    height: 60vh
-
-    &-inner
-        height: 100%
-        overflow: scroll
-        overflow-x: hidden
-
-.chats-message
-    width: 70%
-    height: 100%
-
-.chat-message
-    width: 100%
-    height: 60vh
-
-    &-inner
-        width: 100%
-        height: 100%
-        display: -webkit-box
-        display: -webkit-flex
-        display: -ms-flexbox
-        display: flex
-        flex-direction: column
-
-    &-body
-        display: flex
-        flex-direction: column
-        flex-grow: 1
-        height: 100%
-        overflow: scroll
-        overflow-x: hidden
-
-.chat-message-send
-    width: 100%
-    height: 9vh
-    display: flex
-    flex-direction: row
-    align-items: center
-    justify-content: center
-    &-form
-        display: flex
-        flex-direction: row
         align-items: center
         justify-content: center
 
-    &-inner
+        width: 140px
+        height: 100%
+
+    &_order_image
+        object-fit: cover
         width: 100%
+        height: 100%
+        border-radius: 10px
 
+    &_order_name,
 
-    &-form
+    &_order_location,
+
+    &_order_price
+        grid-column: 2 / 4
+        width: 100%
+        height: 100%
+
+        font-size: 16px
+        font-weight: 400
+
+    &_order_location
+        text-overflow: ellipsis
+        overflow: hidden
+        width: 100%
+        white-space: nowrap
+
+    &_order_price
+        font-size: 18px
+        font-weight: 500
+
+    &_input_input
+        grid-column: 1 / 2
+        padding: 6px
+        padding-left: 20px
+        font-size: 18px
+        font-weight: 400
+        border: none
+        outline: none
+        resize: none
+        background-color: #f8f9fa
+        color: rgba(0, 0, 0, .9)
+        width: inherit
+
+    &_input_button
+        grid-column: 2 / 3
         display: flex
-        flex-direction: row
-        align-items: center
+        flex-direction: column
         justify-content: center
-
-        &__msg
-            height: 4vh
-            font-size: 2vh
-            border: 1px solid
-            box-sizing: border-box
-            border-radius: 0.5vh
-            padding-left: 10px
-            width: calc(100% - 18vh)
-            margin-right: 2vh
-
-        &__sbm
-            width: 10vh
-
-.chat-message-head
-    height: fit-content
-    border-bottom: 1px solid #e3e3e3
-
-    &-inner
-        display: flex
-        flex-direction: row
         align-items: center
-        padding: 0.5vh 1.5vh
 
-.user-message
-    width: 100%
+        border: none
+        background-color: white
+        box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px
 
-    &-inner
-        padding: 0.5vh
+        width: 100%
+        height: 100%
+        border-radius: 50%
+        width: 42px
 
-    &-block
-        background-color: $button-background-color
+    &_input_button:hover
+        cursor: pointer
+
+    &_input_button_icon
+        width: 25px
+        height: 25px
+        transform: translateX(2px)
+        transition: all 0.3s ease
+
+    &_input_button:hover .chat_input_button_icon
+        fill: #54a5f3
+
+    &_history_element
+        grid-column: 1 / 2
+        overflow: hidden
+
+    &_history_element__date
         width: fit-content
-        word-break: break-all
-        max-width: 60%
-        margin-left: auto
-        margin-bottom: 0.5vh
+        background-color: #f8f9fa
+        border-radius: 10px
+        padding: 5px
+        margin: 10px auto
+
+        color: rgba(0, 0, 0, .8)
+        font-size: 14px
+        font-weight: 400
+
+    &_history_element__user,
+    &_history_element__companion
+        min-width: 50px
+        width: fit-content
+        margin: 0 auto
+
+        padding: 10px
+        padding-bottom: 18px
+        border-radius: 10px
+
+        position: relative
+
+    &_history_element__user
+        margin-right: 0
+        background-color: #76B7F5
+
+    &_history_element__companion
+        margin-left: 0
+        background-color: #4B94DA
+
+    &_history_element_message
         color: white
-        border-radius: 2vh
+        font-size: 16px
+        font-weight: 400
 
-        &-inner
-            padding: 1vh
+    &_history_element_time
+        color: rgba(255, 255, 255, 0.7)
+        font-size: 14px
+        font-weight: 300
 
-        &__text
-            font-size: 1.5vh
-            color: $button-text-color
+        position: absolute
+        right: 10px
+        bottom: 4px
 
-    &__date
-        margin-left: auto
-        width: fit-content
-        color: #7a7a7a
+.chat_chats_panel__active
+    background-color: #4B94DA
 
+    &:hover
+        background-color: #4B94DA
 
-/* скрытие имени пользователя на мобилке */
-@media only screen and (max-device-width: 480px)
-    .chats
+@media screen and (max-width: 1100px)
+    .chat
         width: 100%
+        grid-template-areas: "left" "left" "left"
+        grid-template-columns: 1fr
+
+        &_order, &_history, &_input
+            display: none
+
+        &_toogle:checked~.chat
+            grid-template-areas: "top" "main" "bottom"
+
+        &_toogle:checked~.chat .chat_order
+            display: grid
+
+        &_toogle:checked~.chat .chat_history
+            display: grid
+
+        &_toogle:checked~.chat .chat_input
+            display: grid

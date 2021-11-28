@@ -1,9 +1,9 @@
 import { templateFunc } from '../../types';
-import chatInnerT from './chatInner.handlebars';
+import chatAdvT from './chatAdvBlock.handlebars';
 
-export function chatMessagesBlock(): HTMLDivElement {
+export function createAdvBlock(): HTMLDivElement {
     const chatDiv = document.createElement('div');
-    chatDiv.classList.add('chats-message');
-    chatDiv.innerHTML = (<templateFunc> chatInnerT)();
+    chatDiv.classList.add('chat_order');
+    chatDiv.innerHTML = (<templateFunc> chatAdvT)();
     return chatDiv;
 }

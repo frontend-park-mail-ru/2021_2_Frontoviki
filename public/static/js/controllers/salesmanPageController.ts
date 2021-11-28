@@ -33,7 +33,7 @@ export default class SalesmanPageController {
     this.view = new SalesmanPageView(this.eventBus);
     this.model = new SalesmanPageModel(this.eventBus);
     this.eventBus.on('noSuchSalesman', this.redirectToError.bind(this));
-    this.eventBus.on('ratedFinish', this.view.render);
+    this.eventBus.on('ratedFinish', this.view.render.bind(this));
     this.eventBus.on('rated', this.rate.bind(this));
     this.globalEventBus.on('loggedForSalesman', this.refreshPage.bind(this));
     this.eventBus.on('onCardClicked', this.goToCardPage.bind(this));
