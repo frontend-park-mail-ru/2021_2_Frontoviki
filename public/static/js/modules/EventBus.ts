@@ -1,8 +1,10 @@
+import { callback } from "../types";
+
 /**
- *
+ * Эмиттер событий
  */
 export default class Bus {
-  listeners : Map<string, Function| null>
+  listeners : Map<string, callback | null>
   /**
     * @param {array} signals массив строк сигналов
     */
@@ -15,7 +17,7 @@ export default class Bus {
   /**
     * Подписываемся на событие
     */
-  on(event: string, callback: Function): void { // подписываемся на событие
+  on(event: string, callback: callback): void { // подписываемся на событие
     this.listeners.set(event, callback);
   }
   /**

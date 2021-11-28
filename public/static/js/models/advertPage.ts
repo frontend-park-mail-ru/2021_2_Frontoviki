@@ -1,7 +1,7 @@
 import {Ajax} from '../modules/ajax';
 import {idNum, secureDomainUrl, statusCodes} from '../constatns';
 import Bus from '../modules/EventBus';
-import { advert } from '../types';
+import { card } from '../types';
 
 /**
  * Класс главной страницы с последними объявлениями
@@ -34,7 +34,7 @@ export default class AdvertPageModel {
       }
       const {advert, salesman, rating} = parsedBody.body;
       console.log(advert);
-      advert.images.forEach((elem: advert, key: number) => {
+      advert.images.forEach((elem: string, key: number) => {
         advert.images[key] = '/' + elem;
       });
       this.eventBus.emit('gotAd', advert, salesman, rating);

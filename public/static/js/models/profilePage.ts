@@ -3,7 +3,7 @@ import {inputNum, minValidationLen, passwordLength,
       phLength, secureDomainUrl, statusCodes, userInfo} from '../constatns';
 import {createDeleteModal} from '../templates/deleteModal/deleteModal';
 import Bus from '../modules/EventBus';
-import { advert, salesman } from '../types';
+import { advert, card, salesman } from '../types';
 
 
 /**
@@ -79,7 +79,7 @@ export default class ProfilePageModel {
       const {code} = parsedBody;
       console.log(parsedBody);
       if (code === statusCodes.OK) {
-        parsedBody.body.adverts.forEach((elem : advert, pos: number) => {
+        parsedBody.body.adverts.forEach((elem : card, pos: number) => {
           if (elem.is_active === false) {
             parsedBody.body.adverts.splice(pos, 1);
             Ajax.postUsingFetch({
@@ -112,7 +112,7 @@ export default class ProfilePageModel {
       const {code} = parsedBody;
       console.log(parsedBody);
       if (code === statusCodes.OK) {
-        parsedBody.body.adverts.forEach((elem: advert, pos: number) => {
+        parsedBody.body.adverts.forEach((elem: card, pos: number) => {
           if (elem.is_active === false) {
             parsedBody.body.adverts.splice(pos, 1);
             Ajax.deleteAdUsingFetch({

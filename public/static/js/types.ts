@@ -11,7 +11,8 @@ export type card = {
     canDelete: boolean;
     canBuy: boolean;
     href: string;
-    id: string;
+    id: number;
+    is_active: boolean;
 }
 
 export type args = {
@@ -93,7 +94,12 @@ export type body = {
     adverts: card[];
     salesman: salesman;
     rating: rating;
-    cart: cart;
+    cart: cart[];
     advert: advert;
     profile: salesman;
+    categories: categoryList[];
+    dialogs: dialog[];
+    messages: message[];
 }
+
+export type callback = (...args: any[]) => void;

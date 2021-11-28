@@ -1,5 +1,5 @@
 import ErrorPage from '../templates/404Page/404Page';
-import {route} from '../types';
+import {route, callback} from '../types';
 
 /**
  * Класс роутера для навигации в спа
@@ -17,7 +17,7 @@ export default class Router {
   }
 
 
-  setRoute(route : string, handler : Function) {
+  setRoute(route : string, handler : callback) {
     this.routes.push({
       regExp: new RegExp(route),
       handler: handler,
@@ -32,7 +32,7 @@ export default class Router {
    * No pushState is necessary when user go back in history. Default set to true.
    */
   go(URL : string, pushState = true) {
-    const oldURL = window.history.state?.url;
+    const oldURL = <string> window.history.state?.url;
     if (pushState && URL !== oldURL) {
       window.history.pushState({url: URL}, '', URL);
     }

@@ -5,7 +5,7 @@ import {Ajax} from '../modules/ajax';
 import {idNum, secureDomainUrl, statusCodes, userInfo} from '../constatns';
 import Router from '../modules/Router';
 import Bus from '../modules/EventBus';
-import { advert, cart } from '../types';
+import { advert, card, cart } from '../types';
 
 /**
  * Контроллер страницы объялвения
@@ -222,7 +222,7 @@ export default class AdvertPageController {
       const {adverts} = parsedBody.body;
       console.log(adverts, advert.id);
       let canAdd = true;
-      adverts.forEach((elem: advert) => {
+      adverts.forEach((elem: card) => {
         if (elem.id === advert.id) {
           canAdd = false;
           this.eventBus.emit('inFav');
