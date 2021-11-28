@@ -59,13 +59,6 @@ export default class NewAdPageModel {
         const input = location?.childNodes[inputNum] as HTMLInputElement;
         input.value = <string>data;
       });
-      const input = location?.childNodes[inputNum] as HTMLInputElement;
-      input.addEventListener('input', ()=>{
-        console.log('kek')
-        ymaps.suggest(input.value).then(function (items: any) {
-          console.log(items);
-      });
-      })
     });
   }
 

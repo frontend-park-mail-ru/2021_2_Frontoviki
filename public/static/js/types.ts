@@ -79,3 +79,21 @@ export type message = {
 }
 
 export type templateFunc = (params?: unknown | null) => string;
+
+
+export type parsedBody = {
+    code: number;
+    body: body;
+    message: string;
+}
+
+
+export type body = {
+    code: number;
+    adverts: card[];
+    salesman: salesman;
+    rating: rating;
+    cart: cart;
+    advert: advert;
+    profile: salesman;
+}

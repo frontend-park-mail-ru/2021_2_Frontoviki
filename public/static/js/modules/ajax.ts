@@ -1,5 +1,5 @@
 import {secureDomainUrl} from '../constatns';
-import {args} from '../types'
+import {args, parsedBody} from '../types'
 
 let CSRFToken: string | null;
 /**
@@ -44,9 +44,9 @@ export const Ajax = {
       headers: requestHeaders,
       body: JSON.stringify(args.body),
     });
-    const parsedBody = await response.json().catch(() => {
+    const parsedBody = <parsedBody> await response.json().catch(() => {
       return {};
-    }).then((data) => {
+    }).then((data: string) => {
       return data;
     });
     const {status} = response;
@@ -72,9 +72,9 @@ export const Ajax = {
     });
     // ошибка пустого json ловится и не ломает все
     CSRFToken = response.headers.get('X-Csrf-Token');
-    const parsedBody = await response.json().catch(() => {
+    const parsedBody = <parsedBody> await response.json().catch(() => {
       return {};
-    }).then((data) => {
+    }).then((data: string) => {
       return data;
     });
     const {status: code} = response;
@@ -103,9 +103,9 @@ export const Ajax = {
       headers: requestHeaders,
       body: <BodyInit> args.body,
     });
-    const parsedBody = await response.json().catch(() => {
+    const parsedBody = <parsedBody> await response.json().catch(() => {
       return {};
-    }).then((data) => {
+    }).then((data: string) => {
       return data;
     });
     const {status} = response;
@@ -135,9 +135,9 @@ export const Ajax = {
       headers: requestHeaders,
       body: JSON.stringify(args.body),
     });
-    const parsedBody = await response.json().catch(() => {
+    const parsedBody = <parsedBody> await response.json().catch(() => {
       return {};
-    }).then((data) => {
+    }).then((data: string) => {
       return data;
     });
     const {status} = response;

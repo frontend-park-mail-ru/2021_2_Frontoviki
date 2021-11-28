@@ -24,14 +24,14 @@ export function autorisation(logEmail : HTMLDivElement, logPassword : HTMLDivEle
     body: {email, password},
   });
 
-  response.then(({status, parsedBody}) => {
+  response.then(async ({status, parsedBody}) => {
     if (status != statusCodes.OK) {
       return;
     }
     const {code} = parsedBody;
     if (code === statusCodes.OK) {
       // в случае если мы зашли убрать модальное и обновить хедер
-      isLogged(globalEventBus);
+      await isLogged(globalEventBus);
       clearAllLogInputs(logEmail, logPassword);
       const black = document.querySelector('.blackout') as HTMLDivElement;
       black.click();
@@ -68,7 +68,7 @@ export function autorisation(logEmail : HTMLDivElement, logPassword : HTMLDivEle
         break;
       }
     }
-  });
+  }).catch(()=> console.log("autorisation promise failed"));
 }
 
 /**

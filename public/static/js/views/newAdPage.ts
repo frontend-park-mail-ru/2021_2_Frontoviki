@@ -81,6 +81,13 @@ export default class NewAdPageView extends BaseView {
     submitButton?.removeEventListener('click', this.sendAd.bind(this));
     submitButton?.addEventListener('click', this.editAd.bind(this));
     submitButton.innerHTML = 'Редактировать';
+    const backBtn = document.createElement('button');
+    backBtn.classList.add('button');
+    backBtn.style.backgroundColor = '#e0e3e5';
+    backBtn.style.color = 'black';
+    backBtn.innerHTML = 'Отменить'
+    backBtn.addEventListener('click', ()=> this.eventBus.emit('back'));
+    document.querySelector('.button-container')?.prepend(backBtn);
   }
 
   /**

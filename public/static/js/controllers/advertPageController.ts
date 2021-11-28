@@ -133,7 +133,7 @@ export default class AdvertPageController {
         return;
       }
       this.eventBus.emit('addedToCart');
-    });
+    }).catch(()=> console.log('AddToCartError'));
   }
   /**
  * Добавление в избранное

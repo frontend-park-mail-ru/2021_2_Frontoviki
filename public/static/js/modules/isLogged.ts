@@ -3,7 +3,6 @@ import {Ajax} from './ajax';
 import {logout} from './logout';
 import {createHeader} from '../templates/header/header';
 import Bus from './EventBus';
-import { rating } from '../types';
 
 /**
  * функция отправки запроса на сервер, чтобы проверить
@@ -41,8 +40,9 @@ export async function isLogged(globalEventBus: Bus) {
     isAuthorized = true;
   }
   if (isAuthorized) {
-    const rating = <rating>body.rating.avg;
-    let {name, surname, email, image, id, phone} = body.profile;
+    const rating = body?.rating?.avg;
+    const {name, surname, email, id, phone} = body?.profile;
+    let {image} = body?.profile;
     if (image == null) {
       image = '/static/img/default_image.jpg';
     }
@@ -50,10 +50,10 @@ export async function isLogged(globalEventBus: Bus) {
     userInfo.set('name', name);
     userInfo.set('surname', surname);
     userInfo.set('email', email);
-    userInfo.set('image', `/${<string>image}`);
+    userInfo.set('image', `/${image}`);
     userInfo.set('rating', rating);
     userInfo.set('phone', phone);
-    header.innerHTML = headerT({userName: <string>name, userAvatar: `/${<string>image}`});
+    header.innerHTML = headerT({userName: name, userAvatar: `/${image}`});
     const authLink = document.getElementById('auth');
     if (authLink != null) {
       authLink.style.display = 'none';
@@ -122,7 +122,6 @@ export async function isLogged(globalEventBus: Bus) {
   mobileSearch.addEventListener('submit', (e)=>{
     e.preventDefault();
     e.stopPropagation();
-    mobileSearch.classList.add('mobile-search__active');
     globalEventBus.emit('onMobileSeachClicked');
   });
   document.addEventListener('click', (e)=> {

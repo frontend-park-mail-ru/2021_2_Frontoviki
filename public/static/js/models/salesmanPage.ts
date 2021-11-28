@@ -33,8 +33,8 @@ export default class SalesmanPageModel {
         return;
       }
       const {salesman, adverts, rating} = parsedBody.body;
-      const {name, image} = salesman;
-      this.eventBus.emit('gotAds', name, image, rating, adverts);
+      const {name, image, created_at} = salesman;
+      this.eventBus.emit('gotAds', name, image, created_at, rating, adverts);
     });
   }
 }

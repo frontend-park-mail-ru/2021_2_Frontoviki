@@ -4,6 +4,7 @@ import {createProductGrid} from '../templates/productGrid/productGrid';
 import {idNum, userInfo} from '../constatns';
 import Bus from '../modules/EventBus.js';
 import { card, rating } from '../types';
+import { properDate } from '../modules/utilsFunctions';
 
 /**
   * Экспортируемый класс для генерации страницы профиля с сеткой
@@ -34,7 +35,7 @@ export default class SalesmanPageView extends BaseView {
    * @param {int} rating рейтинг
    * @param {JsonArray} adverts массив его объявлений
    */
-  renderSalesman(name : string, image : string, rating : rating, adverts : card[]) {
+  renderSalesman(name : string, image : string, created_at: string, rating : rating, adverts : card[]) {
     const stars = [true, true, true, true, true];
     const salesmanT = createSalesman();
     this.root.innerHTML = salesmanT(
@@ -44,6 +45,7 @@ export default class SalesmanPageView extends BaseView {
           emptyStar: stars.slice(Math.round(rating.avg), 6),
           isRated: rating.is_rated,
           rate: rating.rate,
+          date: properDate(created_at.slice(0, 10)),
         });
     if (adverts.length !== 0) {
       adverts.forEach((elem) => {

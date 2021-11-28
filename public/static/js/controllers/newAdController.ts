@@ -44,6 +44,7 @@ export default class NewAdPageController {
     this.eventBus.on('photoDataPacked', this.sendPhotos.bind(this));
     this.eventBus.on('checkLog', this.checkForLogging.bind(this));
     this.eventBus.on('deleteImages', this.deleteImages.bind(this));
+    this.eventBus.on('back', this.back.bind(this));
   }
 
   /**
@@ -65,6 +66,10 @@ export default class NewAdPageController {
    */
   redirectToAd(id: number) {
     this.router.go(`/ad/${id}`);
+  }
+
+  back() {
+    this.router.goBack();
   }
 
   /**
