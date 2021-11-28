@@ -11,6 +11,7 @@ import { chatTemplateGenerator, chatToogleTemplateGenerator } from '../templates
 import { createAdvBlock } from '../templates/chat/chatInner';
 import { createChatMessage } from '../templates/chat/chatMessage';
 import { createChatInput } from '../templates/chat/chatInput';
+import { createChatTime } from '../templates/chat/chatDateMessage';
 
 /**
   * Экспортируемый класс для генерации страницы профиля с сеткой
@@ -516,9 +517,15 @@ export default class ProfilePageView extends BaseView {
   }
 
   chatHistory(messages: message[]) {
+    let prevDate = '';
     messages.forEach((elem)=>{
       let message: HTMLDivElement;
-      console.log(elem.created_at);
+      const curDate = elem.created_at.slice(0,10);
+      if (prevDate != curDate) {
+        message = createChatTime(curDate);
+        document.querySelector('.chat_history')?.appendChild(message);
+        prevDate = curDate;
+      }
       if (elem.from.toString() != userInfo.get('id')) {
         message = createChatMessage(elem.message, elem.created_at.slice(11, 16), true);
       } else {

@@ -1,0 +1,15 @@
+
+  <div class="chat_chats">
+      {{#each dialog}}
+    <div class="chat_chats_panel" dataset="{{user2}}" advertId="{{adv}}">
+      <div class="chat_chats_panel_image-container">
+        <img
+          class="chat_chats_panel_image"
+          src="https://i.ytimg.com/vi/d04tbT1Lvb8/sddefault.jpg"
+        />
+      </div>
+      <p class="chat_chats_panel_capture">{{user2}}</p>
+      <p class="chat_chats_panel_advert">{{adv}}</p>
+    </div>
+    {{/each}}
+  </div>
