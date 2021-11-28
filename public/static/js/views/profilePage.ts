@@ -538,17 +538,31 @@ export default class ProfilePageView extends BaseView {
 
   chatHandleSend(websocket: WebSocket) {
     const submitBtn = document.querySelector('.chat_input_button');
+    const chatInput = document.querySelector('.chat_input_input') as HTMLInputElement;
     submitBtn?.addEventListener('click', ()=> {
-      const input = document.querySelector('.chat_input_input') as HTMLInputElement;
-      if (input.value.length > 0) {
-        websocket.send(input.value);
+      send();
+    });
+    chatInput?.addEventListener('keydown', (e): void=>{
+      if (e.key === 'Enter') {
+        send();
+      }
+    });
+
+    function send() {
+      if (chatInput.value.length > 0) {
+        websocket.send(chatInput.value);
         const date = new Date();
-        const message = createChatMessage(input.value, `${date.getHours()}:${date.getMinutes()}`, false);
-        input.value = '';
+        const dates = document.querySelectorAll('.chat_history_element__date');
+        if (dates[dates.length - 1].innerHTML.slice(0,2) != date.getDate().toString()) {
+          const time = createChatTime(`${date.getFullYear()}-${date.getMonth() + 1}-${date.getDate()}`);
+          document.querySelector('.chat_history')?.appendChild(time);
+        }
+        const message = createChatMessage(chatInput.value, `${date.getHours()}:${date.getMinutes()}`, false);
+        chatInput.value = '';
         document.querySelector('.chat_history')?.appendChild(message);
         scrollChat();
       }
-    })
+    }
   }
 
   chatHandleReceive(receivedMessage: string) {
