@@ -565,7 +565,7 @@ export default class ProfilePageView extends BaseView {
         websocket.send(chatInput.value);
         const date = new Date();
         const dates = document.querySelectorAll('.chat_history_element__date');
-        if (dates[dates.length - 1].innerHTML.slice(0,2) != date.getDate().toString()) {
+        if (dates.length == 0 || dates[dates.length - 1].innerHTML.slice(0,2) != date.getDate().toString()) {
           const time = createChatTime(`${date.getFullYear()}-${date.getMonth() + 1}-${date.getDate()}`);
           document.querySelector('.chat_history')?.appendChild(time);
         }
