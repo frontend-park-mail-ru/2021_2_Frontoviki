@@ -84,13 +84,17 @@
             grid-column-end: span 4
 
 @media screen and (max-width: 550px)
+    .grid-container 
+        grid-template-columns: 1fr repeat(4, minmax(auto, 50px)) 1fr
+
 
     .grid
-        grid-template-columns: repeat(4, minmax(auto, 40px))
+        grid-column: 2/span 4
+        grid-template-columns: repeat(4, minmax(auto, 50px))
 
         &__card
-            height: 330px
-            min-width: 280px
+            height: 346px
+            min-width: 260px
             grid-column-end: span 4
     
     .profile-content-right__empty-ads
