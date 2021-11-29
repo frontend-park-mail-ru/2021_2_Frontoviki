@@ -1,21 +1,14 @@
-<!DOCTYPE html>
 <html lang="en">
 
 <head>
+    <script charset="utf-8"
+        src="https://api-maps.yandex.ru/services/coverage/v2/?l=map&amp;ll=37.68448800,55.76606200&amp;z=13&amp;lang=ru_RU&amp;callback=jsonp_yandex_coverage__l_map_ll_37_68448800_55_76606200_z_13_lang_ru_RU"></script>
     <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
     <title>Volchock</title>
-
-    <link rel="stylesheet" href="../variables.css">
-    <link rel="stylesheet" href="../layout.css">
-    <link rel="stylesheet" href="../header.css">
-    <link rel="stylesheet" href="../footer.css">
-    <link rel="stylesheet" href="../products.css">
-    <link rel="stylesheet" href="../info-block.css">
-    <link rel="stylesheet" href="../expand-menu.css">
-    <link rel="stylesheet" href="../button.css">
-    <link rel="stylesheet" href="./advert_detail_page.css">
+    <link rel="stylesheet" href="main.css">
+    <link rel="shortcut icon" href="/static/img/icon.webp" type="image/x-icon">
+    <script src="https://api-maps.yandex.ru/2.1/?apikey=a4627984-d4ae-4e59-a89b-7c1c4d5cf56d&amp;lang=ru_RU"></script>
 </head>
 
 <body>
@@ -23,8 +16,8 @@
         <header id="header">
             <div class="header__left-block">
                 <div class="header__left-block logo">
-                    <img class="logo__image" src="../../../../../static/img/icon.png">
-                    <a class="logo__capture" href="/" style="text-decoration: none;" data-section="menu"> Volchock</a>
+                    <img class="logo__image" src="../../../../../static/img/icon.webp">
+                    <a class="logo__capture" href="/" style="text-decoration: none;"> Volchock</a>
                 </div>
                 <div class="header__left-block search">
                     <svg class="search__icon" width="11" height="11" viewBox="0 0 11 11"
@@ -36,19 +29,26 @@
                     <input class="search__input" type="search" placeholder="Поиск">
                     <button class="search__button">Найти</button>
                 </div>
+                <form action="" class="header__left-block__mobile-search-bar mobile-search__inactive">
+                    <input class="header__left-block__mobile-search-bar__input" type="search" name="search"
+                        pattern=".*\S.*" required="">
+                    <button class="header__left-block__mobile-search-bar__button">
+                        <span>Поиск</span>
+                    </button>
+                </form>
             </div>
 
             <div class="header__right-block">
                 <button class="new-advert-capture-container">
-                    <p class="new-advert-capture">Создать объявление</p>
+                    <p class="new-advert-capture">Разместить объявление</p>
                 </button>
-                <a id="auth" class="logo__capture" style="display: flex;">Войти</a>
-                <div class="mini-profile__options expand-menu" style="display: none;">
+                <a id="auth" class="logo__capture" style="display: none;">Войти</a>
+                <div class="mini-profile__options expand-menu">
                     <input class="expand-menu__toogle" type="checkbox" id="mini-profile__toogle">
-                    <label class="expand-menu__label" for="mini-profile__toogle" style="display: none;">
+                    <label class="expand-menu__label" for="mini-profile__toogle" style="display: flex;">
                         <div class="header__right-block mini-profile">
-                            <p class="mini-profile__capture"></p>
-                            <img class="mini-profile__avatar" src="">
+                            <p class="mini-profile__capture">edin</p>
+                            <img class="mini-profile__avatar" src="/static/avatars/41_20_172662155.jpeg">
                             <svg class="mini-profile__options__icon" width="10" height="6" viewBox="0 0 10 6"
                                 xmlns="http://www.w3.org/2000/svg">
                                 <path d="M0 0.5L5 5.5L10 0.5H0Z"></path>
@@ -58,152 +58,584 @@
                     <div class="expand-menu__content">
                         <span class="expand-menu__sublabel"><a class="expand-menu__link"
                                 href="/profile">Профиль</a></span>
-                        <span class="expand-menu__sublabel"><a class="expand-menu__link" href="/newAd">Создать
-                                объявление</a></span>
                         <span class="expand-menu__sublabel"><a class="expand-menu__link"
-                                href="https://volchock.ru/profile/settings">Настройки</a></span>
+                                href="/profile/favorite">Избранное</a></span>
+                        <span class="expand-menu__sublabel"><a class="expand-menu__link"
+                                href="/profile/settings">Настройки</a></span>
                         <span class="expand-menu__sublabel"><a id="logout" class="expand-menu__link"
                                 href="/">Выйти</a></span>
                     </div>
                 </div>
             </div>
         </header>
+        <div class="modal-window" id="modal-window">
+            <div class="modal-window__sign-up form-container">
+                <form class="modal-window__form">
+                    <h1 class="modal-window__title modal-window__title_black">Создать аккаунт</h1>
+                    <div id="regEmail" class="text-input">
+                        <label class="text-input__label">email</label>
+                        <input class="text-input__input" type="text">
+                        <span class="text-input__description">Введите валидный email</span>
+                    </div>
+                    <div id="regName" class="text-input">
+                        <label class="text-input__label">Имя</label>
+                        <input class="text-input__input" type="text">
+                        <span class="text-input__description">Должно быть от 2-х символов</span>
+                    </div>
+                    <div id="regSurname" class="text-input">
+                        <label class="text-input__label">Фамилия</label>
+                        <input class="text-input__input" type="text">
+                        <span class="text-input__description">Должна быть от 2-х символов</span>
+                    </div>
+                    <div id="regPassword" class="text-input">
+                        <label class="text-input__label">Пароль</label>
+                        <input class="text-input__input" type="password" placeholder="От 5 символов">
+                        <span class="text-input__description">Должен быть от 5-ти символов</span>
+                    </div>
+                    <div id="regRepPassword" class="text-input">
+                        <label class="text-input__label">Повторите пароль</label>
+                        <input class="text-input__input" type="password">
+                        <span class="text-input__description">Пароли должны совпадать</span>
+                    </div>
+                    <button id="regButton" class="modal-window__form-button button">Регистрация</button>
+                </form>
+            </div>
 
-        <div class="blackout"></div>
-        <div id="root" class="content">
-            <div class="root__info-block">
-                <div class="info-block__left info-block__category">
-                    <ul class="category__list">
-                        <li class="category__list__main info-block__capture">
-                            <a href="/">Главная</a>
-                        </li>
-                        <li class="category__list__main info-block__capture">
-                            <a href="/">Одежда</a>
-                        </li>
-                        <li class="category__list__sub info-block__capture">
-                            <a href="/ad/16">Куры гриль оптом</a>
-                        </li>
-                    </ul>
+            <div class="modal-window__sign-in form-container">
+                <form class="modal-window__form">
+                    <h1 class="modal-window__title modal-window__title_black">Войти</h1>
+                    <div id="logEmail" class="text-input">
+                        <label class="text-input__label">email</label>
+                        <input class="text-input__input" type="email">
+                        <span class="text-input__description">Такого пользователя не существует</span>
+                    </div>
+                    <div id="logPassword" class="text-input">
+                        <label class="text-input__label">Пароль</label>
+                        <input class="text-input__input" type="password">
+                        <span class="text-input__description">Неверный пароль</span>
+                    </div>
+                    <button id="logButton" class="modal-window__form-button button">Войти</button>
+                </form>
+            </div>
+
+            <div class="modal-window__overlay-container">
+                <div class="modal-window__overlay">
+                    <div class="modal-window__overlay-panel modal-window__overlay-panel_left">
+                        <h1 class="modal-window__title modal-window__title_white">Добро
+                            пожаловать!</h1>
+                        <p class="modal-window__capture modal-window__capture_white">Для
+                            совершения сделок, пожалуйста, войдите в сервис</p>
+                        <button id="overlay-sign-in" class="button modal-window__overlay-button">Войти</button>
+                    </div>
+                    <div class="modal-window__overlay-panel modal-window__overlay-panel_right">
+                        <h1 class="modal-window__title modal-window__title_white">Привет!</h1>
+                        <p class="modal-window__capture modal-window__capture_white">Введите ваши
+                            данные и совершите свою первую сделку вместе с Volchock</p>
+                        <button id="overlay-sign-up" class="button modal-window__overlay-button">Регистрация</button>
+                    </div>
                 </div>
             </div>
-            <div class="advertisment-detail-block">
-                <div class="advertisment-detail">
-                    <div class="advertisment-detail__main-info">
-                        <div class="advertisment-detail__main-info__main">
-                            <div class="advertisment-detail__main-info__main__text">
-                                <h3 class="advertisment-detail__main-info__main__text__name">
-                                    Куры гриль оптом
-                                </h3>
-                                <button
-                                    class="button profile-content__button advertisment-detail__main-info__main__text__favourite"
-                                    id="favBtn">
-                                    <svg xmlns="http://www.w3.org/2000/svg" class="profile-content__button_icon"
-                                        width="20" height="20" fill="currentColor" viewBox="0 0 16 16">
-                                        <path
-                                            d="m8 2.748-.717-.737C5.6.281 2.514.878 1.4 3.053c-.523 1.023-.641 2.5.314 4.385.92 1.815 2.834 3.989 6.286 6.357 3.452-2.368 5.365-4.542 6.286-6.357.955-1.886.838-3.362.314-4.385C13.486.878 10.4.28 8.717 2.01L8 2.748zM8 15C-7.333 4.868 3.279-3.04 7.824 1.143c.06.055.119.112.176.171a3.12 3.12 0 0 1 .176-.17C12.72-3.042 23.333 4.867 8 15z">
-                                        </path>
-                                    </svg>
-                                    <p class="">Добавить в избранное</p>
-                                </button>
-                            </div>
-                            <div class="slideshow-container advertisment-detail__main-info__main__gallery">
-                                <!-- Full-width images with number and caption text -->
-                                <div class="fade advertisment-detail__main-info__main__gallery__image-block">
-                                    <img class="advertisment-detail__main-info__main__gallery__image-block__image"
-                                        src="https://cspromogame.ru//storage/upload_images/avatars/1299.jpg">
-                                </div>
-                                <!-- Next and previous buttons -->
-                                <a class="gallery__prev-button">❮</a>
-                                <a class="gallery__next-button">❯</a>
-                            </div>
+        </div>
+        <div class="blackout"></div>
+        <div id="root" class="content">
+            <div class="new-advert">
+                <div class="new-advert__title">
+                    <h3 class="title">Новое объявление</h3>
+                </div>
+                <div class="text-input new-advert__name">
+                    <label class="text-input__label">Название</label>
+                    <input class="text-input__input" type="text" required="">
+                    <span class="text-input__description">Ошибка в названии</span>
+                </div>
+                <div class="text-input new-advert__category">
+                    <label class="text-input__label">Категория</label>
+                    <select class="category__select" id="selCategory">
+                        <option value="Одежда">Одежда</option>
+                        <option value="Обувь">Обувь</option>
+                        <option value="Животные">Животные</option>
+                        <option value="Смартфоны">Смартфоны</option>
+                        <option value="Ноутбуки">Ноутбуки</option>
+                        <option value="Бытовая техника">Бытовая техника</option>
+                        <option value="Книги">Книги</option>
+                        <option value="Мебель">Мебель</option>
+                        <option value="Спортивный инвентарь">Спортивный инвентарь</option>
+                        <option value="Ювелирные украшения">Ювелирные украшения</option>
+                        <option value="Аксессуары для дома">Аксессуары для дома</option>
+                        <option value="Транспорт">Транспорт</option>
+                        <option value="Другое">Другое</option>
+                    </select>
+                </div>
+                <div class="new-advert__description textarea">
+                    <label class="textarea__label">Описание объявления</label>
+                    <textarea class="textarea__textarea" rows="10" maxlength="500"></textarea>
+                </div>
 
-                            <!-- The dots/circles -->
-                            <div class="advertisment-detail__main-info__main__dot-container">
-                                <span class="dot active-hover"></span>
-                            </div>
-                        </div>
-                        <div class="advertisment-detail__main-info__shop">
-                            <p class="advertisment-detail__main-info__shop__price">
-                                Цена:
-                                1
-                                ₽
-                            </p>
-                            <button id="chatBtn" class="button advertisment-detail__main-info__button">Написать
-                                продавцу</button>
-                            <button id="addToCartBtn" class="button advertisment-detail__main-info__button">Добавить в
-                                корзину</button>
-                            <button id="editBtn" class="button advertisment-detail__main-info__button"
-                                style="display: none;">Редактировать</button>
-                            <div class="advertisment-detail__main-info__shop__salesman">
-                                <div class="advertisment-detail__main-info__shop__salesman__avatar">
-                                    <a href="/salesman/8">
-                                        <img src="https://avatarko.ru/img/kartinka/1/avatarko_anonim.jpg">
-                                    </a>
-                                </div>
-                                <div class="advertisment-detail__main-info__shop__salesman__info">
-                                    Продавец:
-                                    <p
-                                        class="advertisment-detail__main-info__shop__salesman__info__name advertisment-detail__capture">
-                                        Виктор
-                                        Петруха</p>
-                                    <p
-                                        class="advertisment-detail__main-info__shop__salesman__info__started advertisment-detail__capture">
-                                        На сайте с
-                                        2021-11-08</p>
-                                    <div class="advertisment-detail__main-info__shop__salesman__info__rate">
-                                        <div class="advertisment-detail__main-info__shop__salesman__info__rate__star">★
-                                        </div>
-                                        <p class="advertisment-detail__capture">5</p>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+                <div class="new-advert__state single-choice">
+                    <p class="single-choice__capture">Состояние</p>
+                    <div class="single-choice__radio-button-block">
+                        <label class="single-choice__label" for="radio-new">
+                            <input class="single-choice__radio-button" name="radio" id="radio-new" type="radio">
+                            <div class="single-choice__fake-radio-button"></div>
+                            <p class="single-choice__variant">Новое</p>
+                        </label>
                     </div>
-                    <div class="advertisment-detail__add-info">
-                        <div class="advertisment-detail__add-info__location">
-                            <div class="advertisment-detail__add-info__location__name-block">
-                                <div class="advertisment-detail__add-info__location__name-block__text">
-                                    <svg class="advertisment-detail__add-info__location__name-block__icon" width="18"
-                                        height="22" viewBox="0 0 18 22" xmlns="http://www.w3.org/2000/svg">
-                                        <path
-                                            d="M9 18.9L13.95 13.95C14.9289 12.971 15.5955 11.7237 15.8656 10.3659C16.1356 9.00803 15.9969 7.6006 15.4671 6.32155C14.9373 5.04251 14.04 3.9493 12.8889 3.18017C11.7378 2.41103 10.3844 2.0005 9 2.0005C7.61557 2.0005 6.26222 2.41103 5.11109 3.18017C3.95996 3.9493 3.06275 5.04251 2.53292 6.32155C2.00308 7.6006 1.86442 9.00803 2.13445 10.3659C2.40449 11.7237 3.07111 12.971 4.05 13.95L9 18.9ZM9 21.728L2.636 15.364C1.37734 14.1053 0.520187 12.5017 0.172928 10.7558C-0.17433 9.01002 0.00390685 7.20043 0.685099 5.5559C1.36629 3.91137 2.51984 2.50577 3.99988 1.51684C5.47992 0.527914 7.21998 7.62939e-05 9 7.62939e-05C10.78 7.62939e-05 12.5201 0.527914 14.0001 1.51684C15.4802 2.50577 16.6337 3.91137 17.3149 5.5559C17.9961 7.20043 18.1743 9.01002 17.8271 10.7558C17.4798 12.5017 16.6227 14.1053 15.364 15.364L9 21.728ZM9 11C9.53044 11 10.0391 10.7893 10.4142 10.4142C10.7893 10.0391 11 9.53043 11 9C11 8.46957 10.7893 7.96086 10.4142 7.58578C10.0391 7.21071 9.53044 7 9 7C8.46957 7 7.96086 7.21071 7.58579 7.58578C7.21072 7.96086 7 8.46957 7 9C7 9.53043 7.21072 10.0391 7.58579 10.4142C7.96086 10.7893 8.46957 11 9 11ZM9 13C7.93914 13 6.92172 12.5786 6.17158 11.8284C5.42143 11.0783 5 10.0609 5 9C5 7.93913 5.42143 6.92172 6.17158 6.17157C6.92172 5.42143 7.93914 5 9 5C10.0609 5 11.0783 5.42143 11.8284 6.17157C12.5786 6.92172 13 7.93913 13 9C13 10.0609 12.5786 11.0783 11.8284 11.8284C11.0783 12.5786 10.0609 13 9 13Z" />
-                                    </svg>
+                    <div class="single-choice__radio-button-block">
+                        <label class="single-choice__label" for="radio-old">
+                            <input checked="" class="single-choice__radio-button" name="radio" id="radio-old"
+                                type="radio">
+                            <div class="single-choice__fake-radio-button"></div>
+                            <p class="single-choice__variant">Б/У</p>
+                        </label>
+                    </div>
+                </div>
 
-                                    <p
-                                        class="advertisment-detail__add-info__location__name-block_capture advertisment-detail__capture">
-                                        море
-                                    </p>
-                                </div>
-                                <label
-                                    class="advertisment-detail__add-info__location__name-block__maps-label advertisment-detail__add-info__location__name-block__maps-label_close"
-                                    for="toogle_maps">Раскрыть карту</label>
+                <div class="new-advert__price text-input">
+                    <label class="text-input__label">Цена</label>
+                    <input class="text-input__input" type="number">
+                    <span class="text-input__description">Ошибка в цене</span>
+                </div>
+
+                <div class="new-advert__photos">
+                    <h3 class="new-advert-photos__title">Загрузите фотографии</h3>
+                    <div class="image-uploader" id="image-uploader">
+                        <label class="image-uploader__default" for="image_upload">
+                            <input class="image-uploader__default__file" type="file" id="image_upload" multiple=""
+                                accept="image/*">
+                            <div class="image-uploader__default__icon-container">
+                                <svg class="image-uploader__default__icon" width="20" height="19" viewBox="0 0 20 19"
+                                    xmlns="http://www.w3.org/2000/svg">
+                                    <path
+                                        d="M2.828 18L2.808 18.02L2.787 18H0.992C0.728813 17.9997 0.476497 17.895 0.290489 17.7088C0.104482 17.5226 -1.33455e-07 17.2702 0 17.007V0.993C0.00183004 0.730378 0.1069 0.479017 0.292513 0.293218C0.478126 0.107418 0.72938 0.00209465 0.992 0H19.008C19.556 0 20 0.445 20 0.993V17.007C19.9982 17.2696 19.8931 17.521 19.7075 17.7068C19.5219 17.8926 19.2706 17.9979 19.008 18H2.828ZM18 12V2H2V16L12 6L18 12ZM18 14.828L12 8.828L4.828 16H18V14.828ZM6 8C5.46957 8 4.96086 7.78929 4.58579 7.41421C4.21071 7.03914 4 6.53043 4 6C4 5.46957 4.21071 4.96086 4.58579 4.58579C4.96086 4.21071 5.46957 4 6 4C6.53043 4 7.03914 4.21071 7.41421 4.58579C7.78929 4.96086 8 5.46957 8 6C8 6.53043 7.78929 7.03914 7.41421 7.41421C7.03914 7.78929 6.53043 8 6 8Z">
+                                    </path>
+                                </svg>
                             </div>
-                            <input class="advertisment-detail__add-info__location__toogle" type="checkbox"
-                                id="toogle_maps">
-                            <div class="advertisment-detail__add-info__location__map">
-                                <div id="YMapsIDNewAd" style="">
-                                </div>
-                            </div>
-                        </div>
-                        <div class="advertisment-detail__add-info__published-date-block">
-                            <p class="advertisment-detail__add-info__published-date advertisment-detail__capture">
-                                Дата публикации:
-                                2021-11-08
-                            </p>
-                        </div>
-                        <div class="advertisment-detail__add-info__condition-block">
-                            <p class="advertisment-detail__add-info__condition advertisment-detail__capture">
-                                Состояние: Новое
-                            </p>
-                        </div>
-                        <div class="advertisment-detail__add-info__description-block">
-                            <label for="advertisment-detail__add-info__description">Описание:</label>
-                            <p class="advertisment-detail__add-info__description advertisment-detail__capture"> <br>
-                                Японец,
-                                не битый не крашеный</p>
-                        </div>
+                            <p class="image-uploader__default__capture">Добавить</p>
+                        </label>
                     </div>
-                    <div class="advertisment-detail__similar_advertisments"></div>
+                </div>
+
+                <div class="new-advert__location text-input">
+                    <label class="text-input__label">Адрес</label>
+                    <input class="text-input__input" type="text" placeholder="Кликните на карту">
+                    <span class="text-input__description">Неверное местоположение</span>
+                </div>
+
+                <div id="YMapsID" class="new-advert__map" style="">
+                    <ymaps class="ymaps-2-1-79-map" style="width: 100%; height: 100%;">
+                        <ymaps
+                            class="ymaps-2-1-79-map ymaps-2-1-79-i-ua_js_yes ymaps-2-1-79-map-bg ymaps-2-1-79-islets_map-lang-ru"
+                            style="width: 100%; height: 100%; z-index: 0;">
+                            <ymaps class="ymaps-2-1-79-inner-panes">
+                                <ymaps class="ymaps-2-1-79-events-pane ymaps-2-1-79-user-selection-none"
+                                    unselectable="on"
+                                    style="height: 100%; width: 100%; top: 0px; left: 0px; position: absolute; z-index: 2500; cursor: url(&quot;https://api-maps.yandex.ru/2.1.79/build/release/images/cursor/grab.cur&quot;) 16 16, url(&quot;https://api-maps.yandex.ru/2.1.79/build/release/images/cursor/grab.cur&quot;), move;">
+                                </ymaps>
+                                <ymaps class="ymaps-2-1-79-ground-pane"
+                                    style="top: 0px; left: 0px; position: absolute; transform: translate3d(0px, 0px, 0px) scale(1, 1); z-index: 501;">
+                                    <ymaps style="z-index: 150; position: absolute;"><canvas height="656" width="654"
+                                            style="position: absolute; width: 654px; height: 656px; left: -128px; top: -128px;"></canvas>
+                                    </ymaps>
+                                </ymaps>
+                                <ymaps class="ymaps-2-1-79-copyrights-pane"
+                                    style="height: 0px; inset: auto 0px 0px; position: absolute; z-index: 5002;">
+                                    <ymaps class="ymaps-2-1-79-map-copyrights-promo">
+                                        <ymaps>
+                                            <ymaps class="ymaps-2-1-79-gotoymaps" title="Открыть в Яндекс.Картах">
+                                                <ymaps class="ymaps-2-1-79-gotoymaps__container">
+                                                    <ymaps class="ymaps-2-1-79-gotoymaps__pin"></ymaps>
+                                                    <ymaps class="ymaps-2-1-79-gotoymaps__text-container">
+                                                        <ymaps class="ymaps-2-1-79-gotoymaps__text">Открыть в
+                                                            Яндекс.Картах</ymaps>
+                                                    </ymaps>
+                                                </ymaps>
+                                            </ymaps>
+                                            <ymaps class="ymaps-2-1-79-gototaxi" title="Доехать на такси"
+                                                style="display: none;">
+                                                <ymaps class="ymaps-2-1-79-gototaxi__container">
+                                                    <ymaps class="ymaps-2-1-79-gototaxi__pin"></ymaps>
+                                                    <ymaps class="ymaps-2-1-79-gototaxi__text-container">
+                                                        <ymaps class="ymaps-2-1-79-gototaxi__text"></ymaps>
+                                                    </ymaps>
+                                                </ymaps>
+                                            </ymaps><a class="ymaps-2-1-79-gototech" target="_blank"
+                                                href="https://tech.yandex.ru/maps/mapsapi/?from=api-maps "
+                                                style="display: none;">API</a>
+                                        </ymaps>
+                                    </ymaps>
+                                    <ymaps>
+                                        <ymaps class="ymaps-2-1-79-copyright ymaps-2-1-79-copyright_logo_no" style="">
+                                            <ymaps class="ymaps-2-1-79-copyright__fog">…</ymaps>
+                                            <ymaps class="ymaps-2-1-79-copyright__wrap">
+                                                <ymaps class="ymaps-2-1-79-copyright__layout">
+                                                    <ymaps class="ymaps-2-1-79-copyright__content-cell">
+                                                        <ymaps class="ymaps-2-1-79-copyright__content">
+                                                            <ymaps class="ymaps-2-1-79-copyright__text">© Яндекс</ymaps>
+                                                            <ymaps class="ymaps-2-1-79-copyright__agreement">&nbsp;<a
+                                                                    class="ymaps-2-1-79-copyright__link" target="_blank"
+                                                                    href="https://yandex.ru/legal/maps_termsofuse/?lang=ru"
+                                                                    rel="noopener">Условия</a></ymaps>
+                                                        </ymaps>
+                                                    </ymaps>
+                                                    <ymaps class="ymaps-2-1-79-copyright__logo-cell"><a
+                                                            class="ymaps-2-1-79-copyright__logo" href=""
+                                                            target="_blank"></a></ymaps>
+                                                </ymaps>
+                                            </ymaps>
+                                        </ymaps>
+                                    </ymaps>
+                                </ymaps>
+                                <ymaps class="ymaps-2-1-79-controls-pane"
+                                    style="width: 100%; top: 0px; left: 0px; position: absolute; z-index: 4503;">
+                                    <ymaps class="ymaps-2-1-79-controls__toolbar" style="margin-top: 10px;">
+                                        <ymaps class="ymaps-2-1-79-controls__toolbar_left">
+                                            <ymaps
+                                                class="ymaps-2-1-79-controls__control_toolbar ymaps-2-1-79-user-selection-none"
+                                                unselectable="on"
+                                                style="margin-right: 0px; margin-left: 10px; position: inherit;">
+                                                <ymaps>
+                                                    <ymaps class="ymaps-2-1-79-float-button ymaps-2-1-79-_hidden-text"
+                                                        style="max-width: 90px" title="Определить ваше местоположение">
+                                                        <ymaps
+                                                            class="ymaps-2-1-79-float-button-icon ymaps-2-1-79-float-button-icon_icon_geolocation">
+                                                        </ymaps>
+                                                        <ymaps class="ymaps-2-1-79-float-button-text"></ymaps>
+                                                    </ymaps>
+                                                </ymaps>
+                                            </ymaps>
+                                            <ymaps class="ymaps-2-1-79-controls__control_toolbar"
+                                                style="margin-right: 0px; margin-left: 10px; position: inherit;">
+                                                <ymaps>
+                                                    <ymaps class="ymaps-2-1-79-searchbox">
+                                                        <ymaps id="id_16381982219389991127" unselectable="on"
+                                                            class="ymaps-2-1-79-user-selection-none">
+                                                            <ymaps>
+                                                                <ymaps
+                                                                    class="ymaps-2-1-79-float-button ymaps-2-1-79-_hidden-text"
+                                                                    style="max-width: 30px" title="Найти">
+                                                                    <ymaps
+                                                                        class="ymaps-2-1-79-float-button-icon ymaps-2-1-79-float-button-icon_icon_magnifier">
+                                                                    </ymaps>
+                                                                    <ymaps class="ymaps-2-1-79-float-button-text">Найти
+                                                                    </ymaps>
+                                                                </ymaps>
+                                                            </ymaps>
+                                                        </ymaps>
+                                                        <ymaps id="id_16381982219389991128"></ymaps>
+                                                    </ymaps>
+                                                </ymaps>
+                                            </ymaps>
+                                        </ymaps>
+                                        <ymaps class="ymaps-2-1-79-controls__toolbar_right">
+                                            <ymaps class="ymaps-2-1-79-controls__control_toolbar"
+                                                style="margin-right: 10px; margin-left: 0px; position: inherit;">
+                                                <ymaps>
+                                                    <ymaps class="ymaps-2-1-79-traffic">
+                                                        <ymaps id="id_16381982219389991137" unselectable="on"
+                                                            class="ymaps-2-1-79-user-selection-none">
+                                                            <ymaps>
+                                                                <ymaps
+                                                                    class="ymaps-2-1-79-float-button ymaps-2-1-79-float-button_traffic_left ymaps-2-1-79-_hidden-text">
+                                                                    <ymaps
+                                                                        class="ymaps-2-1-79-traffic__icon ymaps-2-1-79-traffic__icon_icon_off ymaps-2-1-79-float-button-icon">
+                                                                    </ymaps>
+                                                                    <ymaps class="ymaps-2-1-79-float-button-text">
+                                                                        <ymaps>Пробки</ymaps>
+                                                                    </ymaps>
+                                                                </ymaps>
+                                                            </ymaps>
+                                                            <ymaps></ymaps>
+                                                        </ymaps>
+                                                        <ymaps id="id_16381982219389991138">
+                                                            <ymaps>
+                                                                <ymaps
+                                                                    class="ymaps-2-1-79-traffic__panel ymaps-2-1-79-popup ymaps-2-1-79-popup_direction_down ymaps-2-1-79-popup_to_bottom ymaps-2-1-79-popup_theme_ffffff ymaps-2-1-79-user-selection-none"
+                                                                    unselectable="on" style="width: 270px;">
+                                                                    <ymaps
+                                                                        class="ymaps-2-1-79-traffic__tail ymaps-2-1-79-popup__tail">
+                                                                    </ymaps>
+                                                                    <ymaps class="ymaps-2-1-79-traffic__panel-content">
+                                                                        <ymaps id="id_16381982219389991139">
+                                                                            <ymaps>
+                                                                                <ymaps
+                                                                                    class="ymaps-2-1-79-traffic__switcher">
+                                                                                    <ymaps
+                                                                                        class="ymaps-2-1-79-traffic__switcher-item ymaps-2-1-79-traffic__switcher-item_data_actual ymaps-2-1-79-traffic__switcher-item_selected_yes">
+                                                                                        Сейчас</ymaps>
+                                                                                    <ymaps
+                                                                                        class="ymaps-2-1-79-traffic__switcher-item ymaps-2-1-79-traffic__switcher-item_data_archive">
+                                                                                        Статистика</ymaps>
+                                                                                </ymaps>
+                                                                            </ymaps>
+                                                                        </ymaps>
+                                                                        <ymaps></ymaps>
+                                                                        <ymaps></ymaps>
+                                                                        <ymaps></ymaps>
+                                                                    </ymaps>
+                                                                </ymaps>
+                                                            </ymaps>
+                                                        </ymaps>
+                                                    </ymaps>
+                                                </ymaps>
+                                            </ymaps>
+                                            <ymaps class="ymaps-2-1-79-controls__control_toolbar"
+                                                style="margin-right: 10px; margin-left: 0px; position: inherit;">
+                                                <ymaps>
+                                                    <ymaps
+                                                        class="ymaps-2-1-79-listbox ymaps-2-1-79-listbox_opened_no ymaps-2-1-79-listbox_align_right"
+                                                        style="width: 28px;">
+                                                        <ymaps
+                                                            class="ymaps-2-1-79-listbox__button ymaps-2-1-79-_hidden-text ymaps-2-1-79-user-selection-none"
+                                                            unselectable="on" title="">
+                                                            <ymaps
+                                                                class="ymaps-2-1-79-listbox__button-icon ymaps-2-1-79-_icon_layers">
+                                                            </ymaps>
+                                                            <ymaps class="ymaps-2-1-79-listbox__button-text">Слои
+                                                            </ymaps>
+                                                            <ymaps class="ymaps-2-1-79-listbox__button-arrow"></ymaps>
+                                                        </ymaps>
+                                                        <ymaps
+                                                            class="ymaps-2-1-79-listbox__panel ymaps-2-1-79-i-custom-scroll"
+                                                            style="transform: translate3d(0px, 0px, 0px) scale(1, 1);">
+                                                            <ymaps class="ymaps-2-1-79-listbox__list"
+                                                                style="max-height: 999999px;">
+                                                                <ymaps>
+                                                                    <ymaps>
+                                                                        <ymaps id="id_16381982219389991115">
+                                                                            <ymaps unselectable="on"
+                                                                                class="ymaps-2-1-79-user-selection-none">
+                                                                                <ymaps
+                                                                                    class="ymaps-2-1-79-listbox__list-item ymaps-2-1-79-listbox__list-item_selected_yes">
+                                                                                    <ymaps
+                                                                                        class="ymaps-2-1-79-listbox__list-item-text">
+                                                                                        Схема</ymaps>
+                                                                                </ymaps>
+                                                                            </ymaps>
+                                                                        </ymaps>
+                                                                    </ymaps>
+                                                                </ymaps>
+                                                                <ymaps>
+                                                                    <ymaps>
+                                                                        <ymaps id="id_16381982219389991116">
+                                                                            <ymaps unselectable="on"
+                                                                                class="ymaps-2-1-79-user-selection-none">
+                                                                                <ymaps
+                                                                                    class="ymaps-2-1-79-listbox__list-item ymaps-2-1-79-listbox__list-item_selected_no">
+                                                                                    <ymaps
+                                                                                        class="ymaps-2-1-79-listbox__list-item-text">
+                                                                                        Спутник</ymaps>
+                                                                                </ymaps>
+                                                                            </ymaps>
+                                                                        </ymaps>
+                                                                    </ymaps>
+                                                                </ymaps>
+                                                                <ymaps>
+                                                                    <ymaps>
+                                                                        <ymaps id="id_16381982219389991117">
+                                                                            <ymaps unselectable="on"
+                                                                                class="ymaps-2-1-79-user-selection-none">
+                                                                                <ymaps
+                                                                                    class="ymaps-2-1-79-listbox__list-item ymaps-2-1-79-listbox__list-item_selected_no">
+                                                                                    <ymaps
+                                                                                        class="ymaps-2-1-79-listbox__list-item-text">
+                                                                                        Гибрид</ymaps>
+                                                                                </ymaps>
+                                                                            </ymaps>
+                                                                        </ymaps>
+                                                                    </ymaps>
+                                                                </ymaps>
+                                                                <ymaps>
+                                                                    <ymaps>
+                                                                        <ymaps id="id_16381982219389991113">
+                                                                            <ymaps>
+                                                                                <ymaps
+                                                                                    class="ymaps-2-1-79-listbox__list-separator">
+                                                                                </ymaps>
+                                                                            </ymaps>
+                                                                        </ymaps>
+                                                                    </ymaps>
+                                                                </ymaps>
+                                                                <ymaps>
+                                                                    <ymaps>
+                                                                        <ymaps id="id_16381982219389991114">
+                                                                            <ymaps unselectable="on"
+                                                                                class="ymaps-2-1-79-user-selection-none">
+                                                                                <ymaps
+                                                                                    class="ymaps-2-1-79-listbox__list-item ymaps-2-1-79-listbox__list-item_selected_no">
+                                                                                    <ymaps
+                                                                                        class="ymaps-2-1-79-listbox__list-item-text">
+                                                                                        Панорамы</ymaps>
+                                                                                </ymaps>
+                                                                            </ymaps>
+                                                                        </ymaps>
+                                                                    </ymaps>
+                                                                </ymaps>
+                                                            </ymaps>
+                                                        </ymaps>
+                                                    </ymaps>
+                                                </ymaps>
+                                            </ymaps>
+                                            <ymaps
+                                                class="ymaps-2-1-79-controls__control_toolbar ymaps-2-1-79-user-selection-none"
+                                                style="margin-right: 10px; margin-left: 0px; position: inherit;"
+                                                unselectable="on">
+                                                <ymaps>
+                                                    <ymaps class="ymaps-2-1-79-float-button ymaps-2-1-79-_hidden-text"
+                                                        style="max-width: 28px" title="">
+                                                        <ymaps
+                                                            class="ymaps-2-1-79-float-button-icon ymaps-2-1-79-float-button-icon_icon_expand">
+                                                        </ymaps>
+                                                        <ymaps class="ymaps-2-1-79-float-button-text"></ymaps>
+                                                    </ymaps>
+                                                </ymaps>
+                                            </ymaps>
+                                        </ymaps>
+                                    </ymaps>
+                                    <ymaps class="ymaps-2-1-79-controls__bottom" style="top: 400px;">
+                                        <ymaps class="ymaps-2-1-79-controls__control"
+                                            style="margin-right: 0px; margin-left: 0px; position: inherit; inset: auto 10px 30px auto;">
+                                            <ymaps>
+                                                <ymaps style="display: block;">
+                                                    <ymaps
+                                                        style="display: inline-block; height: 100%; vertical-align: top;">
+                                                        <ymaps id="id_16381982219389991118">
+                                                            <ymaps>
+                                                                <ymaps class="ymaps-2-1-79-scaleline"
+                                                                    style="width: 74px;">
+                                                                    <ymaps class="ymaps-2-1-79-scaleline__left">
+                                                                        <ymaps
+                                                                            class="ymaps-2-1-79-scaleline__left-border">
+                                                                        </ymaps>
+                                                                        <ymaps
+                                                                            class="ymaps-2-1-79-scaleline__left-line">
+                                                                        </ymaps>
+                                                                    </ymaps>
+                                                                    <ymaps class="ymaps-2-1-79-scaleline__center">
+                                                                        <ymaps class="ymaps-2-1-79-scaleline__label">
+                                                                            800&nbsp;м</ymaps>
+                                                                    </ymaps>
+                                                                    <ymaps class="ymaps-2-1-79-scaleline__right">
+                                                                        <ymaps
+                                                                            class="ymaps-2-1-79-scaleline__right-border">
+                                                                        </ymaps>
+                                                                        <ymaps
+                                                                            class="ymaps-2-1-79-scaleline__right-line">
+                                                                        </ymaps>
+                                                                    </ymaps>
+                                                                </ymaps>
+                                                            </ymaps>
+                                                        </ymaps>
+                                                    </ymaps>
+                                                    <ymaps style="display: inline-block; width: 10px; height: 0">
+                                                    </ymaps>
+                                                    <ymaps style="display: inline-block;">
+                                                        <ymaps id="id_16381982219389991119" unselectable="on"
+                                                            class="ymaps-2-1-79-user-selection-none">
+                                                            <ymaps>
+                                                                <ymaps
+                                                                    class="ymaps-2-1-79-float-button ymaps-2-1-79-_hidden-text"
+                                                                    style="max-width: 28px"
+                                                                    title="Измерение расстояний на карте">
+                                                                    <ymaps
+                                                                        class="ymaps-2-1-79-float-button-icon ymaps-2-1-79-float-button-icon_icon_ruler">
+                                                                    </ymaps>
+                                                                    <ymaps class="ymaps-2-1-79-float-button-text">
+                                                                    </ymaps>
+                                                                </ymaps>
+                                                            </ymaps>
+                                                        </ymaps>
+                                                    </ymaps>
+                                                </ymaps>
+                                            </ymaps>
+                                        </ymaps>
+                                    </ymaps>
+                                    <ymaps class="ymaps-2-1-79-controls__control"
+                                        style="margin-right: 0px; margin-left: 0px; position: inherit; inset: 108px auto auto 10px;">
+                                        <ymaps>
+                                            <ymaps class="ymaps-2-1-79-zoom" style="height: 150px">
+                                                <ymaps
+                                                    class="ymaps-2-1-79-zoom__plus ymaps-2-1-79-zoom__button ymaps-2-1-79-float-button ymaps-2-1-79-user-selection-none"
+                                                    unselectable="on">
+                                                    <ymaps
+                                                        class="ymaps-2-1-79-zoom__icon ymaps-2-1-79-float-button-icon">
+                                                    </ymaps>
+                                                </ymaps>
+                                                <ymaps
+                                                    class="ymaps-2-1-79-zoom__minus ymaps-2-1-79-zoom__button ymaps-2-1-79-float-button ymaps-2-1-79-user-selection-none"
+                                                    unselectable="on">
+                                                    <ymaps
+                                                        class="ymaps-2-1-79-zoom__icon ymaps-2-1-79-float-button-icon">
+                                                    </ymaps>
+                                                </ymaps>
+                                                <ymaps class="ymaps-2-1-79-zoom__scale">
+                                                    <ymaps
+                                                        class="ymaps-2-1-79-zoom__runner ymaps-2-1-79-zoom__button ymaps-2-1-79-float-button ymaps-2-1-79-zoom__runner__transition ymaps-2-1-79-touch-action-none ymaps-2-1-79-user-selection-none"
+                                                        unselectable="on" style="top: 51px;">
+                                                        <ymaps
+                                                            class="ymaps-2-1-79-zoom__icon ymaps-2-1-79-float-button-icon ymaps-2-1-79-float-button-icon_icon_runner">
+                                                        </ymaps>
+                                                    </ymaps>
+                                                </ymaps>
+                                            </ymaps>
+                                        </ymaps>
+                                    </ymaps>
+                                </ymaps>
+                                <ymaps class="ymaps-2-1-79-searchpanel-pane"
+                                    style="width: 100%; top: 0px; left: 0px; position: absolute; z-index: 6509;">
+                                    <ymaps>
+                                        <ymaps
+                                            class="ymaps-2-1-79-search ymaps-2-1-79-search_layout_panel ymaps-2-1-79-searchbox__panel-layout">
+                                            <ymaps class="ymaps-2-1-79-search__layout">
+                                                <ymaps id="id_16381982219389991129">
+                                                    <ymaps>
+                                                        <ymaps class="ymaps-2-1-79-searchbox__input-cell">
+                                                            <ymaps class="ymaps-2-1-79-searchbox-input"><input
+                                                                    class="ymaps-2-1-79-searchbox-input__input"
+                                                                    placeholder="Адрес или объект">
+                                                                <ymaps
+                                                                    class="ymaps-2-1-79-searchbox-input__clear-button">
+                                                                </ymaps>
+                                                            </ymaps>
+                                                            <ymaps class="ymaps-2-1-79-searchbox-list-button"></ymaps>
+                                                        </ymaps>
+                                                        <ymaps class="ymaps-2-1-79-searchbox__button-cell">
+                                                            <ymaps
+                                                                class="ymaps-2-1-79-searchbox-button ymaps-2-1-79-user-selection-none"
+                                                                unselectable="on">
+                                                                <ymaps class="ymaps-2-1-79-searchbox-button-text">Найти
+                                                                </ymaps>
+                                                            </ymaps>
+                                                        </ymaps>
+                                                    </ymaps>
+                                                </ymaps>
+                                                <ymaps class="ymaps-2-1-79-searchbox__fold-button-cell">
+                                                    <ymaps class="ymaps-2-1-79-searchbox__fold-button">
+                                                        <ymaps class="ymaps-2-1-79-searchbox__fold-button-icon"></ymaps>
+                                                    </ymaps>
+                                                </ymaps>
+                                            </ymaps>
+                                            <ymaps id="id_16381982219389991130">
+                                                <ymaps>
+                                                    <ymaps
+                                                        class="ymaps-2-1-79-islets_serp-popup ymaps-2-1-79-islets__hidden">
+                                                        <ymaps class="ymaps-2-1-79-islets_serp-popup__tail"></ymaps>
+                                                        <ymaps class="ymaps-2-1-79-islets_serp"
+                                                            style="max-height: 350px;">
+                                                            <ymaps id="id_16381982219389991131">
+                                                                <ymaps></ymaps>
+                                                            </ymaps>
+                                                        </ymaps>
+                                                    </ymaps>
+                                                </ymaps>
+                                            </ymaps>
+                                        </ymaps>
+                                    </ymaps>
+                                </ymaps>
+                            </ymaps>
+                        </ymaps>
+                    </ymaps>
+                </div>
+                <div class="button-container">
+                    <button class="button" id="newAdForm">Опубликовать</button>
                 </div>
             </div>
         </div>
