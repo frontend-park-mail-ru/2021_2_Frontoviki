@@ -126,7 +126,9 @@ export default class ProfilePageController {
   }
 
   closeConnection() {
-    this.websocket.close();
+    if (this.websocket != null && this.websocket.readyState == this.websocket.OPEN) {
+      this.websocket.close();
+    }
   }
   /**
    * Меняют урл когда идем в корзину
@@ -145,7 +147,7 @@ export default class ProfilePageController {
    * @param {*} id
    */
   goToCardPage(id: number) {
-    this.router.go('/ad/' + id);
+    this.router.go(`/ad/${id}`);
   }
   /**
  * Загружает аватарку на сервер

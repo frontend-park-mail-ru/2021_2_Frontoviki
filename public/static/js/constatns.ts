@@ -29,6 +29,7 @@ export const inputNum = 3;
 export const oldPassNum = 5;
 export const passwordLength = 5;
 export const phLength = 11;
+export const phInputLength = 16;
 export const baseCount = 12;
 
 export const profileBtnNum = {
@@ -40,7 +41,7 @@ export const profileBtnNum = {
 };
 
 export const regExPatterns = {
-  email: /^[a-zA-Z0-9]+@[a-zA-Z0-9]+\.[a-zA-Z0-9]+$/,
+  email: /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/,
   password: /^[\w\D]{4,}$/,
   name: /^[а-яА-яa-zA-Z]{2,}$/,
 };

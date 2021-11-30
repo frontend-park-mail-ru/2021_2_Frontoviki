@@ -1,5 +1,6 @@
 import {Ajax} from '../modules/ajax';
 import {inputNum, minValidationLen, passwordLength,
+      phInputLength,
       phLength, secureDomainUrl, statusCodes, userInfo} from '../constatns';
 import {createDeleteModal} from '../templates/deleteModal/deleteModal';
 import Bus from '../modules/EventBus';
@@ -195,7 +196,7 @@ export default class ProfilePageModel {
     let surname = surnInpt.value.trim();
     let phone : string | null = phoneInput.value.trim();
     // не отправляем запрос если ничего не меняли
-    if (name.length == 0 && surname.length == 0 && phone.length != phLength) {
+    if (name.length == 0 && surname.length == 0 && phone.length != phInputLength) {
       return;
     }
     if (name.length == 0) {
@@ -292,6 +293,10 @@ export default class ProfilePageModel {
       deleteModal: true,
     });
     document.getElementsByTagName('body')[0].appendChild(modal);
+    const deleteInfo = document.createElement('p');
+    deleteInfo.innerHTML = ' Если вы продали объявление, то мы сохраним его в архив ';
+    deleteInfo.style.textAlign = 'center';
+    document.querySelector('.modal__title')?.after(deleteInfo);
     const modal1 = document.getElementById('modal-1') as HTMLDivElement;
     modal1?.classList.add('modal_active');
     const closeButton = modal1?.getElementsByClassName('modal__close-button')[0] as HTMLButtonElement;

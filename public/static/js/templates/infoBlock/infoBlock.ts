@@ -10,14 +10,13 @@ export function createInfoBlock(searchText: string | null, category : string | n
   infoBlock.classList.add('root__info-block');
   const navigateContainer = document.createElement('div');
   navigateContainer.innerHTML = (<templateFunc>navigateBackT)();
-  if (searchText !== null || category !== null) {
+  if (searchText !== null) {
     infoBlock.appendChild(navigateContainer);
-    if (searchText !== null) {
-      infoBlock.appendChild(createProductSearch(searchText));
-    }
-    if (category !== null) {
-      infoBlock.appendChild(createProductPath(category));
-    }
+    infoBlock.appendChild(createProductSearch(searchText));
+  }
+  if (category !== null) {
+    infoBlock.appendChild(navigateContainer);
+    infoBlock.appendChild(createProductPath(category));
   }
   return infoBlock;
 }

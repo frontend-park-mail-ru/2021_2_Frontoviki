@@ -102,20 +102,23 @@
             padding: 5px 20px
             white-space: nowrap
 
-.card__delete
-    position: absolute
-    z-index: 13
-    right: -4%
-    top: -4%
+    &__delete
+        position: absolute
+        z-index: 13
+        right: -4%
+        top: -4%
 
 
-.card-info__card_buy
-    background-color: rgb(213, 250, 238)
-    margin: auto 5px
-    padding: 5px
-    border-radius: 20px
-    box-shadow: inset 0px 0px 2px rgba(0, 0, 0, 0.5)
-    text-align: center
+    &-info__card_buy
+        background-color: rgb(213, 250, 238)
+        margin: auto 5px
+        padding: 5px
+        border-radius: 20px
+        box-shadow: inset 0px 0px 2px rgba(0, 0, 0, 0.5)
+        text-align: center
+
+.archived
+    cursor: default
 
 @media screen and (max-width: 1000px)
     .card__info__price, .card__info__location

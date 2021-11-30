@@ -1,4 +1,4 @@
-import {inputNum, regExPatterns, oldPassNum} from '../constatns';
+import {inputNum, regExPatterns, oldPassNum, minValidationLen} from '../constatns';
 import {validate} from './utilsFunctions';
 /**
  * функция регистрация нового пользователя
@@ -12,6 +12,7 @@ import {validate} from './utilsFunctions';
 export function validateInfo(regName : HTMLDivElement, 
   regSurname: HTMLDivElement, regEmail : HTMLDivElement,
     regPass: HTMLDivElement, regPassRep : HTMLDivElement) {
+  let isValid = true;
   const nameInput = regName.childNodes[inputNum] as HTMLInputElement;
   const name = nameInput.value.trim();
 
@@ -28,34 +29,48 @@ export function validateInfo(regName : HTMLDivElement,
   const passwordRep = passwordRepInput.value.trim();
 
 
-  const valid = validate(emailInput, regExPatterns['email']) &&
-      validate(passwordInput, regExPatterns['password']);
+  const validEmail = validate(emailInput, regExPatterns['email']);
+  validate(passwordInput, regExPatterns['password']);
 
-  if (!valid) {
+  if (!validEmail) {
     const emailLabel = regEmail.childNodes[oldPassNum] as HTMLElement;
     emailLabel.innerHTML = 'Введите валидный email';
-    return;
+    isValid = false;
   }
-  if (passwordRep !== null) {
-    if (password !== passwordRep) {
-      regPassRep.classList.add('text-input_wrong');
-      return;
-    }
+  if (password !== passwordRep) {
+    regPassRep.classList.add('text-input_wrong');
+    isValid = false;
+  } else {
     regPassRep.classList.remove('text-input_wrong');
     regPassRep.classList.add('text-input_correct');
   }
-  if (!name.match(regExPatterns.name)) {
-    regName.classList.add('text-input_wrong');
-    return;
-  }
-  regName.classList.remove('text-input_wrong');
-  regName.classList.add('text-input_correct');
 
-  if (!surname.match(regExPatterns.name)) {
-    regSurname.classList.add('text-input_wrong');
-    return;
+  if (name.length < minValidationLen) {
+    regName.classList.add('text-input_wrong');
+    isValid = false;
   }
-  regSurname.classList.remove('text-input_wrong');
-  regSurname.classList.add('text-input_correct');
-  return {name, surname, email, password};
+  if (!name.match(regExPatterns.name)) {
+    regName.children[2].innerHTML = 'Должно быть без спецсимволов';
+    regName.classList.add('text-input_wrong');
+    isValid = false;
+  } else {
+    regName.classList.remove('text-input_wrong');
+    regName.classList.add('text-input_correct');
+  }
+
+  if (surname.length < minValidationLen) {
+    regSurname.classList.add('text-input_wrong');
+    isValid = false;
+  }
+  if (!surname.match(regExPatterns.name)) {
+    regSurname.children[2].innerHTML = 'Должна быть без спецсимволов';
+    regSurname.classList.add('text-input_wrong');
+    isValid = false;
+  } else {
+    regSurname.classList.remove('text-input_wrong');
+    regSurname.classList.add('text-input_correct');
+  }
+  if (isValid) {
+    return {name, surname, email, password};
+  }
 }

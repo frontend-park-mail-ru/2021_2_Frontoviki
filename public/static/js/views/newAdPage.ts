@@ -41,7 +41,7 @@ export default class NewAdPageView extends BaseView {
     this.#editDeletedImages.length = 0;
     this.#fileList.length = 0;
     this.#editOffset = 0;
-    document.getElementById('newAdForm')?.addEventListener('click', this.sendAd.bind(this));
+    document.getElementById('newAdForm')?.addEventListener('click', this.sendAd);
     const input = document.querySelectorAll('.new-ad-form__input');
     [].forEach.call(input, (elem : HTMLElement) => {
       elem.addEventListener('focusin', () => {
@@ -78,8 +78,8 @@ export default class NewAdPageView extends BaseView {
     this.render();
     this.eventBus.emit('getExistData');
     const submitButton = document.getElementById('newAdForm') as HTMLButtonElement;
-    submitButton?.removeEventListener('click', this.sendAd.bind(this));
-    submitButton?.addEventListener('click', this.editAd.bind(this));
+    submitButton?.removeEventListener('click', this.sendAd);
+    submitButton?.addEventListener('click', this.editAd);
     submitButton.innerHTML = 'Редактировать';
     const backBtn = document.createElement('button');
     backBtn.classList.add('button');

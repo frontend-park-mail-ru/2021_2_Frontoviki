@@ -1,4 +1,3 @@
-import '../../css/expand-menu.sass';
 import '../../css/layout.sass';
 import '../../css/variables.sass';
 import Bus from '../modules/EventBus';

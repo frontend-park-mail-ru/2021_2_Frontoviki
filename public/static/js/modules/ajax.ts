@@ -74,9 +74,7 @@ export const Ajax = {
     CSRFToken = response.headers.get('X-Csrf-Token');
     const parsedBody = <parsedBody> await response.json().catch(() => {
       return {};
-    }).then((data: string) => {
-      return data;
-    });
+    })
     const {status: code} = response;
     return {
       status: code,

@@ -151,7 +151,7 @@ export default class AdvertPageController {
         return;
       }
       this.eventBus.emit('addedToFavorite');
-    });
+    }).catch(()=> console.log('Error adding to favorite'));
   }
 
   /**
@@ -191,7 +191,7 @@ export default class AdvertPageController {
       if (canAdd) {
         this.eventBus.emit('notInCart', advert.id);
       }
-    });
+    }).catch(()=> console.log('error in cartLogic'));
   }
 
   /**
@@ -232,6 +232,6 @@ export default class AdvertPageController {
       if (canAdd) {
         this.eventBus.emit('notInFav', advert.id);
       }
-    });
+    }).catch(()=> console.log('error in favLogic'));
   }
 }

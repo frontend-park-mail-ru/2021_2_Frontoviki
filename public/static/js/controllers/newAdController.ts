@@ -112,10 +112,8 @@ export default class NewAdPageController {
       console.log(code, parsedBody);
       if (code == statusCodes.REGDONE) {
         const id = parsedBody.body.advert.id;
-        if (imagesToDelete != undefined) {
-          if (imagesToDelete.length != 0) {
-            this.eventBus.emit('deleteImages', id, imagesToDelete, fileList);
-          }
+        if (imagesToDelete != undefined && imagesToDelete.length != 0) {
+          this.eventBus.emit('deleteImages', id, imagesToDelete, fileList);
         }
         this.eventBus.emit('successSend', id, isNew, fileList);
       }

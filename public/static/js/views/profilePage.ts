@@ -172,6 +172,7 @@ export default class ProfilePageView extends BaseView {
         rightBlock?.appendChild(createProductGrid(adverts, false, false));
         const cards = document.querySelectorAll('.card');
         cards.forEach((elem) => {
+          elem.classList.add('archived');
           elem.addEventListener('click', (e) => e.preventDefault());
           const cardMenu = elem.querySelector('.card-menu');
           if (cardMenu != null) {
@@ -289,7 +290,7 @@ export default class ProfilePageView extends BaseView {
     phoneInput.addEventListener('keydown', (e) => {
       const curLen = phoneInput.value.length;
       // backspace delete
-      if (!/\d/.test(e.key) && e.key != 'Enter' && e.key != 'Delete') {
+      if (!/\d/.test(e.key) && e.key != 'Backspace' && e.key != 'Delete') {
         e.preventDefault();
         return;
       }
@@ -301,7 +302,7 @@ export default class ProfilePageView extends BaseView {
         old = curLen;
         return;
       }
-      if (e.key == 'Enter' || e.key == 'Delete') {
+      if (e.key == 'Backspace' || e.key == 'Delete') {
         return;
       }
       if (curLen == 6) {
