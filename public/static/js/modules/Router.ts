@@ -59,10 +59,15 @@ export default class Router {
    * @param {Object} event - mouse event
    */
   handleMouseClick(event: MouseEvent) {
-    const target = event.target as HTMLElement
+    const target = event.target as HTMLElement;
     if (target.tagName === 'A') {
       event.preventDefault();
       const anchor = target as HTMLAnchorElement;
+      this.go(anchor.pathname);
+    }
+    if (target.parentElement?.tagName === 'A') {
+      event.preventDefault();
+      const anchor = target.parentElement as HTMLAnchorElement;
       this.go(anchor.pathname);
     }
   }
