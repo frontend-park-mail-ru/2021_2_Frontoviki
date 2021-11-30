@@ -13,6 +13,7 @@ import { card, categoryList } from '../types';
 */
 export default class MainPageView extends BaseView {
   #page: number
+  #pollingInterval: number
   /**
    * конструктор
    * @param {*} eventBus eventBus модели
@@ -260,10 +261,13 @@ export default class MainPageView extends BaseView {
     }
     btnWrapper.appendChild(btn);
     this.root.parentNode?.appendChild(btnWrapper);
+
+    let ySecond = 0;
+    this.#pollingInterval = window.setInterval(()=> ySecond = document.documentElement.getBoundingClientRect().y, 1000);
     window.addEventListener('scroll', ()=>{
       const y = document.documentElement.getBoundingClientRect().y;
       const width = document.documentElement.clientWidth;
-      if (y < -200 || width > 885) {
+      if (y < ySecond || width > 885) {
         btnWrapper.style.display = 'none';
       } else {
         btnWrapper.style.display = 'flex';
@@ -275,6 +279,7 @@ export default class MainPageView extends BaseView {
    * Удаляет кнопку
    */
   deleteBtn() {
+    clearInterval(this.#pollingInterval);
     document.querySelector('.root__new-advert-btn-wrapper')?.remove();
   }
 
