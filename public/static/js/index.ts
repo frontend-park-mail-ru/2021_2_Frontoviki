@@ -10,6 +10,14 @@ import SalesmanPageController from './controllers/salesmanPageController';
 import NewAdPageController from './controllers/newAdController';
 import AdvertPageController from './controllers/advertPageController';
 import {egg, eggTemplate} from './templates/easterEgg/easterEgg';
+import Localizer from './modules/localizer';
+
+
+declare global {
+  interface Window {
+    localizer: Localizer;
+  }
+}
 
 document.addEventListener('DOMContentLoaded', () => {
   if ('serviceWorker' in navigator) {
@@ -19,8 +27,11 @@ document.addEventListener('DOMContentLoaded', () => {
         })
         .catch((err) => {
           console.error(err);
-        });
+    });
   }
+  
+  const myLocalizer = new Localizer();
+  window.localizer = myLocalizer;
 
   const wrapper = document.querySelector('.wrapper') as HTMLDivElement;
   const root = document.createElement('div');

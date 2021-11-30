@@ -25,6 +25,14 @@ export async function isLogged(globalEventBus: Bus) {
   header.innerHTML = headerT({
     userName: undefined,
     userAvatar: undefined,
+    find: window.localizer.getLocaleItem('find'),
+    search: window.localizer.getLocaleItem('search'),
+    newAd: window.localizer.getLocaleItem('newAd'),
+    signIn: window.localizer.getLocaleItem('signIn'),
+    profile: window.localizer.getLocaleItem('profile'),
+    favorite: window.localizer.getLocaleItem('favorite'),
+    settings: window.localizer.getLocaleItem('settings'),
+    logout: window.localizer.getLocaleItem('logout'),
   });
   const res = await Ajax.getUsingFetch({
     url: secureDomainUrl + 'users/profile',
@@ -53,7 +61,18 @@ export async function isLogged(globalEventBus: Bus) {
     userInfo.set('image', `/${image}`);
     userInfo.set('rating', rating);
     userInfo.set('phone', phone);
-    header.innerHTML = headerT({userName: name, userAvatar: `/${image}`});
+    header.innerHTML = headerT({
+      userName: name,
+      userAvatar: `/${image}`,
+      find: window.localizer.getLocaleItem('find'),
+      search: window.localizer.getLocaleItem('search'),
+      newAd: window.localizer.getLocaleItem('newAd'),
+      signIn: window.localizer.getLocaleItem('signIn'),
+      profile: window.localizer.getLocaleItem('profile'),
+      favorite: window.localizer.getLocaleItem('favorite'),
+      settings: window.localizer.getLocaleItem('settings'),
+      logout: window.localizer.getLocaleItem('logout'),
+    });
     const authLink = document.getElementById('auth');
     if (authLink != null) {
       authLink.style.display = 'none';
@@ -74,6 +93,14 @@ export async function isLogged(globalEventBus: Bus) {
     header.innerHTML = headerT({
       userName: undefined,
       userAvatar: undefined,
+      find: window.localizer.getLocaleItem('find'),
+      search: window.localizer.getLocaleItem('search'),
+      newAd: window.localizer.getLocaleItem('newAd'),
+      signIn: window.localizer.getLocaleItem('signIn'),
+      profile: window.localizer.getLocaleItem('profile'),
+      favorite: window.localizer.getLocaleItem('favorite'),
+      settings: window.localizer.getLocaleItem('settings'),
+      logout: window.localizer.getLocaleItem('logout'),
     });
     const expand = document.querySelector('.expand-menu__label') as HTMLElement;
     expand.style.display = 'none';

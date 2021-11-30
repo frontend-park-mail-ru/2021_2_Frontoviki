@@ -61,3 +61,47 @@ monthMap.set('9', 'сен');
 monthMap.set('10', 'окт');
 monthMap.set('11', 'нояб');
 monthMap.set('12', 'дек');
+
+export const russian = {
+  search : 'Поиск',
+  find : 'Найти',
+  newAd: 'Разместить объявление',
+  signIn: 'Войти',
+  categoryBlockText: ' Приходите за покупками на Volchock! ',
+  signUp: 'Регистрация',
+  hi: 'Привет!',
+  signInText: 'Введите ваши данные и совершите свою первую сделку вместе с Volchock',
+  welcome: 'Добро пожаловать!',
+  signUpText: 'Для совершения сделок, пожалуйста, войдите в сервис',
+  password: 'Пароль',
+  name: 'Имя',
+  surname: 'Фамилия',
+  repeatPassword: 'Повторите пароль',
+  passwordHint: 'От 5 символов',
+  profile: 'Профиль',
+  favorite: 'Избранное',
+  settings: 'Настройки',
+  logout: 'Выйти',
+}
+
+export const english = {
+  search : 'Search',
+  find : 'Find',
+  newAd: 'Place new advert',
+  signIn: 'Sign In',
+  categoryBlockText: ' Come shopping on Volchock! ',
+  signUp: 'Sign Up',
+  hi: 'Hi!',
+  signInText: 'Enter your details and make your first transaction with Volchock',
+  welcome: 'Welcome!',
+  signUpText: 'To make transactions, please log in to the service',
+  password: 'Password',
+  name: 'Name',
+  surname: 'Surname',
+  repeatPassword: 'Repeat password',
+  passwordHint: 'From 5 signs',
+  profile: 'Profile',
+  favorite: 'Favorite',
+  settings: 'Settings',
+  logout: 'Logout',
+}
