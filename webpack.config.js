@@ -1,4 +1,5 @@
 const ServiceWorkerWebpackPlugin = require('serviceworker-webpack-plugin');
+const TsconfigPathsPlugin = require('tsconfig-paths-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const path = require('path');
@@ -6,7 +7,7 @@ const path = require('path');
 
 module.exports = {
   mode: 'production',
-  entry: ['@babel/polyfill', path.resolve(__dirname, '/public/static/js/index.js')],
+  entry: ['@babel/polyfill', path.resolve(__dirname, '/public/static/js/index.ts')],
   output: {
     filename: 'bundle.js',
     path: path.resolve(__dirname, 'public/'),
@@ -18,6 +19,11 @@ module.exports = {
 
   module: {
     rules: [
+      {
+        test: /\.tsx?$/,
+        exclude: /node_modules/,
+        loader: 'ts-loader',
+      },
       {
         test: /\.js$/,
         exclude: /node_modules/,
@@ -49,11 +55,11 @@ module.exports = {
           },
           {
             loader: 'postcss-loader',
-            options: { sourceMap: true, config: { path: 'public/postcss.config.js' } }
+            options: {sourceMap: true, config: { path: 'public/postcss.config.js' }}
           },
           {
             loader: 'sass-loader',
-            options: { sourceMap: true }
+            options: {sourceMap: true}
           }
         ],
       },
@@ -64,9 +70,13 @@ module.exports = {
     new MiniCssExtractPlugin({
       filename: 'main.css',
     }),
-    new HtmlWebpackPlugin({ inject: false, template: './public/index.html' }),
+    new HtmlWebpackPlugin({inject: false, template: './public/index.html'}),
     new ServiceWorkerWebpackPlugin({
       entry: path.join(__dirname, 'public/sw.js'),
     }),
   ],
+  resolve: {
+    plugins: [new TsconfigPathsPlugin()],
+    extensions: ['.js', '.ts'],
+  },
 };

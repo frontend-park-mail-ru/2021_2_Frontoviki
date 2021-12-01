@@ -9,7 +9,7 @@
     height: 100%
     display: flex
     align-items: flex-start
-    max-width: 1200px
+    max-width: 1300px
     box-shadow: rgba(0, 0, 0, 0.1) 0px 0px 5px 0px, rgba(0, 0, 0, 0.1) 0px 0px 1px 0px
     border-radius: 5px
 
@@ -27,11 +27,16 @@
         margin-bottom: 20px
 
         &__main
-            width: 70%
+            width: 90%
             height: 100%
             display: flex
             flex-direction: column
             align-items: center
+
+            &-container
+                width: 100%
+                height: 100%
+                position: relative
 
             &__text
                 width: 100%
@@ -46,7 +51,7 @@
                     margin-left: 10px
 
                 &__favourite
-                    margin: 6px 0
+                    margin: 6px
                     width: auto
 
                     &__icon
@@ -97,8 +102,22 @@
             display: flex
             flex-direction: column
             align-items: flex-start
-            padding: 54px 10px 10px
+            padding: 54px 20px 10px
             margin: 0 auto
+
+            &__statistic
+                display: flex
+                align-items: center
+                align-self: center
+                margin-top: 10px
+
+                &__views
+                    display: flex
+                    align-items: center
+
+                    &__text
+                        margin-left: 1vh
+                        font-size: 16px
 
             &__price
                 font-size: 20px
@@ -111,6 +130,14 @@
                 flex-direction: row
                 align-items: center
                 justify-content: flex-start
+
+                
+                &__info
+                    white-space: nowrap
+                    &__name
+                        text-decoration: none
+                        color: $text-input-border-color
+
                 &__avatar
                     -o-object-fit: cover
                     object-fit: cover
@@ -134,12 +161,14 @@
                     flex-direction: column
                     align-items: flex-start
                     justify-content: flex-start
-                    margin-left: 20px
+                    margin-left: 10px
                     &__rate
                         display: flex
                         flex-direction: row
                         align-items: flex-start
                         justify-content: flex-start
+                        &__star
+                            color: $star-gold-color
 
         &__button
             margin: 6px 0
@@ -151,9 +180,13 @@
         flex-direction: column
         align-items: center
 
-    &__add-info__location
-        width: 100%
-        padding: 20px
+        &__views
+            margin-top: 10px
+
+        &__location
+            width: 100%
+            padding: 20px
+    
 
     &__add-info__location__name-block
         width: 100%
@@ -174,9 +207,10 @@
 
     &__add-info__location__map
         width: 100%
-        height: 300px
+        height: 500px
         display: none
-.advertisment-detail__add-info__condition-block::after, .advertisment-detail__add-info__published-date-block::after
+.advertisment-detail__add-info__condition-block::after,
+.advertisment-detail__add-info__description-block::after
     content: ""
     position: absolute
     left: 0px
@@ -225,6 +259,9 @@
     position: relative
     margin: 0
 
+.advertisment-detail__add-info__description
+    margin-top: 15px
+
 .advertisment-detail__add-info__description-block
     width: 100%
     padding: 20px
@@ -235,7 +272,10 @@
     font-size: 16px
     font-weight: 400
 
+
 @media screen and (max-width: 800px)
+    .gallery__next-button
+        right: 0
     .advertisment-detail__main-info
         width: 100%
         height: 100%
@@ -255,7 +295,8 @@
 @media screen and (max-width: 600px)
     .advertisment-detail__main-info__main__text
         flex-direction: column
-        align-iems: center
+        align-items: center
+
 
 .slideshow-container
     max-width: 1000px
@@ -273,22 +314,19 @@
     position: absolute
     top: 50%
     width: auto
-    margin-top: -22px
     padding: 16px
     color: white
     font-weight: bold
     font-size: 18px
-    transition: 0.6s ease
     border-radius: 0 3px 3px 0
+    background-color: rgba(0,0,0,0.5)
 
 .gallery__prev-button
-    left: 0%
-    background-color: rgba(0,0,0,0.4)
+    left: 0
 
 .gallery__next-button
-    right: 0
-    background-color: rgba(0,0,0,0.4)
-    border-radius: 3px 0 0 3px
+    right: 10%
+    
 
 .gallery__prev-button:hover, .gallery__next-button:hover
     background-color: rgba(0,0,0,0.8)

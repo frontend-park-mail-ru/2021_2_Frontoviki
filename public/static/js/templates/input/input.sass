@@ -86,3 +86,13 @@ input[type="number"]:hover,
 input[type="number"]:focus
   appearance: none
   -moz-appearance: textfield
+
+input:disabled
+  background-color: rgb(225 225 225 / 64%)
+
+@media only screen and (max-device-width: 480px)
+    .modal-window__form > div > .text-input__label 
+        font-size: 11px
+    
+    .text-input__description 
+      font-size: 12px

@@ -4,7 +4,7 @@
       <li class="category__list__main info-block__capture">
         <a href="/">Главная</a></li>
       <li class="category__list__main info-block__capture">
-        <a href="/">{{category}}</a></li>
+        <a href="/category/{{category}}">{{category}}</a></li>
       <li class="category__list__sub info-block__capture">
         <a href="{{href}}">{{name}}</a></li>
     </ul>
@@ -13,6 +13,7 @@
 <div class="advertisment-detail-block">
   <div class="advertisment-detail">
     <div class="advertisment-detail__main-info">
+      <div class="advertisment-detail__main-info__main-container">
       <div class="advertisment-detail__main-info__main">
         <div class="advertisment-detail__main-info__main__text">
           <h3 class="advertisment-detail__main-info__main__text__name">
@@ -52,11 +53,9 @@
               />
             </div>
           {{/each}}
-          <!-- Next and previous buttons -->
-          <a class="gallery__prev-button">&#10094;</a>
-          <a class="gallery__next-button">&#10095;</a>
+         
         </div>
-        <br />
+        <br/>
 
         <!-- The dots/circles -->
         <div class="advertisment-detail__main-info__main__dot-container">
@@ -64,6 +63,10 @@
             <span class="dot"></span>
           {{/each}}
         </div>
+      </div>
+           <!-- Next and previous buttons -->
+        <a class="gallery__prev-button">&#10094;</a>
+        <a class="gallery__next-button">&#10095;</a>
       </div>
       <div class="advertisment-detail__main-info__shop">
         <p class="advertisment-detail__main-info__shop__price">
@@ -92,16 +95,15 @@
           </div>
           <div class="advertisment-detail__main-info__shop__salesman__info">
             Продавец:
-            <p
+            <a href="{{salesmanHref}}"
               class="advertisment-detail__main-info__shop__salesman__info__name advertisment-detail__capture"
             >
               {{salesmanName}}
-              {{salesmanSurname}}</p>
+              {{salesmanSurname}}</a>
             <p
               class="advertisment-detail__main-info__shop__salesman__info__started advertisment-detail__capture"
             >
-              На сайте с
-              {{salesmanCreatedAt}}</p>
+              На сайте с {{salesmanCreatedAt}}</p>
             <div
               class="advertisment-detail__main-info__shop__salesman__info__rate"
             >
@@ -112,6 +114,16 @@
             </div>
           </div>
         </div>
+          {{!-- <div class="advertisment-detail__main-info__shop__statistic">
+            <div class="advertisment-detail__main-info__shop__statistic__views">
+              <svg class="advertisment-detail__main-info__shop__statistic__views__svg" width="3vh" height="3vh" viewBox="0 0 25 27" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <g opacity="0.5">
+                        <path d="M12.5 5.34785C7.72348 5.34785 3.39189 8.1159 0.195612 12.612C-0.0652041 12.9803 -0.0652041 13.4949 0.195612 13.8633C3.39189 18.3647 7.72348 21.1328 12.5 21.1328C17.2765 21.1328 21.6081 18.3647 24.8044 13.8687C25.0652 13.5003 25.0652 12.9857 24.8044 12.6174C21.6081 8.1159 17.2765 5.34785 12.5 5.34785ZM12.8426 18.7981C9.67193 19.0093 7.05354 16.2413 7.25299 12.8774C7.41664 10.1039 9.53897 7.85589 12.1574 7.68255C15.3281 7.47129 17.9465 10.2393 17.747 13.6032C17.5782 16.3713 15.4559 18.6193 12.8426 18.7981ZM12.6841 16.2305C10.976 16.3442 9.56454 14.8546 9.67705 13.0453C9.76399 11.5502 10.9095 10.3423 12.321 10.2448C14.0291 10.131 15.4406 11.6207 15.3281 13.4299C15.236 14.9304 14.0905 16.1384 12.6841 16.2305Z" fill="black"></path>
+                    </g>
+                </svg>
+                <span class="advertisment-detail__main-info__shop__statistic__views__text">{{views}}</span>
+            </div>
+          </div> --}}
       </div>
     </div>
     <div class="advertisment-detail__add-info">
@@ -152,14 +164,6 @@
           <div id="YMapsIDNewAd"></div>
         </div>
       </div>
-      <div class="advertisment-detail__add-info__published-date-block">
-        <p
-          class="advertisment-detail__add-info__published-date advertisment-detail__capture"
-        >
-          Дата публикации:
-          {{publishedAt}}
-        </p>
-      </div>
       <div class="advertisment-detail__add-info__condition-block">
         {{#if new}}
           <p
@@ -182,6 +186,20 @@
         <p
           class="advertisment-detail__add-info__description advertisment-detail__capture"
         > {{description}}</p>
+      </div>
+            <div class="advertisment-detail__add-info__published-date-block">
+        <p
+          class="advertisment-detail__add-info__published-date advertisment-detail__capture"
+        >
+          Дата публикации:
+          {{publishedAt}}
+        </p>
+        <p
+          class="advertisment-detail__add-info__views advertisment-detail__capture"
+        >
+          Просмотры:
+          {{views}}
+        </p>
       </div>
     </div>
     <div class="advertisment-detail__similar_advertisments"></div>

@@ -1,0 +1,64 @@
+@media (max-width: 1600px)
+    .skinny-grid-container
+        grid-template-columns: 1fr repeat(12, minmax(auto, 40px)) 1fr
+
+    .skinny-grid
+        grid-column: 2/span 12
+        grid-template-columns: repeat(12, minmax(auto, 40px))
+
+
+        &>.grid__card
+            height: 213px
+            grid-column-end: span 3
+
+@media (max-width: 1300px)
+    .skinny-grid-container
+        grid-template-columns: 1fr repeat(12, minmax(auto, 40px)) 1fr
+
+    .skinny-grid
+        grid-column: 2/span 12
+        grid-template-columns: repeat(12, minmax(auto, 40px))
+
+
+        &>.grid__card
+            height: 213px
+            grid-column-end: span 3
+
+@media (max-width: 1000px)
+    .skinny-grid-container
+        grid-template-columns: 1fr repeat(9, minmax(auto, 40px)) 1fr
+
+    .skinny-grid
+        grid-column: 2/span 9
+        grid-template-columns: repeat(9, minmax(auto, 40px))
+
+
+        &>.grid__card
+            height: 213px
+            grid-column-end: span 3
+
+@media (max-width: 880px)
+    .skinny-grid-container
+        grid-template-columns: 1fr repeat(8, minmax(auto, 20px)) 1fr
+
+    .skinny-grid
+        grid-column: 2/span 8
+        grid-template-columns: repeat(8, minmax(auto, 20px))
+
+
+        &>.grid__card
+            height: 186px
+            grid-column-end: span 4
+
+@media (max-width: 680px)
+    .skinny-grid-container
+        grid-template-columns: 1fr repeat(5, minmax(auto, 10px)) 1fr
+
+    .skinny-grid
+        grid-column: 2/span 5
+        grid-template-columns: repeat(5, minmax(auto, 10px))
+
+
+        &>.grid__card
+            height: 186px
+            grid-column-end: span 5

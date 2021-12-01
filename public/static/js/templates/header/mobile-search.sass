@@ -1,0 +1,112 @@
+
+@import '../../../css/variables'
+.mobile-search__active
+    z-index: 3
+.mobile-search__inactive
+    z-index: 1
+.header__left-block__mobile-search-bar
+    display: none
+    width: 100%
+    margin: auto
+    padding-right: 1em
+    justify-content: center
+    max-width: 30em
+    &__input
+        line-height: 1.5em
+        transition: all 0.25s ease-out
+        width: 3em
+        height: 3em
+
+        background: transparent
+        border-radius: 1.5em
+        box-shadow: 0 0 0 0.4em $header-capture-color inset
+        padding: 0.75em
+        transform: translate(0.5em,0.5em) scale(0.5)
+        transform-origin: 100% 0
+        -webkit-appearance: none
+        -moz-appearance: none
+        appearance: none
+
+        &:invalid:not(:focus)
+            cursor: pointer
+        &:focus
+            width: 100%
+            outline: transparent
+
+            background: $header-capture-color
+            border-radius: 0.375em 0 0 0.375em
+            box-shadow: 0 0 0 0.1em $header-capture-color inset
+            transform: scale(1)
+        &:not(:focus) + &__button:focus
+            outline: transparent
+    &__button
+        line-height: 1.5em
+        transition: all 0.25s ease-out
+        width: 3em
+        height: 3em
+        cursor: pointer
+        background: $header-capture-color
+        border-radius: 0 0.75em 0.75em 0 / 0 1.5em 1.5em 0
+        padding: 0.75em
+        position: relative
+        transform: translate(0.25em,0.25em) rotate(45deg) scale(0.25,0.125)
+        transform-origin: 0 50%
+        overflow: hidden
+        &::before
+            transition: all 0.25s ease-out
+            content: ""
+            display: block
+            opacity: 0
+            position: absolute
+            border-radius: 50%
+            box-shadow: 0 0 0 0.2em #f1f1f1 inset
+            top: 0.75em
+            left: 0.75em
+            width: 1.2em
+            height: 1.2em
+        &:after
+            transition: all 0.25s ease-out
+            content: ""
+            display: block
+            opacity: 0
+            position: absolute
+            background: #f1f1f1
+            border-radius: 0 0.25em 0.25em 0
+            top: 51%
+            left: 51%
+            width: 0.75em
+            height: 0.25em
+            transform: translate(0.2em,0) rotate(45deg)
+            transform-origin: 0 50%
+        & span
+            display: inline-block
+            overflow: hidden
+            width: 1px
+            height: 1px
+
+    &__input:focus + &__button
+        background: $button-background-color
+        border-radius: 0 0.375em 0.375em 0
+        transform: scale(1)
+    
+    &__input:focus + &__button:before,
+    &__input:focus + &__button:after,
+    &__input:valid + &__button:before,
+    &__input:valid + &__button:after
+        opacity: 1
+
+    &__input:focus + &__button:hover
+        background: $button-background-color_hover
+
+    &__input:focus + &__button:active
+        transform: translateY(1px)
+
+
+@media screen and (max-device-width: 480px)
+    .header__left-block__mobile-search-bar
+        display: flex
+        position: fixed
+
+@media screen and (max-width: 900px)
+    .header__left-block__mobile-search-bar
+        display: flex

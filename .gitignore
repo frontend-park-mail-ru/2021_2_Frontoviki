@@ -4,3 +4,6 @@ html_storage/
 public/build/
 public/swBackup.js
 *.txt
+public/bundle.js
+public/main.css
+.eslintcache

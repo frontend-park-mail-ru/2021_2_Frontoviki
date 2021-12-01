@@ -1,0 +1,15 @@
+
+  <div class="root__category-container">
+      <div class="root__category__content">
+          <div class="root__category__content-title">
+              Приходите за покупками на Volchock!
+          </div>
+          <div class="root__category__content-categories">
+              {{#each category}}
+            <div class="root__category__content-categories-card">
+                <a class="root__category__content-categories-card-title" href="/category/{{name}}">{{name}}</a>
+            </div>
+             {{/each}}
+          </div>
+      </div>
+  </div>

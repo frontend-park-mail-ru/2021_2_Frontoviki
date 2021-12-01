@@ -24,10 +24,19 @@ self.addEventListener('install', (event) => {
 });
 
 self.addEventListener('fetch', (event) => {
+  if (/iPhone|iPad|iPod/i.test(navigator.userAgent) ||
+      /^((?!chrome|android).)*safari/i.test(navigator.userAgent)) {
+    if (navigator.onLine == true) {
+      return fetch(event.request);
+    }
+  }
   event.respondWith((async () => {
     if (navigator.onLine === true) {
       const response = await fetch(event.request);
       if (event.request.method !== 'GET') {
+        return response;
+      }
+      if (response.url.indexOf('maps.yandex.net') > -1) {
         return response;
       }
       const responseClone = response.clone();
