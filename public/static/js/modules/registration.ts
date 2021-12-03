@@ -45,7 +45,7 @@ export function registration(regName : HTMLDivElement,
       return;
     }
     const passInput = regEmail.childNodes[oldPassNum] as HTMLInputElement;
-    passInput.innerHTML = 'Такой пользователь уже существует';
+    passInput.innerHTML = <string>window.localizer.getLocaleItem('userExist');
     regEmail.classList.remove('text-input_correct');
     regEmail.classList.add('text-input_wrong');
   }).catch(()=>console.log('Error registration'));

@@ -34,7 +34,7 @@ export function validateInfo(regName : HTMLDivElement,
 
   if (!validEmail) {
     const emailLabel = regEmail.childNodes[oldPassNum] as HTMLElement;
-    emailLabel.innerHTML = 'Введите валидный email';
+    emailLabel.innerHTML = <string>window.localizer.getLocaleItem('emailHint');
     isValid = false;
   }
   if (password !== passwordRep) {
@@ -50,7 +50,7 @@ export function validateInfo(regName : HTMLDivElement,
     isValid = false;
   }
   if (!name.match(regExPatterns.name)) {
-    regName.children[2].innerHTML = 'Должно быть без спецсимволов';
+    regName.children[2].innerHTML = <string>window.localizer.getLocaleItem('nameNoSignsHint');
     regName.classList.add('text-input_wrong');
     isValid = false;
   } else {
@@ -63,7 +63,7 @@ export function validateInfo(regName : HTMLDivElement,
     isValid = false;
   }
   if (!surname.match(regExPatterns.name)) {
-    regSurname.children[2].innerHTML = 'Должна быть без спецсимволов';
+    regSurname.children[2].innerHTML = <string>window.localizer.getLocaleItem('surnameNoSignsHint');
     regSurname.classList.add('text-input_wrong');
     isValid = false;
   } else {

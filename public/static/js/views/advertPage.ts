@@ -2,7 +2,7 @@
 import {advertPageTemplate} from '../templates/advertPage/advertPageT';
 import BaseView from './baseView';
 import {SliderLogic} from '../templates/advertPage/sliderLogic';
-import {inputNum, userInfo} from '../constatns';
+import {engCategories, inputNum, userInfo} from '../constatns';
 import {properDate} from '../modules/utilsFunctions';
 import Bus from '../modules/EventBus';
 import { advert, rating, salesman } from '../types';
@@ -24,7 +24,7 @@ export default class AdvertPageView extends BaseView {
     this.eventBus.on('inCart', this.inCart.bind(this));
     this.eventBus.on('notInCart', this.notInCart.bind(this));
     this.eventBus.on('isOwner', this.isOwner.bind(this));
-    this.eventBus.on('addedToCart', this.successAdd.bind(this));
+    this.eventBus.on('addedToCart', this.inCart.bind(this));
     this.eventBus.on('addedToFavorite', this.successFav.bind(this));
     this.eventBus.on('inFav', this.successFav.bind(this));
     this.eventBus.on('notInFav', this.notInFav.bind(this));
@@ -47,14 +47,42 @@ export default class AdvertPageView extends BaseView {
   renderAd(advert: advert, salesman: salesman, rating: rating) {
     const date = properDate(salesman.created_at.slice(0, 10));
     const advertDate = properDate(advert.published_at.slice(0,10));
+    if (window.localizer.userLang == 'en') {
+      engCategories.forEach(elem => {
+        if (elem.analog == advert.category) {
+          advert.category = elem.name;
+          advert.categoryHref = elem.href;
+        }
+      });
+    }
+    if (advert.price == '0') {
+      advert.price = <string>window.localizer.getLocaleItem('zeroPrice');
+    } else {
+      advert.price += ' ₽';
+    }
     const advertTemplate = advertPageTemplate();
     this.root.innerHTML = advertTemplate({
+      main: window.localizer.getLocaleItem('main'),
+      addToFav: window.localizer.getLocaleItem('addToFav'),
+      priceLabel: window.localizer.getLocaleItem('priceLabel'),
+      chatBtn: window.localizer.getLocaleItem('chatBtn'),
+      addToCart: window.localizer.getLocaleItem('addToCart'),
+      edit: window.localizer.getLocaleItem('edit'),
+      conditionNew: window.localizer.getLocaleItem('conditionNew'),
+      conditionUsed: window.localizer.getLocaleItem('conditionUsed'),
+      descriptionLabel: window.localizer.getLocaleItem('descriptionLabel'),
+      publishDateLabel: window.localizer.getLocaleItem('publishDateLabel'),
+      viewsLabel: window.localizer.getLocaleItem('viewsLabel'),
+      salesmanLabel: window.localizer.getLocaleItem('salesmanLabel'),
+      onSiteFrom: window.localizer.getLocaleItem('onSiteFrom'),
+      showMap: window.localizer.getLocaleItem('showMap'),
       name: advert.name,
       price: advert.price,
       location: advert.location,
       publishedAt: advertDate,
       description: advert.description,
       href: `/ad/${advert.id}`,
+      categoryHref: advert.categoryHref,
       category: advert.category,
       images: advert.images,
       new: advert.is_new,
@@ -72,11 +100,11 @@ export default class AdvertPageView extends BaseView {
       const toogle = document.getElementById('toogle_maps') as HTMLInputElement;
       if (!toogle.checked) {
         label.classList.remove('advertisment-detail__add-info__location__name-block__maps-label_close');
-        label.innerHTML = 'Скрыть карту';
+        label.innerHTML = <string>window.localizer.getLocaleItem('hideMap');
         label.classList.add('advertisment-detail__add-info__location__name-block__maps-label_open');
       } else {
         label.classList.add('advertisment-detail__add-info__location__name-block__maps-label_close');
-        label.innerHTML = 'Раскрыть карту';
+        label.innerHTML = <string>window.localizer.getLocaleItem('showMap');
         label.classList.remove('advertisment-detail__add-info__location__name-block__maps-label_open');
       }
     });
@@ -171,7 +199,7 @@ export default class AdvertPageView extends BaseView {
   inCart() {
     const addBtn = document.getElementById('addToCartBtn');
     if (addBtn != null) {
-      addBtn.innerHTML = 'В корзине';
+      addBtn.innerHTML = <string>window.localizer.getLocaleItem('inCart');
       addBtn.onclick = () => this.eventBus.emit('goToCart');
     }
   }
@@ -216,21 +244,11 @@ export default class AdvertPageView extends BaseView {
       addToFav.onclick = () => this.eventBus.emit('goToProfile');
       const btnText = addToFav.childNodes[inputNum] as HTMLElement
       if (btnText != null) {
-        btnText.innerHTML = 'Ваше объявление';
+        btnText.innerHTML = <string>window.localizer.getLocaleItem('yourAdvert');
       }
     }
   }
 
-  /**
-   * Успешное добавленое в корзину
-   */
-  successAdd() {
-    const addBtn = document.getElementById('addToCartBtn');
-    if (addBtn != null) {
-      addBtn.innerHTML = 'В корзине';
-      addBtn.onclick = () => this.eventBus.emit('goToCart');
-    }
-  }
   /**
     * Добавили в избранное
     */
@@ -241,7 +259,7 @@ export default class AdvertPageView extends BaseView {
       const favText = addToFav.childNodes[inputNum] as HTMLElement;
       const favImg = addToFav.childNodes[1] as SVGElement
       favImg.style.fill = '#8897f9';
-      favText.innerHTML = 'В избранном';
+      favText.innerHTML = <string>window.localizer.getLocaleItem('inFav');
       addToFav.onclick = () => this.eventBus.emit('goToFav');
     }
   }

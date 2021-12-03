@@ -1,6 +1,7 @@
 export type categoryList = {
     name: string;
     href: string;
+    analog: string;
 }
 
 export type card = {
@@ -50,6 +51,7 @@ export type advert = {
     is_active: boolean;
     href: string;
     views: number;
+    categoryHref: string;
 }
 
 export type salesman = {

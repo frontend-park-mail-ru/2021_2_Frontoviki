@@ -2,7 +2,7 @@ import {createProductGrid} from '../templates/productGrid/productGrid';
 import {emptyGrid} from '../templates/productGrid/emptyGrid';
 import {createInfoBlock} from '../templates/infoBlock/infoBlock';
 import {categoriesBlock} from '../templates/mainPageCategories/categoriesBlock'
-import {baseCount, userInfo} from '../constatns';
+import {baseCount, engCategories, userInfo} from '../constatns';
 import BaseView from './baseView';
 import Bus from '../modules/EventBus';
 import { card, categoryList } from '../types';
@@ -135,7 +135,7 @@ export default class MainPageView extends BaseView {
       const emptyGridActive = document.createElement('div');
       emptyGridActive.id = 'empty';
       const gridT = emptyGrid();
-      emptyGridActive.innerHTML = gridT({text: `Ничего не найдено`});
+      emptyGridActive.innerHTML = gridT({text: window.localizer.getLocaleItem('noAdsInSearch')});
       const empty = emptyGridActive.querySelector('.profile-content-right__empty-ads') as HTMLDivElement;
       if (empty != null) {
         empty.style.width = 'auto';
@@ -163,6 +163,13 @@ export default class MainPageView extends BaseView {
    * @param {*} adverts
    */
   renderCategoryAds(adverts: card[], category:string) {
+    if (window.localizer.userLang == 'en') {
+      engCategories.forEach(elem => {
+        if (elem.analog == category) {
+          category = elem.name;
+        }
+      });
+    }
     this.root.appendChild(createInfoBlock(null, category));
     document.getElementById('navigation-back')?.addEventListener('click', ()=>{
       this.eventBus.emit('redirectToMain');
@@ -173,7 +180,7 @@ export default class MainPageView extends BaseView {
       emptyGridActive.id = 'empty';
       const gridT = emptyGrid();
       emptyGridActive.innerHTML = gridT({
-        text: `Объявлений в данной категории нет`,
+        text: window.localizer.getLocaleItem('noAdsInCategory'),
       });
       const empty = emptyGridActive.querySelector('.profile-content-right__empty-ads') as HTMLDivElement;
       if (empty != null) {
