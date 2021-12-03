@@ -18,6 +18,12 @@ export function createProductGrid(jsonElements: card[], canDelete : boolean, can
     element.canDelete = canDelete;
     element.canBuy = canBuy;
     element.location = element.location.split(',')[0];
+    element.buy = <string>window.localizer.getLocaleItem('buy');
+    if (element.price == '0') {
+      element.price = <string>window.localizer.getLocaleItem('zeroPrice');
+    } else {
+      element.price += ' ₽';
+    }
   });
   productGrid.innerHTML = (<templateFunc> productGridT)({adsArray: jsonElements});
   return productGrid;

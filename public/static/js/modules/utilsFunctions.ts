@@ -1,4 +1,4 @@
-import {monthMap} from '../constatns';
+import {monthMap, monthMapEng} from '../constatns';
 /**
  * Меняет формат даты регистрации
  * @param {*} date дата в формате год-месяц-день
@@ -7,7 +7,11 @@ import {monthMap} from '../constatns';
 export function properDate(date: string):string {
   const regDate = date;
   const regArr = regDate.split('-');
-  regArr[1] = <string>monthMap.get(regArr[1]);
+  if (window.localizer.userLang == 'en') {
+    regArr[1] = <string>monthMapEng.get(regArr[1]);
+  } else {
+    regArr[1] = <string>monthMap.get(regArr[1]);
+  }
   regArr.reverse();
   const properDate = regArr.join(' ');
   return properDate;

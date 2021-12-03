@@ -14,6 +14,7 @@ export type card = {
     href: string;
     id: number;
     is_active: boolean;
+    buy: string;
 }
 
 export type args = {

@@ -64,6 +64,20 @@ monthMap.set('10', 'окт');
 monthMap.set('11', 'нояб');
 monthMap.set('12', 'дек');
 
+export const monthMapEng = new Map();
+monthMapEng.set('1', 'Jan');
+monthMapEng.set('2', 'Feb');
+monthMapEng.set('3', 'Mar');
+monthMapEng.set('4', 'Apr');
+monthMapEng.set('5', 'May');
+monthMapEng.set('6', 'June');
+monthMapEng.set('7', 'July');
+monthMapEng.set('8', 'Aug');
+monthMapEng.set('9', 'Sept');
+monthMapEng.set('10', 'Oct');
+monthMapEng.set('11', 'Nov');
+monthMapEng.set('12', 'Dec');
+
 export const russian = {
   search : 'Поиск',
   find : 'Найти',
@@ -103,7 +117,16 @@ export const russian = {
   repeatPasswordHint: 'Пароли должны совпадать',
   emailLogInHint: 'Такого пользователя не существует',
   passwordLogInHint: 'Неверный пароль',
-  passwordFullHint: 'Должен быть от 5-ти символов'
+  passwordFullHint: 'Должен быть от 5-ти символов',
+  buy: 'Купить',
+  myAdverts: 'Мои объявления',
+  cart: 'Корзина',
+  messages: 'Сообщения',
+  paid: 'Платные услуги',
+  onSiteFrom: 'На сайте с',
+  yourRate: 'Вы оценили пользователя на',
+  advertsTitle: 'Объявления',
+  zeroPrice: 'По запросу'
 }
 
 export const english = {
@@ -146,6 +169,15 @@ export const english = {
   emailLogInHint: 'No user found',
   passwordLogInHint: 'incorrect password',
   passwordFullHint: 'From 5 signs',
+  buy: 'Buy',
+  myAdverts: 'My adverts',
+  cart: 'Cart',
+  messages: 'Messages',
+  paid: 'Paid options',
+  onSiteFrom: 'On the website from',
+  yourRate: 'You rate this user for',
+  advertsTitle: 'Adverts',
+  zeroPrice: 'On request',
 }
 
 export const engCategories:categoryList[] = [

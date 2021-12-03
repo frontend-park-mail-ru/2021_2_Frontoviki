@@ -252,7 +252,7 @@ export default class MainPageView extends BaseView {
     btnWrapper.classList.add('root__new-advert-btn-wrapper');
     btn.classList.add('button');
     btn.classList.add('root__new-advert-btn');
-    btn.innerHTML = 'Разместить объявление';
+    btn.innerHTML = <string>window.localizer.getLocaleItem('newAd');
     if (userInfo.has('name')) {
       btn.onclick = ()=> this.eventBus.emit('loggedNewAdd');
     } else {
@@ -262,10 +262,13 @@ export default class MainPageView extends BaseView {
     this.root.parentNode?.appendChild(btnWrapper);
 
     let ySecond = 0;
+    let width = document.documentElement.clientWidth;
+    window.addEventListener('resize', ()=>{
+      width = document.documentElement.clientWidth;
+    })
     this.#pollingInterval = window.setInterval(()=> ySecond = document.documentElement.getBoundingClientRect().y, 1000);
     window.addEventListener('scroll', ()=>{
       const y = document.documentElement.getBoundingClientRect().y;
-      const width = document.documentElement.clientWidth;
       if (y < ySecond || width > 885) {
         btnWrapper.style.display = 'none';
       } else {
