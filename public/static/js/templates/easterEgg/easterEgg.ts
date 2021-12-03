@@ -227,5 +227,11 @@ export function egg() {
 }
 
 export function eggTemplate():string {
-  return (<templateFunc>eggT)();
+  return (<templateFunc>eggT)({
+    text: window.localizer.getLocaleItem('easterEggText'),
+    easy: window.localizer.getLocaleItem('easterEggEasy'),
+    normal: window.localizer.getLocaleItem('easterEggMedium'),
+    hard: window.localizer.getLocaleItem('easterEggHard'),
+    again: window.localizer.getLocaleItem('easterEggAgain'),
+  });
 }

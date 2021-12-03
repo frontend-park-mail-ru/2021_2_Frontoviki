@@ -15,7 +15,26 @@ export function createModal(globalEventBus: Bus) {
   const modal = document.createElement('div');
   modal.classList.add('modal-window');
   modal.id = 'modal-window';
-  modal.innerHTML = (<templateFunc>modalT)();
+  modal.innerHTML = (<templateFunc>modalT)({
+    createAccout: window.localizer.getLocaleItem('createAccout'),
+    emailHint: window.localizer.getLocaleItem('emailHint'),
+    name: window.localizer.getLocaleItem('name'),
+    nameHint: window.localizer.getLocaleItem('nameHint'),
+    surname: window.localizer.getLocaleItem('surname'),
+    surnameHint: window.localizer.getLocaleItem('surnameHint'),
+    password: window.localizer.getLocaleItem('password'),
+    repeatPassword: window.localizer.getLocaleItem('repeatPassword'),
+    repeatPasswordHint: window.localizer.getLocaleItem('repeatPasswordHint'),
+    signUp: window.localizer.getLocaleItem('signUp'),
+    signIn: window.localizer.getLocaleItem('signIn'),
+    emailLogInHint: window.localizer.getLocaleItem('emailLogInHint'),
+    passwordLogInHint: window.localizer.getLocaleItem('passwordLogInHint'),
+    welcome: window.localizer.getLocaleItem('welcome'),
+    signUpText: window.localizer.getLocaleItem('signUpText'),
+    hi: window.localizer.getLocaleItem('hi'),
+    signInText: window.localizer.getLocaleItem('signInText'),
+    passwordFullHint: window.localizer.getLocaleItem('passwordFullHint'),
+  });
   const wrapper = document.querySelector('.wrapper');
   wrapper?.appendChild(modal);
 

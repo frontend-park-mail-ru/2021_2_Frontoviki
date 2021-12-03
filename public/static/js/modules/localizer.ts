@@ -1,5 +1,11 @@
 import { russian, english } from "../constatns";
 
+declare global {
+    interface Window {
+      localizer: Localizer;
+    }
+  }
+
 /**
  * Класс для изменения языка
  */
@@ -13,6 +19,10 @@ export default class Localizer {
         this.#fillDictionary();
     }
 
+    get userLang() {
+        return this.#userLang;
+    }
+
     set userLang(lang: string) {
         this.#userLang = lang;
         this.#fillDictionary();
@@ -21,11 +31,11 @@ export default class Localizer {
     #fillDictionary() {
         switch (this.#userLang) {
             case 'ru': {
-                this.#setRussianLocale();
+                this.#setLocale(russian);
                 break;
             }
             case 'en': {
-                this.#setEnglishLocale();
+                this.#setLocale(english);
                 break;
             }
         }
@@ -35,13 +45,8 @@ export default class Localizer {
         return this.#dictionary.get(key);
     }
 
-    #setRussianLocale() {
-        Object.entries(russian).forEach(
-            ([key, value]) => this.#dictionary.set(key, value));
-    }
-
-    #setEnglishLocale() {
-        Object.entries(english).forEach(
+    #setLocale(localeObj : typeof russian) {
+        Object.entries(localeObj).forEach(
             ([key, value]) => this.#dictionary.set(key, value));
     }
 }

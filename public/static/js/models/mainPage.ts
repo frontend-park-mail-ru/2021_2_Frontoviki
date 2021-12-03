@@ -33,7 +33,6 @@ export default class MainPageModel {
       if (status != statusCodes.OK) {
         return;
       }
-      console.log(parsedBody);
       const {code} = parsedBody;
       if (code === statusCodes.OK) {
         const {body} = parsedBody;

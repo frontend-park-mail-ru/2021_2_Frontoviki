@@ -1,5 +1,6 @@
 export type categoryList = {
     name: string;
+    href: string;
 }
 
 export type card = {

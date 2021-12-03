@@ -30,17 +30,16 @@ export default class ErrorPage {
       innerContent.appendChild(imgDiv);
 
       const title = document.createElement('h1');
-      title.innerHTML = 'Страница не найдена';
+      title.innerHTML = <string>window.localizer.getLocaleItem('notFound');
       innerContent.appendChild(title);
 
       const text = document.createElement('p');
-      text.innerHTML = `Похоже, ресурс,
-          к которому вы хотите обратиться, не существует`;
+      text.innerHTML = <string>window.localizer.getLocaleItem('resourceNotExist');
       innerContent.appendChild(text);
 
       const btn = document.createElement('a');
       btn.classList.add('button');
-      btn.innerHTML = 'Вернуться на главную';
+      btn.innerHTML = <string>window.localizer.getLocaleItem('returnToMain');
       btn.href = '/';
       innerContent.appendChild(btn);
 

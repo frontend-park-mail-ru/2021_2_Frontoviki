@@ -13,12 +13,6 @@ import {egg, eggTemplate} from './templates/easterEgg/easterEgg';
 import Localizer from './modules/localizer';
 
 
-declare global {
-  interface Window {
-    localizer: Localizer;
-  }
-}
-
 document.addEventListener('DOMContentLoaded', () => {
   if ('serviceWorker' in navigator) {
     navigator.serviceWorker.register('/sw.js', {scope: '/'})
@@ -74,7 +68,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
   router.go(window.location.pathname);
   if (navigator.onLine !== true) {
-    console.log('offline');
     setTimeout(()=> {
       root.innerHTML = eggTemplate();
       egg();

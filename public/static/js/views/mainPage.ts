@@ -209,8 +209,7 @@ export default class MainPageView extends BaseView {
       if (e.target instanceof HTMLAnchorElement) {
         e.preventDefault();
         e.stopPropagation();
-        console.log('emitted');
-        this.eventBus.emit('onCategoryClicked', e.target.innerHTML);
+        this.eventBus.emit('onCategoryClicked', e.target.getAttribute('dataset'));
       }
     });
   }
