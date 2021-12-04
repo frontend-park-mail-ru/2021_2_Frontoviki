@@ -1,23 +1,23 @@
 <div class="new-advert">
   <div class="new-advert__title">
-    <h3 class="title">Новое объявление</h3>
+    <h3 class="title">{{newAdvert}}</h3>
   </div>
   <div class="text-input new-advert__name">
-    <label class="text-input__label">Название</label>
+    <label class="text-input__label">{{title}}</label>
     <input class="text-input__input" type="text" required />
-    <span class="text-input__description">Ошибка в названии</span>
+    <span class="text-input__description">{{titleHint}}</span>
   </div>
   <div class="text-input new-advert__category">
-    <label class="text-input__label">Категория</label>
+    <label class="text-input__label">{{category}}</label>
     <select class="category__select" id="selCategory"></select>
   </div>
   <div class="textarea new-advert__description">
-    <label class="textarea__label">Описание объявления</label>
+    <label class="textarea__label">{{description}}</label>
     <textarea class="textarea__textarea" rows="10" maxlength="500"></textarea>
   </div>
 
   <div class="new-advert__state single-choice">
-    <p class="single-choice__capture">Состояние</p>
+    <p class="single-choice__capture">{{condition}}</p>
     <div class="single-choice__radio-button-block">
       <label class="single-choice__label" for="radio-new">
         <input
@@ -27,7 +27,7 @@
           type="radio"
         />
         <div class="single-choice__fake-radio-button"></div>
-        <p class="single-choice__variant">Новое</p>
+        <p class="single-choice__variant">{{conditionAdNew}}</p>
       </label>
     </div>
     <div class="single-choice__radio-button-block">
@@ -40,19 +40,19 @@
           type="radio"
         />
         <div class="single-choice__fake-radio-button"></div>
-        <p class="single-choice__variant">Б/У</p>
+        <p class="single-choice__variant">{{conditionAdUsed}}</p>
       </label>
     </div>
   </div>
 
   <div class="text-input new-advert__price">
-    <label class="text-input__label">Цена</label>
+    <label class="text-input__label">{{price}}</label>
     <input class="text-input__input" type="number" />
-    <span class="text-input__description">Ошибка в цене</span>
+    <span class="text-input__description">{{priceHint}}</span>
   </div>
 
   <div class="new-advert__photos">
-    <h3 class="new-advert-photos__title">Загрузите фотографии</h3>
+    <h3 class="new-advert-photos__title">{{uploadImages}}</h3>
     <div class="image-uploader" id="image-uploader">
       <label class="image-uploader__default" for="image_upload">
         <input
@@ -74,19 +74,19 @@
             ></path>
           </svg>
         </div>
-        <p class="image-uploader__default__capture">Добавить</p>
+        <p class="image-uploader__default__capture">{{add}}</p>
       </label>
     </div>
   </div>
 
   <div class="text-input new-advert__location">
-    <label class="text-input__label">Адрес</label>
+    <label class="text-input__label">{{address}}</label>
     <input class="text-input__input" type="text" placeholder="Используйте карту для выбора адреса"/>
-    <span class="text-input__description">Неверное местоположение</span>
+    <span class="text-input__description">{{addressHint}}</span>
   </div>
 
   <div id="YMapsID" class="new-advert__map"></div>
   <div class="button-container">
-    <button class="button" id="newAdForm">Опубликовать</button>
+    <button class="button" id="newAdForm">{{submit}}</button>
   </div>
 </div>

@@ -117,7 +117,7 @@ export default class NewAdPageController {
         }
         this.eventBus.emit('successSend', id, isNew, fileList);
       }
-    });
+    }).catch(()=> console.log('Ошибка в отправлении данных'));
   }
 
   /**
@@ -143,7 +143,7 @@ export default class NewAdPageController {
       } else {
         this.eventBus.emit('redirectToAd', id);
       }
-    });
+    }).catch(()=> console.log('Ошибка в отправлении фотографий'));
   }
 
   /**
@@ -180,6 +180,6 @@ export default class NewAdPageController {
         return;
       }
       this.eventBus.emit('redirectToAd', id);
-    });
+    }).catch(()=> console.log('Ошибка в удалении фотографий'));
   }
 }

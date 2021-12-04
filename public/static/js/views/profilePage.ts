@@ -101,13 +101,13 @@ export default class ProfilePageView extends BaseView {
     }
     const title = document.createElement('h3');
     title.classList.add('profile-content__title');
-    title.innerHTML = ' Ваши объявления ';
+    title.innerHTML = <string> window.localizer.getLocaleItem('yourAdverts');
     const active = document.createElement('span');
-    active.innerHTML = 'Активные';
+    active.innerHTML =  <string> window.localizer.getLocaleItem('active');
     active.classList.add('profile-content-right__ads-type');
     active.style.color = '#004ad7';
     const archive = document.createElement('span');
-    archive.innerHTML = 'Архив';
+    archive.innerHTML =  <string> window.localizer.getLocaleItem('archive');
     archive.classList.add('profile-content-right__ads-type');
 
     active.addEventListener('click', () => {
@@ -204,13 +204,11 @@ export default class ProfilePageView extends BaseView {
     emptyGridActive.id = 'empty';
     const gridT = emptyGrid();
     if (favorite) {
-      emptyGridActive.innerHTML = gridT({text: `В избранном ничего нет`});
+      emptyGridActive.innerHTML = gridT({text: window.localizer.getLocaleItem('emptyFav')});
     } else if (archive) {
-      emptyGridActive.innerHTML = gridT({
-        text: `Архивные объявления будут
-        отображаться на этой странице`});
+      emptyGridActive.innerHTML = gridT({text: window.localizer.getLocaleItem('emptyArchive')});
     } else {
-      emptyGridActive.innerHTML = gridT({text: 'Активных объявлений нет'});
+      emptyGridActive.innerHTML = gridT({text: window.localizer.getLocaleItem('emptyActive')});
     }
     rightBlock?.appendChild(emptyGridActive);
   }
@@ -230,13 +228,13 @@ export default class ProfilePageView extends BaseView {
     }
     const title = document.createElement('h3');
     title.classList.add('profile-content__title');
-    title.innerHTML = ' Ваши объявления ';
+    title.innerHTML = <string> window.localizer.getLocaleItem('yourAdverts');
     const active = document.createElement('span');
-    active.innerHTML = 'Активные';
+    active.innerHTML =  <string> window.localizer.getLocaleItem('active');
     active.classList.add('profile-content-right__ads-type');
     active.style.color = '#004ad7';
     const archive = document.createElement('span');
-    archive.innerHTML = 'Архив';
+    archive.innerHTML =  <string> window.localizer.getLocaleItem('archive');
     archive.classList.add('profile-content-right__ads-type');
     active.style.color = 'black';
     archive.style.color = '#004ad7';
@@ -343,7 +341,7 @@ export default class ProfilePageView extends BaseView {
     }
     const title = document.createElement('h3');
     title.classList.add('profile-content__title');
-    title.innerHTML = ' Чат (v0.01) ';
+    title.innerHTML = <string>window.localizer.getLocaleItem('chat');
     rightBlock?.appendChild(title);
     this.eventBus.emit('getMessages', false);
   }
@@ -361,7 +359,7 @@ export default class ProfilePageView extends BaseView {
     }
     const title = document.createElement('h3');
     title.classList.add('profile-content__title');
-    title.innerHTML = ' Избранное ';
+    title.innerHTML = <string>window.localizer.getLocaleItem('favorite');
     rightBlock?.appendChild(title);
     this.eventBus.emit('getFavorite');
   }
@@ -379,7 +377,7 @@ export default class ProfilePageView extends BaseView {
     }
     const title = document.createElement('h3');
     title.classList.add('profile-content__title');
-    title.innerHTML = ' Корзина ';
+    title.innerHTML = <string>window.localizer.getLocaleItem('cart');
     rightBlock?.appendChild(title);
     this.eventBus.emit('getCart');
   }
@@ -405,7 +403,7 @@ export default class ProfilePageView extends BaseView {
       const emptyGridActive = document.createElement('div');
       emptyGridActive.id = 'empty';
       const gridT = emptyGrid();
-      emptyGridActive.innerHTML = gridT({text: 'Корзина пуста'});
+      emptyGridActive.innerHTML = gridT({text: window.localizer.getLocaleItem('emptyCart')});
       rightBlock?.appendChild(emptyGridActive);
       return;
     }
@@ -448,7 +446,7 @@ export default class ProfilePageView extends BaseView {
     passwordDiv?.classList.add('text-input_correct');
     const passwordBtn = document.getElementById('settings__change-password');
     if (passwordBtn != null) {
-      passwordBtn.innerHTML = 'Пароль изменен';
+      passwordBtn.innerHTML = <string>window.localizer.getLocaleItem('passwordChanged');
     }
   }
   /**
@@ -524,7 +522,7 @@ export default class ProfilePageView extends BaseView {
     }
     const title = document.createElement('h3');
     title.classList.add('profile-content__title');
-    title.innerHTML = ' Чат (v0.01) ';
+    title.innerHTML = <string>window.localizer.getLocaleItem('chat');
     rightBlock?.appendChild(title);
     this.eventBus.emit('getMessages', true);
   }

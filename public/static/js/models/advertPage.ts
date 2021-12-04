@@ -26,6 +26,7 @@ export default class AdvertPageModel {
       body: null,
     });
     res.then(({parsedBody}) => {
+      console.log(parsedBody);
       const {code} = parsedBody;
       if (code === statusCodes.NOTEXIST) {
         this.eventBus.emit('NoAd');
@@ -36,6 +37,6 @@ export default class AdvertPageModel {
         advert.images[key] = '/' + elem;
       });
       this.eventBus.emit('gotAd', advert, salesman, rating);
-    });
+    }).catch(()=> console.log('Ошибка получения объявления'));
   }
 }

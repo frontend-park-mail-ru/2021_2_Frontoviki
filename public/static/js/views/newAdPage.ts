@@ -35,7 +35,23 @@ export default class NewAdPageView extends BaseView {
     const toogle = document.getElementById('mini-profile__toogle') as HTMLInputElement;
     toogle.checked = false;
     const adFormT = createNewAdForm();
-    this.root.innerHTML = adFormT();
+    this.root.innerHTML = adFormT({
+      newAdvert: window.localizer.getLocaleItem('newAdvert'),
+      title: window.localizer.getLocaleItem('title'),
+      titleHint: window.localizer.getLocaleItem('titleHint'),
+      category: window.localizer.getLocaleItem('category'),
+      description: window.localizer.getLocaleItem('description'),
+      conditionAdNew: window.localizer.getLocaleItem('conditionAdNew'),
+      condition: window.localizer.getLocaleItem('condition'),
+      conditionAdUsed: window.localizer.getLocaleItem('conditionAdUsed'),
+      price: window.localizer.getLocaleItem('price'),
+      priceHint: window.localizer.getLocaleItem('priceHint'),
+      uploadImages: window.localizer.getLocaleItem('uploadImages'),
+      add: window.localizer.getLocaleItem('add'),
+      address: window.localizer.getLocaleItem('address'),
+      addressHint: window.localizer.getLocaleItem('addressHint'),
+      submit: window.localizer.getLocaleItem('submit'),
+    });
     this.eventBus.emit('getCategory');
     this.eventBus.emit('renderDone');
     this.#editDeletedImages.length = 0;
@@ -80,12 +96,12 @@ export default class NewAdPageView extends BaseView {
     const submitButton = document.getElementById('newAdForm') as HTMLButtonElement;
     submitButton?.removeEventListener('click', this.sendAd);
     submitButton?.addEventListener('click', this.editAd);
-    submitButton.innerHTML = 'Редактировать';
+    submitButton.innerHTML = <string>window.localizer.getLocaleItem('edit');
     const backBtn = document.createElement('button');
     backBtn.classList.add('button');
     backBtn.style.backgroundColor = '#e0e3e5';
     backBtn.style.color = 'black';
-    backBtn.innerHTML = 'Отменить'
+    backBtn.innerHTML = <string>window.localizer.getLocaleItem('cancel');
     backBtn.addEventListener('click', ()=> this.eventBus.emit('back'));
     document.querySelector('.button-container')?.prepend(backBtn);
   }

@@ -46,7 +46,7 @@ export default class ProfilePageModel {
       }
       const {adverts} = parsedBody.body;
       this.eventBus.emit('gotAds', adverts);
-    });
+    }).catch(()=> console.log('Ошибка получения объявлений'));
   }
   /**
    * Получить архивные объявления
@@ -63,7 +63,7 @@ export default class ProfilePageModel {
       }
       const {adverts} = parsedBody.body;
       this.eventBus.emit('gotAds', adverts, true);
-    });
+    }).catch(()=> console.log('Ошибка получения архива'));
   }
   /**
  * Получение объявлений в корзине
@@ -73,7 +73,7 @@ export default class ProfilePageModel {
       url: secureDomainUrl + 'cart',
       body: null,
     });
-    res.then(async ({status, parsedBody}) => {
+    res.then(({status, parsedBody}) => {
       if (status != statusCodes.OK) {
         return;
       }
@@ -89,13 +89,13 @@ export default class ProfilePageModel {
                 advert_id: Number(elem.id),
                 amount: 0,
               },
-            });
+            }).catch(()=> console.log('Ошибка очистка корзины'));
           }
         });
         this.eventBus.emit('gotCart', parsedBody.body.adverts);
         return;
       }
-    });
+    }).catch(()=> console.log('Ошибка получения корзины'));
   }
 
   /**
@@ -106,7 +106,7 @@ export default class ProfilePageModel {
       url: secureDomainUrl + 'adverts/favorite',
       body: null,
     });
-    res.then(async ({status, parsedBody}) => {
+    res.then(({status, parsedBody}) => {
       if (status != statusCodes.OK) {
         return;
       }
@@ -117,15 +117,15 @@ export default class ProfilePageModel {
           if (elem.is_active === false) {
             parsedBody.body.adverts.splice(pos, 1);
             Ajax.deleteAdUsingFetch({
-              url: secureDomainUrl + 'adverts/favourite/' + elem.id,
+              url: `${secureDomainUrl}adverts/favourite/${elem.id}`,
               body: null,
-            });
+            }).catch(()=> console.log('Ошибка удаления'));
           }
         });
         this.eventBus.emit('gotAds', parsedBody.body.adverts, false, true);
         return;
       }
-    });
+    }).catch(()=> console.log('Ошибка получения избранного'));
   }
 
   /**
@@ -133,10 +133,10 @@ export default class ProfilePageModel {
    */
   getMessages(isDetailed: boolean) {
     const res = Ajax.getUsingFetch({
-      url: `${secureDomainUrl}chat/getDialogs/${userInfo.get('id')}`,
+      url: `${secureDomainUrl}chat/getDialogs/${<string>userInfo.get('id')}`,
       body: null,
     });
-    res.then(async ({status, parsedBody}) => {
+    res.then(({status, parsedBody}) => {
       if (status != statusCodes.OK) {
         return;
       }
@@ -146,7 +146,7 @@ export default class ProfilePageModel {
         this.eventBus.emit('foundDialogs', parsedBody.body.dialogs, isDetailed);
         return;
       }
-    });
+    }).catch(()=> console.log('ошибка получения сообщений'));
   }
 
   /**
@@ -156,17 +156,15 @@ export default class ProfilePageModel {
     const idTo = window.location.pathname.split('/')[3];
     const advertId = window.location.pathname.split('/')[4];
     const res = Ajax.getUsingFetch({
-      url: `${secureDomainUrl}chat/getHistory/${userInfo.get('id')}/${idTo}/${advertId}?count=9999`,
+      url: `${secureDomainUrl}chat/getHistory/${<string>userInfo.get('id')}/${idTo}/${advertId}?count=9999`,
       body: null,
     });
-    res.then(async ({status, parsedBody}) => {
+    res.then(({status, parsedBody}) => {
       if (status != statusCodes.OK) {
         return;
       }
       const {code} = parsedBody;
-      console.log(parsedBody);
       if (code === statusCodes.OK) {
-        console.log(parsedBody.body);
         this.eventBus.emit('historyFound', parsedBody.body.messages);
         this.eventBus.emit('connectToChat', idTo, advertId);
         return;
@@ -176,7 +174,7 @@ export default class ProfilePageModel {
         this.eventBus.emit('connectToChat', idTo, advertId);
         return;
       }
-    });
+    }).catch(()=> console.log('ошибка подключения к диалогу'));
   }
 
 
@@ -241,7 +239,7 @@ export default class ProfilePageModel {
     document.getElementById('settingPhone')?.classList.add('text-input_correct');
     const changeBtn = document.getElementById('settings__change-info');
     if (changeBtn != null) {
-      changeBtn.innerHTML = 'Информация сохранена';
+      changeBtn.innerHTML = <string>window.localizer.getLocaleItem('infoSaved');
     }
     nameInput.placeholder = name;
     nameInput.value = '';
@@ -270,11 +268,11 @@ export default class ProfilePageModel {
       return;
     }
     if (password === oldPassword) {
-      passwordInput.innerHTML = 'Пароли одинаковые';
+      passwordInput.innerHTML = <string>window.localizer.getLocaleItem('passwordEqual');
       passwordDiv?.classList.add('text-input_wrong');
       return;
     }
-    passwordInput.innerHTML = 'Пароль слишком простой';
+    passwordInput.innerHTML = <string>window.localizer.getLocaleItem('passwordToWeak');
     passwordDiv?.classList.remove('text-input_wrong');
     this.eventBus.emit('passwordChecked', oldPassword, password);
   }
@@ -289,12 +287,14 @@ export default class ProfilePageModel {
     const modal = document.createElement('div');
     modal.id = 'modal';
     modal.innerHTML = modalT({
-      modalText: 'По какой причине вы хотите удалить объявление?',
+      modalText: window.localizer.getLocaleItem('modalDeleteText'),
       deleteModal: true,
+      sell: window.localizer.getLocaleItem('sell'),
+      otherReason: window.localizer.getLocaleItem('otherReason'),
     });
     document.getElementsByTagName('body')[0].appendChild(modal);
     const deleteInfo = document.createElement('p');
-    deleteInfo.innerHTML = ' Если вы продали объявление, то мы сохраним его в архив ';
+    deleteInfo.innerHTML = <string>window.localizer.getLocaleItem('modalDeleteHint');
     deleteInfo.style.textAlign = 'center';
     document.querySelector('.modal__title')?.after(deleteInfo);
     const modal1 = document.getElementById('modal-1') as HTMLDivElement;
@@ -345,7 +345,7 @@ export default class ProfilePageModel {
     const modalT = createDeleteModal();
     const modal = document.createElement('div');
     modal.innerHTML = modalT({
-      modalText: 'Покупка',
+      modalText: window.localizer.getLocaleItem('buing'),
       deleteModal: false,
     });
     document.getElementsByTagName('body')[0].appendChild(modal);
@@ -354,21 +354,21 @@ export default class ProfilePageModel {
     const modalText = document.querySelector('.modal__content');
 
     const modalAdvName = document.createElement('p');
-    modalAdvName.innerHTML = `Товар: ${advert.name}`;
+    modalAdvName.innerHTML = `${<string>window.localizer.getLocaleItem('good')} ${advert.name}`;
     modalText?.appendChild(modalAdvName);
     const modalAdvEmail = document.createElement('p');
-    modalAdvEmail.innerHTML = `email продавца: ${salesman.email}`;
+    modalAdvEmail.innerHTML = `${<string>window.localizer.getLocaleItem('salesmanEmail')} ${salesman.email}`;
     modalText?.appendChild(modalAdvEmail);
     if (salesman.phone !== '') {
       const resPhone = '+' + salesman.phone[0] + '(' +
           salesman.phone.slice(1, 4) + ')' + salesman.phone.slice(4, 7) +
           '-' + salesman.phone.slice(7, 9) + '-' + salesman.phone.slice(9, 11);
       const modalAdvPh = document.createElement('p');
-      modalAdvPh.innerHTML = `Контактный телефон: ${resPhone}`;
+      modalAdvPh.innerHTML = `${<string>window.localizer.getLocaleItem('phone')} ${resPhone}`;
       modalText?.appendChild(modalAdvPh);
     }
     const modalAdvPrice = document.createElement('p');
-    modalAdvPrice.innerHTML = `Цена: ${advert.price} ₽`;
+    modalAdvPrice.innerHTML = `${<string>window.localizer.getLocaleItem('price')} ${advert.price} ₽`;
     modalText?.appendChild(modalAdvPrice);
 
     const closeButton = modal1?.getElementsByClassName('modal__close-button')[0] as HTMLButtonElement;

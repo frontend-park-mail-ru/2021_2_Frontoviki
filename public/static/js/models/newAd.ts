@@ -1,5 +1,5 @@
 import {Ajax} from '../modules/ajax';
-import {idNum, inputNum, minValidationLen,
+import {engCategories, idNum, inputNum, minValidationLen,
   secureDomainUrl, statusCodes, userInfo} from '../constatns';
 import Bus from '../modules/EventBus';
 import { categoryList } from '../types';
@@ -76,13 +76,17 @@ export default class NewAdPageModel {
       }
       const {categories} = parsedBody.body;
       const select = document.getElementById('selCategory');
-      categories.forEach((elem : categoryList) => {
+      categories.forEach((elem : categoryList, i:number) => {
         const el = document.createElement('option');
         el.value = elem.name;
-        el.innerHTML = elem.name;
+        if (window.localizer.userLang == 'en') {
+          el.innerHTML = engCategories[i].name;
+        } else {
+          el.innerHTML = elem.name;
+        }
         select?.appendChild(el);
       });
-    });
+    }).catch(()=> console.log('Ошибка получения категорий'));
   }
 
   /**
@@ -215,7 +219,7 @@ export default class NewAdPageModel {
           card.removeChild(card.childNodes[0]);
         }
       });
-    });
+    }).catch(()=> console.log('Ошибка редактирования объявления'));
   }
 }
 

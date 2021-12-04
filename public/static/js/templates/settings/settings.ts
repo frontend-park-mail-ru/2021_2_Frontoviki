@@ -18,6 +18,23 @@ export function settings() : HTMLDivElement {
     }
   }
   settings.innerHTML = (<templateFunc>settingsT)({
+    Settings: window.localizer.getLocaleItem('settings'),
+    avatarUpload: window.localizer.getLocaleItem('avatarUpload'),
+    changePassword: window.localizer.getLocaleItem('changePassword'),
+    oldPassword: window.localizer.getLocaleItem('oldPassword'),
+    incorrectPassword: window.localizer.getLocaleItem('incorrectPassword'),
+    newPassword: window.localizer.getLocaleItem('newPassword'),
+    newPasswordHint: window.localizer.getLocaleItem('newPasswordHint'),
+    changePasswordBtn: window.localizer.getLocaleItem('changePasswordBtn'),
+    personalInfo: window.localizer.getLocaleItem('personalInfo'),
+    name: window.localizer.getLocaleItem('name'),
+    nameSettingsHint: window.localizer.getLocaleItem('nameSettingsHint'),
+    surname: window.localizer.getLocaleItem('surname'),
+    surnameSettingsHint: window.localizer.getLocaleItem('surnameSettingsHint'),
+    fullEmail: window.localizer.getLocaleItem('fullEmail'),
+    mobilePhone: window.localizer.getLocaleItem('mobilePhone'),
+    mobilePhoneHint: window.localizer.getLocaleItem('mobilePhoneHint'),
+    changeInfo: window.localizer.getLocaleItem('changeInfo'),
     userName: <string>userInfo.get('name'),
     userSurname: <string>userInfo.get('surname'),
     userEmail: <string>userInfo.get('email'),

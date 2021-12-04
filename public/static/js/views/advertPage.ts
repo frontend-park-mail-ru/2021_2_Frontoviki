@@ -54,6 +54,8 @@ export default class AdvertPageView extends BaseView {
           advert.categoryHref = elem.href;
         }
       });
+    } else {
+      advert.categoryHref = advert.category;
     }
     if (advert.price == '0') {
       advert.price = <string>window.localizer.getLocaleItem('zeroPrice');
