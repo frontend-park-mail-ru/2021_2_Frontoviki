@@ -23,8 +23,8 @@ export function egg() {
   let numbers: string[] = [];
   const numberColors = ['#3498db', '#2ecc71', '#e74c3c', '#9b59b6',
     '#f1c40f', '#1abc9c', '#34495e', '#7f8c8d'];
-  const endscreenContent = {win: '<span>Вы выиграли!</span>',
-    loose: 'КАБУМ! Вы проиграли.'};
+  const endscreenContent = {win: `<span>${<string>window.localizer.getLocaleItem('win')}</span>`,
+    loose: `<span>${<string>window.localizer.getLocaleItem('lose')}</span>`};
 
   let gameOver = false;
 

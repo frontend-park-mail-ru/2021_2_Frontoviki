@@ -51,6 +51,8 @@ export default class AdvertPageController {
     this.eventBus.on('checkCart', this.cartLogic.bind(this));
     this.eventBus.on('checkFav', this.favLogic.bind(this));
     this.eventBus.on('goToChat', this.goToChat.bind(this));
+    this.eventBus.on('createDialog', this.createDialog.bind(this));
+
     this.globalEventBus.on('loggedForCart', this.refreshCart.bind(this));
     this.globalEventBus.on('loggedForFav', this.favLogic.bind(this));
   }
@@ -93,6 +95,21 @@ export default class AdvertPageController {
    */
   goToProfile() {
     this.router.go('/profile');
+  }
+
+  createDialog(salesmanid: number, advertId: number) {
+    const res = Ajax.postUsingFetch({
+      url: `${secureDomainUrl}chat/createDialog/${<string>userInfo.get('id')}/${salesmanid}/${advertId}`,
+      body: null,
+    });
+    res.then(({parsedBody}) => {
+      console.log(parsedBody);
+      const {code} = parsedBody;
+      if (code !== statusCodes.OK) {
+        return;
+      }
+      this.goToChat(salesmanid, advertId);
+    }).catch(()=> console.log('Cannot create dialog'));
   }
 
   goToChat(salesmanid: number, advertId: number) {

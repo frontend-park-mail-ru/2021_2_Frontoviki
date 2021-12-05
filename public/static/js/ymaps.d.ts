@@ -3,7 +3,7 @@ declare namespace ymaps {
     export function suggest(query: string): Promise;
   
     class Promise {
-      then(onFulfilled?: Function, onRejected?: Function, onProgress?: Function, ctx?: any): Promise;
+      then(onFulfilled?: any, onRejected?: any, onProgress?: any, ctx?: any): Promise;
     }
   
     export class Map {

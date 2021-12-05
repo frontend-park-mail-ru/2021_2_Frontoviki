@@ -155,8 +155,9 @@ export default class ProfilePageModel {
   connectToDialog() {
     const idTo = window.location.pathname.split('/')[3];
     const advertId = window.location.pathname.split('/')[4];
+    console.log(`${secureDomainUrl}chat/getHistory/${<string>userInfo.get('id')}/${idTo}/${advertId}?count=9999`)
     const res = Ajax.getUsingFetch({
-      url: `${secureDomainUrl}chat/getHistory/${<string>userInfo.get('id')}/${idTo}/${advertId}?count=9999`,
+      url: `${secureDomainUrl}chat/getHistory/${<string>userInfo.get('id')}/${idTo}/${advertId}`,
       body: null,
     });
     res.then(({status, parsedBody}) => {
@@ -164,6 +165,7 @@ export default class ProfilePageModel {
         return;
       }
       const {code} = parsedBody;
+      console.log(parsedBody)
       if (code === statusCodes.OK) {
         this.eventBus.emit('historyFound', parsedBody.body.messages);
         this.eventBus.emit('connectToChat', idTo, advertId);
@@ -174,7 +176,7 @@ export default class ProfilePageModel {
         this.eventBus.emit('connectToChat', idTo, advertId);
         return;
       }
-    }).catch(()=> console.log('ошибка подключения к диалогу'));
+    }).catch((err)=> console.log(err));
   }
 
 

@@ -199,6 +199,10 @@ export const russian = {
   addressHint: 'Неверное местоположение',
   submit: 'Опубликовать',
   cancel: 'Отменить',
+  mapHint: 'Используйте карту для выбора адреса',
+  win: 'Вы выиграли!',
+  lose: 'КАБУМ! Вы проиграли.',
+
 }
 
 export const english = {
@@ -322,6 +326,9 @@ export const english = {
   addressHint: 'Error in address',
   submit: 'Publish',
   cancel: 'Cancel',
+  mapHint: 'Use map to choose address',
+  win: 'You won!',
+  lose: 'BOOM! You lose.',
 }
 
 export const engCategories:categoryList[] = [

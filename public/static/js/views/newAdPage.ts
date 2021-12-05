@@ -51,6 +51,7 @@ export default class NewAdPageView extends BaseView {
       address: window.localizer.getLocaleItem('address'),
       addressHint: window.localizer.getLocaleItem('addressHint'),
       submit: window.localizer.getLocaleItem('submit'),
+      mapHint: window.localizer.getLocaleItem('mapHint'),
     });
     this.eventBus.emit('getCategory');
     this.eventBus.emit('renderDone');

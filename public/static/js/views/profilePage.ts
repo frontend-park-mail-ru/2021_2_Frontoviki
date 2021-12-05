@@ -483,13 +483,8 @@ export default class ProfilePageView extends BaseView {
       chatContainer.innerHTML = chatT({dialog: dialogs});
       rightBlock.appendChild(chatContainer);
       if (isDetailed) {
-        document.querySelector('.chat')?.appendChild(createAdvBlock());
-        const messageBlock = document.createElement('div');
-        messageBlock.classList.add('chat_history');
-        document.querySelector('.chat')?.appendChild(messageBlock);
-        document.querySelector('.chat')?.appendChild(createChatInput());
+        // Ищем активный чатик
         const chats = document.querySelectorAll('.chat_chats_panel');
-
         (<NodeListOf<HTMLDivElement>>chats).forEach((elem: HTMLDivElement)=>{
           if (elem.getAttribute('advertId') != window.location.pathname.split('/')[4] ||
            elem.getAttribute('dataset') != window.location.pathname.split('/')[3]) {
@@ -498,6 +493,17 @@ export default class ProfilePageView extends BaseView {
             elem.classList.add('chat_chats_panel__active');
           }
         });
+        const active = document.querySelector('.chat_chats_panel__active');
+        document.querySelector('.chat')?.appendChild(createAdvBlock(<string>active?.getAttribute('advertTitle'),
+          <string>active?.getAttribute('advertLocation'), 
+          <string>active?.getAttribute('advertPrice'), 
+          `/${<string>active?.getAttribute('advertImg')}`,
+          <string>active?.getAttribute('advertId')
+        ));
+        const messageBlock = document.createElement('div');
+        messageBlock.classList.add('chat_history');
+        document.querySelector('.chat')?.appendChild(messageBlock);
+        document.querySelector('.chat')?.appendChild(createChatInput());
         // пока вызывает эпилепсию :(
         // window.scrollTo(0,document.body.scrollHeight);
         this.eventBus.emit('connectToDialog');
@@ -528,6 +534,9 @@ export default class ProfilePageView extends BaseView {
   }
 
   chatHistory(messages: message[]) {
+    if (messages == null) {
+      return;
+    }
     let prevDate = '';
     messages.forEach((elem)=>{
       let message: HTMLDivElement;
@@ -537,7 +546,7 @@ export default class ProfilePageView extends BaseView {
         document.querySelector('.chat_history')?.appendChild(message);
         prevDate = curDate;
       }
-      if (elem.from.toString() != userInfo.get('id')) {
+      if (elem.info.from.toString() != userInfo.get('id')) {
         message = createChatMessage(elem.message, elem.created_at.slice(11, 16), true);
       } else {
         message = createChatMessage(elem.message, elem.created_at.slice(11, 16), false);

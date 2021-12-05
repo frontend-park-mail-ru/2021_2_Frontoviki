@@ -1,15 +1,17 @@
 
   <div class="chat_chats">
       {{#each dialog}}
-    <div class="chat_chats_panel" dataset="{{user2}}" advertId="{{adv}}">
+    <div class="chat_chats_panel" dataset="{{id}}" advertId="{{adv_info.id}}" advertImg="{{adv_info.image}}"
+      advertTitle="{{adv_info.name}}" advertLocation="{{adv_info.location}}" advertPrice="{{adv_info.price}}">
       <div class="chat_chats_panel_image-container">
         <img
           class="chat_chats_panel_image"
-          src="https://i.ytimg.com/vi/d04tbT1Lvb8/sddefault.jpg"
+          src="/{{adv_info.image}}"
+          onerror="this.src = 'https://www.mirf.ru/wp-content/uploads/2021/05/JoJos-Bizarre-Adventure-12-1024x576.jpg';"
         />
       </div>
-      <p class="chat_chats_panel_capture">{{user2}}</p>
-      <p class="chat_chats_panel_advert">{{adv}}</p>
+      <p class="chat_chats_panel_capture">{{name}} {{surname}}</p>
+      <p class="chat_chats_panel_advert">{{adv_info.name}}</p>
     </div>
     {{/each}}
   </div>

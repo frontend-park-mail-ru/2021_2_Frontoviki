@@ -157,7 +157,7 @@ export default class ProfilePageController {
     Ajax.postImageUsingFetch({
       url: secureDomainUrl + 'users/profile/upload',
       body: formData,
-    });
+    }).catch((err)=> console.log(err));
   }
 
   /**
@@ -184,7 +184,7 @@ export default class ProfilePageController {
         userInfo.set('phone', phone);
         this.eventBus.emit('profileUpdated', name, surname);
       }
-    });
+    }).catch((err)=> console.log(err));
   }
 
   /**
@@ -196,7 +196,7 @@ export default class ProfilePageController {
     const response = Ajax.postUsingFetch({
       url: secureDomainUrl + 'users/profile/password',
       body: {
-        email: userInfo.get('email'),
+        email: <string>userInfo.get('email'),
         password: oldPassword,
         new_password: password,
       },
@@ -212,7 +212,7 @@ export default class ProfilePageController {
         return;
       }
       this.eventBus.emit('passwordChangeNotOk');
-    });
+    }).catch((err)=> console.log(err));
   }
   /**
  * удаляет из корзины
@@ -235,7 +235,7 @@ export default class ProfilePageController {
       if (advertPos != null) {
         this.model.getCart();
       }
-    });
+    }).catch((err)=> console.log(err))
   }
 
   /**
@@ -245,7 +245,7 @@ export default class ProfilePageController {
    */
   deleteFromFavorite(id : number, advertPos : number | null) {
     const res = Ajax.deleteAdUsingFetch({
-      url: secureDomainUrl + 'adverts/favorite/' + id,
+      url: `${secureDomainUrl}adverts/favorite/${id}`,
       body: null,
     });
     res.then(({parsedBody}) => {
@@ -256,7 +256,7 @@ export default class ProfilePageController {
       if (advertPos != null) {
         this.model.getFavorite();
       }
-    });
+    }).catch((err)=> console.log(err));
   }
 
   /**
@@ -276,7 +276,7 @@ export default class ProfilePageController {
       if (code === statusCodes.OK) {
         this.eventBus.emit('deletedSuccessful');
       }
-    });
+    }).catch((err)=> console.log(err));
   }
 
   /**
@@ -296,7 +296,7 @@ export default class ProfilePageController {
       if (code === statusCodes.OK) {
         this.eventBus.emit('deletedSuccessful');
       }
-    });
+    }).catch((err)=> console.log(err));
   }
 
   /**
@@ -305,7 +305,7 @@ export default class ProfilePageController {
    */
   buyFromCart(advert: advert) {
     const res = Ajax.postUsingFetch({
-      url: secureDomainUrl + 'cart/' + advert.id + '/checkout',
+      url: `${secureDomainUrl}cart/${advert.id}/checkout`,
       body: {
         advert_id: advert.id,
       },
@@ -317,7 +317,7 @@ export default class ProfilePageController {
       }
       console.log(parsedBody);
       this.eventBus.emit('buySuccess', parsedBody.body.salesman, advert);
-    });
+    }).catch((err)=> console.log(err));
   }
 
   /**

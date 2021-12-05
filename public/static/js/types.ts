@@ -70,17 +70,31 @@ export type cart = {
 }
 
 export type dialog = {
-    user1: number;
-    user2: number;
-    adv: number;
+    id: number;
+    adv_info: dialogAdvertInfo;
     created_at: string;
+    name: string;
+    surname: string;
+}
+
+type dialogAdvertInfo = {
+    id: number;
+    image: string;
+    location: string;
+    name: string;
+    price: number;
 }
 
 export type message = {
+    info: innerMessage;
+    created_at: string;
+    message: string;
+}
+
+type innerMessage = {
     from: number;
     to: number;
-    message: string;
-    created_at: string;
+    adv: number;
 }
 
 export type templateFunc = (params?: unknown | null) => string;

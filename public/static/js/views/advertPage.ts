@@ -184,7 +184,8 @@ export default class AdvertPageView extends BaseView {
       if (!userInfo.has('id')) {
         this.eventBus.emit('notLogged');
       } else {
-        this.eventBus.emit('goToChat', advert.publisher_id, advert.id);
+        this.eventBus.emit('createDialog', advert.publisher_id, advert.id);
+        // this.eventBus.emit('goToChat', advert.publisher_id, advert.id);
       }
     })
 
