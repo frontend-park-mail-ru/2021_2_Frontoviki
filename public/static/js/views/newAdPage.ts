@@ -58,7 +58,9 @@ export default class NewAdPageView extends BaseView {
     this.#editDeletedImages.length = 0;
     this.#fileList.length = 0;
     this.#editOffset = 0;
+    /* eslint-disable @typescript-eslint/unbound-method */
     document.getElementById('newAdForm')?.addEventListener('click', this.sendAd);
+    /* eslint-enable @typescript-eslint/unbound-method */
     const input = document.querySelectorAll('.new-ad-form__input');
     [].forEach.call(input, (elem : HTMLElement) => {
       elem.addEventListener('focusin', () => {
@@ -95,8 +97,10 @@ export default class NewAdPageView extends BaseView {
     this.render();
     this.eventBus.emit('getExistData');
     const submitButton = document.getElementById('newAdForm') as HTMLButtonElement;
+    /* eslint-disable @typescript-eslint/unbound-method */
     submitButton?.removeEventListener('click', this.sendAd);
     submitButton?.addEventListener('click', this.editAd);
+    /* eslint-enable @typescript-eslint/unbound-method */
     submitButton.innerHTML = <string>window.localizer.getLocaleItem('edit');
     const backBtn = document.createElement('button');
     backBtn.classList.add('button');

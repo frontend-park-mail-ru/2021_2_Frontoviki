@@ -9,7 +9,7 @@ declare namespace ymaps {
     export class Map {
       constructor(element: string | any, state: MapState);
       geoObjects: GeoObjects;
-      events: any;
+      events: GeoEvent;
       add(geObject: GeoObject);
     }
   
@@ -25,5 +25,13 @@ declare namespace ymaps {
     export class GeoObjects {
       add(geoObject: GeoObject);
       removeAll();
+    }
+
+    export class GeoEvent {
+      add(name:string, callback: GeoCallback)
+    }
+    type GeoCallback = (e: ymapsEvent) => Promise<void>;
+    type ymapsEvent = {
+      get(name: string): number[]
     }
   }

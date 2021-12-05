@@ -47,14 +47,15 @@ export default class AdvertPageController {
     this.eventBus.on('goToFav', this.goToFav.bind(this));
     this.eventBus.on('addToCart', this.addToCart.bind(this));
     this.eventBus.on('addToFavourite', this.addToFav.bind(this));
-    this.eventBus.on('refreshCart', this.cartLogic.bind(this));
-    this.eventBus.on('checkCart', this.cartLogic.bind(this));
-    this.eventBus.on('checkFav', this.favLogic.bind(this));
+    /* eslint-disable  @typescript-eslint/no-misused-promises */
+    this.eventBus.on('refreshCart',  this.cartLogic.bind(this));
+    this.eventBus.on('checkCart',  this.cartLogic.bind(this));
+    this.eventBus.on('checkFav',  this.favLogic.bind(this));
     this.eventBus.on('goToChat', this.goToChat.bind(this));
     this.eventBus.on('createDialog', this.createDialog.bind(this));
 
     this.globalEventBus.on('loggedForCart', this.refreshCart.bind(this));
-    this.globalEventBus.on('loggedForFav', this.favLogic.bind(this));
+    this.globalEventBus.on('loggedForFav',  this.favLogic.bind(this));
   }
 
   /**

@@ -41,6 +41,7 @@ export default class MainPageView extends BaseView {
   render() {
     this.root.innerHTML = '';
     this.#page = 1;
+    /* eslint-disable  @typescript-eslint/unbound-method */
     window.addEventListener('scroll', this.populate);
     this.newAdvertBtn();
     this.eventBus.emit('getCategories');

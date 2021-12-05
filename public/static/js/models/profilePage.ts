@@ -322,7 +322,7 @@ export default class ProfilePageModel {
     });
 
     const archiveBtn = document.getElementById('modal__button-to-archive');
-    archiveBtn?.addEventListener('click', (e) => {
+    archiveBtn?.addEventListener('click', () => {
       this.eventBus.emit('archived', id);
     });
   }

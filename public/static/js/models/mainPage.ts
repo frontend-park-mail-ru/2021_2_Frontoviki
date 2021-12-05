@@ -43,7 +43,7 @@ export default class MainPageModel {
         }
         this.eventBus.emit('getAds', adverts, clearPage, page);
       }
-    });
+    }).catch((err)=>console.log(err));
   }
 
   /**
@@ -66,7 +66,7 @@ export default class MainPageModel {
         const {adverts} = body;
         this.eventBus.emit('gotSearchedAds', adverts);
       }
-    });
+    }).catch((err)=>console.log(err));
   }
 
   /**
@@ -90,7 +90,7 @@ export default class MainPageModel {
         const decoded = decodeURI(category);
         this.eventBus.emit('gotCategoryAds', adverts, decoded);
       }
-    });
+    }).catch((err)=>console.log(err));
   }
 
   /**
@@ -107,6 +107,6 @@ export default class MainPageModel {
       }
       const {categories} = parsedBody.body;
       this.eventBus.emit('gotCategories', categories);
-    });
+    }).catch((err)=>console.log(err));
   }
 }

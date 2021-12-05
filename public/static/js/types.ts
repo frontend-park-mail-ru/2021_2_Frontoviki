@@ -25,7 +25,7 @@ export type args = {
 
 export type route = {
     regExp: RegExp;
-    handler: Function;
+    handler: callback;
 }
 
 export type rating = {
@@ -118,6 +118,14 @@ export type body = {
     categories: categoryList[];
     dialogs: dialog[];
     messages: message[];
+}
+
+export type ymapsEvent = {
+    get(name: string): number[]
+}
+
+export type state = {
+    url : string;
 }
 
 export type callback = (...args: any[]) => void;

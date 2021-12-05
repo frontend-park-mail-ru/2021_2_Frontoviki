@@ -1,4 +1,3 @@
-/// <reference path="../ymaps.d.ts" />
 import {advertPageTemplate} from '../templates/advertPage/advertPageT';
 import BaseView from './baseView';
 import {SliderLogic} from '../templates/advertPage/sliderLogic';
@@ -185,7 +184,6 @@ export default class AdvertPageView extends BaseView {
         this.eventBus.emit('notLogged');
       } else {
         this.eventBus.emit('createDialog', advert.publisher_id, advert.id);
-        // this.eventBus.emit('goToChat', advert.publisher_id, advert.id);
       }
     })
 

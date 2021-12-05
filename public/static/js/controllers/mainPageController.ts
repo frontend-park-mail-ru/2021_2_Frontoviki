@@ -90,6 +90,7 @@ export default class MainPageController {
    * Если закончились объявления остановим ленту
    */
   stopScroll() {
+    /* eslint-disable  @typescript-eslint/unbound-method */
     window.removeEventListener('scroll', this.view.populate);
   }
 

@@ -79,7 +79,7 @@ export default class SalesmanPageController {
         return;
       }
       this.eventBus.emit('ratedFinish');
-    });
+    }).catch((err)=>console.log(err));
   }
   /**
    * Переход на страницу объявления
