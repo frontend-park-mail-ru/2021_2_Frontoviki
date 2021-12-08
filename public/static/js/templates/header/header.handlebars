@@ -54,7 +54,10 @@
     <label class="expand-menu__label" for="mini-profile__toogle">
       <div class="header__right-block mini-profile">
         <p class="mini-profile__capture">{{userName}}</p>
-        <img class="mini-profile__avatar" src="{{userAvatar}}" />
+        <img class="mini-profile__avatar" 
+        src="{{userAvatar}}.webp"
+        onerror="this.onerror=null; this.src='{{userAvatar}}{{format}}'"
+         />
         <svg
           class="mini-profile__options__icon"
           width="10"

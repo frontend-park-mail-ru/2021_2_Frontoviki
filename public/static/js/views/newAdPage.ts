@@ -176,7 +176,7 @@ export default class NewAdPageView extends BaseView {
     
     let cursed = false;
     images.forEach((elem)=>{
-      if (elem == '/static/advertimages/default_image__png.png') {
+      if (elem == '/static/advertimages/default_image.webp') {
         cursed = true;
         return;
       }

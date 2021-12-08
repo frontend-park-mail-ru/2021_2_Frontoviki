@@ -161,6 +161,9 @@ export default class NewAdPageController {
    * @param {Array} fileList массив фотографий
    */
   deleteImages(id:number, images:string[], fileList:Blob[]) {
+    images.forEach((elem, i) => {
+      images[i] = elem.split('.')[0];
+    })
     Ajax.deleteAdUsingFetch({
       url: `${secureDomainUrl}adverts/${id}/images`,
       body: {images: images},

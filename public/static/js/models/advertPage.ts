@@ -40,8 +40,12 @@ export default class AdvertPageModel {
           imagePath: '',
           format: ''
         };
-        newElem.imagePath = '/' + elem;
-        newElem.format = elem.split('__')[1];
+        if (elem == 'static/advertimages/default_image.webp') {
+          newElem.imagePath = '/static/advertimages/default_image';
+        } else {
+          newElem.imagePath = '/' + elem;
+          newElem.format = '.' + elem.split('__')[1];
+        }
         advert['imagesContainer'].push(newElem);
       });
       this.eventBus.emit('gotAd', advert, salesman, rating);

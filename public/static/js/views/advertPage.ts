@@ -91,6 +91,7 @@ export default class AdvertPageView extends BaseView {
       salesmanName: salesman.name,
       salesmanSurname: salesman.surname,
       salesmanAvatar: '/' + salesman.image,
+      salesmanFormat: '.' + salesman.image.split('__')[1],
       salesmanHref: '/salesman/' + salesman.id,
       salesmanRating: rating.avg.toFixed(1),
       salesmanCreatedAt: date,

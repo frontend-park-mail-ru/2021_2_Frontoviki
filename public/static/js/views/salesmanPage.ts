@@ -45,6 +45,7 @@ export default class SalesmanPageView extends BaseView {
       advertsTitle: window.localizer.getLocaleItem('advertsTitle'),
       userName: name,
       userAvatar: '/' + image,
+      format: '.' + image.split('__')[1],
       star: stars.slice(0, Math.round(rating.avg)),
       emptyStar: stars.slice(Math.round(rating.avg), 6),
       isRated: rating.is_rated,

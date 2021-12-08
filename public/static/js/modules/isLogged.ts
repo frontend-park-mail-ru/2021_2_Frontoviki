@@ -64,6 +64,7 @@ export async function isLogged(globalEventBus: Bus) {
     header.innerHTML = headerT({
       userName: name,
       userAvatar: `/${image}`,
+      format: '.' + image.split('__')[1],
       find: window.localizer.getLocaleItem('find'),
       search: window.localizer.getLocaleItem('search'),
       newAd: window.localizer.getLocaleItem('newAd'),

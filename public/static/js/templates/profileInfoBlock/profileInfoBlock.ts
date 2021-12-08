@@ -21,6 +21,7 @@ export function profileInfoBlock() : HTMLDivElement {
     settings: window.localizer.getLocaleItem('settings'),
     userName: <string>userInfo.get('name'),
     userAvatar: <string>userInfo.get('image'),
+    format: '.' + (<string>userInfo.get('image')).split('__')[1],
     star: StarAlgorithym.
             slice(0, Math.round(<number>(userInfo.get('rating')))),
     emptyStar: StarAlgorithym.
