@@ -9,7 +9,8 @@
         <div class="card__content__image-container">
           <img
             class="card__content__image"
-            src="{{image}}"
+            src="{{image}}.webp"
+            onerror="this.src = '{{image}}.{{format}}';"
           />
         </div>
         <div class="card__content__capture-container">

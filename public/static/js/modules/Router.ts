@@ -32,7 +32,7 @@ export default class Router {
    * No pushState is necessary when user go back in history. Default set to true.
    */
   go(URL : string, pushState = true) {
-    const oldURL =  (<state>window.history.state).url;
+    const oldURL =  (<state>window.history.state)?.url;
     if (pushState && URL !== oldURL) {
       window.history.pushState({url: URL}, '', URL);
     }

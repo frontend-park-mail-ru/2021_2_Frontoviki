@@ -5,6 +5,7 @@ export type categoryList = {
 }
 
 export type card = {
+    format: string;
     image: string;
     images: string[];
     name: string;
@@ -52,6 +53,12 @@ export type advert = {
     href: string;
     views: number;
     categoryHref: string;
+    imagesContainer: imagesContainer[];
+}
+
+export type imagesContainer = {
+    imagePath: string;
+    format: string;
 }
 
 export type salesman = {

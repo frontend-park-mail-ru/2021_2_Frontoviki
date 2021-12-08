@@ -73,5 +73,8 @@ document.addEventListener('DOMContentLoaded', () => {
       egg();
     }, 1000);
   }
-  }).catch(()=> root.innerHTML='Ошибка связи с сервером');
+  }).catch((err)=> {
+    root.innerHTML='Ошибка связи с сервером';
+    console.log(err);
+  });
 });

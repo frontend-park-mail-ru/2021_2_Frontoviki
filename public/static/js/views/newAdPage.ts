@@ -173,13 +173,14 @@ export default class NewAdPageView extends BaseView {
    * @param {*} images
    */
   pushExistingImages(images: string[]) {
+    
     let cursed = false;
     images.forEach((elem)=>{
-      if (elem == '/static/advertimages/default_image.png') {
+      if (elem == '/static/advertimages/default_image__png.png') {
         cursed = true;
         return;
       }
-      this.insertImageIntoImageUploader(elem);
+      this.insertImageIntoImageUploader(`${elem}.${elem.split('__')[1]}`);
     });
     if (!cursed) {
       this.#fileList.length = images.length;

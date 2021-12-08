@@ -1,6 +1,7 @@
 import {Ajax} from '../modules/ajax';
 import {idNum, secureDomainUrl, statusCodes} from '../constatns';
 import Bus from '../modules/EventBus';
+import { imagesContainer } from '../types';
 
 /**
  * Класс главной страницы с последними объявлениями
@@ -33,10 +34,17 @@ export default class AdvertPageModel {
         return;
       }
       const {advert, salesman, rating} = parsedBody.body;
-      advert.images.forEach((elem: string, key: number) => {
-        advert.images[key] = '/' + elem;
+      advert['imagesContainer'] = [];
+      advert.images.forEach((elem: string) => {
+        const newElem = {
+          imagePath: '',
+          format: ''
+        };
+        newElem.imagePath = '/' + elem;
+        newElem.format = elem.split('__')[1];
+        advert['imagesContainer'].push(newElem);
       });
       this.eventBus.emit('gotAd', advert, salesman, rating);
-    }).catch(()=> console.log('Ошибка получения объявления'));
+    }).catch((err)=> console.log(err));
   }
 }

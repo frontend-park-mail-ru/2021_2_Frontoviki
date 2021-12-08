@@ -15,6 +15,7 @@ export function createProductGrid(jsonElements: card[], canDelete : boolean, can
   const productGrid = document.createElement('div');
   productGrid.classList.add('grid-container');
   jsonElements.forEach((element) => {
+    element.format = element.image.split('__')[1];
     element.canDelete = canDelete;
     element.canBuy = canBuy;
     element.location = element.location.split(',')[0];
