@@ -1,7 +1,7 @@
 import {secureDomainUrl, statusCodes, userInfo} from '../constatns';
 import {Ajax} from './ajax';
 import {logout} from './logout';
-import {createHeader} from '../templates/header/header';
+import {createHeader, LangButtonImg} from '../templates/header/header';
 import Bus from './EventBus';
 
 /**
@@ -165,6 +165,7 @@ export async function isLogged(globalEventBus: Bus) {
       mobileSearchInput.value = '';
     }
   });
+  LangButtonImg();
 
   /**
    * Хотим добавить объявления когда не зарегистрированы

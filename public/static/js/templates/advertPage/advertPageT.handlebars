@@ -48,8 +48,8 @@
             >
               <img
                 class="advertisment-detail__main-info__main__gallery__image-block__image"
-                src="{{this}}.webp"
-                onerror="this.src = '{{this.imagePath}}.{{this.format}}';"
+                src="{{this.imagePath}}.webp"
+                onerror="this.onerror = null; this.src = '{{this.imagePath}}.{{this.format}}';"
               />
             </div>
           {{/each}}
