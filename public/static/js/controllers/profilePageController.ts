@@ -157,6 +157,14 @@ export default class ProfilePageController {
     Ajax.postImageUsingFetch({
       url: secureDomainUrl + 'users/profile/upload',
       body: formData,
+    }).then(({status, parsedBody}) => {
+      if (status != statusCodes.OK) {
+        return;
+      }
+      if (parsedBody.code != statusCodes.OK) {
+        return;
+      }
+      userInfo.set('image', `/${parsedBody.body.profile.image}`);
     }).catch((err)=> console.log(err));
   }
 

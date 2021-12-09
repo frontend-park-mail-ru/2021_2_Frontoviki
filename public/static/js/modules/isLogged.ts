@@ -51,8 +51,8 @@ export async function isLogged(globalEventBus: Bus) {
     const rating = body?.rating?.avg;
     const {name, surname, email, id, phone} = body?.profile;
     let {image} = body?.profile;
-    if (image == null) {
-      image = '/static/img/default_image.jpg';
+    if (image == 'static/avatars/default_avatar') {
+      image = '/static/avatars/default_avatar';
     }
     userInfo.set('id', id);
     userInfo.set('name', name);
@@ -61,6 +61,7 @@ export async function isLogged(globalEventBus: Bus) {
     userInfo.set('image', `/${image}`);
     userInfo.set('rating', rating);
     userInfo.set('phone', phone);
+    console.log(image);
     header.innerHTML = headerT({
       userName: name,
       userAvatar: `/${image}`,
