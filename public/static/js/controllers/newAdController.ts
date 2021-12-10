@@ -44,6 +44,7 @@ export default class NewAdPageController {
     this.eventBus.on('photoDataPacked', this.sendPhotos.bind(this));
     this.eventBus.on('checkLog', this.checkForLogging.bind(this));
     this.eventBus.on('deleteImages', this.deleteImages.bind(this));
+    this.eventBus.on('changePrice', this.changePrice.bind(this));
     this.eventBus.on('back', this.back.bind(this));
   }
 
@@ -117,6 +118,24 @@ export default class NewAdPageController {
         }
         this.eventBus.emit('successSend', id, isNew, fileList);
       }
+    }).catch(()=> console.log('Ошибка в отправлении данных'));
+  }
+
+  changePrice(price: number) {
+    const advertId = window.location.pathname.split('/')[2];
+    const response = Ajax.postUsingFetch({
+      url: `${secureDomainUrl}adverts/price_history`,
+      body: {
+        price: Number(price),
+        advert_id: Number(advertId),
+      },
+    });
+    response.then(({status, parsedBody}) => {
+      if (status != statusCodes.OK) {
+        return;
+      }
+      const {code} = parsedBody;
+      console.log(code, parsedBody);
     }).catch(()=> console.log('Ошибка в отправлении данных'));
   }
 

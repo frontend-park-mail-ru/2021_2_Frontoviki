@@ -60,6 +60,7 @@ export default class AdvertPageModel {
     });
     res.then(({parsedBody}) => {
       const {code} = parsedBody;
+      console.log(parsedBody);
       if (code === statusCodes.NOTEXIST) {
         return;
       }

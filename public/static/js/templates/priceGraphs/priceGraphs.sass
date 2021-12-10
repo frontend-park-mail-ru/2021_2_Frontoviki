@@ -1,0 +1,190 @@
+.price-history-container
+    width: 900px
+    height: 450px
+    background-color: #f1f1f1
+
+    display: grid
+    grid-template-columns: 75px 1fr
+    grid-template-rows: 1fr 50px
+
+.price-history_axe-y
+    grid-column: 1 / 2
+    grid-row: 1 / 2
+
+    display: grid
+    grid-template-columns: 1fr
+    position: relative
+
+    width: 100%
+    height: 100%
+    border-right: 2px solid black
+
+
+    &_label-container
+        grid-column: 1 / 2
+
+        display: grid
+        grid-auto-rows: auto
+        position: relative
+
+        width: 100%
+        height: 100%
+
+
+    &_label
+        position: relative
+        width: 100%
+        height: 100%
+
+        display: flex
+        flex-direction: column
+        align-items: flex-end
+        justify-content: flex-end
+
+
+    &_label::after
+        position: absolute
+        right: -2px
+        content: " "
+        height: 2px
+        width: 6px
+        background-color: black
+
+
+    &_label_capture
+        width: 100%
+        text-align: right
+        position: absolute
+        transform: translate(-7px,7px)
+
+
+    &_chert-container
+        grid-column: 2 / 3
+        display: grid
+        grid-auto-rows: auto
+        position: relative
+        border-right: 2px solid black
+
+
+    &_chert::after
+        position: absolute
+        right: -1px
+        transform: translateY(100%)
+        content: " "
+        height: 2px
+        width: 6px
+        background-color: black
+
+.price-history_axe-x
+    grid-column: 2 / 3
+    grid-row: 2
+
+    width: 100%
+    height: 100%
+
+    display: grid
+    grid-auto-rows: min-content
+
+
+    &_label-container
+        grid-column: 1 / 2
+        position: relative
+        display: flex
+        flex-direction: row
+
+        width: 100%
+        height: 100%
+
+
+    &_label
+        height: 100%
+        position: relative
+
+
+    &_label_capture
+        width: fit-content
+        position: absolute
+        transform: translateX(-15px)
+
+
+    &_chert-container
+        grid-column: 1 / 2
+        display: flex
+        flex-direction: row
+        position: relative
+        border-top: 2px solid black
+        height: 6px
+
+
+    &_chert
+        height: 6px
+        margin: 0
+        position: relative
+
+
+    &_chert::before
+        position: absolute
+        left: -3px
+        content: " "
+        height: 6px
+        width: 2px
+        background-color: black
+
+.price-history
+    position: relative
+    width: 100%
+    height: 100%
+
+    &_horizontals
+        position: absolute
+        display: grid
+        grid-auto-rows: auto
+
+        width: 100%
+        height: 100%
+
+
+    &_horizontals_block
+        border-bottom: 1px dashed rgba(0, 0, 0, 0.15)
+
+
+    &_plot
+        position: absolute
+        display: flex
+        flex-direction: row
+        align-items: flex-end
+
+        width: 100%
+        height: 100%
+
+        z-index: 5
+        overflow: hidden
+        visibility: hidden
+
+        background-color: #54a5f3
+
+
+    &_plot_column
+        position: relative
+        background: inherit
+        width: 100%
+        height: 100%
+        visibility: visible
+        transition: background-color 0.1s ease
+
+
+@for $i from 0 through 100 
+  .column-height-#{$i} 
+    height: $i * 1%
+  
+
+
+@for $i from 0 through 100 
+  .column-width-#{$i} 
+    width: $i * 1%
+    margin: 0 2px
+  
+  
+  .column-width-#{$i}:hover 
+    background-color: #4384C2
+  

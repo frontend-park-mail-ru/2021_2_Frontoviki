@@ -130,6 +130,9 @@ export default class NewAdPageModel {
       const adId = window.location.pathname.split('/')[idNum];
       endpointUrl = `${secureDomainUrl}adverts/${adId}`;
     }
+    if (!isNew) {
+      this.eventBus.emit('changePrice', price);
+    }
     this.eventBus.emit('validateSuccessful', endpointUrl, title, description,
         category, condition, price, address,
         coords, isNew, fileList, imagesToDelete);

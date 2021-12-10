@@ -5,6 +5,7 @@ import {engCategories, inputNum, userInfo} from '../constatns';
 import {properDate} from '../modules/utilsFunctions';
 import Bus from '../modules/EventBus';
 import { advert, priceHistoryStamp, rating, salesman } from '../types';
+import { drawGraphs } from '../templates/priceGraphs/priceGraphs';
 
 /**
   *Класс для генерации страницы объявления
@@ -198,7 +199,14 @@ export default class AdvertPageView extends BaseView {
   }
 
   renderPriceHistory(history: priceHistoryStamp[]) {
-    console.log(history);
+    const dates = [] as string[];
+    const prices = [] as number[];
+    history.forEach((elem) => {
+      dates.push(elem.change_time);
+      prices.push(elem.price);
+    });
+    const container = drawGraphs(dates, prices);
+    document.querySelector('.advertisment-detail__add-info')?.appendChild(container);
   }
 
   /**
