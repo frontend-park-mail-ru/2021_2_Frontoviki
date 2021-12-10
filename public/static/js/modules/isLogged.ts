@@ -24,7 +24,7 @@ export async function isLogged(globalEventBus: Bus) {
   wrapper?.prepend(header);
   header.innerHTML = headerT({
     userName: undefined,
-    userAvatar: undefined,
+    userAvatar: '/static/avatars/default_avatar',
     find: window.localizer.getLocaleItem('find'),
     search: window.localizer.getLocaleItem('search'),
     newAd: window.localizer.getLocaleItem('newAd'),
@@ -94,7 +94,7 @@ export async function isLogged(globalEventBus: Bus) {
   } else {
     header.innerHTML = headerT({
       userName: undefined,
-      userAvatar: undefined,
+      userAvatar: '/static/avatars/default_avatar',
       find: window.localizer.getLocaleItem('find'),
       search: window.localizer.getLocaleItem('search'),
       newAd: window.localizer.getLocaleItem('newAd'),
