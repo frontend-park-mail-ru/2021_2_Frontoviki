@@ -14,18 +14,18 @@ export function LangButtonLogic(router: Router) {
   const img = (<HTMLImageElement>document.querySelector('.lang-box__img'));
 
   if (window.localizer.userLang == 'ru') {
-    img.src = '/static/img/us.png';
+    img.src = '/img/us.png';
   } else {
-    img.src = '/static/img/ru.png';
+    img.src = '/img/ru.png';
   }
 
   document.querySelector('.lang-box')?.addEventListener('click', ()=> {
     if (window.localizer.userLang == 'ru') {
       window.localizer.userLang = 'en';
-      img.src = '/static/img/ru.png';
+      img.src = '/img/ru.png';
     } else {
       window.localizer.userLang = 'ru';
-      img.src = '/static/img/us.png';
+      img.src = '/img/us.png';
     }
     router.go(window.location.pathname);
   });
@@ -34,8 +34,8 @@ export function LangButtonLogic(router: Router) {
 export function LangButtonImg() {
   const img = (<HTMLImageElement>document.querySelector('.lang-box__img'));
   if (window.localizer.userLang == 'ru') {
-    img.src = '/static/img/us.png';
+    img.src = '/img/us.png';
   } else {
-    img.src = '/static/img/ru.png';
+    img.src = '/img/ru.png';
   }
 }
