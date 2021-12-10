@@ -176,11 +176,16 @@ export default class NewAdPageView extends BaseView {
     
     let cursed = false;
     images.forEach((elem)=>{
-      if (elem == '/static/advertimages/default_image.webp') {
+      if (elem == '/static/advertimages/default_image.png') {
         cursed = true;
         return;
       }
-      this.insertImageIntoImageUploader(`${elem}.${elem.split('__')[1]}`);
+      console.log(elem);
+      if (elem.split('.')[1] == 'webp') {
+        this.insertImageIntoImageUploader(`${elem}`);
+      } else {
+        this.insertImageIntoImageUploader(`${elem}.${elem.split('__')[1]}`);
+      }
     });
     if (!cursed) {
       this.#fileList.length = images.length;

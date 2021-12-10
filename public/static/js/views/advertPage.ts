@@ -4,7 +4,7 @@ import {SliderLogic} from '../templates/advertPage/sliderLogic';
 import {engCategories, inputNum, userInfo} from '../constatns';
 import {properDate} from '../modules/utilsFunctions';
 import Bus from '../modules/EventBus';
-import { advert, rating, salesman } from '../types';
+import { advert, priceHistoryStamp, rating, salesman } from '../types';
 
 /**
   *Класс для генерации страницы объявления
@@ -27,6 +27,7 @@ export default class AdvertPageView extends BaseView {
     this.eventBus.on('addedToFavorite', this.successFav.bind(this));
     this.eventBus.on('inFav', this.successFav.bind(this));
     this.eventBus.on('notInFav', this.notInFav.bind(this));
+    this.eventBus.on('gotPriceHistory', this.renderPriceHistory.bind(this));
   }
 
   /**
@@ -96,6 +97,7 @@ export default class AdvertPageView extends BaseView {
       salesmanRating: rating.avg.toFixed(1),
       salesmanCreatedAt: date,
     });
+    this.eventBus.emit('getPriceHistory', advert.id);
     this.eventBus.emit('adDrawn', advert);
     const label = document.querySelector('.advertisment-detail__add-info__location__name-block__maps-label')
     label?.addEventListener('click', ()=>{
@@ -193,6 +195,10 @@ export default class AdvertPageView extends BaseView {
     }
     this.eventBus.emit('checkCart', advert);
     this.eventBus.emit('checkFav', advert);
+  }
+
+  renderPriceHistory(history: priceHistoryStamp[]) {
+    console.log(history);
   }
 
   /**

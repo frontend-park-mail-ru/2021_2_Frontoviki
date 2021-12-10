@@ -16,6 +16,6 @@
     <img
       class="image-uploader__image__img"
       src="{{imageUrl}}"
-      onerror="this.src = '{{imageUrl}}.webp';"
+      onerror="this.src = '{{imageUrl}}'.split('.')[0]+ '.webp'; this.onerror=null"
     />
   </div>

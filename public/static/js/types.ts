@@ -125,6 +125,13 @@ export type body = {
     categories: categoryList[];
     dialogs: dialog[];
     messages: message[];
+    history: priceHistoryStamp[];
+}
+
+export type priceHistoryStamp = {
+    advert_id: number;
+    price: number;
+    change_time: string;
 }
 
 export type ymapsEvent = {
