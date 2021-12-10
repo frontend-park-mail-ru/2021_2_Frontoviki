@@ -1,7 +1,6 @@
 import {Ajax} from '../modules/ajax';
 import {idNum, secureDomainUrl, statusCodes} from '../constatns';
 import Bus from '../modules/EventBus';
-import { imagesContainer } from '../types';
 
 /**
  * Класс главной страницы с последними объявлениями
