@@ -135,7 +135,7 @@ export type priceHistoryStamp = {
 }
 
 export type ymapsEvent = {
-    get(name: string): number[]
+    get(name: string): number[];
 }
 
 export type state = {
