@@ -24,7 +24,7 @@ export async function isLogged(globalEventBus: Bus) {
   wrapper?.prepend(header);
   header.innerHTML = headerT({
     userName: undefined,
-    userAvatar: '/static/avatars/default_avatar',
+    userAvatar: '/static/avatars/default_avatar__png',
     find: window.localizer.getLocaleItem('find'),
     search: window.localizer.getLocaleItem('search'),
     newAd: window.localizer.getLocaleItem('newAd'),
@@ -51,8 +51,8 @@ export async function isLogged(globalEventBus: Bus) {
     const rating = body?.rating?.avg;
     const {name, surname, email, id, phone} = body?.profile;
     let {image} = body?.profile;
-    if (image == 'static/avatars/default_avatar') {
-      image = '/static/avatars/default_avatar';
+    if (image == 'static/avatars/default_avatar__png') {
+      image = '/static/avatars/default_avatar__png';
     }
     userInfo.set('id', id);
     userInfo.set('name', name);
@@ -94,7 +94,7 @@ export async function isLogged(globalEventBus: Bus) {
   } else {
     header.innerHTML = headerT({
       userName: undefined,
-      userAvatar: '/static/avatars/default_avatar',
+      userAvatar: '/static/avatars/default_avatar__png',
       find: window.localizer.getLocaleItem('find'),
       search: window.localizer.getLocaleItem('search'),
       newAd: window.localizer.getLocaleItem('newAd'),
