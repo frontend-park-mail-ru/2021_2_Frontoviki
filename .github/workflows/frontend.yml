@@ -65,5 +65,5 @@ jobs:
           port: ${{ secrets.PORT}}
           password: ${{ secrets.PASSWORD }}
           source: "build/*"
-          target: "/home/deploy"
+          target: "/home/zennoma/deploy"
           strip_components: 1
