@@ -1,14 +1,16 @@
 .price-history-container
-    width: 900px
+    padding: 20px
+    width: 100%
     height: 450px
-    background-color: #f1f1f1
+    background-color: white
 
     display: grid
     grid-template-columns: 75px 1fr
     grid-template-rows: 50px 1fr 50px
 
-.price-history_top 
-  grid-column: 2 / 3
+.price-history_top
+    grid-column: 1/3
+    text-align: center
 
 .price-history_axe-y
     grid-column: 1 / 2
@@ -56,6 +58,7 @@
 
 
     &_label_capture
+        word-break: break-word
         width: 100%
         text-align: right
         position: absolute
@@ -193,3 +196,8 @@
   .column-width-#{$i}:hover 
     background-color: #4384C2
   
+
+@media only screen and (max-device-width: 480px)
+    .price-history-container
+        grid-template-columns: 50px 1fr
+        padding: 15px

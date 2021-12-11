@@ -7,13 +7,18 @@ import './priceGraphs.sass';
 
 
 export function drawGraphs(x: string[], y: number[]) {
+    shortenDate(x, y);
+    console.log(x.length)
+    // не рисуем графики если цена не менялась
+    if (x.length <= 1) {
+        return;
+    }
     const graphContainer = document.createElement('div');
     graphContainer.classList.add('price-history-container');
-    shortenDate(x, y);
-    console.log(x, y)
+    
     const graphDate = setAndConvertData(convertDateToNum(x), y)
 
-    graphContainer.innerHTML = (<templateFunc>graphT)();
+    graphContainer.innerHTML = (<templateFunc>graphT)({priceDiv: window.localizer.getLocaleItem('priceDiv')});
 
     const plot = graphContainer.querySelector('.price-history_plot');
     const xlabel = graphContainer.querySelector('.price-history_axe-x_label-container');

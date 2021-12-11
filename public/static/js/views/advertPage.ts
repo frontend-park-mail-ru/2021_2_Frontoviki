@@ -206,7 +206,9 @@ export default class AdvertPageView extends BaseView {
       prices.push(elem.price);
     });
     const container = drawGraphs(dates, prices);
-    document.querySelector('.advertisment-detail__add-info')?.appendChild(container);
+    if (container != undefined) {
+      document.querySelector('.advertisment-detail__add-info')?.appendChild(container);
+    }
   }
 
   /**

@@ -202,6 +202,7 @@ export const russian = {
   mapHint: 'Используйте карту для выбора адреса',
   win: 'Вы выиграли!',
   lose: 'КАБУМ! Вы проиграли.',
+  priceDiv: 'История изменения цены',
 
 }
 
@@ -329,6 +330,7 @@ export const english = {
   mapHint: 'Use map to choose address',
   win: 'You won!',
   lose: 'BOOM! You lose.',
+  priceDiv: 'Price change history',
 }
 
 export const engCategories:categoryList[] = [
