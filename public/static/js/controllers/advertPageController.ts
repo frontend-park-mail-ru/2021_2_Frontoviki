@@ -40,6 +40,7 @@ export default class AdvertPageController {
     this.model = new AdvertPageModel(this.eventBus);
     this.eventBus.on('NoAd', this.noAd.bind(this));
     this.eventBus.on('onEditClicked', this.redirectToEdit.bind(this));
+    this.eventBus.on('redirectToAdvertPage', this.redirectToAdvert.bind(this));
     this.eventBus.on('notLogged', this.openModal.bind(this));
     this.eventBus.on('goToCart', this.goToCart.bind(this));
     this.eventBus.on('goToProfile', this.goToProfile.bind(this));
@@ -53,6 +54,7 @@ export default class AdvertPageController {
     this.eventBus.on('checkFav',  this.favLogic.bind(this));
     this.eventBus.on('goToChat', this.goToChat.bind(this));
     this.eventBus.on('createDialog', this.createDialog.bind(this));
+    this.eventBus.on('upgradeAdvert', this.upgradeAdvert.bind(this));
 
     this.globalEventBus.on('loggedForCart', this.refreshCart.bind(this));
     this.globalEventBus.on('loggedForFav',  this.favLogic.bind(this));
@@ -84,6 +86,10 @@ export default class AdvertPageController {
    */
   goToCart() {
     this.router.go('/profile/cart');
+  }
+
+  redirectToAdvert(advertId: string) {
+    this.router.go(`/ad/${advertId}`);
   }
   /**
    * После логина делаем запрос за корзиной
@@ -169,6 +175,23 @@ export default class AdvertPageController {
         return;
       }
       this.eventBus.emit('addedToFavorite');
+    }).catch(()=> console.log('Error adding to favorite'));
+  }
+
+  upgradeAdvert(upgradeLvl: string, advertId: string) {
+    const res = Ajax.postUsingFetch({
+      url: `${secureDomainUrl}adverts/promotion`,
+      body: {
+        advert_id: Number(advertId),
+        promo_level: Number(upgradeLvl),
+      },
+    });
+    res.then(({parsedBody}) => {
+      console.log(parsedBody);
+      const {code} = parsedBody;
+      if (code === statusCodes.OK) {
+        this.redirectToAdvert(advertId);
+      }
     }).catch(()=> console.log('Error adding to favorite'));
   }
 

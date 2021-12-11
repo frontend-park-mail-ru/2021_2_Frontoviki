@@ -67,6 +67,8 @@ document.addEventListener('DOMContentLoaded', () => {
     router.setRoute('^/ad/(?<advertID>\\d+)$', AdvertPage.view.render.bind(AdvertPage.view));
     router.setRoute('^/ad/(?<advertID>\\d+)/edit$', NewAdPage.view.edit.bind(NewAdPage.view));
     router.setRoute('^/salesman/(?<salesmanID>\\d+)$', SalesmanPage.view.render.bind(SalesmanPage.view));
+    router.setRoute('^/ad/(?<advertID>\\d+)/upgrade$', AdvertPage.view.upgradeAdvert.bind(AdvertPage.view));
+    router.setRoute('^/ad/(?<advertID>\\d+)/success/(?<promotionId>\\d+)/(?<promotionHash>\\d+)', AdvertPage.view.upgradeSuccess.bind(AdvertPage.view));
 
     router.go(window.location.pathname);
     if (navigator.onLine !== true) {
