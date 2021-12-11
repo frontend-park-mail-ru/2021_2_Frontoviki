@@ -91,7 +91,7 @@ function setAndConvertData (x:number[], y:number[]) {
     }
 
     sourceY = sourceY.map((value) => {
-        return Math.round(value * 80 + 20);
+        return Math.round(value * 80 + 1);
     });
 
     console.log(sourceX, sourceY);
