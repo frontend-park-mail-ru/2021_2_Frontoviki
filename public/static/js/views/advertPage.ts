@@ -221,28 +221,6 @@ export default class AdvertPageView extends BaseView {
       labelInfo: `${userId}__${advertId}__1`,
       cost: 2
     });
-    
-    // const lvl1Div = document.createElement('div');
-    // lvl1Div.innerHTML = `<iframe src="https://yoomoney.ru/quickpay/button-widget?targets=%D0%94%D0%B5%D1%84%D0%BE%D0%BB%D1%82%D0%BD%D1%8B%D0%B9%20%D1%83%D1%80%D0%BE%D0%B2%D0%B5%D0%BD%D1%8C%20%D0%B1%D1%8B%D1%82%D0%B8%D1%8F&default-sum=2&button-text=11&any-card-payment-type=on&button-size=m&button-color=orange&successURL=https%3A%2F%2Fvolchock.ru%2Fad%2F${advertId}%2Fsuccess%2F1%2F${advertUpgradeHash}&quickpay=small&account=4100117410572012&" width="184" height="36" frameborder="0" allowtransparency="true" scrolling="no"></iframe>`;
-    // const lvl2Div = document.createElement('div');
-    // lvl2Div.innerHTML = `<iframe src="https://yoomoney.ru/quickpay/button-widget?targets=%D0%94%D0%B5%D1%84%D0%BE%D0%BB%D1%82%D0%BD%D1%8B%D0%B9%20%D1%83%D1%80%D0%BE%D0%B2%D0%B5%D0%BD%D1%8C%20%D0%B1%D1%8B%D1%82%D0%B8%D1%8F&default-sum=5&button-text=11&any-card-payment-type=on&button-size=m&button-color=orange&successURL=https%3A%2F%2Fvolchock.ru%2Fad%2F${advertId}%2Fsuccess%2F2%2F${advertUpgradeHash}&quickpay=small&account=4100117410572012&" width="184" height="36" frameborder="0" allowtransparency="true" scrolling="no"></iframe>`;
-    // const lvl3Div = document.createElement('div');
-    // lvl3Div.innerHTML = `<iframe src="https://yoomoney.ru/quickpay/button-widget?targets=%D0%94%D0%B5%D1%84%D0%BE%D0%BB%D1%82%D0%BD%D1%8B%D0%B9%20%D1%83%D1%80%D0%BE%D0%B2%D0%B5%D0%BD%D1%8C%20%D0%B1%D1%8B%D1%82%D0%B8%D1%8F&default-sum=7&button-text=11&any-card-payment-type=on&button-size=m&button-color=orange&successURL=https%3A%2F%2Fvolchock.ru%2Fad%2F${advertId}%2Fsuccess%2F3%2F${advertUpgradeHash}&quickpay=small&account=4100117410572012&" width="184" height="36" frameborder="0" allowtransparency="true" scrolling="no"></iframe>`;
-    // this.root.appendChild(lvl1Div);
-    // this.root.appendChild(lvl2Div);
-    // this.root.appendChild(lvl3Div);
-  }
-
-  upgradeSuccess() {
-    // const hash = window.location.pathname.split('/')[5];
-    // const upgradeLvl = window.location.pathname.split('/')[4];
-    // const advertId = window.location.pathname.split('/')[2];
-    // console.log(userInfo.get('upgradeHash'), hash);
-    // if (userInfo.get('upgradeHash') == hash) {
-    //   this.eventBus.emit('upgradeAdvert', upgradeLvl, advertId);
-    // } else {
-    //   this.eventBus.emit('redirectToAdvertPage', advertId);
-    // }
   }
 
   /**

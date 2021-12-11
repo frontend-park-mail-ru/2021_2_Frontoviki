@@ -54,7 +54,6 @@ export default class AdvertPageController {
     this.eventBus.on('checkFav',  this.favLogic.bind(this));
     this.eventBus.on('goToChat', this.goToChat.bind(this));
     this.eventBus.on('createDialog', this.createDialog.bind(this));
-    this.eventBus.on('upgradeAdvert', this.upgradeAdvert.bind(this));
 
     this.globalEventBus.on('loggedForCart', this.refreshCart.bind(this));
     this.globalEventBus.on('loggedForFav',  this.favLogic.bind(this));
@@ -175,23 +174,6 @@ export default class AdvertPageController {
         return;
       }
       this.eventBus.emit('addedToFavorite');
-    }).catch(()=> console.log('Error adding to favorite'));
-  }
-
-  upgradeAdvert(upgradeLvl: string, advertId: string) {
-    const res = Ajax.postUsingFetch({
-      url: `${secureDomainUrl}adverts/promotion`,
-      body: {
-        advert_id: Number(advertId),
-        promo_level: Number(upgradeLvl),
-      },
-    });
-    res.then(({parsedBody}) => {
-      console.log(parsedBody);
-      const {code} = parsedBody;
-      if (code === statusCodes.OK) {
-        this.redirectToAdvert(advertId);
-      }
     }).catch(()=> console.log('Error adding to favorite'));
   }
 
