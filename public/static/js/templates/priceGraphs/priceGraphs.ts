@@ -33,8 +33,20 @@ export function drawGraphs(x: string[], y: number[]) {
         xlabel?.appendChild(xlabelElement);
     });
     // заполняем вертикаль
-    const ylabel = graphContainer.querySelector('.price-history_axe-y_label-container')
-    y.forEach(element => {
+    const ylabel = graphContainer.querySelector('.price-history_axe-y_label-container');
+    const formattedPrice = Math.max(...y) - Math.min(...y);
+    const priceAxeY = [] as number[];
+    priceAxeY.push(Math.min(...y));
+    for (let i = 0; i < 3; i++) {
+        if (formattedPrice == 0) {
+            priceAxeY.push(Math.max(...y));
+        } else {
+            priceAxeY.push(formattedPrice * (i + 1) / 4);
+        }
+    }
+    priceAxeY.push(Math.max(...y))
+    
+    priceAxeY.forEach(element => {
         const ylabelElement = document.createElement('div');
         ylabelElement.classList.add('price-history_axe-y_label');
         ylabelElement.innerHTML = ((<templateFunc>ylabelT)({price: element}))
@@ -74,12 +86,16 @@ function setAndConvertData (x:number[], y:number[]) {
         return Math.round(value * 100);
     });
 
+    for (let i = 1; i < sourceX.length; i++) {
+        sourceX[i - 1] = sourceX[i] - sourceX[i - 1];
+    }
+
     sourceY = sourceY.map((value) => {
-        return Math.round(value * 100);
+        return Math.round(value * 80 + 20);
     });
 
     console.log(sourceX, sourceY);
-    return [sourceX, sourceY];
+    return [sourceX.slice(0, sourceX.length - 1), sourceY];
 }
 
 function convertDateToNum(x: string[]) {
@@ -87,6 +103,7 @@ function convertDateToNum(x: string[]) {
     x.forEach(element => {
         res.push(new Date(element).getTime() / 1000 | 0);
     });
+    res.push(Date.now() / 1000 | 0);
     return res;
 }
 

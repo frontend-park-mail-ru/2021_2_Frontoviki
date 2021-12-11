@@ -7,3 +7,4 @@ public/swBackup.js
 public/bundle.js
 public/main.css
 .eslintcache
+public/dist/*.*
