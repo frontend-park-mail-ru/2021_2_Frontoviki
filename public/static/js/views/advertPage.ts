@@ -1,12 +1,12 @@
 import {advertPageTemplate} from '../templates/advertPage/advertPageT';
 import BaseView from './baseView';
 import {SliderLogic} from '../templates/advertPage/sliderLogic';
-import {engCategories, inputNum, userInfo} from '../constatns';
+import {basePromotionPrice, engCategories, inputNum, promotionCoefficient, userInfo} from '../constatns';
 import {properDate} from '../modules/utilsFunctions';
 import Bus from '../modules/EventBus';
 import { advert, priceHistoryStamp, rating, salesman } from '../types';
 import { drawGraphs } from '../templates/priceGraphs/priceGraphs';
-import { createPayment } from '../templates/payment/paymentForm';
+import { createPayment, createPromotionContainer } from '../templates/payment/paymentForm';
 
 /**
   *Класс для генерации страницы объявления
@@ -212,13 +212,23 @@ export default class AdvertPageView extends BaseView {
   }
 
   upgradeAdvert() {
-    const advertId = window.location.pathname.split('/')[2];
-    this.root.innerHTML = '';
     const userId = <string> userInfo.get('id');
     const paymentTemplate = createPayment();
-    this.root.innerHTML = paymentTemplate({
-      labelInfo: `${userId}__${advertId}__1`,
-      cost: 2
+    const advertId = window.location.pathname.split('/')[2];
+    const price = basePromotionPrice;
+    const coef = promotionCoefficient;
+    this.root.innerHTML = '';
+    const promotionContainer = createPromotionContainer();
+    this.root.innerHTML = promotionContainer();
+    const buttonContainers = document.querySelectorAll('.promotion-tariffs-block__button');
+    buttonContainers.forEach((elem, id) => {
+      elem.innerHTML = paymentTemplate({
+        labelInfo: `${userId}__${advertId}__${id + 1}`,
+        cost: price + id * coef
+      });
+    });
+    (<HTMLButtonElement>document.querySelector('.button-minor'))?.addEventListener('click', ()=>{
+      this.eventBus.emit('back');
     });
   }
 

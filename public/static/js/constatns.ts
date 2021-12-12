@@ -49,6 +49,9 @@ export const regExPatterns = {
   name: /^[а-яА-яa-zA-Z]{2,}$/,
 };
 
+export const basePromotionPrice = 2;
+export const promotionCoefficient = 3;
+
 export const userInfo = new Map();
 
 export const monthMap = new Map();
