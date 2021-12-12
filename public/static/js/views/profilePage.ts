@@ -240,7 +240,7 @@ export default class ProfilePageView extends BaseView {
     title.innerHTML = <string> window.localizer.getLocaleItem('promotion');
     const promotionHint = document.createElement('span');
     promotionHint.innerHTML =  <string> window.localizer.getLocaleItem('promotionHint');
-    promotionHint.classList.add('profile-content-right__ads-type');
+    promotionHint.classList.add('profile-content-right__ads-promote');
     promotionHint.style.color = '#black';
     rightBlock?.appendChild(title);
     rightBlock?.appendChild(promotionHint);

@@ -4,12 +4,7 @@ import {logout} from './logout';
 import {createHeader, LangButtonImg} from '../templates/header/header';
 import Bus from './EventBus';
 
-/**
- * функция отправки запроса на сервер, чтобы проверить
- * вошел ли пользователь в аккаунт
- * @param {*} globalEventBus глобальный эмиттер событий
- * @return {Promise} ответ с сервера
- */
+
 export async function isLogged(globalEventBus: Bus) {
   const wrapper = document.querySelector('.wrapper');
   let header = document.querySelector('#header');
@@ -61,7 +56,6 @@ export async function isLogged(globalEventBus: Bus) {
     userInfo.set('image', `/${image}`);
     userInfo.set('rating', rating);
     userInfo.set('phone', phone);
-    console.log(image);
     header.innerHTML = headerT({
       userName: name,
       userAvatar: `/${image}`,
