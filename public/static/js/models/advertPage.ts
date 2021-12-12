@@ -14,7 +14,6 @@ export default class AdvertPageModel {
   constructor(eventBus: Bus) {
     this.eventBus = eventBus;
     this.eventBus.on('GetAdData', this.getAdData.bind(this));
-    this.eventBus.on('getPriceHistory', this.getPriceHistory.bind(this));
   }
 
   /**
@@ -49,21 +48,7 @@ export default class AdvertPageModel {
         advert['imagesContainer'].push(newElem);
       });
       this.eventBus.emit('gotAd', advert, salesman, rating);
-    }).catch((err)=> console.log(err));
-  }
-
-  getPriceHistory(advertId: number) {
-    const res = Ajax.getUsingFetch({
-      url: `${secureDomainUrl}adverts/price_history/${advertId}`,
-      body: null,
-    });
-    res.then(({parsedBody}) => {
-      const {code} = parsedBody;
-      console.log(parsedBody);
-      if (code === statusCodes.NOTEXIST) {
-        return;
-      }
-      this.eventBus.emit('gotPriceHistory', parsedBody.body.history);
+      this.eventBus.emit('gotPriceHistory', parsedBody.body.price_history);
     }).catch((err)=> console.log(err));
   }
 }

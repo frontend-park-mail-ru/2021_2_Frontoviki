@@ -99,7 +99,6 @@ export default class AdvertPageView extends BaseView {
       salesmanRating: rating.avg.toFixed(1),
       salesmanCreatedAt: date,
     });
-    this.eventBus.emit('getPriceHistory', advert.id);
     this.eventBus.emit('adDrawn', advert);
     const label = document.querySelector('.advertisment-detail__add-info__location__name-block__maps-label')
     label?.addEventListener('click', ()=>{

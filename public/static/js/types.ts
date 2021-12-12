@@ -125,7 +125,7 @@ export type body = {
     categories: categoryList[];
     dialogs: dialog[];
     messages: message[];
-    history: priceHistoryStamp[];
+    price_history: priceHistoryStamp[];
 }
 
 export type priceHistoryStamp = {
