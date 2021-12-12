@@ -1,0 +1,100 @@
+.promotion
+    padding: 2vw
+    margin: 1.5vw auto
+    border: 0
+    border-radius: 1vh
+    box-shadow: 0 0 1vw rgb(0 0 0 / 20%)
+
+    &__title
+        width: 100%
+        margin-bottom: 1vh
+        font-size: 3vh
+        line-height: 5vh
+
+    &-tariffs
+        padding-left: 3vw
+        padding-right: 3vw
+        display: flex
+        flex-wrap: wrap
+        justify-content: space-between
+
+        &-block
+            width: 28%
+            flex-direction: column
+            justify-content: center
+            padding: calc(1.5vw + 2px)
+            margin: 1vh 1vh 4vh
+            box-sizing: border-box
+            border-radius: 5px
+            border: 1px solid
+
+            &-body
+                height: 64%
+
+            &__title
+                font-size: 1.5vh
+                line-height: 2vh
+                opacity: 0.7
+                display: flex
+                justify-content: center
+                margin-top: 2vh
+
+            &__type
+                display: flex
+                justify-content: center
+                font-size: calc(1em + 1vw)
+                line-height: 5vh
+                margin-bottom: 2vh
+
+            &-description
+                font-size: 1.5vh
+                line-height: 2.5vh
+
+                &__list
+                    padding: 0
+                    margin-left: 1.5vw
+
+                &__item
+                    margin-bottom: 1.5vh
+
+            &__button
+                display: flex
+                justify-content: center
+                margin-bottom: 2vh
+
+            &__price
+                margin-top: 2vh
+                margin-bottom: 2vh
+                display: flex
+                justify-content: center
+                font-size: 5vh
+                line-height: 7vh
+
+
+    &-back__btn
+        display: flex
+        justify-content: center
+        margin-bottom: 1vh
+
+.payment__btn
+    width: 200px
+
+
+@media screen and (max-width: 900px)
+    .promotion-tariffs 
+        flex-direction: column
+        align-items: center
+
+        &-block
+            width: 90%
+
+            &-description
+                padding: 0 10vw
+
+
+@media only screen and (max-device-width: 480px)
+    .promotion-tariffs-block-description 
+        font-size: 2vh
+
+    .payment__btn
+        width: 180px

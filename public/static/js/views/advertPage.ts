@@ -213,6 +213,9 @@ export default class AdvertPageView extends BaseView {
 
   upgradeAdvert() {
     const userId = <string> userInfo.get('id');
+    if (userId == undefined) {
+      this.eventBus.emit('back');
+    }
     const paymentTemplate = createPayment();
     const advertId = window.location.pathname.split('/')[2];
     const price = basePromotionPrice;
