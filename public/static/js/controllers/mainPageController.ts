@@ -3,6 +3,7 @@ import MainPageModel from '../models/mainPage';
 import MainPageView from '../views/mainPage';
 import Router from '../modules/Router';
 import Bus from '../modules/EventBus';
+import { LangButtonLogic } from '../templates/header/header';
 
 /**
  * Контроллер главной страницы

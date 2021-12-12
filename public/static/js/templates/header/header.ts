@@ -5,8 +5,6 @@ import './mobile-search.sass';
 import './expand-menu.sass';
 import './langButton.sass';
 import Router from '../../modules/Router';
-import Bus from '../../modules/EventBus';
-import { userInfo } from '../../constatns';
 
 export function createHeader(): templateFunc {
   return <templateFunc>headerT;
@@ -39,7 +37,7 @@ export function LangButtonLogic(router: Router) {
     const newAd = document.querySelector('.new-advert-capture') as HTMLInputElement;
     if (newAd != null)
       newAd.innerHTML = <string> window.localizer.getLocaleItem('newAd');
-    const logo = document.querySelector('.logo__capture') as HTMLInputElement;
+    const logo = document.querySelector('#auth') as HTMLInputElement;
     if (logo != null)
       logo.innerHTML = <string> window.localizer.getLocaleItem('signIn');
 
@@ -60,7 +58,6 @@ export function LangButtonLogic(router: Router) {
           break;
       }
     })
-    
     router.go(window.location.pathname);
   });
 }

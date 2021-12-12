@@ -40,10 +40,10 @@ document.addEventListener('DOMContentLoaded', () => {
     'loggedIn',
   ]);
   const router = new Router(wrapper);
+  globalEventBus.on('addLanguageEvent', ()=> LangButtonLogic(router));
   isLogged(globalEventBus).then(()=> {
     createModal(globalEventBus);
     wrapper.appendChild(root);
-    LangButtonLogic(router);
     createFooter();
 
     const MainPage = new MainPageController(router, globalEventBus);

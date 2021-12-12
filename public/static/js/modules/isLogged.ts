@@ -162,6 +162,7 @@ export async function isLogged(globalEventBus: Bus) {
     }
   });
   LangButtonImg();
+  globalEventBus.emit('addLanguageEvent');
 
   /**
    * Хотим добавить объявления когда не зарегистрированы
