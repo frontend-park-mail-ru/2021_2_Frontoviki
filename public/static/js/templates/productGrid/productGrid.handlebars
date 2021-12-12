@@ -1,10 +1,33 @@
 <div class="grid">
   {{#each adsArray}}
-    <div class="card grid__card">
+    <div class="card grid__card 
+    {{#if promo1}} card_premium-1 {{/if}}
+    {{#if promo2}} card_premium-1 card_premium-2 {{/if}}
+    {{#if promo3}} card_premium-1 card_premium-2 card_premium-3 {{/if}}
+    ">
       {{#if canDelete}}
-          <img class="card__delete" src="/img/remove.webp" width="35" height="35">
+        <img
+          class="card__delete"
+          src="/img/remove.webp"
+          width="35"
+          height="35"
+        />
       {{/if}}
-
+      <div class="card_premium__block">
+        <div class="card_premium__block__icon-container">
+          <svg
+            class="card_premium__block__icon"
+            width="20"
+            height="18"
+            viewBox="0 0 20 18"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              d="M0 16H20V18H0V16ZM9 5H11V13H9V5ZM5.965 5H8.09L5.104 12.964H3.104L0.118 5H2.243L4.104 10.113L5.965 5ZM15 11V13H13V5H17C17.7956 5 18.5587 5.31607 19.1213 5.87868C19.6839 6.44129 20 7.20435 20 8C20 8.79565 19.6839 9.55871 19.1213 10.1213C18.5587 10.6839 17.7956 11 17 11H15ZM15 7V9H17C17.2652 9 17.5196 8.89464 17.7071 8.70711C17.8946 8.51957 18 8.26522 18 8C18 7.73478 17.8946 7.48043 17.7071 7.29289C17.5196 7.10536 17.2652 7 17 7H15ZM0 0H20V2H0V0Z"
+            ></path>
+          </svg>
+        </div>
+      </div>
       <div class="card__content">
         <div class="card__content__image-container">
           <img
@@ -25,9 +48,9 @@
           <p class="card__info__price">{{price}}</p>
         </div>
         {{#if canBuy}}
-        <div class="card__info__buy-container">
-          <p class="card-info__card_buy">{{buy}}</p>
-        </div>
+          <div class="card__info__buy-container">
+            <p class="card-info__card_buy">{{buy}}</p>
+          </div>
         {{/if}}
       </div>
     </div>

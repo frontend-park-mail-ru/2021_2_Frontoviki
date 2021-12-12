@@ -17,6 +17,11 @@ export type card = {
     id: number;
     is_active: boolean;
     buy: string;
+    
+    promo_level: number;
+    promo1: boolean;
+    promo2: boolean;
+    promo3: boolean;
 }
 
 export type args = {

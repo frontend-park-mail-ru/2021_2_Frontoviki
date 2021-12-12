@@ -27,6 +27,22 @@ export function createProductGrid(jsonElements: card[], canDelete : boolean, can
     } else {
       element.price += ' ₽';
     }
+    switch (element.promo_level) {
+      case 1:
+        element.promo1 = true;
+        break;
+      case 2:
+        element.promo2 = true;
+        break;
+      case 3:
+        element.promo3 = true;
+        break;
+      default:
+        element.promo1 = false;
+        element.promo2 = false;
+        element.promo3 = false;
+        break;
+    }
   });
   productGrid.innerHTML = (<templateFunc> productGridT)({adsArray: jsonElements});
   return productGrid;
