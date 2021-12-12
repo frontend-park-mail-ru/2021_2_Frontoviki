@@ -53,6 +53,7 @@ export default class ProfilePageController {
     this.eventBus.on('goToActive', this.redirectToProfile.bind(this));
     this.eventBus.on('getSettings', this.redirectToSettings.bind(this));
     this.eventBus.on('renderCart', this.redirectToCart.bind(this));
+    this.eventBus.on('renderPaid', this.redirectToPaid.bind(this));
     this.eventBus.on('renderChat', this.redirectToChat.bind(this));
     this.eventBus.on('onCardClicked', this.goToCardPage.bind(this));
     this.eventBus.on('goToArchive', this.goToArchive.bind(this));
@@ -69,6 +70,7 @@ export default class ProfilePageController {
     this.eventBus.on('checkLog', this.checkForLogging.bind(this));
     this.eventBus.on('goToDialog', this.goToDialog.bind(this));
     this.eventBus.on('connectToChat', this.connectToChat.bind(this));
+    this.eventBus.on('goToUpgrade', this.goToUpgrade.bind(this));
 
     this.globalEventBus.on('disconnectSocket', this.closeConnection.bind(this));
   }
@@ -93,6 +95,14 @@ export default class ProfilePageController {
    */
   redirectToProfile() {
     this.router.go('/profile');
+  }
+
+  goToUpgrade(advertId: number) {
+    this.router.go(`/ad/${advertId}/upgrade`);
+  }
+
+  redirectToPaid() {
+    this.router.go('/profile/promotion');
   }
 
   /**

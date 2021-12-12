@@ -30,6 +30,7 @@ export default class ProfilePageModel {
     this.eventBus.on('buySuccess', this.showSuccessBuy.bind(this));
     this.eventBus.on('getMessages', this.getMessages.bind(this));
     this.eventBus.on('connectToDialog', this.connectToDialog.bind(this));
+    this.eventBus.on('getPromotted', this.getPrommoted.bind(this));
   }
   /**
  * Получить все объявления пользователя
@@ -64,6 +65,21 @@ export default class ProfilePageModel {
       const {adverts} = parsedBody.body;
       this.eventBus.emit('gotAds', adverts, true);
     }).catch(()=> console.log('Ошибка получения архива'));
+  }
+  
+  getPrommoted() {
+    const res = Ajax.getUsingFetch({
+      url: `${secureDomainUrl}adverts/salesman/${<string>userInfo.get('id')}`,
+      body: null,
+    });
+    res.then(({parsedBody}) => {
+      const {code} = parsedBody;
+      if (code === statusCodes.NOTEXIST) {
+        return;
+      }
+      const {adverts} = parsedBody.body;
+      this.eventBus.emit('gotAds', adverts, false, false, true);
+    }).catch(()=> console.log('Ошибка получения объявлений'));
   }
   /**
  * Получение объявлений в корзине

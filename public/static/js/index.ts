@@ -68,6 +68,8 @@ document.addEventListener('DOMContentLoaded', () => {
     router.setRoute('^/ad/(?<advertID>\\d+)/edit$', NewAdPage.view.edit.bind(NewAdPage.view));
     router.setRoute('^/salesman/(?<salesmanID>\\d+)$', SalesmanPage.view.render.bind(SalesmanPage.view));
     router.setRoute('^/ad/(?<advertID>\\d+)/upgrade$', AdvertPage.view.upgradeAdvert.bind(AdvertPage.view));
+    router.setRoute('^/profile/promotion$', ProfilePage.view.renderPromotion.bind(ProfilePage.view));
+    
 
     router.go(window.location.pathname);
     if (navigator.onLine !== true) {

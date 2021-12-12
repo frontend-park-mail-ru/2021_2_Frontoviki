@@ -39,6 +39,7 @@ export const profileBtnNum = {
   favBtn: 3,
   cartBtn: 5,
   chatBtn: 7,
+  paidBtn: 9,
   setBtn: 11,
 };
 
@@ -203,6 +204,8 @@ export const russian = {
   win: 'Вы выиграли!',
   lose: 'КАБУМ! Вы проиграли.',
   priceDiv: 'История изменения цены',
+  promotion: 'Продвижение объявлений',
+  promotionHint: 'Выберите объявление, которое хотите продвигать',
 
 }
 
@@ -331,6 +334,8 @@ export const english = {
   win: 'You won!',
   lose: 'BOOM! You lose.',
   priceDiv: 'Price change history',
+  promotion: 'Advert promotion',
+  promotionHint: 'Choose an advert to promote',
 }
 
 export const engCategories:categoryList[] = [

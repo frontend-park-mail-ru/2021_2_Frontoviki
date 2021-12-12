@@ -2,7 +2,6 @@ import { card, templateFunc } from '../../types';
 import productGridT from './productGrid.handlebars';
 import './card.sass';
 import './skiny.sass';
-import './cardMenu.sass';
 import './productGrid.sass';
 /**
   * Экспортируемая функция для создания сетки объявлений

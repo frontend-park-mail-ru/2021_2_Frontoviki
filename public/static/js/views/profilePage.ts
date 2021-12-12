@@ -33,6 +33,7 @@ export default class ProfilePageView extends BaseView {
     this.renderFavorite = this.renderFavorite.bind(this);
     this.renderChat = this.renderChat.bind(this);
     this.renderChatMessage = this.renderChatMessage.bind(this);
+    this.renderPromotion = this.renderPromotion.bind(this);
     this.eventBus.on('gotAds', this.renderGrid.bind(this));
     this.eventBus.on('gotCart', this.renderCartGrid.bind(this));
     this.eventBus.on('passwordChangeOk', this.passwordChanged.bind(this));
@@ -72,6 +73,12 @@ export default class ProfilePageView extends BaseView {
         childNodes[profileBtnNum.cartBtn];
     cartBtn?.addEventListener('click', () => {
       this.eventBus.emit('renderCart');
+    });
+
+    const paidBtn = document.querySelector('.profile-content__buttons')?.
+        childNodes[profileBtnNum.paidBtn];
+    paidBtn?.addEventListener('click', () => {
+      this.eventBus.emit('renderPaid');
     });
 
     const settingBtn = document.querySelector('.profile-content__buttons')?.
@@ -138,7 +145,7 @@ export default class ProfilePageView extends BaseView {
    * @param {*} adverts массив объявлений
    * @param {bool} archive если объявления в архиве, то не отображаем удаление
    */
-  renderGrid(adverts: card[], archive: boolean, favorite: boolean) {
+  renderGrid(adverts: card[], archive: boolean, favorite: boolean, promotted: boolean) {
     console.log(adverts);
     // поправляем ошибки бэка
     if (adverts === null) {
@@ -173,11 +180,16 @@ export default class ProfilePageView extends BaseView {
         const cards = document.querySelectorAll('.card');
         cards.forEach((elem) => {
           elem.classList.add('archived');
-          elem.addEventListener('click', (e) => e.preventDefault());
-          const cardMenu = elem.querySelector('.card-menu');
-          if (cardMenu != null) {
-            elem.removeChild(cardMenu);
-          }
+        });
+        return;
+      }
+      if (promotted) {
+        rightBlock?.appendChild(createProductGrid(adverts, false, false));
+        const cards = document.querySelectorAll('.card');
+        cards.forEach((elem, key) => {
+          elem.addEventListener('click', () =>{
+            this.eventBus.emit('goToUpgrade', adverts[key].id);
+          });
         });
         return;
       }
@@ -211,6 +223,28 @@ export default class ProfilePageView extends BaseView {
       emptyGridActive.innerHTML = gridT({text: window.localizer.getLocaleItem('emptyActive')});
     }
     rightBlock?.appendChild(emptyGridActive);
+  }
+
+  renderPromotion() {
+    this.render();
+    // красим кнопочку
+    makeBlue(<HTMLButtonElement>document.querySelector('.profile-content__buttons')?.
+        childNodes[profileBtnNum.paidBtn]);
+
+    const rightBlock = document.querySelector('.profile-content_right');
+    if (rightBlock != null) {
+      rightBlock.innerHTML = '';
+    }
+    const title = document.createElement('h3');
+    title.classList.add('profile-content__title');
+    title.innerHTML = <string> window.localizer.getLocaleItem('promotion');
+    const promotionHint = document.createElement('span');
+    promotionHint.innerHTML =  <string> window.localizer.getLocaleItem('promotionHint');
+    promotionHint.classList.add('profile-content-right__ads-type');
+    promotionHint.style.color = '#black';
+    rightBlock?.appendChild(title);
+    rightBlock?.appendChild(promotionHint);
+    this.eventBus.emit('getPromotted');
   }
 
   /**
