@@ -10,6 +10,10 @@
     cursor: pointer;
 }
 
+.card_premium {
+    box-shadow: var(--premium-color) 0px 2px 4px 0px, var(--premium-color) 0px 2px 16px 0px;
+}
+
 /*
 .card:hover {
     cursor: pointer;
@@ -18,6 +22,7 @@
 
 :root {
     --card-content-width: 85%;
+    --premium-color: #54a5f3;
 }
 
 .card__content {
@@ -91,6 +96,50 @@
     border-radius: 20px;
     box-shadow: inset 0 0 2px rgb(0 0 0 / 50%);
     padding: 5px 20px;
+}
+
+.card_premium__block {
+    display: none;
+    position: absolute;
+    width: 100%;
+    height: fit-content;
+    margin-top: 10px;
+}
+
+.card_premium .card_premium__block {
+    display: flex;
+    justify-content: end;
+    z-index: 5;
+}
+
+.card_premium__block__icon-container {
+    margin-right: 10px;
+    width: 32px;
+    height: 32px;
+    padding: 6px;
+    background-color: var(--premium-color);
+    border-radius: 50%;
+}
+
+.card_premium__block__icon {
+    fill: white;
+    height: 100%;
+    width: 100%;
+}
+
+.card_premium .card__content .card__content__capture-container {
+    background-color: var(--premium-color);
+    box-shadow: none;
+}
+
+.card_premium .card__info .card__info__price-container {
+    background-color: var(--premium-color);
+    box-shadow: none;
+}
+
+.card_premium .card__info .card__info__price-container .card__info__price {
+    color: white;
+    font-weight: 500;
 }
 
 .card__info__price, .card__info__location {
