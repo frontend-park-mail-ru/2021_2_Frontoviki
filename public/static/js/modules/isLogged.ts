@@ -45,10 +45,7 @@ export async function isLogged(globalEventBus: Bus) {
   if (isAuthorized) {
     const rating = body?.rating?.avg;
     const {name, surname, email, id, phone} = body?.profile;
-    let {image} = body?.profile;
-    if (image == 'static/avatars/default_avatar__png') {
-      image = '/static/avatars/default_avatar__png';
-    }
+    const {image} = body?.profile;
     userInfo.set('id', id);
     userInfo.set('name', name);
     userInfo.set('surname', surname);

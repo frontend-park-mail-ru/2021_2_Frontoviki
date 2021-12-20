@@ -32,7 +32,7 @@ export default class AdvertPageModel {
         this.eventBus.emit('NoAd');
         return;
       }
-      const {advert, salesman, rating} = parsedBody.body;
+      const {advert, salesman, rating, favorite_count} = parsedBody.body;
       advert['imagesContainer'] = [];
       advert.images.forEach((elem: string) => {
         const newElem = {
@@ -47,7 +47,7 @@ export default class AdvertPageModel {
         }
         advert['imagesContainer'].push(newElem);
       });
-      this.eventBus.emit('gotAd', advert, salesman, rating);
+      this.eventBus.emit('gotAd', advert, salesman, rating, favorite_count);
       this.eventBus.emit('gotPriceHistory', parsedBody.body.price_history);
     }).catch((err)=> console.log(err));
   }

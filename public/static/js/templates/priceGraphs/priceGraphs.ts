@@ -39,14 +39,15 @@ export function drawGraphs(x: string[], y: number[]) {
     });
     // заполняем вертикаль
     const ylabel = graphContainer.querySelector('.price-history_axe-y_label-container');
-    const formattedPrice = Math.max(...y) - Math.min(...y);
+    const min =  Math.min(...y);
+    const formattedPrice = Math.max(...y) - min;
     const priceAxeY = [] as number[];
-    priceAxeY.push(Math.min(...y));
+    priceAxeY.push(min);
     for (let i = 0; i < 3; i++) {
         if (formattedPrice == 0) {
             priceAxeY.push(Math.max(...y));
         } else {
-            priceAxeY.push(formattedPrice * (i + 1) / 4);
+            priceAxeY.push(min + formattedPrice * (i + 1) / 4);
         }
     }
     priceAxeY.push(Math.max(...y))

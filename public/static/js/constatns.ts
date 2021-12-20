@@ -209,6 +209,7 @@ export const russian = {
   priceDiv: 'История изменения цены',
   promotion: 'Продвижение объявлений',
   promotionHint: 'Выберите объявление, которое хотите продвигать',
+  inFavoriteLabel: 'В избранном:',
 
 }
 
@@ -339,6 +340,7 @@ export const english = {
   priceDiv: 'Price change history',
   promotion: 'Advert promotion',
   promotionHint: 'Choose an advert to promote',
+  inFavoriteLabel: 'In favorite:'
 }
 
 export const engCategories:categoryList[] = [

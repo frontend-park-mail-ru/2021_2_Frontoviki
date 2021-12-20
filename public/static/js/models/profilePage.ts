@@ -41,6 +41,7 @@ export default class ProfilePageModel {
       body: null,
     });
     res.then(({parsedBody}) => {
+      console.log(parsedBody)
       const {code} = parsedBody;
       if (code === statusCodes.NOTEXIST) {
         return;
@@ -66,7 +67,7 @@ export default class ProfilePageModel {
       this.eventBus.emit('gotAds', adverts, true);
     }).catch(()=> console.log('Ошибка получения архива'));
   }
-  
+
   getPrommoted() {
     const res = Ajax.getUsingFetch({
       url: `${secureDomainUrl}adverts/salesman/${<string>userInfo.get('id')}`,

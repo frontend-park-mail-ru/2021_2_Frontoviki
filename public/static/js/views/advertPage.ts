@@ -46,7 +46,7 @@ export default class AdvertPageView extends BaseView {
    * @param {JSON} advert информация об объявлении
    * @param {JSON} salesman информация о продавце
    */
-  renderAd(advert: advert, salesman: salesman, rating: rating) {
+  renderAd(advert: advert, salesman: salesman, rating: rating, favorite_count: number) {
     const date = properDate(salesman.created_at.slice(0, 10));
     const advertDate = properDate(advert.published_at.slice(0,10));
     if (window.localizer.userLang == 'en') {
@@ -80,6 +80,8 @@ export default class AdvertPageView extends BaseView {
       salesmanLabel: window.localizer.getLocaleItem('salesmanLabel'),
       onSiteFrom: window.localizer.getLocaleItem('onSiteFrom'),
       showMap: window.localizer.getLocaleItem('showMap'),
+      inFavoriteLabel: window.localizer.getLocaleItem('inFavoriteLabel'),
+      inFavorite: favorite_count,
       name: advert.name,
       price: advert.price,
       location: advert.location,
@@ -199,6 +201,7 @@ export default class AdvertPageView extends BaseView {
   }
 
   renderPriceHistory(history: priceHistoryStamp[]) {
+    console.log(history)
     const dates = [] as string[];
     const prices = [] as number[];
     history.forEach((elem) => {
