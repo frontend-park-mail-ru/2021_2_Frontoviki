@@ -47,6 +47,7 @@ export default class AdvertPageView extends BaseView {
    * @param {JSON} salesman информация о продавце
    */
   renderAd(advert: advert, salesman: salesman, rating: rating, favorite_count: number) {
+    const stars = [true, true, true, true, true];
     const date = properDate(salesman.created_at.slice(0, 10));
     const advertDate = properDate(advert.published_at.slice(0,10));
     if (window.localizer.userLang == 'en') {
@@ -82,6 +83,8 @@ export default class AdvertPageView extends BaseView {
       showMap: window.localizer.getLocaleItem('showMap'),
       inFavoriteLabel: window.localizer.getLocaleItem('inFavoriteLabel'),
       inFavorite: favorite_count,
+      star: stars.slice(0, Math.round(rating.avg)),
+      emptyStar: stars.slice(Math.round(rating.avg), 6),
       name: advert.name,
       price: advert.price,
       location: advert.location,
@@ -194,6 +197,26 @@ export default class AdvertPageView extends BaseView {
     })
 
     if (!userInfo.has('id')) {
+      const addToFav = document.getElementById('favBtn');
+      const favLabel = <HTMLLabelElement> document.querySelector('.advertisment-detail__main-info__shop__capture');
+      if (addToFav != null && favLabel != null) {
+        addToFav.addEventListener('mouseover', ()=>{
+          favLabel.style.color = '#54a5f3';
+          addToFav.style.color = '#54a5f3';
+        });
+        favLabel.addEventListener('mouseover', ()=>{
+          favLabel.style.color = '#54a5f3';
+          addToFav.style.color = '#54a5f3';
+        });
+        addToFav.addEventListener('mouseout', ()=>{
+          favLabel.style.color = '#333';
+          addToFav.style.color = '#333';
+        });
+        favLabel.addEventListener('mouseout', ()=>{
+          favLabel.style.color = '#333';
+          addToFav.style.color = '#333';
+        });
+      }
       return;
     }
     this.eventBus.emit('checkCart', advert);
@@ -297,7 +320,7 @@ export default class AdvertPageView extends BaseView {
     const addToFav = document.getElementById('favBtn');
     if (addToFav != null) {
       addToFav.onclick = () => this.eventBus.emit('goToProfile');
-      const btnText = addToFav.childNodes[inputNum] as HTMLElement
+      const btnText = <HTMLElement> document.querySelector('.advertisment-detail__main-info__shop__capture');
       if (btnText != null) {
         btnText.innerHTML = <string>window.localizer.getLocaleItem('yourAdvert');
       }
@@ -310,10 +333,10 @@ export default class AdvertPageView extends BaseView {
   successFav() {
     const addToFav = document.getElementById('favBtn');
     if (addToFav != null) {
-      addToFav.style.color = '#8897f9';
-      const favText = addToFav.childNodes[inputNum] as HTMLElement;
+      const favText = <HTMLElement> document.querySelector('.advertisment-detail__main-info__shop__capture');
+      favText.style.color = '#54a5f3';
       const favImg = addToFav.childNodes[1] as SVGElement
-      favImg.style.fill = '#8897f9';
+      favImg.style.fill = '#54a5f3';
       favText.innerHTML = <string>window.localizer.getLocaleItem('inFav');
       addToFav.onclick = () => this.eventBus.emit('goToFav');
     }
@@ -324,11 +347,22 @@ export default class AdvertPageView extends BaseView {
    */
   notInFav() {
     const addToFav = document.getElementById('favBtn');
-    if (addToFav != null) {
+    const favLabel = <HTMLLabelElement> document.querySelector('.advertisment-detail__main-info__shop__capture');
+    if (addToFav != null && favLabel != null) {
       addToFav.addEventListener('mouseover', ()=>{
-        addToFav.style.color = '#8897f9';
+        favLabel.style.color = '#54a5f3';
+        addToFav.style.color = '#54a5f3';
+      });
+      favLabel.addEventListener('mouseover', ()=>{
+        favLabel.style.color = '#54a5f3';
+        addToFav.style.color = '#54a5f3';
       });
       addToFav.addEventListener('mouseout', ()=>{
+        favLabel.style.color = '#333';
+        addToFav.style.color = '#333';
+      });
+      favLabel.addEventListener('mouseout', ()=>{
+        favLabel.style.color = '#333';
         addToFav.style.color = '#333';
       });
       addToFav.onclick = () => this.eventBus.emit('addToFavourite');
