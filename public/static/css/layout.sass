@@ -8,10 +8,6 @@
     font-family: "Montserrat", Verdana, sans-serif
 
 body
-    -webkit-user-select: none
-    -webkit-tap-highlight-color: transparent
-    -webkit-touch-callout: none
-
     height: 100%
     min-width: 300px
     box-sizing: border-box
@@ -39,4 +35,10 @@ footer
 header
     position: fixed
     width: 100%
+
+@media only screen and (max-device-width: 480px)
+    body
+        -webkit-user-select: none
+        -webkit-tap-highlight-color: transparent
+        -webkit-touch-callout: none
 
