@@ -218,7 +218,7 @@ export const russian = {
   pro: 'Продвинутый',
   lvl3Text: 'Название выделяется синим цветом, появляется уникальная эмблема VIP',
   pay: 'Оплатить',
-
+  backToProfile: 'Перейти в профиль',
 }
 
 export const english = {
@@ -357,6 +357,7 @@ export const english = {
   pro: 'Pro',
   lvl3Text: 'The name is highlighted in blue, a unique VIP logo appears',
   pay: 'Pay',
+  backToProfile: 'Go to profile',
 }
 
 export const engCategories:categoryList[] = [

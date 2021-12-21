@@ -17,6 +17,7 @@ export default class ProfilePageController {
   eventBus: Bus
   view: ProfilePageView
   model: ProfilePageModel
+  listenersActive = false
   /**
      * Controller constructor
      * @param {Object} router - for model to redirect on success login
@@ -127,12 +128,15 @@ export default class ProfilePageController {
       this.websocket.close();
     }
     this.websocket = new WebSocket(`wss://volchock.ru/api/wschat/connect/${<string>userInfo.get('id')}/${idTo}/${advertId}`);
-    this.websocket.addEventListener('open', ()=>{
-      this.eventBus.emit('connectionOpened', this.websocket);
-    });
-    this.websocket.addEventListener('message', (e)=>{
-      this.eventBus.emit('messageReceived', e.data);
-    })
+    if (!this.listenersActive) {
+      this.websocket.addEventListener('open', ()=>{
+        this.eventBus.emit('connectionOpened', this.websocket);
+      });
+      this.websocket.addEventListener('message', (e)=>{
+        this.eventBus.emit('messageReceived', e.data);
+      })
+      this.listenersActive = true;
+    }
   }
 
   closeConnection() {

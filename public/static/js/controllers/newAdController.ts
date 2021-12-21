@@ -38,7 +38,7 @@ export default class NewAdPageController {
     this.model = new NewAdPageModel(this.eventBus);
     this.eventBus.on('notLogged', this.redirectToMain.bind(this));
     this.eventBus.on('notOwner', this.redirectToMain.bind(this));
-    this.eventBus.on('photosSend', this.redirectToProfile.bind(this));
+    this.eventBus.on('photosSend', this.redirectToPromotion.bind(this));
     this.eventBus.on('redirectToAd', this.redirectToAd.bind(this));
     this.eventBus.on('validateSuccessful', this.sendAd.bind(this));
     this.eventBus.on('photoDataPacked', this.sendPhotos.bind(this));
@@ -58,8 +58,8 @@ export default class NewAdPageController {
   /**
    * возвращение в профиль после того как опубликовали объявление
    */
-  redirectToProfile() {
-    this.router.go('/profile');
+  redirectToPromotion(advertId: number) {
+    this.router.go(`/ad/${advertId}/upgrade`);
   }
 
   /**
@@ -154,7 +154,7 @@ export default class NewAdPageController {
       // Переход на страницу профиля при новом
       // или на странцу объявления при редактировании
       if (isNew) {
-        this.eventBus.emit('photosSend');
+        this.eventBus.emit('photosSend', id);
         return;
       } else {
         this.eventBus.emit('redirectToAd', id);

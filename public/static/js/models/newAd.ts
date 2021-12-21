@@ -154,7 +154,7 @@ export default class NewAdPageModel {
         this.eventBus.emit('redirectToAd', id);
         return;
       }
-      this.eventBus.emit('photosSend');
+      this.eventBus.emit('photosSend', id);
       return;
     }
     this.eventBus.emit('photoDataPacked', formData, id, isNew);

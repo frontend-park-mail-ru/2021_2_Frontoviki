@@ -230,7 +230,7 @@ export default class AdvertPageView extends BaseView {
       base: window.localizer.getLocaleItem('base'),
       upgraded: window.localizer.getLocaleItem('upgraded'),
       pro: window.localizer.getLocaleItem('pro'),
-      back: window.localizer.getLocaleItem('back'),
+      back: window.localizer.getLocaleItem('backToProfile'),
       lvl1Text: window.localizer.getLocaleItem('lvl1Text'),
       lvl2Text: window.localizer.getLocaleItem('lvl2Text'),
       lvl3Text: window.localizer.getLocaleItem('lvl3Text'),

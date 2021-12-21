@@ -62,8 +62,7 @@ export default class SalesmanPageView extends BaseView {
     }
     const cards = document.querySelectorAll('.card');
     cards.forEach((elem, key) => {
-      elem.addEventListener('click', (e) => {
-        e.preventDefault();
+      elem.addEventListener('click', () => {
         this.eventBus.emit('onCardClicked', adverts[key].id);
       });
     });

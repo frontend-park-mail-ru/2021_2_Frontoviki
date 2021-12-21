@@ -313,11 +313,15 @@ export default class ProfilePageModel {
     const modal1 = document.getElementById('modal-1') as HTMLDivElement;
     modal1?.classList.add('modal_active');
     const closeButton = modal1?.getElementsByClassName('modal__close-button')[0] as HTMLButtonElement;
+    const deleteBtn = document.getElementById('modal__button-delete');
+    const archiveBtn = document.getElementById('modal__button-to-archive');
 
-    closeButton.onclick = function(e) {
+    closeButton.onclick = (e) => {
       e.preventDefault();
       modal1?.classList.remove('modal_active');
       document.getElementsByTagName('body')[0].removeChild(modal);
+      deleteBtn?.removeEventListener('click', this.deleteAction.bind(this, id));
+      archiveBtn?.removeEventListener('click', this.archiveAction.bind(this, id));
     };
 
     modal1.onmousedown = (e) => {
@@ -326,16 +330,11 @@ export default class ProfilePageModel {
         modal1.classList.remove('modal_active');
         document.getElementsByTagName('body')[0].removeChild(modal);
       }
+      deleteBtn?.removeEventListener('click', this.deleteAction.bind(this, id));
+      archiveBtn?.removeEventListener('click', this.archiveAction.bind(this, id));
     };
-    const deleteBtn = document.getElementById('modal__button-delete');
-    deleteBtn?.addEventListener('click', () => {
-      this.eventBus.emit('deleted', id);
-    });
-
-    const archiveBtn = document.getElementById('modal__button-to-archive');
-    archiveBtn?.addEventListener('click', () => {
-      this.eventBus.emit('archived', id);
-    });
+    deleteBtn?.addEventListener('click', this.deleteAction.bind(this, id));
+    archiveBtn?.addEventListener('click', this.archiveAction.bind(this, id));
   }
 
   /**
@@ -399,5 +398,16 @@ export default class ProfilePageModel {
         this.getCart();
       }
     };
+  }
+
+  deleteAction(id: number) {
+    this.eventBus.emit('deleted', id);
+    const deleteBtn = document.getElementById('modal__button-delete');
+    deleteBtn?.removeEventListener('click', this.deleteAction.bind(this, id));
+  }
+  archiveAction(id: number) {
+    this.eventBus.emit('archived', id);
+    const archiveBtn = document.getElementById('modal__button-to-archive');
+    archiveBtn?.removeEventListener('click', this.archiveAction.bind(this, id));
   }
 }

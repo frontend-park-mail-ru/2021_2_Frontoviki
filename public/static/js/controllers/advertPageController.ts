@@ -54,7 +54,7 @@ export default class AdvertPageController {
     this.eventBus.on('checkFav',  this.favLogic.bind(this));
     this.eventBus.on('goToChat', this.goToChat.bind(this));
     this.eventBus.on('createDialog', this.createDialog.bind(this));
-    this.eventBus.on('back', this.back.bind(this));
+    this.eventBus.on('back', this.goToProfile.bind(this));
 
     this.globalEventBus.on('loggedForCart', this.refreshCart.bind(this));
     this.globalEventBus.on('loggedForFav',  this.favLogic.bind(this));
@@ -67,9 +67,6 @@ export default class AdvertPageController {
     this.router.go('/noSuchAdvert');
   }
 
-  back() {
-    this.router.goBack();
-  }
   /**
    * редирект на страницу редактирования объявления
    * @param {Number} id объявления
