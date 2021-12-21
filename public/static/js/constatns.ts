@@ -52,7 +52,7 @@ export const regExPatterns = {
 export const basePromotionPrice = 2;
 export const promotionCoefficient = 3;
 
-export const userInfo = new Map<string, string>();
+export const userInfo = new Map<string, string | number>();
 
 export const monthMap = new Map();
 monthMap.set('1', 'янв');
