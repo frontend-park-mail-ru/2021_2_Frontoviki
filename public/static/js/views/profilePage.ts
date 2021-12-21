@@ -146,7 +146,6 @@ export default class ProfilePageView extends BaseView {
    * @param {bool} archive если объявления в архиве, то не отображаем удаление
    */
   renderGrid(adverts: card[], archive: boolean, favorite: boolean, promotted: boolean) {
-    console.log(adverts);
     // поправляем ошибки бэка
     if (adverts === null) {
       adverts = [];
@@ -198,7 +197,6 @@ export default class ProfilePageView extends BaseView {
       cards.forEach((elem, key) => {
         elem.addEventListener('click', (e) => {
           if ((<HTMLElement>e.target)?.classList.contains('card__delete')) {
-            console.log('delete', adverts[key].id);
             if (favorite) {
               this.eventBus.emit('deleteFromFav', adverts[key].id, key);
             } else {
@@ -458,7 +456,6 @@ export default class ProfilePageView extends BaseView {
         // покупаем
         if ((<HTMLElement>e.target)?.classList.contains('card-info__card_buy')) {
           e.preventDefault();
-          console.log('buy');
           this.eventBus.emit('buyFromCart', adverts[key], key);
           return;
         }

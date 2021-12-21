@@ -44,7 +44,6 @@ export default class NewAdPageModel {
           },
         });
         this.#coords = coords;
-        console.log(coords);
         this.#myMap.geoObjects.removeAll();
         this.#myMap.geoObjects.add(myGeoObject);
         const response =
@@ -54,7 +53,6 @@ export default class NewAdPageModel {
         /* eslint-disable  @typescript-eslint/no-unsafe-member-access */
         let data = <string>json.response.GeoObjectCollection.featureMember[0].GeoObject.
             metaDataProperty.GeocoderMetaData.Address.formatted;
-        console.log(data);
         const dataSliced = data.split(' ');
         const dateSlice = dataSliced.slice(1);
         data = dateSlice.join(' ');
@@ -78,7 +76,7 @@ export default class NewAdPageModel {
       }
       const {categories} = parsedBody.body;
       const select = document.getElementById('selCategory');
-      categories.forEach((elem : categoryList, i:number) => {
+      categories.forEach((elem : categoryList, i) => {
         const el = document.createElement('option');
         el.value = elem.name;
         if (window.localizer.userLang == 'en') {
@@ -88,7 +86,7 @@ export default class NewAdPageModel {
         }
         select?.appendChild(el);
       });
-    }).catch(()=> console.log('Ошибка получения категорий'));
+    }).catch(()=> console.error('Ошибка получения категорий'));
   }
 
   /**
@@ -224,7 +222,7 @@ export default class NewAdPageModel {
           card.removeChild(card.childNodes[0]);
         }
       });
-    }).catch(()=> console.log('Ошибка редактирования объявления'));
+    }).catch(()=> console.error('Ошибка редактирования объявления'));
   }
 }
 

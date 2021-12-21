@@ -34,7 +34,7 @@ export function registration(regName : HTMLDivElement,
     }
     const {code} = parsedBody;
     if (code === statusCodes.REGDONE) {
-      isLogged(globalEventBus).catch(()=> console.log('Error checking for log'));
+      isLogged(globalEventBus).catch(()=> console.error('Error checking for log'));
       clearAllRegInputs(regName, regSurname, regEmail, regPass, regPassRep);
       const black = document.querySelector('.blackout') as HTMLDivElement;
       black.click();
@@ -48,7 +48,7 @@ export function registration(regName : HTMLDivElement,
     passInput.innerHTML = <string>window.localizer.getLocaleItem('userExist');
     regEmail.classList.remove('text-input_correct');
     regEmail.classList.add('text-input_wrong');
-  }).catch(()=>console.log('Error registration'));
+  }).catch(()=>console.error('Error registration'));
 }
 
 /**

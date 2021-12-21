@@ -110,7 +110,6 @@ export default class NewAdPageController {
         return;
       }
       const {code} = parsedBody;
-      console.log(code, parsedBody);
       if (code == statusCodes.REGDONE) {
         const id = parsedBody.body.advert.id;
         if (imagesToDelete != undefined && imagesToDelete.length != 0) {
@@ -118,7 +117,7 @@ export default class NewAdPageController {
         }
         this.eventBus.emit('successSend', id, isNew, fileList);
       }
-    }).catch(()=> console.log('Ошибка в отправлении данных'));
+    }).catch(()=> console.error('Ошибка в отправлении данных'));
   }
 
   changePrice(price: number) {
@@ -130,13 +129,11 @@ export default class NewAdPageController {
         advert_id: Number(advertId),
       },
     });
-    response.then(({status, parsedBody}) => {
+    response.then(({status}) => {
       if (status != statusCodes.OK) {
         return;
       }
-      const {code} = parsedBody;
-      console.log(code, parsedBody);
-    }).catch(()=> console.log('Ошибка в отправлении данных'));
+    }).catch(()=> console.error('Ошибка в отправлении данных'));
   }
 
   /**
@@ -162,7 +159,7 @@ export default class NewAdPageController {
       } else {
         this.eventBus.emit('redirectToAd', id);
       }
-    }).catch(()=> console.log('Ошибка в отправлении фотографий'));
+    }).catch(()=> console.error('Ошибка в отправлении фотографий'));
   }
 
   /**
@@ -202,6 +199,6 @@ export default class NewAdPageController {
         return;
       }
       this.eventBus.emit('redirectToAd', id);
-    }).catch(()=> console.log('Ошибка в удалении фотографий'));
+    }).catch(()=> console.error('Ошибка в удалении фотографий'));
   }
 }

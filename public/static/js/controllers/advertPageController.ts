@@ -113,13 +113,12 @@ export default class AdvertPageController {
       body: null,
     });
     res.then(({parsedBody}) => {
-      console.log(parsedBody);
       const {code} = parsedBody;
       if (code !== statusCodes.OK) {
         return;
       }
       this.goToChat(salesmanid, advertId);
-    }).catch(()=> console.log('Cannot create dialog'));
+    }).catch(()=> console.error('Cannot create dialog'));
   }
 
   goToChat(salesmanid: number, advertId: number) {
@@ -160,7 +159,7 @@ export default class AdvertPageController {
         return;
       }
       this.eventBus.emit('addedToCart');
-    }).catch(()=> console.log('AddToCartError'));
+    }).catch(()=> console.error('AddToCartError'));
   }
   /**
  * Добавление в избранное
@@ -172,13 +171,12 @@ export default class AdvertPageController {
       body: null,
     });
     res.then(({parsedBody}) => {
-      console.log(parsedBody);
       const {code} = parsedBody;
       if (code === statusCodes.NOTEXIST) {
         return;
       }
       this.eventBus.emit('addedToFavorite');
-    }).catch(()=> console.log('Error adding to favorite'));
+    }).catch(()=> console.error('Error adding to favorite'));
   }
 
   /**
@@ -205,7 +203,6 @@ export default class AdvertPageController {
       body: null,
     });
     res.then(({parsedBody}) => {
-      console.log(parsedBody);
       const {cart} = parsedBody.body;
       let canAdd = true;
       cart.forEach((elem: cart) => {
@@ -218,7 +215,7 @@ export default class AdvertPageController {
       if (canAdd) {
         this.eventBus.emit('notInCart', advert.id);
       }
-    }).catch(()=> console.log('error in cartLogic'));
+    }).catch(()=> console.error('error in cartLogic'));
   }
 
   /**
@@ -245,9 +242,7 @@ export default class AdvertPageController {
       body: null,
     });
     res.then(({parsedBody}) => {
-      console.log(parsedBody);
       const {adverts} = parsedBody.body;
-      console.log(adverts, advert.id);
       let canAdd = true;
       adverts.forEach((elem: card) => {
         if (elem.id === advert.id) {
@@ -259,6 +254,6 @@ export default class AdvertPageController {
       if (canAdd) {
         this.eventBus.emit('notInFav', advert.id);
       }
-    }).catch(()=> console.log('error in favLogic'));
+    }).catch(()=> console.error('error in favLogic'));
   }
 }

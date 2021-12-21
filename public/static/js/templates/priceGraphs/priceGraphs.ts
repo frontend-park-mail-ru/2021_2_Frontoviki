@@ -8,7 +8,6 @@ import './priceGraphs.sass';
 
 export function drawGraphs(x: string[], y: number[]) {
     shortenDate(x, y);
-    console.log(x.length)
     // не рисуем графики если цена не менялась
     if (x.length <= 1) {
         return;
@@ -75,9 +74,7 @@ function minMaxNorm(array: number[]) {
     if (array.length > 1) {
         const min = Math.min(...array);
         const max = Math.max(...array);
-        return array.map((value)=> {
-            return (value - min) / (max - min);
-        });
+        return array.map((value)=> (value - min) / (max - min));
     } else {
         return [1];
     }
@@ -88,19 +85,14 @@ function setAndConvertData (x:number[], y:number[]) {
     let sourceY = minMaxNorm(y);
 
 
-    sourceX = sourceX.map((value) => {
-        return Math.round(value * 100);
-    });
+    sourceX = sourceX.map((value) => Math.round(value * 100));
 
     for (let i = 1; i < sourceX.length; i++) {
         sourceX[i - 1] = sourceX[i] - sourceX[i - 1];
     }
 
-    sourceY = sourceY.map((value) => {
-        return Math.round(value * 80 + 1);
-    });
+    sourceY = sourceY.map((value) => Math.round(value * 80 + 1));
 
-    console.log(sourceX, sourceY);
     return [sourceX.slice(0, sourceX.length - 1), sourceY];
 }
 

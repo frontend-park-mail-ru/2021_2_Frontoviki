@@ -201,7 +201,6 @@ export default class AdvertPageView extends BaseView {
   }
 
   renderPriceHistory(history: priceHistoryStamp[]) {
-    console.log(history)
     const dates = [] as string[];
     const prices = [] as number[];
     history.forEach((elem) => {
@@ -225,12 +224,23 @@ export default class AdvertPageView extends BaseView {
     const coef = promotionCoefficient;
     this.root.innerHTML = '';
     const promotionContainer = createPromotionContainer();
-    this.root.innerHTML = promotionContainer();
+    this.root.innerHTML = promotionContainer({
+      promotion: window.localizer.getLocaleItem('promotion'),
+      tariff: window.localizer.getLocaleItem('tariff'),
+      base: window.localizer.getLocaleItem('base'),
+      upgraded: window.localizer.getLocaleItem('upgraded'),
+      pro: window.localizer.getLocaleItem('pro'),
+      back: window.localizer.getLocaleItem('back'),
+      lvl1Text: window.localizer.getLocaleItem('lvl1Text'),
+      lvl2Text: window.localizer.getLocaleItem('lvl2Text'),
+      lvl3Text: window.localizer.getLocaleItem('lvl3Text'),
+    });
     const buttonContainers = document.querySelectorAll('.promotion-tariffs-block__button');
     buttonContainers.forEach((elem, id) => {
       elem.innerHTML = paymentTemplate({
         labelInfo: `${userId}__${advertId}__${id + 1}`,
-        cost: price + id * coef
+        cost: price + id * coef,
+        pay: window.localizer.getLocaleItem('pay'),
       });
     });
     (<HTMLButtonElement>document.querySelector('.button-minor'))?.addEventListener('click', ()=>{

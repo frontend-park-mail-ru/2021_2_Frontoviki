@@ -175,7 +175,7 @@ export default class ProfilePageController {
         return;
       }
       userInfo.set('image', `/${parsedBody.body.profile.image}`);
-    }).catch((err)=> console.log(err));
+    }).catch((err)=> console.error(err));
   }
 
   /**
@@ -195,14 +195,13 @@ export default class ProfilePageController {
         return;
       }
       const {code} = parsedBody;
-      console.log(parsedBody);
       if (code === statusCodes.OK) {
         userInfo.set('name', name);
         userInfo.set('surname', surname);
         userInfo.set('phone', phone);
         this.eventBus.emit('profileUpdated', name, surname);
       }
-    }).catch((err)=> console.log(err));
+    }).catch((err)=> console.error(err));
   }
 
   /**
@@ -224,13 +223,12 @@ export default class ProfilePageController {
         return;
       }
       const {code} = parsedBody;
-      console.log(parsedBody);
       if (code === statusCodes.OK) {
         this.eventBus.emit('passwordChangeOk');
         return;
       }
       this.eventBus.emit('passwordChangeNotOk');
-    }).catch((err)=> console.log(err));
+    }).catch((err)=> console.error(err));
   }
   /**
  * удаляет из корзины
@@ -253,7 +251,7 @@ export default class ProfilePageController {
       if (advertPos != null) {
         this.model.getCart();
       }
-    }).catch((err)=> console.log(err))
+    }).catch((err)=> console.error(err))
   }
 
   /**
@@ -274,7 +272,7 @@ export default class ProfilePageController {
       if (advertPos != null) {
         this.model.getFavorite();
       }
-    }).catch((err)=> console.log(err));
+    }).catch((err)=> console.error(err));
   }
 
   /**
@@ -294,7 +292,7 @@ export default class ProfilePageController {
       if (code === statusCodes.OK) {
         this.eventBus.emit('deletedSuccessful');
       }
-    }).catch((err)=> console.log(err));
+    }).catch((err)=> console.error(err));
   }
 
   /**
@@ -314,7 +312,7 @@ export default class ProfilePageController {
       if (code === statusCodes.OK) {
         this.eventBus.emit('deletedSuccessful');
       }
-    }).catch((err)=> console.log(err));
+    }).catch((err)=> console.error(err));
   }
 
   /**
@@ -333,9 +331,8 @@ export default class ProfilePageController {
       if (code === statusCodes.NOTEXIST) {
         return;
       }
-      console.log(parsedBody);
       this.eventBus.emit('buySuccess', parsedBody.body.salesman, advert);
-    }).catch((err)=> console.log(err));
+    }).catch((err)=> console.error(err));
   }
 
   /**

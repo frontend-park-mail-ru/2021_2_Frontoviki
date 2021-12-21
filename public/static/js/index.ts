@@ -80,6 +80,6 @@ document.addEventListener('DOMContentLoaded', () => {
     }
     }).catch((err)=> {
       root.innerHTML='Ошибка связи с сервером';
-      console.log(err);
+      console.error(err);
     });
 });

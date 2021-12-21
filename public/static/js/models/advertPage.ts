@@ -26,7 +26,6 @@ export default class AdvertPageModel {
       body: null,
     });
     res.then(({parsedBody}) => {
-      console.log(parsedBody);
       const {code} = parsedBody;
       if (code === statusCodes.NOTEXIST) {
         this.eventBus.emit('NoAd');
@@ -49,6 +48,6 @@ export default class AdvertPageModel {
       });
       this.eventBus.emit('gotAd', advert, salesman, rating, favorite_count);
       this.eventBus.emit('gotPriceHistory', parsedBody.body.price_history);
-    }).catch((err)=> console.log(err));
+    }).catch((err)=> console.error(err));
   }
 }

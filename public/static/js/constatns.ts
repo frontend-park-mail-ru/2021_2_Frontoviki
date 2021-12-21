@@ -52,7 +52,7 @@ export const regExPatterns = {
 export const basePromotionPrice = 2;
 export const promotionCoefficient = 3;
 
-export const userInfo = new Map();
+export const userInfo = new Map<string, string>();
 
 export const monthMap = new Map();
 monthMap.set('1', 'янв');
@@ -210,6 +210,14 @@ export const russian = {
   promotion: 'Продвижение объявлений',
   promotionHint: 'Выберите объявление, которое хотите продвигать',
   inFavoriteLabel: 'В избранном:',
+  tariff: 'Тариф',
+  base: 'Базовый',
+  lvl1Text: 'У объявления появляется синие свечение',
+  upgraded: 'Улучшенный',
+  lvl2Text: 'Цена выделяется синим цветом',
+  pro: 'Продвинутый',
+  lvl3Text: 'Название выделяется синим цветом, появляется уникальная эмблема VIP',
+  pay: 'Оплатить',
 
 }
 
@@ -340,7 +348,15 @@ export const english = {
   priceDiv: 'Price change history',
   promotion: 'Advert promotion',
   promotionHint: 'Choose an advert to promote',
-  inFavoriteLabel: 'In favorite:'
+  inFavoriteLabel: 'In favorite:',
+  tariff: 'Rate',
+  base: 'Base',
+  lvl1Text: 'The ad has a blue glow',
+  upgraded: 'Upgraded',
+  lvl2Text: 'The price is highlighted in blue',
+  pro: 'Pro',
+  lvl3Text: 'The name is highlighted in blue, a unique VIP logo appears',
+  pay: 'Pay',
 }
 
 export const engCategories:categoryList[] = [

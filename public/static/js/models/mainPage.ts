@@ -35,7 +35,7 @@ export default class MainPageModel {
       }
       const {code} = parsedBody;
       if (code === statusCodes.OK) {
-      console.log(parsedBody);
+
         const {body} = parsedBody;
         const {adverts} = body;
         if (adverts.length == 0) {
@@ -44,7 +44,7 @@ export default class MainPageModel {
         }
         this.eventBus.emit('getAds', adverts, clearPage, page);
       }
-    }).catch((err)=>console.log(err));
+    }).catch((err)=>console.error(err));
   }
 
   /**
@@ -60,14 +60,13 @@ export default class MainPageModel {
       if (status != statusCodes.OK) {
         return;
       }
-      console.log(parsedBody);
       const {code} = parsedBody;
       if (code === statusCodes.OK) {
         const {body} = parsedBody;
         const {adverts} = body;
         this.eventBus.emit('gotSearchedAds', adverts);
       }
-    }).catch((err)=>console.log(err));
+    }).catch((err)=>console.error(err));
   }
 
   /**
@@ -83,7 +82,6 @@ export default class MainPageModel {
       if (status != statusCodes.OK) {
         return;
       }
-      console.log(parsedBody);
       const {code} = parsedBody;
       if (code === statusCodes.OK) {
         const {body} = parsedBody;
@@ -91,7 +89,7 @@ export default class MainPageModel {
         const decoded = decodeURI(category);
         this.eventBus.emit('gotCategoryAds', adverts, decoded);
       }
-    }).catch((err)=>console.log(err));
+    }).catch((err)=>console.error(err));
   }
 
   /**
@@ -108,6 +106,6 @@ export default class MainPageModel {
       }
       const {categories} = parsedBody.body;
       this.eventBus.emit('gotCategories', categories);
-    }).catch((err)=>console.log(err));
+    }).catch((err)=>console.error(err));
   }
 }

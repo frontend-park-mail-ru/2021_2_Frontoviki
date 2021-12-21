@@ -63,7 +63,6 @@ export default class SalesmanPageController {
   rate(pos : number) {
     const salesmanId = window.location.pathname.split('/')[idNum];
     const rating = Math.round(pos / 2 + 0.5);
-    console.log(Number(userInfo.get('id')), Number(salesmanId), rating);
     const res = Ajax.postUsingFetch({
       url: secureDomainUrl + 'users/profile/rating',
       body: {
@@ -74,12 +73,11 @@ export default class SalesmanPageController {
     });
     res.then(({parsedBody}) => {
       const {code} = parsedBody;
-      console.log(parsedBody);
       if (code === statusCodes.BADREQUEST) {
         return;
       }
       this.eventBus.emit('ratedFinish');
-    }).catch((err)=>console.log(err));
+    }).catch((err)=>console.error(err));
   }
   /**
    * Переход на страницу объявления

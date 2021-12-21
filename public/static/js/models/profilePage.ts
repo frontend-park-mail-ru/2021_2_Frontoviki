@@ -41,14 +41,13 @@ export default class ProfilePageModel {
       body: null,
     });
     res.then(({parsedBody}) => {
-      console.log(parsedBody)
       const {code} = parsedBody;
       if (code === statusCodes.NOTEXIST) {
         return;
       }
       const {adverts} = parsedBody.body;
       this.eventBus.emit('gotAds', adverts);
-    }).catch(()=> console.log('Ошибка получения объявлений'));
+    }).catch(()=> console.error('Ошибка получения объявлений'));
   }
   /**
    * Получить архивные объявления
@@ -65,7 +64,7 @@ export default class ProfilePageModel {
       }
       const {adverts} = parsedBody.body;
       this.eventBus.emit('gotAds', adverts, true);
-    }).catch(()=> console.log('Ошибка получения архива'));
+    }).catch(()=> console.error('Ошибка получения архива'));
   }
 
   getPrommoted() {
@@ -80,7 +79,7 @@ export default class ProfilePageModel {
       }
       const {adverts} = parsedBody.body;
       this.eventBus.emit('gotAds', adverts, false, false, true);
-    }).catch(()=> console.log('Ошибка получения объявлений'));
+    }).catch(()=> console.error('Ошибка получения объявлений'));
   }
   /**
  * Получение объявлений в корзине
@@ -95,7 +94,6 @@ export default class ProfilePageModel {
         return;
       }
       const {code} = parsedBody;
-      console.log(parsedBody);
       if (code === statusCodes.OK) {
         parsedBody.body.adverts.forEach((elem : card, pos: number) => {
           if (elem.is_active === false) {
@@ -106,13 +104,13 @@ export default class ProfilePageModel {
                 advert_id: Number(elem.id),
                 amount: 0,
               },
-            }).catch(()=> console.log('Ошибка очистка корзины'));
+            }).catch(()=> console.error('Ошибка очистка корзины'));
           }
         });
         this.eventBus.emit('gotCart', parsedBody.body.adverts);
         return;
       }
-    }).catch(()=> console.log('Ошибка получения корзины'));
+    }).catch(()=> console.error('Ошибка получения корзины'));
   }
 
   /**
@@ -128,7 +126,6 @@ export default class ProfilePageModel {
         return;
       }
       const {code} = parsedBody;
-      console.log(parsedBody);
       if (code === statusCodes.OK) {
         parsedBody.body.adverts.forEach((elem: card, pos: number) => {
           if (elem.is_active === false) {
@@ -136,13 +133,13 @@ export default class ProfilePageModel {
             Ajax.deleteAdUsingFetch({
               url: `${secureDomainUrl}adverts/favourite/${elem.id}`,
               body: null,
-            }).catch(()=> console.log('Ошибка удаления'));
+            }).catch(()=> console.error('Ошибка удаления'));
           }
         });
         this.eventBus.emit('gotAds', parsedBody.body.adverts, false, true);
         return;
       }
-    }).catch(()=> console.log('Ошибка получения избранного'));
+    }).catch(()=> console.error('Ошибка получения избранного'));
   }
 
   /**
@@ -159,11 +156,10 @@ export default class ProfilePageModel {
       }
       const {code} = parsedBody;
       if (code === statusCodes.OK) {
-        console.log(parsedBody.body.dialogs);
         this.eventBus.emit('foundDialogs', parsedBody.body.dialogs, isDetailed);
         return;
       }
-    }).catch(()=> console.log('ошибка получения сообщений'));
+    }).catch(()=> console.error('ошибка получения сообщений'));
   }
 
   /**
@@ -172,7 +168,6 @@ export default class ProfilePageModel {
   connectToDialog() {
     const idTo = window.location.pathname.split('/')[3];
     const advertId = window.location.pathname.split('/')[4];
-    console.log(`${secureDomainUrl}chat/getHistory/${<string>userInfo.get('id')}/${idTo}/${advertId}?count=9999`)
     const res = Ajax.getUsingFetch({
       url: `${secureDomainUrl}chat/getHistory/${<string>userInfo.get('id')}/${idTo}/${advertId}`,
       body: null,
@@ -182,7 +177,6 @@ export default class ProfilePageModel {
         return;
       }
       const {code} = parsedBody;
-      console.log(parsedBody)
       if (code === statusCodes.OK) {
         this.eventBus.emit('historyFound', parsedBody.body.messages);
         this.eventBus.emit('connectToChat', idTo, advertId);
@@ -193,7 +187,7 @@ export default class ProfilePageModel {
         this.eventBus.emit('connectToChat', idTo, advertId);
         return;
       }
-    }).catch((err)=> console.log(err));
+    }).catch((err)=> console.error(err));
   }
 
 

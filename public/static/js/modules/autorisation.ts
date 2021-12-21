@@ -68,7 +68,7 @@ export function autorisation(logEmail : HTMLDivElement, logPassword : HTMLDivEle
         break;
       }
     }
-  }).catch(()=> console.log("autorisation promise failed"));
+  }).catch(()=> console.error("autorisation promise failed"));
 }
 
 /**

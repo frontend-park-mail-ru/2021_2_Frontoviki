@@ -124,7 +124,7 @@ export async function isLogged(globalEventBus: Bus) {
     const togle = document.getElementById('mini-profile__toogle') as HTMLInputElement;
     togle.checked = false;
     logout(globalEventBus);
-    isLogged(globalEventBus).catch(()=> console.log('Logged Error'));
+    isLogged(globalEventBus).catch(()=> console.error('Logged Error'));
   });
   const searchBtn = document.querySelector('.search__button');
   searchBtn?.addEventListener('click', () => {

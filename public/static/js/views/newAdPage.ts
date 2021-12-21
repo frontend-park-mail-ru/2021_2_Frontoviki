@@ -180,7 +180,6 @@ export default class NewAdPageView extends BaseView {
         cursed = true;
         return;
       }
-      console.log(elem);
       if (elem.split('.')[1] == 'webp') {
         this.insertImageIntoImageUploader(`${elem}`);
       } else {
