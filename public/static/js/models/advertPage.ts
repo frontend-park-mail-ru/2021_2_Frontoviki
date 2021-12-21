@@ -14,6 +14,7 @@ export default class AdvertPageModel {
   constructor(eventBus: Bus) {
     this.eventBus = eventBus;
     this.eventBus.on('GetAdData', this.getAdData.bind(this));
+    this.eventBus.on('getRecommends', this.getRecommendedAdverts.bind(this));
   }
 
   /**
@@ -48,6 +49,20 @@ export default class AdvertPageModel {
       });
       this.eventBus.emit('gotAd', advert, salesman, rating, favorite_count);
       this.eventBus.emit('gotPriceHistory', parsedBody.body.price_history);
+    }).catch((err)=> console.error(err));
+  }
+
+  getRecommendedAdverts(id: number) {
+    const res = Ajax.getUsingFetch({
+      url: `${secureDomainUrl}adverts/recomendations/${id}`,
+      body: null,
+    });
+    res.then(({parsedBody}) => {
+      const {code} = parsedBody;
+      if (code === statusCodes.NOTEXIST) {
+        return;
+      }
+    this.eventBus.emit('gotRecommendations', parsedBody.body.adverts.slice(0, 8))
     }).catch((err)=> console.error(err));
   }
 }

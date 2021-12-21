@@ -219,6 +219,7 @@ export const russian = {
   lvl3Text: 'Название выделяется синим цветом, появляется уникальная эмблема VIP',
   pay: 'Оплатить',
   backToProfile: 'Перейти в профиль',
+  recommendText: 'Покупатели, которых заинтересовал этот товар, также искали',
 }
 
 export const english = {
@@ -358,6 +359,7 @@ export const english = {
   lvl3Text: 'The name is highlighted in blue, a unique VIP logo appears',
   pay: 'Pay',
   backToProfile: 'Go to profile',
+  recommendText: 'People who were interested in this product were also looking for',
 }
 
 export const engCategories:categoryList[] = [
@@ -371,7 +373,7 @@ export const engCategories:categoryList[] = [
   {name: 'Furniture', href:'', analog:'Мебель'},
   {name: 'For sport', href:'', analog:'Спортивный инвентарь'},
   {name: 'Jewelry', href:'', analog:'Ювелирные украшения'},
-  {name: 'Household Goods', href:'', analog:'Товары для дома'},
+  {name: 'Household Goods', href:'', analog:'Аксессуары для дома'},
   {name: 'Transport', href:'', analog:'Транспорт'},
   {name: 'Other', href:'', analog:'Другое'}
 ]

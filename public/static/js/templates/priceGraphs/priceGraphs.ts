@@ -41,12 +41,13 @@ export function drawGraphs(x: string[], y: number[]) {
     const min =  Math.min(...y);
     const formattedPrice = Math.max(...y) - min;
     const priceAxeY = [] as number[];
+    priceAxeY.push(0);
     priceAxeY.push(min);
     for (let i = 0; i < 3; i++) {
         if (formattedPrice == 0) {
             priceAxeY.push(Math.max(...y));
         } else {
-            priceAxeY.push(min + formattedPrice * (i + 1) / 4);
+            priceAxeY.push(Math.round(min + formattedPrice * (i + 1) / 4));
         }
     }
     priceAxeY.push(Math.max(...y))
@@ -91,7 +92,7 @@ function setAndConvertData (x:number[], y:number[]) {
         sourceX[i - 1] = sourceX[i] - sourceX[i - 1];
     }
 
-    sourceY = sourceY.map((value) => Math.round(value * 80 + 1));
+    sourceY = sourceY.map((value) => Math.round(value * 67 + 17));
 
     return [sourceX.slice(0, sourceX.length - 1), sourceY];
 }

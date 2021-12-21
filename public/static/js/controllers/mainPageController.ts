@@ -51,10 +51,6 @@ export default class MainPageController {
     this.eventBus.emit('clickModal');
   }
 
-  /**
-   * Переход на страницу объявления
-   * @param {*} id
-   */
   goToCardPage(id: number) {
     this.stopScroll();
     this.eventBus.emit('deleteBtn');

@@ -131,7 +131,7 @@
             &__capture
                 cursor: pointer
                 grid-column: 2 / 5
-                font-size: 16px
+                font-size: 18px
 
                 &:hover
                     color: #54a5f3
@@ -326,6 +326,17 @@
     font-size: 16px
     font-weight: 400
 
+.advertisment-detail__recommend-title
+    text-decoration: none
+    font-weight: 400
+
+    &-container
+        margin-top: 50px
+        display: flex
+        flex-direction: column
+        align-items: center
+
+
 @media screen and (max-width: 800px)
     .gallery__next-button
         right: 0
@@ -346,6 +357,8 @@
         width: 100%
 
 @media screen and (max-width: 600px)
+    .advertisment-detail__recommend-title
+        font-size: 1.3em
     .advertisment-detail__main-info__main__text
         flex-direction: column
         align-items: center

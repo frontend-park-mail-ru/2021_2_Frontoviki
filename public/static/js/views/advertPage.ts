@@ -4,9 +4,10 @@ import {SliderLogic} from '../templates/advertPage/sliderLogic';
 import {basePromotionPrice, engCategories, inputNum, promotionCoefficient, userInfo} from '../constatns';
 import {properDate} from '../modules/utilsFunctions';
 import Bus from '../modules/EventBus';
-import { advert, priceHistoryStamp, rating, salesman } from '../types';
+import { advert, card, priceHistoryStamp, rating, salesman } from '../types';
 import { drawGraphs } from '../templates/priceGraphs/priceGraphs';
 import { createPayment, createPromotionContainer } from '../templates/payment/paymentForm';
+import { createProductGrid } from '../templates/productGrid/productGrid';
 
 /**
   *Класс для генерации страницы объявления
@@ -30,6 +31,7 @@ export default class AdvertPageView extends BaseView {
     this.eventBus.on('inFav', this.successFav.bind(this));
     this.eventBus.on('notInFav', this.notInFav.bind(this));
     this.eventBus.on('gotPriceHistory', this.renderPriceHistory.bind(this));
+    this.eventBus.on('gotRecommendations', this.renderRec.bind(this));
   }
 
   /**
@@ -105,6 +107,7 @@ export default class AdvertPageView extends BaseView {
       salesmanCreatedAt: date,
     });
     this.eventBus.emit('adDrawn', advert);
+    this.eventBus.emit('getRecommends', advert.id);
     const label = document.querySelector('.advertisment-detail__add-info__location__name-block__maps-label')
     label?.addEventListener('click', ()=>{
       const toogle = document.getElementById('toogle_maps') as HTMLInputElement;
@@ -117,6 +120,27 @@ export default class AdvertPageView extends BaseView {
         label.innerHTML = <string>window.localizer.getLocaleItem('showMap');
         label.classList.remove('advertisment-detail__add-info__location__name-block__maps-label_open');
       }
+    });
+  }
+
+  renderRec(adverts : card[]) {
+    const sepContainer = document.createElement('div');
+    sepContainer.classList.add('advertisment-detail__recommend-title-container');
+    const sep = document.createElement('h2');
+    sep.innerHTML = <string> window.localizer.getLocaleItem('recommendText');
+    sep.classList.add('advertisment-detail__recommend-title');
+    sepContainer.appendChild(sep);
+    this.root.appendChild(sepContainer);
+    adverts.forEach((elem) => {
+      elem.href = `/ad/${elem.id}`;
+      elem.image = '/' + elem.images[0];
+    });
+    this.root.appendChild(createProductGrid(adverts, false, false));
+    const cards = document.querySelectorAll('.card');
+    cards.forEach((elem, key) => {
+      elem.addEventListener('click', () => {
+        this.eventBus.emit('onCardClicked', adverts[key].id);
+      });
     });
   }
 

@@ -1,6 +1,7 @@
 import {Ajax} from '../modules/ajax';
 import {secureDomainUrl, statusCodes, baseCount} from '../constatns';
 import Bus from '../modules/EventBus';
+import { categoryList } from '../types';
 
 /**
  * Класс главной страницы с последними объявлениями
@@ -105,7 +106,18 @@ export default class MainPageModel {
         return;
       }
       const {categories} = parsedBody.body;
+      // categories = categories.sort(this.#compateCategories.bind(this));
       this.eventBus.emit('gotCategories', categories);
     }).catch((err)=>console.error(err));
+  }
+
+  #compateCategories(first: categoryList, second: categoryList) {
+    if (first.name < second.name) {
+      return -1;
+    }
+    if ( first.name > second.name) {
+      return 1;  // второй сравниваемый элемент будет расположен по меньшему индексу
+    }
+    return 0; 
   }
 }
