@@ -173,10 +173,9 @@ export default class NewAdPageView extends BaseView {
    * @param {*} images
    */
   pushExistingImages(images: string[]) {
-    
     let cursed = false;
     images.forEach((elem)=>{
-      if (elem == '/static/advertimages/default_image.png') {
+      if (elem == '/static/advertimages/default_image') {
         cursed = true;
         return;
       }
