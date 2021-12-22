@@ -3,13 +3,13 @@ declare namespace ymaps {
     export function suggest(query: string): Promise;
   
     class Promise {
-      then(onFulfilled?: Function, onRejected?: Function, onProgress?: Function, ctx?: any): Promise;
+      then(onFulfilled?: any, onRejected?: any, onProgress?: any, ctx?: any): Promise;
     }
   
     export class Map {
       constructor(element: string | any, state: MapState);
       geoObjects: GeoObjects;
-      events: any;
+      events: GeoEvent;
       add(geObject: GeoObject);
     }
   
@@ -25,5 +25,13 @@ declare namespace ymaps {
     export class GeoObjects {
       add(geoObject: GeoObject);
       removeAll();
+    }
+
+    export class GeoEvent {
+      add(name:string, callback: GeoCallback)
+    }
+    type GeoCallback = (e: ymapsEvent) => Promise<void>;
+    type ymapsEvent = {
+      get(name: string): number[]
     }
   }

@@ -11,13 +11,8 @@ import NewAdPageController from './controllers/newAdController';
 import AdvertPageController from './controllers/advertPageController';
 import {egg, eggTemplate} from './templates/easterEgg/easterEgg';
 import Localizer from './modules/localizer';
+import { LangButtonLogic } from './templates/header/header';
 
-
-declare global {
-  interface Window {
-    localizer: Localizer;
-  }
-}
 
 document.addEventListener('DOMContentLoaded', () => {
   if ('serviceWorker' in navigator) {
@@ -45,40 +40,46 @@ document.addEventListener('DOMContentLoaded', () => {
     'loggedIn',
   ]);
   const router = new Router(wrapper);
+  globalEventBus.on('addLanguageEvent', ()=> LangButtonLogic(router));
   isLogged(globalEventBus).then(()=> {
     createModal(globalEventBus);
-  wrapper.appendChild(root);
-  createFooter();
+    wrapper.appendChild(root);
+    createFooter();
 
-  const MainPage = new MainPageController(router, globalEventBus);
-  const ProfilePage = new ProfilePageController(router, globalEventBus);
-  const SalesmanPage = new SalesmanPageController(router, globalEventBus);
-  const NewAdPage = new NewAdPageController(router, globalEventBus);
-  const AdvertPage = new AdvertPageController(router, globalEventBus);
+    const MainPage = new MainPageController(router, globalEventBus);
+    const ProfilePage = new ProfilePageController(router, globalEventBus);
+    const SalesmanPage = new SalesmanPageController(router, globalEventBus);
+    const NewAdPage = new NewAdPageController(router, globalEventBus);
+    const AdvertPage = new AdvertPageController(router, globalEventBus);
 
-  router.setRoute('^/$', MainPage.view.render);
-  router.setRoute('^/search/', MainPage.view.search);
-  router.setRoute('^/category/', MainPage.view.category);
-  router.setRoute('^/logout$', MainPage.view.render);
-  router.setRoute('^/profile$', ProfilePage.view.renderAds);
-  router.setRoute('^/profile/archive$', ProfilePage.view.renderArchive);
-  router.setRoute('^/profile/favorite$', ProfilePage.view.renderFavorite);
-  router.setRoute('^/profile/settings$', ProfilePage.view.renderSettings);
-  router.setRoute('^/profile/cart$', ProfilePage.view.renderCart);
-  router.setRoute('^/profile/chat$', ProfilePage.view.renderChat);
-  router.setRoute('^/profile/chat/(?<toID>\\d+)/(?<advertID>\\d+)', ProfilePage.view.renderChatMessage);
-  router.setRoute('^/newAd$', NewAdPage.view.render);
-  router.setRoute('^/ad/(?<advertID>\\d+)$', AdvertPage.view.render);
-  router.setRoute('^/ad/(?<advertID>\\d+)/edit$', NewAdPage.view.edit);
-  router.setRoute('^/salesman/(?<salesmanID>\\d+)$', SalesmanPage.view.render);
+    router.setRoute('^/$', MainPage.view.render.bind(MainPage.view));
+    router.setRoute('^/search/', MainPage.view.search.bind(MainPage.view));
+    router.setRoute('^/category/', MainPage.view.category.bind(MainPage.view));
+    router.setRoute('^/logout$', MainPage.view.render.bind(MainPage.view));
+    router.setRoute('^/profile$', ProfilePage.view.renderAds.bind(ProfilePage.view));
+    router.setRoute('^/profile/archive$', ProfilePage.view.renderArchive.bind(ProfilePage.view));
+    router.setRoute('^/profile/favorite$', ProfilePage.view.renderFavorite.bind(ProfilePage.view));
+    router.setRoute('^/profile/settings$', ProfilePage.view.renderSettings.bind(ProfilePage.view));
+    router.setRoute('^/profile/cart$', ProfilePage.view.renderCart.bind(ProfilePage.view));
+    router.setRoute('^/profile/chat$', ProfilePage.view.renderChat.bind(ProfilePage.view));
+    router.setRoute('^/profile/chat/(?<toID>\\d+)/(?<advertID>\\d+)', ProfilePage.view.renderChatMessage.bind(ProfilePage.view));
+    router.setRoute('^/newAd$', NewAdPage.view.render.bind(NewAdPage.view));
+    router.setRoute('^/ad/(?<advertID>\\d+)$', AdvertPage.view.render.bind(AdvertPage.view));
+    router.setRoute('^/ad/(?<advertID>\\d+)/edit$', NewAdPage.view.edit.bind(NewAdPage.view));
+    router.setRoute('^/salesman/(?<salesmanID>\\d+)$', SalesmanPage.view.render.bind(SalesmanPage.view));
+    router.setRoute('^/ad/(?<advertID>\\d+)/upgrade$', AdvertPage.view.upgradeAdvert.bind(AdvertPage.view));
+    router.setRoute('^/profile/promotion$', ProfilePage.view.renderPromotion.bind(ProfilePage.view));
+    
 
-  router.go(window.location.pathname);
-  if (navigator.onLine !== true) {
-    console.log('offline');
-    setTimeout(()=> {
-      root.innerHTML = eggTemplate();
-      egg();
-    }, 1000);
-  }
-  }).catch(()=> root.innerHTML='Ошибка связи с сервером');
+    router.go(window.location.pathname);
+    if (navigator.onLine !== true) {
+      setTimeout(()=> {
+        root.innerHTML = eggTemplate();
+        egg();
+      }, 1000);
+    }
+    }).catch((err)=> {
+      root.innerHTML='Ошибка связи с сервером';
+      console.error(err);
+    });
 });

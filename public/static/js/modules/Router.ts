@@ -1,5 +1,5 @@
 import ErrorPage from '../templates/404Page/404Page';
-import {route, callback} from '../types';
+import {route, callback, state} from '../types';
 
 /**
  * Класс роутера для навигации в спа
@@ -32,7 +32,7 @@ export default class Router {
    * No pushState is necessary when user go back in history. Default set to true.
    */
   go(URL : string, pushState = true) {
-    const oldURL = <string> window.history.state?.url;
+    const oldURL =  (<state>window.history.state)?.url;
     if (pushState && URL !== oldURL) {
       window.history.pushState({url: URL}, '', URL);
     }

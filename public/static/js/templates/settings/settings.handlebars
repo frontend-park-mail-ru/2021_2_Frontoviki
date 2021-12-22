@@ -1,55 +1,54 @@
                 <div class="profile-content_right profile-content__settings">
-                    <h3 class="profile-content__settings__title">Настройки</h3>
+                    <h3 class="profile-content__settings__title">{{Settings}}</h3>
 
                     <div class="profile-content__settings__image-loader">
-                        <h3 class="profile-content__settings__subtitle">Загрузка аватара</h3>
+                        <h3 class="profile-content__settings__subtitle">{{avatarUpload}}</h3>
                         <input class="profile-content__settings__image-loader__input" type="file" accept="image/*"
                             id="avatar_loader">
                         <label class="profile-content__settings__image-loader__label" for="avatar_loader">
                             <img class="profile-content__settings__image-loader__image" id="avatar_preview" alt="avatar_preview"
-                                src="/static/img/photo.webp">
+                                src="/img/photo.webp">
                         </label>
                     </div>
 
                     <div class="profile-content__settings__password-change">
-                        <h3 class="profile-content__settings__subtitle">Изменение пароля</h3>
+                        <h3 class="profile-content__settings__subtitle">{{changePassword}}</h3>
                         <div id="settingOldPassword" class="text-input profile-content__settings__password-change__input">
-                            <label class="text-input__label">Старый пароль</label>
+                            <label class="text-input__label">{{oldPassword}}</label>
                             <input class="text-input__input" type="password">
-                            <span class="text-input__description">Неверный пароль</span>
+                            <span class="text-input__description">{{incorrectPassword}}</span>
                         </div>
                         <div id="settingPassword" class="text-input profile-content__settings__password-change__input">
-                            <label class="text-input__label">Новый пароль</label>
+                            <label class="text-input__label">{{newPassword}}</label>
                             <input class="text-input__input" type="password">
-                            <span class="text-input__description">Пароль слишком простой</span>
+                            <span class="text-input__description">{{newPasswordHint}}</span>
                         </div>
                         <button class="button profile-content__settings__password-change__main-info"
-                            id="settings__change-password">Изменить
-                            пароль</button>
+                            id="settings__change-password">{{changePasswordBtn}}</button>
                     </div>
 
                     <div class="profile-content__settings__main-info">
-                        <h3 class="profile-content__settings__subtitle">Личные данные</h3>
+                        <h3 class="profile-content__settings__subtitle">{{personalInfo}}</h3>
                         <div id="settingName" class="text-input text-input profile-content__settings__main-info__input">
-                            <label class="text-input__label">Имя</label>
+                            <label class="text-input__label">{{name}}</label>
                             <input class="text-input__input" type="text" placeholder="{{userName}}">
-                            <span class="text-input__description">Имя не удовлетворяет требованиям</span>
+                            <span class="text-input__description">{{nameSettingsHint}}</span>
                         </div>
                         <div id="settingSurname" class="text-input profile-content__settings__main-info__input">
-                            <label class="text-input__label">Фамилия</label>
+                            <label class="text-input__label">{{surname}}</label>
                             <input class="text-input__input" type="text" placeholder="{{userSurname}}">
-                            <span class="text-input__description">Фамилия не удовлетворяет требованиям</span>
+                            <span class="text-input__description">{{surnameSettingsHint}}</span>
                         </div>
                         <div id="settingEmail" class="text-input profile-content__settings__main-info__input">
-                            <label class="text-input__label">Электронная почта</label>
+                            <label class="text-input__label">{{fullEmail}}</label>
                             <input class="text-input__input" type="email" placeholder="{{userEmail}}" disabled>
-                            <span class="text-input__description">Ошибка в электронной почте</span>
+                            <span class="text-input__description"></span>
                         </div>
                         <div id="settingPhone" class="text-input profile-content__settings__main-info__input">
-                            <label class="text-input__label">Мобильный телефон</label>
+                            <label class="text-input__label">{{mobilePhone}}</label>
                             <input class="text-input__input" type="text" placeholder="{{userPhone}}">
-                            <span class="text-input__description">Ошибка в телефоне</span>
+                            <span class="text-input__description">{{mobilePhoneHint}}</span>
                         </div>
-                        <button class="button" id="settings__change-info"> Изменить информацию </button>
+                        <button class="button" id="settings__change-info"> {{changeInfo}} </button>
                     </div>
 

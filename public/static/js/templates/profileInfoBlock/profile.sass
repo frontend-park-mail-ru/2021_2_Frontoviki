@@ -97,6 +97,24 @@
     &:hover
         cursor: pointer
 
+.profile-content-right__ads-promote
+    font-size: 20px
+    font-weight: 400
+    margin: 0px 40px
+
+    &:hover
+        cursor: default
+
+.profile-content_left__toogle
+    display: none
+
+.profile-content_left__icon-cantainer
+    position: absolute
+    display: none
+
+    &:hover
+        cursor: pointer
+
 @media screen and (max-width: 700px)
     .profile-content
         display: block
@@ -106,4 +124,29 @@
             margin-bottom: 20px
 
         &_right
+            width: 100%
+
+    .profile-content
+        display: block
+
+        &_left
+            width: 100%
+            margin-bottom: 20px
+            display: none
+            transform: translateY(20px)
+
+            &__icon
+                height: 20px
+                fill: #000
+        
+                &-cantainer
+                    width: 90%
+                    display: flex
+                    justify-content: center
+
+            &__toogle:checked~.profile-content_left
+                display: block
+
+        &_right
+            transform: translateY(20px)
             width: 100%

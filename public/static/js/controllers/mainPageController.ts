@@ -51,10 +51,6 @@ export default class MainPageController {
     this.eventBus.emit('clickModal');
   }
 
-  /**
-   * Переход на страницу объявления
-   * @param {*} id
-   */
   goToCardPage(id: number) {
     this.stopScroll();
     this.eventBus.emit('deleteBtn');
@@ -90,6 +86,7 @@ export default class MainPageController {
    * Если закончились объявления остановим ленту
    */
   stopScroll() {
+    /* eslint-disable  @typescript-eslint/unbound-method */
     window.removeEventListener('scroll', this.view.populate);
   }
 

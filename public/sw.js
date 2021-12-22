@@ -36,7 +36,9 @@ self.addEventListener('fetch', (event) => {
       if (event.request.method !== 'GET') {
         return response;
       }
-      if (response.url.indexOf('maps.yandex.net') > -1) {
+      if (response.url.indexOf('maps.yandex.net') > -1 ||
+        response.url.length < 1 ||
+        response.url.indexOf('api') > -1) {
         return response;
       }
       const responseClone = response.clone();

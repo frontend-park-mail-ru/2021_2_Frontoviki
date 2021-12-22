@@ -1,8 +1,8 @@
 import {Ajax} from '../modules/ajax';
-import {idNum, inputNum, minValidationLen,
+import {engCategories, idNum, inputNum, minValidationLen,
   secureDomainUrl, statusCodes, userInfo} from '../constatns';
 import Bus from '../modules/EventBus';
-import { categoryList } from '../types';
+import { categoryList, ymapsEvent } from '../types';
 
 /**
  * Класс модели нового объявления
@@ -35,7 +35,7 @@ export default class NewAdPageModel {
         center: [55.766062, 37.684488],
         zoom: 13,
       });
-      this.#myMap.events.add('click', async (e: any) => {
+      this.#myMap.events.add('click', async (e: ymapsEvent) => {
         const coords = e.get('coords');
         const myGeoObject = new ymaps.GeoObject({
           geometry: {
@@ -44,20 +44,20 @@ export default class NewAdPageModel {
           },
         });
         this.#coords = coords;
-        console.log(coords);
         this.#myMap.geoObjects.removeAll();
         this.#myMap.geoObjects.add(myGeoObject);
         const response =
           await fetch(`https://geocode-maps.yandex.ru/1.x/?apikey=a4627984-d4ae-4e59-a89b-7c1c4d5cf56d&format=json&geocode=${coords[1].toFixed(6)},${coords[0].toFixed(6)}`);
+        /* eslint-disable  @typescript-eslint/no-unsafe-assignment */
         const json = await response.json();
-        let data = json.response.GeoObjectCollection.featureMember[0].GeoObject.
+        /* eslint-disable  @typescript-eslint/no-unsafe-member-access */
+        let data = <string>json.response.GeoObjectCollection.featureMember[0].GeoObject.
             metaDataProperty.GeocoderMetaData.Address.formatted;
-        console.log(data);
-        data = data.split(' ');
-        data = data.slice(1);
-        data = data.join(' ');
+        const dataSliced = data.split(' ');
+        const dateSlice = dataSliced.slice(1);
+        data = dateSlice.join(' ');
         const input = location?.childNodes[inputNum] as HTMLInputElement;
-        input.value = <string>data;
+        input.value = data;
       });
     });
   }
@@ -76,13 +76,17 @@ export default class NewAdPageModel {
       }
       const {categories} = parsedBody.body;
       const select = document.getElementById('selCategory');
-      categories.forEach((elem : categoryList) => {
+      categories.forEach((elem : categoryList, i) => {
         const el = document.createElement('option');
         el.value = elem.name;
-        el.innerHTML = elem.name;
+        if (window.localizer.userLang == 'en') {
+          el.innerHTML = engCategories[i].name;
+        } else {
+          el.innerHTML = elem.name;
+        }
         select?.appendChild(el);
       });
-    });
+    }).catch(()=> console.error('Ошибка получения категорий'));
   }
 
   /**
@@ -124,6 +128,9 @@ export default class NewAdPageModel {
       const adId = window.location.pathname.split('/')[idNum];
       endpointUrl = `${secureDomainUrl}adverts/${adId}`;
     }
+    if (!isNew) {
+      this.eventBus.emit('changePrice', price);
+    }
     this.eventBus.emit('validateSuccessful', endpointUrl, title, description,
         category, condition, price, address,
         coords, isNew, fileList, imagesToDelete);
@@ -147,7 +154,7 @@ export default class NewAdPageModel {
         this.eventBus.emit('redirectToAd', id);
         return;
       }
-      this.eventBus.emit('photosSend');
+      this.eventBus.emit('photosSend', id);
       return;
     }
     this.eventBus.emit('photoDataPacked', formData, id, isNew);
@@ -215,7 +222,7 @@ export default class NewAdPageModel {
           card.removeChild(card.childNodes[0]);
         }
       });
-    });
+    }).catch(()=> console.error('Ошибка редактирования объявления'));
   }
 }
 

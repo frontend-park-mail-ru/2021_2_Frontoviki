@@ -1,0 +1,35 @@
+@import '../../../css/variables'
+.lang-box
+    background-color: $header-capture-color
+    position: fixed
+    bottom: 40px
+    left: 2vh
+    cursor: pointer
+    width: 4vh
+    height: 4vh
+    object-fit: cover
+    border-radius: 50%
+    border: 0
+    border-radius: 1vh
+    box-shadow: 0 0 1vw rgb(0 0 0 / 20%)
+
+    &-inner
+        padding: 1vh
+
+    &__img
+        width: 2vh
+        height: 2vh
+
+@media only screen and (max-device-width: 480px)
+    .lang-box
+        position: relative
+        bottom: 0px
+        left: 0px
+        margin-right: 15px
+
+        &-inner
+            padding: 0px
+
+        &__img
+            width: 4vh
+            height: 4vh

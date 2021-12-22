@@ -2,17 +2,17 @@
   <div class="profile-content_left">
     <h3
       class="profile-content__title profile-content__title_center"
-    >Профиль</h3>
+    >{{profile}}</h3>
     <div class="profile-content__personal">
       <div class="profile-content__avatar">
         <img
           class="profile-content__avatar__image"
-          src="{{userAvatar}}"
-          onerror="this.onerror=null;this.src='{{userAvatar}}';"
+          src="{{userAvatar}}.webp" 
+          onerror="this.onerror=null;this.src='{{userAvatar}}{{format}}';"
         />
       </div>
       <p class="profile-content__username">{{userName}}</p>
-      <p class="profile-content__username">На сайте с {{date}}</p>
+      <p class="profile-content__username">{{onSiteFrom}} {{date}}</p>
       <div class="profile-content__rating stars">
         {{#each star}}
           <svg
@@ -42,11 +42,11 @@
         {{/each}}
       </div>
       {{#if isRated}}
-      <p class="profile-content__rate">Вы оценили пользователя на {{rate}} &#9733;</p>
+      <p class="profile-content__rate">{{yourRate}} {{rate}} &#9733;</p>
       {{/if}}
     </div>
   </div>
   <div class="profile-content_right">
-    <h3 class="profile-content__title">Объявления</h3>
+    <h3 class="profile-content__title">{{advertsTitle}}</h3>
   </div>
 </div>

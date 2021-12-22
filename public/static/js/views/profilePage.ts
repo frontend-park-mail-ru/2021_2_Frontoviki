@@ -33,6 +33,7 @@ export default class ProfilePageView extends BaseView {
     this.renderFavorite = this.renderFavorite.bind(this);
     this.renderChat = this.renderChat.bind(this);
     this.renderChatMessage = this.renderChatMessage.bind(this);
+    this.renderPromotion = this.renderPromotion.bind(this);
     this.eventBus.on('gotAds', this.renderGrid.bind(this));
     this.eventBus.on('gotCart', this.renderCartGrid.bind(this));
     this.eventBus.on('passwordChangeOk', this.passwordChanged.bind(this));
@@ -74,6 +75,12 @@ export default class ProfilePageView extends BaseView {
       this.eventBus.emit('renderCart');
     });
 
+    const paidBtn = document.querySelector('.profile-content__buttons')?.
+        childNodes[profileBtnNum.paidBtn];
+    paidBtn?.addEventListener('click', () => {
+      this.eventBus.emit('renderPaid');
+    });
+
     const settingBtn = document.querySelector('.profile-content__buttons')?.
         childNodes[profileBtnNum.setBtn];
     settingBtn?.addEventListener('click', () => {
@@ -101,13 +108,13 @@ export default class ProfilePageView extends BaseView {
     }
     const title = document.createElement('h3');
     title.classList.add('profile-content__title');
-    title.innerHTML = ' Ваши объявления ';
+    title.innerHTML = <string> window.localizer.getLocaleItem('yourAdverts');
     const active = document.createElement('span');
-    active.innerHTML = 'Активные';
+    active.innerHTML =  <string> window.localizer.getLocaleItem('active');
     active.classList.add('profile-content-right__ads-type');
     active.style.color = '#004ad7';
     const archive = document.createElement('span');
-    archive.innerHTML = 'Архив';
+    archive.innerHTML =  <string> window.localizer.getLocaleItem('archive');
     archive.classList.add('profile-content-right__ads-type');
 
     active.addEventListener('click', () => {
@@ -138,8 +145,7 @@ export default class ProfilePageView extends BaseView {
    * @param {*} adverts массив объявлений
    * @param {bool} archive если объявления в архиве, то не отображаем удаление
    */
-  renderGrid(adverts: card[], archive: boolean, favorite: boolean) {
-    console.log(adverts);
+  renderGrid(adverts: card[], archive: boolean, favorite: boolean, promotted: boolean) {
     // поправляем ошибки бэка
     if (adverts === null) {
       adverts = [];
@@ -173,11 +179,16 @@ export default class ProfilePageView extends BaseView {
         const cards = document.querySelectorAll('.card');
         cards.forEach((elem) => {
           elem.classList.add('archived');
-          elem.addEventListener('click', (e) => e.preventDefault());
-          const cardMenu = elem.querySelector('.card-menu');
-          if (cardMenu != null) {
-            elem.removeChild(cardMenu);
-          }
+        });
+        return;
+      }
+      if (promotted) {
+        rightBlock?.appendChild(createProductGrid(adverts, false, false));
+        const cards = document.querySelectorAll('.card');
+        cards.forEach((elem, key) => {
+          elem.addEventListener('click', () =>{
+            this.eventBus.emit('goToUpgrade', adverts[key].id);
+          });
         });
         return;
       }
@@ -186,7 +197,6 @@ export default class ProfilePageView extends BaseView {
       cards.forEach((elem, key) => {
         elem.addEventListener('click', (e) => {
           if ((<HTMLElement>e.target)?.classList.contains('card__delete')) {
-            console.log('delete', adverts[key].id);
             if (favorite) {
               this.eventBus.emit('deleteFromFav', adverts[key].id, key);
             } else {
@@ -204,15 +214,35 @@ export default class ProfilePageView extends BaseView {
     emptyGridActive.id = 'empty';
     const gridT = emptyGrid();
     if (favorite) {
-      emptyGridActive.innerHTML = gridT({text: `В избранном ничего нет`});
+      emptyGridActive.innerHTML = gridT({text: window.localizer.getLocaleItem('emptyFav')});
     } else if (archive) {
-      emptyGridActive.innerHTML = gridT({
-        text: `Архивные объявления будут
-        отображаться на этой странице`});
+      emptyGridActive.innerHTML = gridT({text: window.localizer.getLocaleItem('emptyArchive')});
     } else {
-      emptyGridActive.innerHTML = gridT({text: 'Активных объявлений нет'});
+      emptyGridActive.innerHTML = gridT({text: window.localizer.getLocaleItem('emptyActive')});
     }
     rightBlock?.appendChild(emptyGridActive);
+  }
+
+  renderPromotion() {
+    this.render();
+    // красим кнопочку
+    makeBlue(<HTMLButtonElement>document.querySelector('.profile-content__buttons')?.
+        childNodes[profileBtnNum.paidBtn]);
+
+    const rightBlock = document.querySelector('.profile-content_right');
+    if (rightBlock != null) {
+      rightBlock.innerHTML = '';
+    }
+    const title = document.createElement('h3');
+    title.classList.add('profile-content__title');
+    title.innerHTML = <string> window.localizer.getLocaleItem('promotion');
+    const promotionHint = document.createElement('span');
+    promotionHint.innerHTML =  <string> window.localizer.getLocaleItem('promotionHint');
+    promotionHint.classList.add('profile-content-right__ads-promote');
+    promotionHint.style.color = '#black';
+    rightBlock?.appendChild(title);
+    rightBlock?.appendChild(promotionHint);
+    this.eventBus.emit('getPromotted');
   }
 
   /**
@@ -230,13 +260,13 @@ export default class ProfilePageView extends BaseView {
     }
     const title = document.createElement('h3');
     title.classList.add('profile-content__title');
-    title.innerHTML = ' Ваши объявления ';
+    title.innerHTML = <string> window.localizer.getLocaleItem('yourAdverts');
     const active = document.createElement('span');
-    active.innerHTML = 'Активные';
+    active.innerHTML =  <string> window.localizer.getLocaleItem('active');
     active.classList.add('profile-content-right__ads-type');
     active.style.color = '#004ad7';
     const archive = document.createElement('span');
-    archive.innerHTML = 'Архив';
+    archive.innerHTML =  <string> window.localizer.getLocaleItem('archive');
     archive.classList.add('profile-content-right__ads-type');
     active.style.color = 'black';
     archive.style.color = '#004ad7';
@@ -343,7 +373,7 @@ export default class ProfilePageView extends BaseView {
     }
     const title = document.createElement('h3');
     title.classList.add('profile-content__title');
-    title.innerHTML = ' Чат (v0.01) ';
+    title.innerHTML = <string>window.localizer.getLocaleItem('chat');
     rightBlock?.appendChild(title);
     this.eventBus.emit('getMessages', false);
   }
@@ -361,7 +391,7 @@ export default class ProfilePageView extends BaseView {
     }
     const title = document.createElement('h3');
     title.classList.add('profile-content__title');
-    title.innerHTML = ' Избранное ';
+    title.innerHTML = <string>window.localizer.getLocaleItem('favorite');
     rightBlock?.appendChild(title);
     this.eventBus.emit('getFavorite');
   }
@@ -379,7 +409,7 @@ export default class ProfilePageView extends BaseView {
     }
     const title = document.createElement('h3');
     title.classList.add('profile-content__title');
-    title.innerHTML = ' Корзина ';
+    title.innerHTML = <string>window.localizer.getLocaleItem('cart');
     rightBlock?.appendChild(title);
     this.eventBus.emit('getCart');
   }
@@ -405,7 +435,7 @@ export default class ProfilePageView extends BaseView {
       const emptyGridActive = document.createElement('div');
       emptyGridActive.id = 'empty';
       const gridT = emptyGrid();
-      emptyGridActive.innerHTML = gridT({text: 'Корзина пуста'});
+      emptyGridActive.innerHTML = gridT({text: window.localizer.getLocaleItem('emptyCart')});
       rightBlock?.appendChild(emptyGridActive);
       return;
     }
@@ -426,7 +456,6 @@ export default class ProfilePageView extends BaseView {
         // покупаем
         if ((<HTMLElement>e.target)?.classList.contains('card-info__card_buy')) {
           e.preventDefault();
-          console.log('buy');
           this.eventBus.emit('buyFromCart', adverts[key], key);
           return;
         }
@@ -448,7 +477,7 @@ export default class ProfilePageView extends BaseView {
     passwordDiv?.classList.add('text-input_correct');
     const passwordBtn = document.getElementById('settings__change-password');
     if (passwordBtn != null) {
-      passwordBtn.innerHTML = 'Пароль изменен';
+      passwordBtn.innerHTML = <string>window.localizer.getLocaleItem('passwordChanged');
     }
   }
   /**
@@ -485,13 +514,8 @@ export default class ProfilePageView extends BaseView {
       chatContainer.innerHTML = chatT({dialog: dialogs});
       rightBlock.appendChild(chatContainer);
       if (isDetailed) {
-        document.querySelector('.chat')?.appendChild(createAdvBlock());
-        const messageBlock = document.createElement('div');
-        messageBlock.classList.add('chat_history');
-        document.querySelector('.chat')?.appendChild(messageBlock);
-        document.querySelector('.chat')?.appendChild(createChatInput());
+        // Ищем активный чатик
         const chats = document.querySelectorAll('.chat_chats_panel');
-
         (<NodeListOf<HTMLDivElement>>chats).forEach((elem: HTMLDivElement)=>{
           if (elem.getAttribute('advertId') != window.location.pathname.split('/')[4] ||
            elem.getAttribute('dataset') != window.location.pathname.split('/')[3]) {
@@ -500,6 +524,17 @@ export default class ProfilePageView extends BaseView {
             elem.classList.add('chat_chats_panel__active');
           }
         });
+        const active = document.querySelector('.chat_chats_panel__active');
+        document.querySelector('.chat')?.appendChild(createAdvBlock(<string>active?.getAttribute('advertTitle'),
+          <string>active?.getAttribute('advertLocation'), 
+          <string>active?.getAttribute('advertPrice'), 
+          `/${<string>active?.getAttribute('advertImg')}`,
+          <string>active?.getAttribute('advertId')
+        ));
+        const messageBlock = document.createElement('div');
+        messageBlock.classList.add('chat_history');
+        document.querySelector('.chat')?.appendChild(messageBlock);
+        document.querySelector('.chat')?.appendChild(createChatInput());
         // пока вызывает эпилепсию :(
         // window.scrollTo(0,document.body.scrollHeight);
         this.eventBus.emit('connectToDialog');
@@ -524,12 +559,15 @@ export default class ProfilePageView extends BaseView {
     }
     const title = document.createElement('h3');
     title.classList.add('profile-content__title');
-    title.innerHTML = ' Чат (v0.01) ';
+    title.innerHTML = <string>window.localizer.getLocaleItem('chat');
     rightBlock?.appendChild(title);
     this.eventBus.emit('getMessages', true);
   }
 
   chatHistory(messages: message[]) {
+    if (messages == null) {
+      return;
+    }
     let prevDate = '';
     messages.forEach((elem)=>{
       let message: HTMLDivElement;
@@ -539,7 +577,7 @@ export default class ProfilePageView extends BaseView {
         document.querySelector('.chat_history')?.appendChild(message);
         prevDate = curDate;
       }
-      if (elem.from.toString() != userInfo.get('id')) {
+      if (elem.info.from.toString() != userInfo.get('id')) {
         message = createChatMessage(elem.message, elem.created_at.slice(11, 16), true);
       } else {
         message = createChatMessage(elem.message, elem.created_at.slice(11, 16), false);

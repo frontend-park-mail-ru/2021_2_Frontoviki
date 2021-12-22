@@ -32,6 +32,7 @@ export default class Bus {
     }
     const callback = this.listeners.get(event);
     if (callback != null) {
+      /* eslint-disable @typescript-eslint/no-unsafe-argument */
       callback(...data);
     }
   }

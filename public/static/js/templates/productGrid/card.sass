@@ -1,5 +1,6 @@
 :root
-    --card-content-width: 77%
+    --card-content-width: 85%
+    --premium-color: #54a5f3
 
 .card
     display: flex
@@ -12,7 +13,6 @@
     box-shadow: 0 0 5px rgb(0 0 0 / 50%)
     cursor: pointer
 
-
     &__content
         border-top-left-radius: 5px
         border-top-right-radius: 5px
@@ -20,7 +20,6 @@
         width: inherit
         position: relative
         overflow: hidden
-
 
         &__image-container
             display: flex
@@ -32,13 +31,11 @@
             overflow: hidden
             position: relative
 
-
         &__image
             background-color: white
             object-fit: cover
             width: 100%
             height: 100%
-
 
         &__capture-container
             width: 100%
@@ -47,7 +44,6 @@
             background-color: rgba(0, 0, 0, 0.7)
             position: absolute
             transform: translateY(-40px)
-
 
         &__capture
             font-family: 'Montserrat', sans-serif
@@ -59,7 +55,6 @@
             width: 100%
             white-space: nowrap
 
-
     &__info
         display: flex
         flex-direction: row
@@ -68,13 +63,11 @@
         height: calc(100% - var(--card-content-width))
         padding: 4px 20px
 
-
         &__location-container
             display: flex
             flex-direction: column
             align-items: center
             justify-content: center
-
 
         &__price-container
             display: flex
@@ -82,6 +75,9 @@
             align-items: center
             justify-content: center
             grid-column: 2 / 3
+            border-radius: 20px
+            box-shadow: inset 0 0 2px rgb(0 0 0 / 50%)
+            padding: 5px 20px
 
         &__buy-container
             display: flex
@@ -90,24 +86,18 @@
             justify-content: center
             grid-column: 3 / 3
 
-
         &__price, &__location
             font-family: 'Montserrat', sans-serif
             font-weight: 400
             font-size: 16px
-
-        &__price
-            border-radius: 20px
-            box-shadow: inset 0 0 2px rgb(0 0 0 / 50%)
-            padding: 5px 20px
             white-space: nowrap
+            
 
     &__delete
         position: absolute
         z-index: 13
         right: -4%
         top: -4%
-
 
     &-info__card_buy
         background-color: rgb(213, 250, 238)
@@ -120,12 +110,51 @@
 .archived
     cursor: default
 
+.card_premium__block
+    display: none
+    position: absolute
+    width: 100%
+    height: fit-content
+    margin-top: 10px
+
+.card_premium-1
+    box-shadow: var(--premium-color) 0px 2px 4px 0px, var(--premium-color) 0px 2px 16px 0px
+
+.card_premium-3 .card_premium__block
+    display: flex
+    justify-content: flex-end
+    z-index: 5
+
+.card_premium__block__icon-container
+    margin-right: 10px
+    width: 32px
+    height: 32px
+    padding: 6px
+    background-color: var(--premium-color)
+    border-radius: 50%
+
+.card_premium__block__icon
+    fill: white
+    height: 100%
+    width: 100%
+
+.card_premium-3 .card__content .card__content__capture-container
+    background-color: var(--premium-color)
+    box-shadow: none
+
+.card_premium-2 .card__info .card__info__price-container
+    background-color: var(--premium-color)
+    box-shadow: none
+
+.card_premium-2 .card__info .card__info__price-container .card__info__price
+    color: white
+    font-weight: 500
+
 @media screen and (max-width: 1000px)
     .card__info__price, .card__info__location
         font-family: 'Montserrat', sans-serif
         font-weight: 400
         font-size: 14px
-
 
 @media screen and (max-width: 550px)
     .card__info__price, .card__info__location
@@ -136,5 +165,5 @@
         flex-direction: column
         height: fit-content
 
-        &__price, &__location, .card-info__card_buy
+        &__price-container, &__location, .card-info__card_buy
             margin-bottom: 10px

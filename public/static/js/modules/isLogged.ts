@@ -1,15 +1,10 @@
 import {secureDomainUrl, statusCodes, userInfo} from '../constatns';
 import {Ajax} from './ajax';
 import {logout} from './logout';
-import {createHeader} from '../templates/header/header';
+import {createHeader, LangButtonImg} from '../templates/header/header';
 import Bus from './EventBus';
 
-/**
- * функция отправки запроса на сервер, чтобы проверить
- * вошел ли пользователь в аккаунт
- * @param {*} globalEventBus глобальный эмиттер событий
- * @return {Promise} ответ с сервера
- */
+
 export async function isLogged(globalEventBus: Bus) {
   const wrapper = document.querySelector('.wrapper');
   let header = document.querySelector('#header');
@@ -24,7 +19,7 @@ export async function isLogged(globalEventBus: Bus) {
   wrapper?.prepend(header);
   header.innerHTML = headerT({
     userName: undefined,
-    userAvatar: undefined,
+    userAvatar: '/static/avatars/default_avatar__png',
     find: window.localizer.getLocaleItem('find'),
     search: window.localizer.getLocaleItem('search'),
     newAd: window.localizer.getLocaleItem('newAd'),
@@ -50,10 +45,7 @@ export async function isLogged(globalEventBus: Bus) {
   if (isAuthorized) {
     const rating = body?.rating?.avg;
     const {name, surname, email, id, phone} = body?.profile;
-    let {image} = body?.profile;
-    if (image == null) {
-      image = '/static/img/default_image.jpg';
-    }
+    const {image} = body?.profile;
     userInfo.set('id', id);
     userInfo.set('name', name);
     userInfo.set('surname', surname);
@@ -64,6 +56,7 @@ export async function isLogged(globalEventBus: Bus) {
     header.innerHTML = headerT({
       userName: name,
       userAvatar: `/${image}`,
+      format: '.' + image.split('__')[1],
       find: window.localizer.getLocaleItem('find'),
       search: window.localizer.getLocaleItem('search'),
       newAd: window.localizer.getLocaleItem('newAd'),
@@ -92,7 +85,7 @@ export async function isLogged(globalEventBus: Bus) {
   } else {
     header.innerHTML = headerT({
       userName: undefined,
-      userAvatar: undefined,
+      userAvatar: '/static/avatars/default_avatar__png',
       find: window.localizer.getLocaleItem('find'),
       search: window.localizer.getLocaleItem('search'),
       newAd: window.localizer.getLocaleItem('newAd'),
@@ -131,7 +124,7 @@ export async function isLogged(globalEventBus: Bus) {
     const togle = document.getElementById('mini-profile__toogle') as HTMLInputElement;
     togle.checked = false;
     logout(globalEventBus);
-    isLogged(globalEventBus).catch(()=> console.log('Logged Error'));
+    isLogged(globalEventBus).catch(()=> console.error('Logged Error'));
   });
   const searchBtn = document.querySelector('.search__button');
   searchBtn?.addEventListener('click', () => {
@@ -165,6 +158,8 @@ export async function isLogged(globalEventBus: Bus) {
       mobileSearchInput.value = '';
     }
   });
+  LangButtonImg();
+  globalEventBus.emit('addLanguageEvent');
 
   /**
    * Хотим добавить объявления когда не зарегистрированы

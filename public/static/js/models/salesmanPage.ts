@@ -35,6 +35,6 @@ export default class SalesmanPageModel {
       const {salesman, adverts, rating} = parsedBody.body;
       const {name, image, created_at} = salesman;
       this.eventBus.emit('gotAds', name, image, created_at, rating, adverts);
-    });
+    }).catch((err)=>console.error(err));
   }
 }

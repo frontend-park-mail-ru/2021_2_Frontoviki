@@ -1,6 +1,7 @@
 import {Ajax} from '../modules/ajax';
 import {secureDomainUrl, statusCodes, baseCount} from '../constatns';
 import Bus from '../modules/EventBus';
+import { categoryList } from '../types';
 
 /**
  * Класс главной страницы с последними объявлениями
@@ -33,9 +34,9 @@ export default class MainPageModel {
       if (status != statusCodes.OK) {
         return;
       }
-      console.log(parsedBody);
       const {code} = parsedBody;
       if (code === statusCodes.OK) {
+
         const {body} = parsedBody;
         const {adverts} = body;
         if (adverts.length == 0) {
@@ -44,7 +45,7 @@ export default class MainPageModel {
         }
         this.eventBus.emit('getAds', adverts, clearPage, page);
       }
-    });
+    }).catch((err)=>console.error(err));
   }
 
   /**
@@ -60,14 +61,13 @@ export default class MainPageModel {
       if (status != statusCodes.OK) {
         return;
       }
-      console.log(parsedBody);
       const {code} = parsedBody;
       if (code === statusCodes.OK) {
         const {body} = parsedBody;
         const {adverts} = body;
         this.eventBus.emit('gotSearchedAds', adverts);
       }
-    });
+    }).catch((err)=>console.error(err));
   }
 
   /**
@@ -83,7 +83,6 @@ export default class MainPageModel {
       if (status != statusCodes.OK) {
         return;
       }
-      console.log(parsedBody);
       const {code} = parsedBody;
       if (code === statusCodes.OK) {
         const {body} = parsedBody;
@@ -91,7 +90,7 @@ export default class MainPageModel {
         const decoded = decodeURI(category);
         this.eventBus.emit('gotCategoryAds', adverts, decoded);
       }
-    });
+    }).catch((err)=>console.error(err));
   }
 
   /**
@@ -107,7 +106,18 @@ export default class MainPageModel {
         return;
       }
       const {categories} = parsedBody.body;
+      // categories = categories.sort(this.#compateCategories.bind(this));
       this.eventBus.emit('gotCategories', categories);
-    });
+    }).catch((err)=>console.error(err));
+  }
+
+  #compateCategories(first: categoryList, second: categoryList) {
+    if (first.name < second.name) {
+      return -1;
+    }
+    if ( first.name > second.name) {
+      return 1;  // второй сравниваемый элемент будет расположен по меньшему индексу
+    }
+    return 0; 
   }
 }

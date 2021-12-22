@@ -23,8 +23,8 @@ export function egg() {
   let numbers: string[] = [];
   const numberColors = ['#3498db', '#2ecc71', '#e74c3c', '#9b59b6',
     '#f1c40f', '#1abc9c', '#34495e', '#7f8c8d'];
-  const endscreenContent = {win: '<span>Вы выиграли!</span>',
-    loose: 'КАБУМ! Вы проиграли.'};
+  const endscreenContent = {win: `<span>${<string>window.localizer.getLocaleItem('win')}</span>`,
+    loose: `<span>${<string>window.localizer.getLocaleItem('lose')}</span>`};
 
   let gameOver = false;
 
@@ -227,5 +227,11 @@ export function egg() {
 }
 
 export function eggTemplate():string {
-  return (<templateFunc>eggT)();
+  return (<templateFunc>eggT)({
+    text: window.localizer.getLocaleItem('easterEggText'),
+    easy: window.localizer.getLocaleItem('easterEggEasy'),
+    normal: window.localizer.getLocaleItem('easterEggMedium'),
+    hard: window.localizer.getLocaleItem('easterEggHard'),
+    again: window.localizer.getLocaleItem('easterEggAgain'),
+  });
 }

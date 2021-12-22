@@ -1,11 +1,13 @@
-/// <reference path="../ymaps.d.ts" />
 import {advertPageTemplate} from '../templates/advertPage/advertPageT';
 import BaseView from './baseView';
 import {SliderLogic} from '../templates/advertPage/sliderLogic';
-import {inputNum, userInfo} from '../constatns';
+import {basePromotionPrice, engCategories, inputNum, promotionCoefficient, userInfo} from '../constatns';
 import {properDate} from '../modules/utilsFunctions';
 import Bus from '../modules/EventBus';
-import { advert, rating, salesman } from '../types';
+import { advert, card, priceHistoryStamp, rating, salesman } from '../types';
+import { drawGraphs } from '../templates/priceGraphs/priceGraphs';
+import { createPayment, createPromotionContainer } from '../templates/payment/paymentForm';
+import { createProductGrid } from '../templates/productGrid/productGrid';
 
 /**
   *Класс для генерации страницы объявления
@@ -24,10 +26,12 @@ export default class AdvertPageView extends BaseView {
     this.eventBus.on('inCart', this.inCart.bind(this));
     this.eventBus.on('notInCart', this.notInCart.bind(this));
     this.eventBus.on('isOwner', this.isOwner.bind(this));
-    this.eventBus.on('addedToCart', this.successAdd.bind(this));
+    this.eventBus.on('addedToCart', this.inCart.bind(this));
     this.eventBus.on('addedToFavorite', this.successFav.bind(this));
     this.eventBus.on('inFav', this.successFav.bind(this));
     this.eventBus.on('notInFav', this.notInFav.bind(this));
+    this.eventBus.on('gotPriceHistory', this.renderPriceHistory.bind(this));
+    this.eventBus.on('gotRecommendations', this.renderRec.bind(this));
   }
 
   /**
@@ -44,41 +48,99 @@ export default class AdvertPageView extends BaseView {
    * @param {JSON} advert информация об объявлении
    * @param {JSON} salesman информация о продавце
    */
-  renderAd(advert: advert, salesman: salesman, rating: rating) {
+  renderAd(advert: advert, salesman: salesman, rating: rating, favorite_count: number) {
+    const stars = [true, true, true, true, true];
     const date = properDate(salesman.created_at.slice(0, 10));
     const advertDate = properDate(advert.published_at.slice(0,10));
+    if (window.localizer.userLang == 'en') {
+      engCategories.forEach(elem => {
+        if (elem.analog == advert.category) {
+          advert.category = elem.name;
+          advert.categoryHref = elem.href;
+        }
+      });
+    } else {
+      advert.categoryHref = advert.category;
+    }
+    if (advert.price == '0') {
+      advert.price = <string>window.localizer.getLocaleItem('zeroPrice');
+    } else {
+      advert.price += ' ₽';
+    }
     const advertTemplate = advertPageTemplate();
     this.root.innerHTML = advertTemplate({
+      main: window.localizer.getLocaleItem('main'),
+      addToFav: window.localizer.getLocaleItem('addToFav'),
+      priceLabel: window.localizer.getLocaleItem('priceLabel'),
+      chatBtn: window.localizer.getLocaleItem('chatBtn'),
+      addToCart: window.localizer.getLocaleItem('addToCart'),
+      edit: window.localizer.getLocaleItem('edit'),
+      conditionNew: window.localizer.getLocaleItem('conditionNew'),
+      conditionUsed: window.localizer.getLocaleItem('conditionUsed'),
+      descriptionLabel: window.localizer.getLocaleItem('descriptionLabel'),
+      publishDateLabel: window.localizer.getLocaleItem('publishDateLabel'),
+      viewsLabel: window.localizer.getLocaleItem('viewsLabel'),
+      salesmanLabel: window.localizer.getLocaleItem('salesmanLabel'),
+      onSiteFrom: window.localizer.getLocaleItem('onSiteFrom'),
+      showMap: window.localizer.getLocaleItem('showMap'),
+      inFavoriteLabel: window.localizer.getLocaleItem('inFavoriteLabel'),
+      inFavorite: favorite_count,
+      star: stars.slice(0, Math.round(rating.avg)),
+      emptyStar: stars.slice(Math.round(rating.avg), 6),
       name: advert.name,
       price: advert.price,
       location: advert.location,
       publishedAt: advertDate,
       description: advert.description,
       href: `/ad/${advert.id}`,
+      categoryHref: advert.categoryHref,
       category: advert.category,
-      images: advert.images,
+      images: advert.imagesContainer,
       new: advert.is_new,
       views: advert.views,
       salesmanName: salesman.name,
       salesmanSurname: salesman.surname,
       salesmanAvatar: '/' + salesman.image,
+      salesmanFormat: '.' + salesman.image.split('__')[1],
       salesmanHref: '/salesman/' + salesman.id,
       salesmanRating: rating.avg.toFixed(1),
       salesmanCreatedAt: date,
     });
     this.eventBus.emit('adDrawn', advert);
+    this.eventBus.emit('getRecommends', advert.id);
     const label = document.querySelector('.advertisment-detail__add-info__location__name-block__maps-label')
     label?.addEventListener('click', ()=>{
       const toogle = document.getElementById('toogle_maps') as HTMLInputElement;
       if (!toogle.checked) {
         label.classList.remove('advertisment-detail__add-info__location__name-block__maps-label_close');
-        label.innerHTML = 'Скрыть карту';
+        label.innerHTML = <string>window.localizer.getLocaleItem('hideMap');
         label.classList.add('advertisment-detail__add-info__location__name-block__maps-label_open');
       } else {
         label.classList.add('advertisment-detail__add-info__location__name-block__maps-label_close');
-        label.innerHTML = 'Раскрыть карту';
+        label.innerHTML = <string>window.localizer.getLocaleItem('showMap');
         label.classList.remove('advertisment-detail__add-info__location__name-block__maps-label_open');
       }
+    });
+  }
+
+  renderRec(adverts : card[]) {
+    const sepContainer = document.createElement('div');
+    sepContainer.classList.add('advertisment-detail__recommend-title-container');
+    const sep = document.createElement('h2');
+    sep.innerHTML = <string> window.localizer.getLocaleItem('recommendText');
+    sep.classList.add('advertisment-detail__recommend-title');
+    sepContainer.appendChild(sep);
+    this.root.appendChild(sepContainer);
+    adverts.forEach((elem) => {
+      elem.href = `/ad/${elem.id}`;
+      elem.image = '/' + elem.images[0];
+    });
+    this.root.appendChild(createProductGrid(adverts, false, false));
+    const cards = document.querySelectorAll('.card');
+    cards.forEach((elem, key) => {
+      elem.addEventListener('click', () => {
+        this.eventBus.emit('onCardClicked', adverts[key].id);
+      });
     });
   }
 
@@ -154,15 +216,83 @@ export default class AdvertPageView extends BaseView {
       if (!userInfo.has('id')) {
         this.eventBus.emit('notLogged');
       } else {
-        this.eventBus.emit('goToChat', advert.publisher_id, advert.id);
+        this.eventBus.emit('createDialog', advert.publisher_id, advert.id);
       }
     })
 
     if (!userInfo.has('id')) {
+      const addToFav = document.getElementById('favBtn');
+      const favLabel = <HTMLLabelElement> document.querySelector('.advertisment-detail__main-info__shop__capture');
+      if (addToFav != null && favLabel != null) {
+        addToFav.addEventListener('mouseover', ()=>{
+          favLabel.style.color = '#54a5f3';
+          addToFav.style.color = '#54a5f3';
+        });
+        favLabel.addEventListener('mouseover', ()=>{
+          favLabel.style.color = '#54a5f3';
+          addToFav.style.color = '#54a5f3';
+        });
+        addToFav.addEventListener('mouseout', ()=>{
+          favLabel.style.color = '#333';
+          addToFav.style.color = '#333';
+        });
+        favLabel.addEventListener('mouseout', ()=>{
+          favLabel.style.color = '#333';
+          addToFav.style.color = '#333';
+        });
+      }
       return;
     }
     this.eventBus.emit('checkCart', advert);
     this.eventBus.emit('checkFav', advert);
+  }
+
+  renderPriceHistory(history: priceHistoryStamp[]) {
+    const dates = [] as string[];
+    const prices = [] as number[];
+    history.forEach((elem) => {
+      dates.push(elem.change_time);
+      prices.push(elem.price);
+    });
+    const container = drawGraphs(dates, prices);
+    if (container != undefined) {
+      document.querySelector('.advertisment-detail__add-info')?.appendChild(container);
+    }
+  }
+
+  upgradeAdvert() {
+    const userId = <string> userInfo.get('id');
+    if (userId == undefined) {
+      this.eventBus.emit('back');
+    }
+    const paymentTemplate = createPayment();
+    const advertId = window.location.pathname.split('/')[2];
+    const price = basePromotionPrice;
+    const coef = promotionCoefficient;
+    this.root.innerHTML = '';
+    const promotionContainer = createPromotionContainer();
+    this.root.innerHTML = promotionContainer({
+      promotion: window.localizer.getLocaleItem('promotion'),
+      tariff: window.localizer.getLocaleItem('tariff'),
+      base: window.localizer.getLocaleItem('base'),
+      upgraded: window.localizer.getLocaleItem('upgraded'),
+      pro: window.localizer.getLocaleItem('pro'),
+      back: window.localizer.getLocaleItem('backToProfile'),
+      lvl1Text: window.localizer.getLocaleItem('lvl1Text'),
+      lvl2Text: window.localizer.getLocaleItem('lvl2Text'),
+      lvl3Text: window.localizer.getLocaleItem('lvl3Text'),
+    });
+    const buttonContainers = document.querySelectorAll('.promotion-tariffs-block__button');
+    buttonContainers.forEach((elem, id) => {
+      elem.innerHTML = paymentTemplate({
+        labelInfo: `${userId}__${advertId}__${id + 1}`,
+        cost: price + id * coef,
+        pay: window.localizer.getLocaleItem('pay'),
+      });
+    });
+    (<HTMLButtonElement>document.querySelector('.button-minor'))?.addEventListener('click', ()=>{
+      this.eventBus.emit('back');
+    });
   }
 
   /**
@@ -171,7 +301,7 @@ export default class AdvertPageView extends BaseView {
   inCart() {
     const addBtn = document.getElementById('addToCartBtn');
     if (addBtn != null) {
-      addBtn.innerHTML = 'В корзине';
+      addBtn.innerHTML = <string>window.localizer.getLocaleItem('inCart');
       addBtn.onclick = () => this.eventBus.emit('goToCart');
     }
   }
@@ -214,34 +344,24 @@ export default class AdvertPageView extends BaseView {
     const addToFav = document.getElementById('favBtn');
     if (addToFav != null) {
       addToFav.onclick = () => this.eventBus.emit('goToProfile');
-      const btnText = addToFav.childNodes[inputNum] as HTMLElement
+      const btnText = <HTMLElement> document.querySelector('.advertisment-detail__main-info__shop__capture');
       if (btnText != null) {
-        btnText.innerHTML = 'Ваше объявление';
+        btnText.innerHTML = <string>window.localizer.getLocaleItem('yourAdvert');
       }
     }
   }
 
-  /**
-   * Успешное добавленое в корзину
-   */
-  successAdd() {
-    const addBtn = document.getElementById('addToCartBtn');
-    if (addBtn != null) {
-      addBtn.innerHTML = 'В корзине';
-      addBtn.onclick = () => this.eventBus.emit('goToCart');
-    }
-  }
   /**
     * Добавили в избранное
     */
   successFav() {
     const addToFav = document.getElementById('favBtn');
     if (addToFav != null) {
-      addToFav.style.color = '#8897f9';
-      const favText = addToFav.childNodes[inputNum] as HTMLElement;
+      const favText = <HTMLElement> document.querySelector('.advertisment-detail__main-info__shop__capture');
+      favText.style.color = '#54a5f3';
       const favImg = addToFav.childNodes[1] as SVGElement
-      favImg.style.fill = '#8897f9';
-      favText.innerHTML = 'В избранном';
+      favImg.style.fill = '#54a5f3';
+      favText.innerHTML = <string>window.localizer.getLocaleItem('inFav');
       addToFav.onclick = () => this.eventBus.emit('goToFav');
     }
   }
@@ -251,11 +371,22 @@ export default class AdvertPageView extends BaseView {
    */
   notInFav() {
     const addToFav = document.getElementById('favBtn');
-    if (addToFav != null) {
+    const favLabel = <HTMLLabelElement> document.querySelector('.advertisment-detail__main-info__shop__capture');
+    if (addToFav != null && favLabel != null) {
       addToFav.addEventListener('mouseover', ()=>{
-        addToFav.style.color = '#8897f9';
+        favLabel.style.color = '#54a5f3';
+        addToFav.style.color = '#54a5f3';
+      });
+      favLabel.addEventListener('mouseover', ()=>{
+        favLabel.style.color = '#54a5f3';
+        addToFav.style.color = '#54a5f3';
       });
       addToFav.addEventListener('mouseout', ()=>{
+        favLabel.style.color = '#333';
+        addToFav.style.color = '#333';
+      });
+      favLabel.addEventListener('mouseout', ()=>{
+        favLabel.style.color = '#333';
         addToFav.style.color = '#333';
       });
       addToFav.onclick = () => this.eventBus.emit('addToFavourite');

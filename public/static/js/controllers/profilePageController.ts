@@ -17,6 +17,7 @@ export default class ProfilePageController {
   eventBus: Bus
   view: ProfilePageView
   model: ProfilePageModel
+  listenersActive = false
   /**
      * Controller constructor
      * @param {Object} router - for model to redirect on success login
@@ -53,6 +54,7 @@ export default class ProfilePageController {
     this.eventBus.on('goToActive', this.redirectToProfile.bind(this));
     this.eventBus.on('getSettings', this.redirectToSettings.bind(this));
     this.eventBus.on('renderCart', this.redirectToCart.bind(this));
+    this.eventBus.on('renderPaid', this.redirectToPaid.bind(this));
     this.eventBus.on('renderChat', this.redirectToChat.bind(this));
     this.eventBus.on('onCardClicked', this.goToCardPage.bind(this));
     this.eventBus.on('goToArchive', this.goToArchive.bind(this));
@@ -69,6 +71,7 @@ export default class ProfilePageController {
     this.eventBus.on('checkLog', this.checkForLogging.bind(this));
     this.eventBus.on('goToDialog', this.goToDialog.bind(this));
     this.eventBus.on('connectToChat', this.connectToChat.bind(this));
+    this.eventBus.on('goToUpgrade', this.goToUpgrade.bind(this));
 
     this.globalEventBus.on('disconnectSocket', this.closeConnection.bind(this));
   }
@@ -95,6 +98,14 @@ export default class ProfilePageController {
     this.router.go('/profile');
   }
 
+  goToUpgrade(advertId: number) {
+    this.router.go(`/ad/${advertId}/upgrade`);
+  }
+
+  redirectToPaid() {
+    this.router.go('/profile/promotion');
+  }
+
   /**
    * Редирект ту сеттингс
    */
@@ -117,12 +128,15 @@ export default class ProfilePageController {
       this.websocket.close();
     }
     this.websocket = new WebSocket(`wss://volchock.ru/api/wschat/connect/${<string>userInfo.get('id')}/${idTo}/${advertId}`);
-    this.websocket.addEventListener('open', ()=>{
-      this.eventBus.emit('connectionOpened', this.websocket);
-    });
-    this.websocket.addEventListener('message', (e)=>{
-      this.eventBus.emit('messageReceived', e.data);
-    })
+    if (!this.listenersActive) {
+      this.websocket.addEventListener('open', ()=>{
+        this.eventBus.emit('connectionOpened', this.websocket);
+      });
+      this.websocket.addEventListener('message', (e)=>{
+        this.eventBus.emit('messageReceived', e.data);
+      })
+      this.listenersActive = true;
+    }
   }
 
   closeConnection() {
@@ -157,7 +171,15 @@ export default class ProfilePageController {
     Ajax.postImageUsingFetch({
       url: secureDomainUrl + 'users/profile/upload',
       body: formData,
-    });
+    }).then(({status, parsedBody}) => {
+      if (status != statusCodes.OK) {
+        return;
+      }
+      if (parsedBody.code != statusCodes.OK) {
+        return;
+      }
+      userInfo.set('image', `/${parsedBody.body.profile.image}`);
+    }).catch((err)=> console.error(err));
   }
 
   /**
@@ -177,14 +199,13 @@ export default class ProfilePageController {
         return;
       }
       const {code} = parsedBody;
-      console.log(parsedBody);
       if (code === statusCodes.OK) {
         userInfo.set('name', name);
         userInfo.set('surname', surname);
         userInfo.set('phone', phone);
         this.eventBus.emit('profileUpdated', name, surname);
       }
-    });
+    }).catch((err)=> console.error(err));
   }
 
   /**
@@ -196,7 +217,7 @@ export default class ProfilePageController {
     const response = Ajax.postUsingFetch({
       url: secureDomainUrl + 'users/profile/password',
       body: {
-        email: userInfo.get('email'),
+        email: <string>userInfo.get('email'),
         password: oldPassword,
         new_password: password,
       },
@@ -206,13 +227,12 @@ export default class ProfilePageController {
         return;
       }
       const {code} = parsedBody;
-      console.log(parsedBody);
       if (code === statusCodes.OK) {
         this.eventBus.emit('passwordChangeOk');
         return;
       }
       this.eventBus.emit('passwordChangeNotOk');
-    });
+    }).catch((err)=> console.error(err));
   }
   /**
  * удаляет из корзины
@@ -235,7 +255,7 @@ export default class ProfilePageController {
       if (advertPos != null) {
         this.model.getCart();
       }
-    });
+    }).catch((err)=> console.error(err))
   }
 
   /**
@@ -245,7 +265,7 @@ export default class ProfilePageController {
    */
   deleteFromFavorite(id : number, advertPos : number | null) {
     const res = Ajax.deleteAdUsingFetch({
-      url: secureDomainUrl + 'adverts/favorite/' + id,
+      url: `${secureDomainUrl}adverts/favorite/${id}`,
       body: null,
     });
     res.then(({parsedBody}) => {
@@ -256,7 +276,7 @@ export default class ProfilePageController {
       if (advertPos != null) {
         this.model.getFavorite();
       }
-    });
+    }).catch((err)=> console.error(err));
   }
 
   /**
@@ -276,7 +296,7 @@ export default class ProfilePageController {
       if (code === statusCodes.OK) {
         this.eventBus.emit('deletedSuccessful');
       }
-    });
+    }).catch((err)=> console.error(err));
   }
 
   /**
@@ -296,7 +316,7 @@ export default class ProfilePageController {
       if (code === statusCodes.OK) {
         this.eventBus.emit('deletedSuccessful');
       }
-    });
+    }).catch((err)=> console.error(err));
   }
 
   /**
@@ -305,7 +325,7 @@ export default class ProfilePageController {
    */
   buyFromCart(advert: advert) {
     const res = Ajax.postUsingFetch({
-      url: secureDomainUrl + 'cart/' + advert.id + '/checkout',
+      url: `${secureDomainUrl}cart/${advert.id}/checkout`,
       body: {
         advert_id: advert.id,
       },
@@ -315,9 +335,8 @@ export default class ProfilePageController {
       if (code === statusCodes.NOTEXIST) {
         return;
       }
-      console.log(parsedBody);
       this.eventBus.emit('buySuccess', parsedBody.body.salesman, advert);
-    });
+    }).catch((err)=> console.error(err));
   }
 
   /**

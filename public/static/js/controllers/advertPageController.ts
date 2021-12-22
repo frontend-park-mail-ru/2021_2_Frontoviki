@@ -40,6 +40,7 @@ export default class AdvertPageController {
     this.model = new AdvertPageModel(this.eventBus);
     this.eventBus.on('NoAd', this.noAd.bind(this));
     this.eventBus.on('onEditClicked', this.redirectToEdit.bind(this));
+    this.eventBus.on('redirectToAdvertPage', this.redirectToAdvert.bind(this));
     this.eventBus.on('notLogged', this.openModal.bind(this));
     this.eventBus.on('goToCart', this.goToCart.bind(this));
     this.eventBus.on('goToProfile', this.goToProfile.bind(this));
@@ -47,12 +48,17 @@ export default class AdvertPageController {
     this.eventBus.on('goToFav', this.goToFav.bind(this));
     this.eventBus.on('addToCart', this.addToCart.bind(this));
     this.eventBus.on('addToFavourite', this.addToFav.bind(this));
-    this.eventBus.on('refreshCart', this.cartLogic.bind(this));
-    this.eventBus.on('checkCart', this.cartLogic.bind(this));
-    this.eventBus.on('checkFav', this.favLogic.bind(this));
+    /* eslint-disable  @typescript-eslint/no-misused-promises */
+    this.eventBus.on('refreshCart',  this.cartLogic.bind(this));
+    this.eventBus.on('checkCart',  this.cartLogic.bind(this));
+    this.eventBus.on('checkFav',  this.favLogic.bind(this));
     this.eventBus.on('goToChat', this.goToChat.bind(this));
+    this.eventBus.on('createDialog', this.createDialog.bind(this));
+    this.eventBus.on('back', this.goToProfile.bind(this));
+    this.eventBus.on('onCardClicked', this.goToCardPage.bind(this));
+
     this.globalEventBus.on('loggedForCart', this.refreshCart.bind(this));
-    this.globalEventBus.on('loggedForFav', this.favLogic.bind(this));
+    this.globalEventBus.on('loggedForFav',  this.favLogic.bind(this));
   }
 
   /**
@@ -60,6 +66,10 @@ export default class AdvertPageController {
    */
   noAd() {
     this.router.go('/noSuchAdvert');
+  }
+
+  goToCardPage(id: number) {
+    this.router.go(`/ad/${id}`);
   }
 
   /**
@@ -82,6 +92,10 @@ export default class AdvertPageController {
   goToCart() {
     this.router.go('/profile/cart');
   }
+
+  redirectToAdvert(advertId: string) {
+    this.router.go(`/ad/${advertId}`);
+  }
   /**
    * После логина делаем запрос за корзиной
    */
@@ -93,6 +107,20 @@ export default class AdvertPageController {
    */
   goToProfile() {
     this.router.go('/profile');
+  }
+
+  createDialog(salesmanid: number, advertId: number) {
+    const res = Ajax.postUsingFetch({
+      url: `${secureDomainUrl}chat/createDialog/${<string>userInfo.get('id')}/${salesmanid}/${advertId}`,
+      body: null,
+    });
+    res.then(({parsedBody}) => {
+      const {code} = parsedBody;
+      if (code !== statusCodes.OK) {
+        return;
+      }
+      this.goToChat(salesmanid, advertId);
+    }).catch(()=> console.error('Cannot create dialog'));
   }
 
   goToChat(salesmanid: number, advertId: number) {
@@ -133,7 +161,7 @@ export default class AdvertPageController {
         return;
       }
       this.eventBus.emit('addedToCart');
-    }).catch(()=> console.log('AddToCartError'));
+    }).catch(()=> console.error('AddToCartError'));
   }
   /**
  * Добавление в избранное
@@ -145,13 +173,12 @@ export default class AdvertPageController {
       body: null,
     });
     res.then(({parsedBody}) => {
-      console.log(parsedBody);
       const {code} = parsedBody;
       if (code === statusCodes.NOTEXIST) {
         return;
       }
       this.eventBus.emit('addedToFavorite');
-    }).catch(()=> console.log('Error adding to favorite'));
+    }).catch(()=> console.error('Error adding to favorite'));
   }
 
   /**
@@ -178,7 +205,6 @@ export default class AdvertPageController {
       body: null,
     });
     res.then(({parsedBody}) => {
-      console.log(parsedBody);
       const {cart} = parsedBody.body;
       let canAdd = true;
       cart.forEach((elem: cart) => {
@@ -191,7 +217,7 @@ export default class AdvertPageController {
       if (canAdd) {
         this.eventBus.emit('notInCart', advert.id);
       }
-    }).catch(()=> console.log('error in cartLogic'));
+    }).catch(()=> console.error('error in cartLogic'));
   }
 
   /**
@@ -218,9 +244,7 @@ export default class AdvertPageController {
       body: null,
     });
     res.then(({parsedBody}) => {
-      console.log(parsedBody);
       const {adverts} = parsedBody.body;
-      console.log(adverts, advert.id);
       let canAdd = true;
       adverts.forEach((elem: card) => {
         if (elem.id === advert.id) {
@@ -232,6 +256,6 @@ export default class AdvertPageController {
       if (canAdd) {
         this.eventBus.emit('notInFav', advert.id);
       }
-    }).catch(()=> console.log('error in favLogic'));
+    }).catch(()=> console.error('error in favLogic'));
   }
 }

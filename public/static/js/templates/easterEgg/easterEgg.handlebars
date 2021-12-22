@@ -1,19 +1,19 @@
-<h1>Похоже, что вы не подключены к сети, проверьте свое соединение или оплатите интернет</h1>
+<h1>{{text}}</h1>
 <div class="col-left">    
     <div class="settings">
         <input id="boardSize" type="range" value="10" min="4" max="20">  
         <fieldset>
             <input type="radio" id="easy" name="difficulty" value="0.1" class="difficulty">
-            <label for="easy">Легко</label> 
+            <label for="easy">{{easy}}</label> 
             <input type="radio" id="normal" name="difficulty" value="0.2" class="difficulty" checked>
-            <label for="normal">Нормально</label>
+            <label for="normal">{{normal}}</label>
             <input type="radio" id="hard" name="difficulty" value="0.4" class="difficulty">
-            <label for="hard">Сложно</label> 
+            <label for="hard">{{hard}}</label> 
         </fieldset>
     </div>     
 </div>
 <div class="col-right">    
-    <a class="minesweeper-btn">Заново</a>    
+    <a class="minesweeper-btn">{{again}}</a>    
 </div>
 <div class="board-wrap">
     <div class="board"></div>

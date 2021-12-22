@@ -18,6 +18,6 @@ export function logout(globalEventBus: Bus) {
     }
     globalEventBus.emit('logout');
     globalEventBus.emit('disconnectSocket');
-    isLogged(globalEventBus).catch(()=> console.log("Checking log error"));
-  }).catch(()=> console.log('Logout error'));
+    isLogged(globalEventBus).catch(()=> console.error("Checking log error"));
+  }).catch(()=> console.error('Logout error'));
 }

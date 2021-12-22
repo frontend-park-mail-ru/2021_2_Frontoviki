@@ -38,12 +38,13 @@ export default class NewAdPageController {
     this.model = new NewAdPageModel(this.eventBus);
     this.eventBus.on('notLogged', this.redirectToMain.bind(this));
     this.eventBus.on('notOwner', this.redirectToMain.bind(this));
-    this.eventBus.on('photosSend', this.redirectToProfile.bind(this));
+    this.eventBus.on('photosSend', this.redirectToPromotion.bind(this));
     this.eventBus.on('redirectToAd', this.redirectToAd.bind(this));
     this.eventBus.on('validateSuccessful', this.sendAd.bind(this));
     this.eventBus.on('photoDataPacked', this.sendPhotos.bind(this));
     this.eventBus.on('checkLog', this.checkForLogging.bind(this));
     this.eventBus.on('deleteImages', this.deleteImages.bind(this));
+    this.eventBus.on('changePrice', this.changePrice.bind(this));
     this.eventBus.on('back', this.back.bind(this));
   }
 
@@ -57,8 +58,8 @@ export default class NewAdPageController {
   /**
    * возвращение в профиль после того как опубликовали объявление
    */
-  redirectToProfile() {
-    this.router.go('/profile');
+  redirectToPromotion(advertId: number) {
+    this.router.go(`/ad/${advertId}/upgrade`);
   }
 
   /**
@@ -109,7 +110,6 @@ export default class NewAdPageController {
         return;
       }
       const {code} = parsedBody;
-      console.log(code, parsedBody);
       if (code == statusCodes.REGDONE) {
         const id = parsedBody.body.advert.id;
         if (imagesToDelete != undefined && imagesToDelete.length != 0) {
@@ -117,7 +117,23 @@ export default class NewAdPageController {
         }
         this.eventBus.emit('successSend', id, isNew, fileList);
       }
+    }).catch(()=> console.error('Ошибка в отправлении данных'));
+  }
+
+  changePrice(price: number) {
+    const advertId = window.location.pathname.split('/')[2];
+    const response = Ajax.postUsingFetch({
+      url: `${secureDomainUrl}adverts/price_history`,
+      body: {
+        price: Number(price),
+        advert_id: Number(advertId),
+      },
     });
+    response.then(({status}) => {
+      if (status != statusCodes.OK) {
+        return;
+      }
+    }).catch(()=> console.error('Ошибка в отправлении данных'));
   }
 
   /**
@@ -138,12 +154,12 @@ export default class NewAdPageController {
       // Переход на страницу профиля при новом
       // или на странцу объявления при редактировании
       if (isNew) {
-        this.eventBus.emit('photosSend');
+        this.eventBus.emit('photosSend', id);
         return;
       } else {
         this.eventBus.emit('redirectToAd', id);
       }
-    });
+    }).catch(()=> console.error('Ошибка в отправлении фотографий'));
   }
 
   /**
@@ -161,6 +177,9 @@ export default class NewAdPageController {
    * @param {Array} fileList массив фотографий
    */
   deleteImages(id:number, images:string[], fileList:Blob[]) {
+    images.forEach((elem, i) => {
+      images[i] = elem.split('.')[0];
+    })
     Ajax.deleteAdUsingFetch({
       url: `${secureDomainUrl}adverts/${id}/images`,
       body: {images: images},
@@ -180,6 +199,6 @@ export default class NewAdPageController {
         return;
       }
       this.eventBus.emit('redirectToAd', id);
-    });
+    }).catch(()=> console.error('Ошибка в удалении фотографий'));
   }
 }

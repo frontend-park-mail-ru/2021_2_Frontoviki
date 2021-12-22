@@ -2,9 +2,10 @@
     <div class="chat_order_image-container">
       <img
         class="chat_order_image"
-        src="https://www.mirf.ru/wp-content/uploads/2021/05/JoJos-Bizarre-Adventure-12-1024x576.jpg"
+        src="{{image}}.webp"
+        onerror="this.src = 'https://www.mirf.ru/wp-content/uploads/2021/05/JoJos-Bizarre-Adventure-12-1024x576.jpg';"
       />
     </div>
-    <p class="chat_order_name">Картина</p>
-    <p class="chat_order_location">Москва, улица Ленина</p>
-    <p class="chat_order_price">100 р</p>
+    <a class="chat_order_name" href="/ad/{{href}}">{{title}}</a>
+    <p class="chat_order_location">{{location}}</p>
+    <p class="chat_order_price">{{price}}</p>

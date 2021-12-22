@@ -1,72 +1,69 @@
 <div class="modal-window__sign-up form-container">
   <form class="modal-window__form">
-    <h1 class="modal-window__title modal-window__title_black">Создать аккаунт</h1>
+    <h1 class="modal-window__title modal-window__title_black">{{createAccount}}</h1>
     <div id="regEmail" class="text-input">
       <label class="text-input__label">email</label>
       <input class="text-input__input" type="text" />
-      <span class="text-input__description">Введите валидный email</span>
+        <span class="text-input__description">{{emailHint}}</span>
     </div>
     <div id="regName" class="text-input">
-      <label class="text-input__label">Имя</label>
+      <label class="text-input__label">{{name}}</label>
       <input class="text-input__input" type="text" />
-      <span class="text-input__description">Должно быть от 2-х символов</span>
+      <span class="text-input__description">{{nameHint}}</span>
     </div>
     <div id="regSurname" class="text-input">
-      <label class="text-input__label">Фамилия</label>
+      <label class="text-input__label">{{surname}}</label>
       <input class="text-input__input" type="text" />
-      <span class="text-input__description">Должна быть от 2-х символов</span>
+      <span class="text-input__description">{{surnameHint}}</span>
     </div>
     <div id="regPassword" class="text-input">
-      <label class="text-input__label">Пароль</label>
-      <input class="text-input__input" type="password" placeholder="От 5 символов"/>
-      <span class="text-input__description">Должен быть от 5-ти символов</span>
+      <label class="text-input__label">{{password}}</label>
+      <input class="text-input__input" type="password" placeholder="{{passwordHint}}"/>
+      <span class="text-input__description">{{passwordFullHint}}</span>
     </div>
     <div id="regRepPassword" class="text-input">
-      <label class="text-input__label">Повторите пароль</label>
+      <label class="text-input__label">{{repeatPassword}}</label>
       <input class="text-input__input" type="password" />
-      <span class="text-input__description">Пароли должны совпадать</span>
+      <span class="text-input__description">{{repeatPasswordHint}}</span>
     </div>
-    <button id="regButton" class="modal-window__form-button button" type="submit">Регистрация</button>
+    <button id="regButton" class="modal-window__form-button button" type="submit">{{signUp}}</button>
   </form>
 </div>
 
 <div class="modal-window__sign-in form-container">
   <form class="modal-window__form">
-    <h1 class="modal-window__title modal-window__title_black">Войти</h1>
+    <h1 class="modal-window__title modal-window__title_black">{{signIn}}</h1>
     <div id="logEmail" class="text-input">
       <label class="text-input__label">email</label>
       <input class="text-input__input" type="email" />
-      <span class="text-input__description">Такого пользователя не существует</span>
+      <span class="text-input__description">{{emailLogInHint}}</span>
     </div>
     <div id="logPassword" class="text-input">
-      <label class="text-input__label">Пароль</label>
+      <label class="text-input__label">{{password}}</label>
       <input class="text-input__input" type="password"/>
-      <span class="text-input__description">Неверный пароль</span>
+      <span class="text-input__description">{{passwordLogInHint}}</span>
     </div>
-    <button id="logButton" class="modal-window__form-button button" type="submit">Войти</button>
+    <button id="logButton" class="modal-window__form-button button" type="submit">{{signIn}}</button>
   </form>
 </div>
 
 <div class="modal-window__overlay-container">
   <div class="modal-window__overlay">
     <div class="modal-window__overlay-panel modal-window__overlay-panel_left">
-      <h1 class="modal-window__title modal-window__title_white">Добро
-        пожаловать!</h1>
-      <p class="modal-window__capture modal-window__capture_white">Для
-        совершения сделок, пожалуйста, войдите в сервис</p>
+      <h1 class="modal-window__title modal-window__title_white">{{welcome}}</h1>
+      <p class="modal-window__capture modal-window__capture_white">{{signUpText}}</p>
       <button
         id="overlay-sign-in"
         class="button modal-window__overlay-button"
-      >Войти</button>
+      >{{signIn}}</button>
     </div>
     <div class="modal-window__overlay-panel modal-window__overlay-panel_right">
-      <h1 class="modal-window__title modal-window__title_white">Привет!</h1>
-      <p class="modal-window__capture modal-window__capture_white">Введите ваши
-        данные и совершите свою первую сделку вместе с Volchock</p>
+      <h1 class="modal-window__title modal-window__title_white">{{hi}}</h1>
+      <p class="modal-window__capture modal-window__capture_white">{{signInText}}</p>
       <button
         id="overlay-sign-up"
         class="button modal-window__overlay-button"
-      >Регистрация</button>
+      >{{signUp}}</button>
     </div>
   </div>
 </div>

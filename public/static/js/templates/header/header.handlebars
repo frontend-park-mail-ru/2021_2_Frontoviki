@@ -1,7 +1,8 @@
 <div class="header__left-block">
-  <div class="header__left-block logo" >
-    <img class="logo__image" src="../../../../../static/img/icon.webp" />
-    <a class="logo__capture" href="/" style="text-decoration: none;"> Volchock</a>
+  <div class="header__left-block logo">
+    <img class="logo__image" src="/img/icon.webp" />
+    <a class="logo__capture" href="/" style="text-decoration: none;">
+      Volchock</a>
   </div>
   <div class="header__left-block search">
     <svg
@@ -17,11 +18,17 @@
         d="M6.45286 7.1599C5.77551 7.68645 4.92437 8 4 8C1.79086 8 0 6.20914 0 4C0 1.79086 1.79086 0 4 0C6.20914 0 8 1.79086 8 4C8 4.92434 7.68647 5.77545 7.15996 6.45279L10.3536 9.6464L9.6465 10.3535L6.45286 7.1599ZM7 4C7 5.65685 5.65685 7 4 7C2.34315 7 1 5.65685 1 4C1 2.34315 2.34315 1 4 1C5.65685 1 7 2.34315 7 4Z"
       ></path>
     </svg>
-    <input class="search__input" type="search" placeholder="{{search}}">
+    <input class="search__input" type="search" placeholder="{{search}}" />
     <button class="search__button">{{find}}</button>
   </div>
-    <form action="" class="header__left-block__mobile-search-bar">
-    <input class = "header__left-block__mobile-search-bar__input"type="search" name="search" pattern=".*\S.*" required>
+  <form action="" class="header__left-block__mobile-search-bar">
+    <input
+      class="header__left-block__mobile-search-bar__input"
+      type="search"
+      name="search"
+      pattern=".*\\S.*"
+      required
+    />
     <button class="header__left-block__mobile-search-bar__button">
       <span>{{search}}</span>
     </button>
@@ -29,9 +36,14 @@
 </div>
 
 <div class="header__right-block">
-<button class="new-advert-capture-container">
-  <p class="new-advert-capture">{{newAd}}</p>
-</button>
+  <div class="lang-box">
+    <div class="lang-box-inner">
+      <img src="/img/us.png" alt="lang" class="lang-box__img" />
+    </div>
+  </div>
+  <button class="new-advert-capture-container">
+    <p class="new-advert-capture">{{newAd}}</p>
+  </button>
   <a id="auth" class="logo__capture">{{signIn}}</a>
   <div class="mini-profile__options expand-menu">
     <input
@@ -42,10 +54,10 @@
     <label class="expand-menu__label" for="mini-profile__toogle">
       <div class="header__right-block mini-profile">
         <p class="mini-profile__capture">{{userName}}</p>
-        <img
-          class="mini-profile__avatar"
-          src="{{userAvatar}}"
-        />
+        <img class="mini-profile__avatar" 
+        src="{{userAvatar}}.webp"
+        onerror="this.onerror=null; this.src='{{userAvatar}}{{format}}'"
+         />
         <svg
           class="mini-profile__options__icon"
           width="10"
@@ -59,16 +71,16 @@
     </label>
     <div class="expand-menu__content">
       <a class="expand-menu__sublabel" href="/profile">
-      <span class="expand-menu__link">{{profile}}</span>
+        <span class="expand-menu__link">{{profile}}</span>
       </a>
       <a class="expand-menu__sublabel" href="/profile/favorite">
         <span class="expand-menu__link">{{favorite}}</span>
-        </a>
-      <a class="expand-menu__sublabel" href="/profile/settings"> 
-      <span class="expand-menu__link">{{settings}}</span>
       </a>
-      <a id = 'logout' class="expand-menu__sublabel" href="/">
-      <span class="expand-menu__link">{{logout}}</span>
+      <a class="expand-menu__sublabel" href="/profile/settings">
+        <span class="expand-menu__link">{{settings}}</span>
+      </a>
+      <a id="logout" class="expand-menu__sublabel" href="/">
+        <span class="expand-menu__link">{{logout}}</span>
       </a>
     </div>
   </div>

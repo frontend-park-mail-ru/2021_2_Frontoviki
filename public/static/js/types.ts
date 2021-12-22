@@ -1,8 +1,11 @@
 export type categoryList = {
     name: string;
+    href: string;
+    analog: string;
 }
 
 export type card = {
+    format: string;
     image: string;
     images: string[];
     name: string;
@@ -13,6 +16,12 @@ export type card = {
     href: string;
     id: number;
     is_active: boolean;
+    buy: string;
+
+    promo_level: number;
+    promo1: boolean;
+    promo2: boolean;
+    promo3: boolean;
 }
 
 export type args = {
@@ -22,7 +31,7 @@ export type args = {
 
 export type route = {
     regExp: RegExp;
-    handler: Function;
+    handler: callback;
 }
 
 export type rating = {
@@ -48,6 +57,13 @@ export type advert = {
     is_active: boolean;
     href: string;
     views: number;
+    categoryHref: string;
+    imagesContainer: imagesContainer[];
+}
+
+export type imagesContainer = {
+    imagePath: string;
+    format: string;
 }
 
 export type salesman = {
@@ -66,17 +82,31 @@ export type cart = {
 }
 
 export type dialog = {
-    user1: number;
-    user2: number;
-    adv: number;
+    id: number;
+    adv_info: dialogAdvertInfo;
     created_at: string;
+    name: string;
+    surname: string;
+}
+
+type dialogAdvertInfo = {
+    id: number;
+    image: string;
+    location: string;
+    name: string;
+    price: number;
 }
 
 export type message = {
+    info: innerMessage;
+    created_at: string;
+    message: string;
+}
+
+type innerMessage = {
     from: number;
     to: number;
-    message: string;
-    created_at: string;
+    adv: number;
 }
 
 export type templateFunc = (params?: unknown | null) => string;
@@ -100,6 +130,22 @@ export type body = {
     categories: categoryList[];
     dialogs: dialog[];
     messages: message[];
+    price_history: priceHistoryStamp[];
+    favorite_count: number;
+}
+
+export type priceHistoryStamp = {
+    advert_id: number;
+    price: number;
+    change_time: string;
+}
+
+export type ymapsEvent = {
+    get(name: string): number[];
+}
+
+export type state = {
+    url : string;
 }
 
 export type callback = (...args: any[]) => void;
