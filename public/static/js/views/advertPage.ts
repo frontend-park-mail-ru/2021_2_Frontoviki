@@ -52,16 +52,17 @@ export default class AdvertPageView extends BaseView {
     const stars = [true, true, true, true, true];
     const date = properDate(salesman.created_at.slice(0, 10));
     const advertDate = properDate(advert.published_at.slice(0,10));
-    if (window.localizer.userLang == 'en') {
+    if (window.localizer.userLang == 'en') {  
       engCategories.forEach(elem => {
         if (elem.analog == advert.category) {
           advert.category = elem.name;
-          advert.categoryHref = elem.href;
+          advert.categoryHref = elem.analog;
         }
       });
     } else {
       advert.categoryHref = advert.category;
     }
+    console.log(advert.categoryHref)
     if (advert.price == '0') {
       advert.price = <string>window.localizer.getLocaleItem('zeroPrice');
     } else {

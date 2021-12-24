@@ -110,6 +110,13 @@ export default class NewAdPageModel {
     const condition = (<HTMLInputElement>document.getElementById('radio-new')).checked;
     const priceDiv = document.querySelector('.new-advert__price') as HTMLDivElement;
     const price = (<HTMLInputElement>priceDiv.childNodes[inputNum]).value.trim();
+    if (Number(price) < 0 || Number(price) > Number.MAX_SAFE_INTEGER) {
+      priceDiv.classList.add('text-input_wrong');
+      return;
+    } else {
+      priceDiv.classList.remove('text-input_wrong');
+      priceDiv.classList.add('text-input_correct');
+    }
     const coords = this.#coords;
     if (coords === null) {
       document.querySelector('.new-advert__location')?.
