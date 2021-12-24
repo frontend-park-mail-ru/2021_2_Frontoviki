@@ -22,7 +22,7 @@
 
 ---
 
-Ссылка на презентацию: (тут будет тык)
+Ссылка на презентацию: (Презентация)(https://docs.google.com/presentation/d/19rEo1QsCkZS53Usloo8XVN2XtVwHr_sIyoPhbIGhyCc)
 
 Ссылка на проект: https://volchock.ru/
 
