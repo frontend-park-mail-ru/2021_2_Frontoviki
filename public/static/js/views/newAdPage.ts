@@ -8,6 +8,7 @@ import { templateFunc } from '../types';
  * Класс вьюхи страницы добавления нового объявления
  */
 export default class NewAdPageView extends BaseView {
+  #send = false;
   #editDeletedImages : string[] = []
   #editOffset : number
   #fileList : Blob[] = []
@@ -115,7 +116,10 @@ export default class NewAdPageView extends BaseView {
    * Новое объявление
    */
   sendAd() {
-    this.eventBus.emit('sendAd', true, this.#fileList);
+    if (!this.#send) {
+      this.eventBus.emit('sendAd', true, this.#fileList);
+      this.#send = true;
+    }
   }
 
 

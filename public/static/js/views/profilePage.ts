@@ -134,6 +134,8 @@ export default class ProfilePageView extends BaseView {
       }
       this.eventBus.emit('goToArchive');
     });
+
+
     rightBlock?.appendChild(title);
     rightBlock?.appendChild(active);
     rightBlock?.appendChild(archive);
@@ -191,6 +193,19 @@ export default class ProfilePageView extends BaseView {
           });
         });
         return;
+      }
+      const deleteBtn = document.getElementById('deleteBtn')
+      if (deleteBtn == null) {
+        const deleteShow = document.createElement('span');
+        deleteShow.innerHTML =  <string> window.localizer.getLocaleItem('deleteAd');
+        deleteShow.classList.add('profile-content-right__ads-type');
+        deleteShow.id = 'deleteBtn';
+        deleteShow?.addEventListener('click', showDelete);
+        rightBlock?.appendChild(deleteShow);
+      } else {
+        deleteBtn.style.color = 'black';
+        deleteBtn?.addEventListener('click', showDelete);
+        deleteBtn?.removeEventListener('click', hideDelete);
       }
       rightBlock?.appendChild(createProductGrid(adverts, true, false));
       const cards = document.querySelectorAll('.card');
@@ -439,6 +454,19 @@ export default class ProfilePageView extends BaseView {
       rightBlock?.appendChild(emptyGridActive);
       return;
     }
+    const deleteBtn = document.getElementById('deleteBtn')
+    if (deleteBtn == null) {
+      const deleteShow = document.createElement('span');
+      deleteShow.innerHTML =  <string> window.localizer.getLocaleItem('deleteAd');
+      deleteShow.classList.add('profile-content-right__ads-type');
+      deleteShow.id = 'deleteBtn';
+      deleteShow?.addEventListener('click', showDelete);
+      rightBlock?.appendChild(deleteShow);
+    } else {
+      deleteBtn.style.color = 'black';
+      deleteBtn?.addEventListener('click', showDelete);
+      deleteBtn?.removeEventListener('click', hideDelete);
+    }
     adverts.forEach((elem) => {
       elem.href = `/ad/${elem.id}`;
       elem.image = '/' + elem.images[0];
@@ -638,4 +666,26 @@ function makeBlue(Btn : HTMLButtonElement) {
 function scrollChat(): void {
   const visible = document.querySelector('.chat_history') as HTMLElement;
   visible?.scroll(0, visible?.offsetHeight);
+}
+
+function showDelete() {
+  const deleteSign = document.querySelectorAll('.card__delete');
+  deleteSign.forEach((elem) => (<HTMLImageElement>elem).style.display = 'block');
+  const deleteBtn = document.getElementById('deleteBtn');
+  if (deleteBtn != null) {
+    deleteBtn.style.color = '#004ad7';
+  }
+  deleteBtn?.removeEventListener('click', showDelete);
+  deleteBtn?.addEventListener('click', hideDelete);
+}
+
+function hideDelete() {
+  const deleteSign = document.querySelectorAll('.card__delete');
+  deleteSign.forEach((elem) => (<HTMLImageElement>elem).style.display = 'none');
+  const deleteBtn = document.getElementById('deleteBtn');
+  if (deleteBtn != null) {
+    deleteBtn.style.color = 'black';
+  }
+  deleteBtn?.removeEventListener('click', hideDelete);
+  deleteBtn?.addEventListener('click', showDelete);
 }

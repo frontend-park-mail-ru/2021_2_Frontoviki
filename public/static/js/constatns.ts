@@ -220,6 +220,7 @@ export const russian = {
   pay: 'Оплатить',
   backToProfile: 'Перейти в профиль',
   recommendText: 'Покупатели, которых заинтересовал этот товар, также искали',
+  deleteAd: 'Удалить',
 }
 
 export const english = {
@@ -360,6 +361,7 @@ export const english = {
   pay: 'Pay',
   backToProfile: 'Go to profile',
   recommendText: 'People who were interested in this product were also looking for',
+  deleteAd: 'Delete',
 }
 
 export const engCategories:categoryList[] = [
@@ -372,7 +374,6 @@ export const engCategories:categoryList[] = [
   {name: 'Literature', href:'', analog:'Книги'},
   {name: 'Furniture', href:'', analog:'Мебель'},
   {name: 'For sport', href:'', analog:'Спортивный инвентарь'},
-  {name: 'Jewelry', href:'', analog:'Ювелирные украшения'},
   {name: 'Household Goods', href:'', analog:'Аксессуары для дома'},
   {name: 'Transport', href:'', analog:'Транспорт'},
   {name: 'Other', href:'', analog:'Другое'}
